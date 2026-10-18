@@ -2,6 +2,10 @@
 import Icons from '../icons.js';
 import { S, save, reset, catById, accById } from '../store.js';
 import { go, UI } from '../app.js';
+import {
+  syncCfg, setSync, pushSync, pullSync, applyRemote,
+  hasPassword, setPassword, fmtTime,
+} from '../sync.js';
 
 const TYPE_CN = { expense: '支出', income: '收入', transfer: '转账' };
 const CLAIM_CN = { pending: '待报销', done: '已报销' };
@@ -103,6 +107,120 @@ const row = (o) => `<div class="cell" data-act="${o.act}">
   <span class="arrow">${Icons.chevR}</span>
 </div>`;
 
+// ================= 云同步（端到端加密 + GitHub Secret Gist） =================
+const ghTokenUrl = 'https://github.com/settings/tokens/new';
+
+async function ensurePassword() {
+  if (hasPassword()) return true;
+  const pw = await UI.prompt('同步密码', '用于加密上传的数据，遗忘无法恢复', '', 'password');
+  if (!pw) return false;
+  if (pw.length < 4) { UI.toast('密码太短了'); return false; }
+  setPassword(pw);
+  return true;
+}
+
+async function doPush() {
+  try {
+    if (!(await ensurePassword())) return;
+    UI.toast('正在加密并上传…', 3000);
+    const r = await pushSync();
+    UI.toast(`已上传 ${Math.max(1, Math.round(r.size / 1024))}KB 密文`);
+    go('importexport'); // 同 hash 会强制重渲染，刷新状态行
+  } catch (e) { UI.toast('上传失败：' + e.message, 3200); }
+}
+
+async function doPull() {
+  try {
+    if (!(await ensurePassword())) return;
+    UI.toast('正在从云端拉取…', 3000);
+    const r = await pullSync();
+    const ok = await UI.confirm(
+      `云端 ${r.bills} 笔账单（更新于 ${r.updatedAt}）\n将覆盖本机当前 ${S().bills.length} 笔，确认继续？`,
+      '覆盖本机');
+    if (!ok) return;
+    applyRemote(r.state);
+    setSync({ lastSync: Date.now() });
+    UI.toast('已从云端恢复');
+    go('home');
+  } catch (e) { UI.toast('拉取失败：' + e.message, 3200); }
+}
+
+async function setToken() {
+  const cur = syncCfg().token;
+  const v = await UI.prompt('GitHub token', '只需勾选 gist 权限；留空则清除', cur ? '(已配置，重填会覆盖)' : '', 'password');
+  if (v === null) return;
+  setSync({ token: String(v).trim() });
+  UI.toast(v ? 'token 已保存' : 'token 已清除');
+  go('importexport');
+}
+
+async function setPw() {
+  const pw = await UI.prompt('同步密码', '仅保留在当前会话，刷新后需重填', '', 'password');
+  if (!pw) return;
+  setPassword(pw);
+  UI.toast('密码已设置（仅本次会话有效）');
+  go('importexport');
+}
+
+// 同步码：把 token + Gist ID 打包成一段字符串，另一台设备粘贴即可接入
+async function copyCode() {
+  const c = syncCfg();
+  if (!c.token || !c.gistId) { UI.toast('请先成功上传一次，再生成同步码'); return; }
+  const code = 'icost1.' + btoa(encodeURIComponent(c.token + '|' + c.gistId));
+  try {
+    await navigator.clipboard.writeText(code);
+    UI.toast('同步码已复制 —— 到另一台设备粘贴', 3200);
+  } catch {
+    await UI.prompt('手动复制这段同步码', '', code);
+  }
+}
+
+async function pasteCode() {
+  const code = await UI.prompt('粘贴另一台设备的同步码', '', '', 'text');
+  if (!code) return;
+  try {
+    const raw = decodeURIComponent(atob(String(code).trim().replace(/^icost1\./, '')));
+    const [token, gistId] = raw.split('|');
+    if (!token || !gistId) throw new Error('bad');
+    setSync({ token, gistId });
+    UI.toast('已接入，输入密码后点「从云端恢复」', 3000);
+    go('importexport');
+  } catch { UI.toast('同步码解析失败，请检查是否完整'); }
+}
+
+function syncSection() {
+  const c = syncCfg();
+  const ready = !!c.token && !!c.gistId;
+  return `
+    <div class="sec-title">云同步 · 端到端加密</div>
+    <div class="st2-note">
+      <div class="tt">🔐 你的数据怎么被保护</div>
+      上传前用你的密码在本机完成 <b>AES-GCM</b> 加密，GitHub 上只存密文 —— 没有密码谁也解不开，包括 GitHub 自己。
+      密码只留存在当前会话内存里，不写入设备；token 存在本机 localStorage。
+    </div>
+
+    <div class="cell-group">
+      ${row({ icon: '🔑', bg: 'rgba(10,132,255,.18)', label: 'GitHub token', sub: c.token ? '已配置 · 点击可重填或清除' : '未配置 · 点此填入（只需 gist 权限）', act: 'sync-token' })}
+      ${row({ icon: '🔒', bg: 'rgba(255,159,10,.18)', label: '同步密码', sub: hasPassword() ? '本次会话已设置 · 点击可重设' : '未设置 · 点此设置（刷新后需重填）', act: 'sync-pw' })}
+    </div>
+
+    <div class="cell-group">
+      ${row({ icon: '⬆️', bg: 'rgba(48,209,88,.18)', label: '上传到云端', sub: '用本机数据覆盖云端（首次会创建私密 Gist）', act: 'sync-push' })}
+      ${row({ icon: '⬇️', bg: 'rgba(191,90,242,.18)', label: '从云端恢复', sub: '用云端数据覆盖本机', act: 'sync-pull' })}
+    </div>
+
+    <div class="cell-group">
+      ${row({ icon: '📋', bg: 'rgba(100,210,255,.18)', label: '复制同步码', sub: '给另一台设备粘贴接入（不含密码）', act: 'sync-code' })}
+      ${row({ icon: '📥', bg: 'rgba(100,210,255,.18)', label: '粘贴同步码', sub: '本机接入已有的同步', act: 'sync-code-in' })}
+    </div>
+
+    <div class="st2-note">
+      <div class="tt">${ready ? '✅ 已接入同步' : '⚠️ 尚未接入'}</div>
+      上次同步：${fmtTime(c.lastSync)}${c.gistId ? ` · Gist ${c.gistId.slice(0, 8)}…` : ''}
+      ${c.token ? '' : `<div style="margin-top:8px">还没有 token？到 <b>${ghTokenUrl}</b> 新建 <b>Classic</b> token，只勾选 <b>gist</b> 一项即可（Fine-grained 不支持 Gist）。</div>`}
+    </div>`;
+}
+
 export default {
   title: '导入导出',
   header: 'sub',
@@ -128,6 +246,8 @@ export default {
         ${row({ icon: '📄', bg: 'rgba(100,210,255,.18)', label: '导入表格 CSV', sub: '微信 / 支付宝账单', act: 'importcsv' })}
       </div>
 
+      ${syncSection()}
+
       <div class="sec-title">危险区</div>
       <div class="cell-group">
         ${row({ icon: '🗑️', bg: 'rgba(255,69,58,.18)', label: '清空全部数据', danger: true, act: 'clear' })}
@@ -148,6 +268,13 @@ export default {
         else if (act === 'importjson') importJSON();
         else if (act === 'importcsv') UI.toast('复刻版支持 JSON 备份恢复');
         else if (act === 'clear') clearAll();
+        // 云同步
+        else if (act === 'sync-token') setToken();
+        else if (act === 'sync-pw') setPw();
+        else if (act === 'sync-push') doPush();
+        else if (act === 'sync-pull') doPull();
+        else if (act === 'sync-code') copyCode();
+        else if (act === 'sync-code-in') pasteCode();
       });
     });
   },

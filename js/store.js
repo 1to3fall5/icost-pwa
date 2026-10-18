@@ -88,6 +88,9 @@ function defaultState() {
       calendarMode: 'month',
       showCircled: true,   // 显示结余结转
       bookTime: false,
+      // 云同步（端到端加密 + GitHub Secret Gist）
+      // token / 密码只存在本机 localStorage，永不写入 Gist 明文
+      sync: { token: '', gistId: '', hasPassword: false, lastSync: 0 },
     },
   };
 }
