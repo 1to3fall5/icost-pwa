@@ -887,7 +887,7 @@ body.light #tabbar { background: rgba(255, 255, 255, .74); }
   /* 侧边导航（由 TabBar 变形而来） */
   #tabbar {
     grid-area: side;
-    position: sticky; top: 88px;
+    position: sticky; top: 132px; /* 始终位于吸顶导航（展开态约 126px）下方 */
     left: auto; bottom: auto; transform: none;
     align-self: start;
     width: calc(var(--sidebar-w) - 32px);
@@ -949,7 +949,7 @@ body.light #tabbar { background: rgba(255, 255, 255, .74); }
 
   /* 双栏页面：首页（左汇总 / 右流水） */
   .page-home { display: grid; grid-template-columns: 340px minmax(0, 1fr); gap: 24px; align-items: start; }
-  .page-home .hp-left { position: sticky; top: 132px; }
+  .page-home .hp-left { position: sticky; top: 150px; }
   .page-home .hp-right { min-width: 0; }
   .page-home .day-group { background: var(--card); border-radius: var(--radius); padding: 14px 18px; margin-bottom: 16px; }
 
@@ -959,18 +959,20 @@ body.light #tabbar { background: rgba(255, 255, 255, .74); }
   .page-stats .card { margin-bottom: 0; }
   .page-stats .stat-grid { grid-template-columns: repeat(4, 1fr); }
 
-  /* 记账页：居中弹窗而非全屏 sheet */
+  /* 记账页：居中弹窗而非全屏 sheet
+     注意：不能用任何带 transform 的动画，否则会覆盖 translate(-50%,-50%) 居中定位；
+     遮罩用 100vmax 的扩散 box-shadow 实现（::before 会被自身背景盖住） */
   .sheet-page {
     position: fixed; inset: auto;
     left: 50%; top: 50%; transform: translate(-50%, -50%);
     width: 620px; max-width: 92vw; max-height: 88vh;
     border-radius: 22px; overflow: hidden; overflow-y: auto;
-    box-shadow: 0 30px 90px rgba(0, 0, 0, .8), 0 0 0 1px rgba(255, 255, 255, .08);
+    animation: sheetfade .2s ease;
+    box-shadow: 0 0 0 100vmax rgba(0, 0, 0, .58),
+                0 30px 90px rgba(0, 0, 0, .8),
+                0 0 0 1px rgba(255, 255, 255, .08);
   }
-  .sheet-page::before {
-    content: ''; position: fixed; inset: 0; z-index: -1;
-    background: rgba(0, 0, 0, .55);
-  }
+  @keyframes sheetfade { from { opacity: 0; } to { opacity: 1; } }
 
   /* 弹层：居中对话框而非底部抽屉 */
   .overlay { align-items: center; }
