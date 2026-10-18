@@ -134,7 +134,11 @@ async function gh(path, token, opts = {}) {
   }
   if (r.status === 401) throw new Error('token 无效或已过期（401）');
   if (r.status === 403) throw new Error('GitHub 拒绝请求（403）—— 可能是速率超限，稍后再试');
-  if (r.status === 404) throw new Error('找不到该 Gist（404）—— 可能已被删除');
+  if (r.status === 404) {
+    const e = new Error('找不到该 Gist（404）—— 可能已被删除');
+    e.status = 404;
+    throw e;
+  }
   if (!r.ok) throw new Error('GitHub 返回 ' + r.status);
   return r.json();
 }
@@ -273,12 +277,30 @@ export async function fetchRemote() {
   return { ...data, updatedAt: g.updated_at, bills: data.state.bills.length };
 }
 
-export async function pushPayload() {
+// opts.onMissing：云端 Gist 被删时回调，让调用方决定是否重建。
+// 自动同步不传（静默记录错误，绝不偷偷重建），只有用户手动点上传才重建 ——
+// 否则两台设备各自重建一个，数据就分裂了。
+export async function pushPayload(opts = {}) {
   const cfg = syncCfg();
   if (!cfg.token) throw new Error('请先填入 GitHub token');
   if (!sessionPassword) throw new Error('请先填入同步密码');
   const content = await encryptJSON(buildPayload(), sessionPassword);
   let id = cfg.gistId;
+  let recreated = false;
+  if (id) {
+    try {
+      await gh('/' + id, cfg.token, {
+        method: 'PATCH',
+        body: JSON.stringify({ files: { [FILE]: { content } } }),
+      });
+    } catch (e) {
+      if (e.status !== 404) throw e;
+      const allow = opts.onMissing ? await opts.onMissing() : false;
+      if (!allow) throw e;                 // 不让重建就把错误交上去，由调用方提示
+      id = '';
+      recreated = true;
+    }
+  }
   if (!id) {
     const g = await gh('', cfg.token, {
       method: 'POST',
@@ -289,16 +311,11 @@ export async function pushPayload() {
       }),
     });
     id = g.id;
-  } else {
-    await gh('/' + id, cfg.token, {
-      method: 'PATCH',
-      body: JSON.stringify({ files: { [FILE]: { content } } }),
-    });
   }
   const now = Date.now();
   setSync({ gistId: id, lastSync: now, baseSyncedAt: now });
   pruneTombstones();
-  return { gistId: id, size: content.length };
+  return { gistId: id, size: content.length, recreated };
 }
 
 // 本机自上次同步以来是否有未上传的改动（下拉前提示用，避免直接覆盖掉本地新账）

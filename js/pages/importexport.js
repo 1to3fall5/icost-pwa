@@ -152,8 +152,18 @@ async function doPush() {
         }
       }
     }
-    const r = await pushPayload();
+    const r = await pushPayload({
+      // 云端文件被删过：必须让用户知情再重建，因为新地址只有这台设备知道
+      onMissing: () => UI.confirm(
+        '云端那个文件已经不存在了（可能你在 GitHub 上删了）。<br><br>'
+        + '继续上传会用本机数据<b>重新建一个</b>，但新地址只有这台设备知道 —— '
+        + '其他设备需要重新接入一次（生成新的接入链接，在那边点开）。',
+        '重建并上传'),
+    });
     UI.toast(`已上传 ${Math.max(1, Math.round(r.size / 1024))}KB 密文`);
+    if (r.recreated) {
+      await UI.confirm('已重建云端文件。<br><br>记得给其他设备<b>重新生成一次接入链接</b>，否则那边还在找旧地址。', '知道了');
+    }
     go('importexport'); // 同 hash 会强制重渲染，刷新状态行
   } catch (e) { UI.toast('上传失败：' + e.message, 3200); }
 }
@@ -262,6 +272,19 @@ async function copyLink() {
   }
 }
 
+// 想彻底重来时用的出口：只清本机的接入信息，云端文件不动，账单数据也不动
+async function resetSync() {
+  const ok = await UI.confirm(
+    '清除本机的 token 与同步地址，回到"还没接入"的状态。<br><br>'
+    + '<b>本机账单不会丢</b>，云端那个文件也不会被删除。之后可以用同步码/接入链接重新接上。',
+    '清除');
+  if (!ok) return;
+  setSync({ token: '', gistId: '', baseSyncedAt: 0, lastSync: 0, lastError: '' });
+  rememberPassword(false);
+  UI.toast('已清除同步配置');
+  go('importexport');
+}
+
 async function pasteCode() {
   const code = await UI.prompt('粘贴另一台设备的同步码', '', '', 'text');
   if (!code) return;
@@ -317,6 +340,7 @@ function syncSection() {
       ${row({ icon: '🔗', bg: 'rgba(48,209,88,.18)', label: '生成接入链接', sub: '另一台设备点开就配好，只差输一次密码', act: 'sync-link' })}
       ${row({ icon: '📋', bg: 'rgba(100,210,255,.18)', label: '复制同步码', sub: '备选：手动复制一段码，那边粘贴', act: 'sync-code' })}
       ${row({ icon: '📥', bg: 'rgba(100,210,255,.18)', label: '粘贴同步码', sub: '如果那边给的是同步码，粘到这里', act: 'sync-code-in' })}
+      ${ready ? row({ icon: '🧽', bg: 'rgba(255,69,58,.14)', label: '清除本机同步配置', sub: '只清 token 与地址，不碰账单和云端文件', act: 'sync-reset' }) : ''}
     </div>
 
     <div class="st2-note">
@@ -394,6 +418,7 @@ export default {
         else if (act === 'sync-code-in') pasteCode();
         else if (act === 'sync-auto') { setAuto(!syncCfg().auto); if (syncCfg().auto) runAutoSync({ force: true }); go('importexport'); }
         else if (act === 'sync-remember') toggleRemember();
+        else if (act === 'sync-reset') resetSync();
       });
     });
   },

@@ -1,6 +1,6 @@
 /* iCost 复刻 · Service Worker（零依赖手写）
    策略：HTML network-first；静态资源 stale-while-revalidate；离线兜底 index.html */
-const VERSION = 'v1.10.0';
+const VERSION = 'v1.11.0';
 const CACHE = `icost-${VERSION}`;
 const SHELL = [
   './',
