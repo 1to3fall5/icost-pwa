@@ -1,0 +1,136 @@
+// 账本首页（明细）— 参考实现
+import Icons from '../icons.js';
+import {
+  S, curBook, bookBills, monthSum, carryOver, fmtMoney, ymLabel, shiftMonth,
+  catById, accById, monthOf, deleteBill,
+} from '../store.js';
+import { go, onCleanup, UI } from '../app.js';
+
+let state = { ym: null, kw: '' };
+const now = () => state.ym || monthOf(new Date().toISOString().slice(0, 10));
+
+function summaryCard(bills) {
+  const ym = now();
+  const exp = monthSum(curBook().id, ym, 'expense');
+  const inc = monthSum(curBook().id, ym, 'income');
+  const carry = carryOver(curBook().id, ym);
+  const balance = carry + inc - exp;
+  const hide = S().settings.hideAmount;
+  return `
+  <div class="summary-card">
+    <div class="sum-main-label"><span class="badge-ic">💸</span>总支出 ⇆</div>
+    <div class="sum-amount">${hide ? '****' : '¥' + fmtMoney(exp)}</div>
+    <div class="sum-sub">
+      <span>总收入<b>${hide ? '****' : '¥' + fmtMoney(inc)}</b></span>
+      <span>月结余<b>${hide ? '****' : '¥' + fmtMoney(balance)}</b></span>
+    </div>
+    <div class="sum-dots"><i class="on"></i><i></i><i></i></div>
+  </div>`;
+}
+
+function billList(bills) {
+  if (!bills.length) return `<div class="empty-tip">本月暂无数据</div>`;
+  const groups = {};
+  bills.forEach((b) => (groups[b.date] = groups[b.date] || []).push(b));
+  const days = Object.keys(groups).sort().reverse();
+  return days.map((d) => {
+    const list = groups[d];
+    const dExp = list.filter((b) => b.type === 'expense').reduce((s, b) => s + b.amount, 0);
+    const dInc = list.filter((b) => b.type === 'income').reduce((s, b) => s + b.amount, 0);
+    const wd = '日一二三四五六'[new Date(d.replace(/-/g, '/')).getDay()];
+    const [, m, dd] = d.split('-');
+    return `<div class="day-group">
+      <div class="day-head"><b style="color:var(--text)">${+m}月${+dd}日</b><span>星期${wd}</span>
+        <span class="sum">${dInc ? `<span style="color:var(--green)">收入 ¥${fmtMoney(dInc)}</span>　` : ''}${dExp ? `支出 ¥${fmtMoney(dExp)}` : ''}</span>
+      </div>
+      ${list.map(rowHTML).join('')}
+    </div>`;
+  }).join('');
+}
+
+export function rowHTML(b) {
+  const cat = catById(b.categoryId);
+  const acc = accById(b.accountId);
+  const acc2 = b.type === 'transfer' ? accById(b.toAccountId) : null;
+  const isTransfer = b.type === 'transfer';
+  const color = isTransfer ? '#0a84ff22' : b.type === 'income' ? '#30d15822' : (cat?.color || '#ff9f0a') + '22';
+  const amtCls = b.type === 'income' ? 'income' : isTransfer ? 'transfer' : 'expense';
+  const sign = b.type === 'income' ? '+' : '';
+  const iconHTML = isTransfer
+    ? `<span style="color:var(--blue);display:flex;width:19px;height:19px">${Icons.swap}</span>`
+    : (cat?.icon || '🧾');
+  return `<div class="bill-row" data-bill="${b.id}">
+    <div class="bill-ic" style="background:${color}">${iconHTML}</div>
+    <div class="bill-main">
+      <div class="bill-cat">${isTransfer ? '转账' : (cat?.name || '其他')}${b.claim === 'pending' ? '<span class="tag-mini">待报销</span>' : ''}${b.recurringId ? '<span class="tag-mini">周期</span>' : ''}</div>
+      ${b.note ? `<div class="bill-note">${b.note}</div>` : ''}
+    </div>
+    <div style="text-align:right">
+      <div class="bill-amt ${amtCls}">${sign}¥${fmtMoney(b.amount)}</div>
+      ${b.type === 'transfer' ? `<div class="bill-note">${acc?.name || ''} → ${acc2?.name || ''}</div>` : `<div class="bill-note">${acc?.name || ''}</div>`}
+    </div>
+  </div>`;
+}
+
+export default {
+  header: 'large',
+  fab: true,
+  title: () => curBook().name,
+  navLeft: `<button class="nb-btn" data-act="books">${Icons.swap}</button>`,
+  async render() {
+    const ym = now();
+    const bills = bookBills(undefined, ym).filter((b) =>
+      !state.kw || (b.note || '').includes(state.kw) || (catById(b.categoryId)?.name || '').includes(state.kw));
+    return `
+      <div class="searchbar">${Icons.search}<input id="home-kw" placeholder="输入关键词" value="${state.kw}"></div>
+      <div class="month-row">
+        <span class="month-label">${ymLabel(ym)}</span>
+        <button class="month-nav" data-m="-1">${Icons.chevL}</button>
+        <button class="month-nav" data-m="1" ${ym >= monthOf(new Date().toISOString().slice(0, 10)) ? 'disabled' : ''}>${Icons.chevR}</button>
+        <span class="month-spacer"></span>
+        <button class="pill-btn" data-go="calendar">${Icons.calendar.replace('<svg', '<svg style="width:14px;height:14px"')} 收支日历</button>
+      </div>
+      ${summaryCard(bills)}
+      <div style="height:8px"></div>
+      ${billList(bills)}`;
+  },
+  mount(root) {
+    // FAB 固定定位版本由 app.js 注入；这里绑定交互
+    root.querySelector('#home-kw')?.addEventListener('input', (e) => {
+      state.kw = e.target.value.trim();
+      clearTimeout(state._t);
+      state._t = setTimeout(() => go('search', { kw: state.kw }), 600);
+    });
+    root.querySelectorAll('.month-nav[data-m]').forEach((b) => b.addEventListener('click', () => {
+      state.ym = shiftMonth(now(), +b.dataset.m);
+      go('home');
+    }));
+    onCleanup(() => { clearTimeout(state._t); });
+    root.querySelectorAll('[data-bill]').forEach((r) => {
+      r.addEventListener('click', () => go('detail', { id: r.dataset.bill }));
+      r.addEventListener('contextmenu', (e) => { e.preventDefault(); quickDelete(r.dataset.bill); });
+      let timer = null;
+      r.addEventListener('touchstart', () => { timer = setTimeout(() => quickDelete(r.dataset.bill), 600); });
+      r.addEventListener('touchend', () => clearTimeout(timer));
+    });
+    // 顶部左按钮：切换账本
+    document.querySelector('#navbar [data-act="books"]')?.addEventListener('click', async () => {
+      const s = S();
+      const pick = await UI.sheet('切换账本', [
+        ...s.books.filter((b) => !b.archived).map((b) => ({
+          label: b.name, icon: b.icon, value: b.id === s.currentBookId ? '当前' : '',
+          onClick: () => { s.currentBookId = b.id; },
+        })),
+        { label: '管理账本', icon: '⚙️', onClick: () => go('books') },
+      ]);
+      pick?.onClick?.();
+      if (pick?.onClick) { import('../store.js').then((st) => { st.save(); go('home'); }); }
+    });
+  },
+};
+
+function quickDelete(id) {
+  UI.confirm('删除这笔账单？', '删除').then((ok) => {
+    if (ok) { deleteBill(id); go('home'); }
+  });
+}

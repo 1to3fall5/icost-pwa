@@ -1,0 +1,223 @@
+// 数据层：localStorage 单键 JSON + schemaVersion
+const KEY = 'icost.state.v1';
+const SCHEMA = 1;
+
+const today = () => {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+};
+export const fmtMoney = (n, sign = false) => {
+  const v = (Math.abs(+n || 0)).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  return (sign && n > 0 ? '+' : n < 0 ? '-' : '') + v;
+};
+export const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+export const pad2 = (s) => String(s).padStart(2, '0');
+export const monthOf = (date) => date.slice(0, 7);
+export const ymLabel = (ym) => `${ym.slice(0, 4)} 年 ${+ym.slice(5, 7)} 月`;
+export const shiftMonth = (ym, delta) => {
+  const [y, m] = ym.split('-').map(Number);
+  const d = new Date(y, m - 1 + delta, 1);
+  return `${d.getFullYear()}-${pad2(d.getMonth() + 1)}`;
+};
+
+// 默认支出分类（一级 + 二级）
+const EXPENSE = [
+  ['餐饮', '🍜', '#ff9f0a', ['早餐', '午餐', '晚餐', '零食饮料', '外卖']],
+  ['购物', '🛍️', '#bf5af2', ['日用品', '服饰', '数码', '家居']],
+  ['交通', '🚇', '#0a84ff', ['公交地铁', '打车', '加油', '停车']],
+  ['日用', '🧻', '#64d2ff', ['纸品洗护', '清洁', '其他日用']],
+  ['水果', '🍎', '#ff375f', ['水果', '生鲜']],
+  ['娱乐', '🎮', '#5e5ce6', ['电影', '游戏', 'KTV', '旅游']],
+  ['通讯', '📞', '#30d158', ['话费', '网费']],
+  ['住房', '🏠', '#ac8e68', ['房租', '水电燃气', '物业']],
+  ['医疗', '💊', '#ff453a', ['药品', '门诊', '保健']],
+  ['学习', '📚', '#ffd60a', ['书籍', '课程', '文具']],
+  ['运动', '🏃', '#32d74b', ['健身', '球类', '装备']],
+  ['人情', '🎁', '#ff6482', ['红包', '礼物', '请客']],
+  ['宠物', '🐱', '#ff9f0a', ['粮食', '医疗', '用品']],
+  ['美容', '💄', '#ff375f', ['护肤', '美发', '美甲']],
+  ['孩子', '👶', '#64d2ff', ['奶粉', '玩具', '教育']],
+  ['其他', '🧾', '#98989f', []],
+];
+const INCOME = [
+  ['工资', '💰', '#30d158', ['基本工资', '加班', '补贴']],
+  ['奖金', '🏆', '#ffd60a', ['年终奖', '绩效']],
+  ['理财', '📈', '#0a84ff', ['利息', '基金', '股票']],
+  ['红包', '🧧', '#ff453a', []],
+  ['报销', '🧾', '#ff9f0a', []],
+  ['兼职', '💼', '#bf5af2', []],
+  ['二手', '🛒', '#64d2ff', ['闲鱼', '转转']],
+  ['礼金', '💝', '#ff6482', []],
+  ['退款', '↩️', '#98989f', []],
+  ['其他', '🪙', '#98989f', []],
+];
+
+function defaultState() {
+  const mk = (arr, type) => arr.map(([name, icon, color, subs]) => ({
+    id: uid(), name, icon, color, type,
+    children: subs.map((s) => ({ id: uid(), name: s })),
+  }));
+  const acc = (name, icon, color, type, balance = 0) => ({ id: uid(), name, icon, color, type, balance, hidden: false, archived: false, includeNet: true });
+  return {
+    schema: SCHEMA,
+    currentBookId: 'b1',
+    books: [
+      { id: 'b1', name: '默认账本', icon: '📔', archived: false, created: today() },
+    ],
+    categories: { expense: mk(EXPENSE, 'expense'), income: mk(INCOME, 'income') },
+    accounts: [
+      acc('现金', '💵', '#30d158', 'cash'),
+      acc('支付宝', '🅰️', '#0a84ff', 'online', 0),
+      acc('微信', '💬', '#30d158', 'online'),
+      acc('银行卡', '💳', '#ff9f0a', 'bank'),
+      acc('信用卡', '🪪', '#ff453a', 'credit'),
+    ],
+    bills: [],
+    budgets: [],            // {id, scope:'total'|'category', period:'week'|'month'|'year', categoryId?, amount}
+    savings: [],            // {id, mode, name, target, startDate, note, records:[{date,amount}]}
+    templates: [],          // 快捷记账模板
+    recurrings: [],         // 周期记账 {id,type,amount,categoryId,accountId,cycle:'day'|'week'|'month',nextDate,note}
+    loans: [],              // {id,name,total,months,monthAmount,startDate,paid}
+    claims: [],             // 报销 {billId, amount, status:'pending'|'done', doneTime}
+    settings: {
+      theme: 'dark',
+      startPage: 'home',
+      hideAmount: false,
+      claimEnabled: true,
+      weekStart: 1,
+      calendarMode: 'month',
+      showCircled: true,   // 显示结余结转
+      bookTime: false,
+    },
+  };
+}
+
+let state = null;
+let listeners = new Set();
+
+export function load() {
+  if (state) return state;
+  try {
+    const raw = localStorage.getItem(KEY);
+    state = raw ? migrate(JSON.parse(raw)) : defaultState();
+  } catch { state = defaultState(); }
+  return state;
+}
+function migrate(s) { if (!s.schema) s.schema = SCHEMA; return s; }
+
+export function save() {
+  scrubState(state);
+  localStorage.setItem(KEY, JSON.stringify(state));
+  listeners.forEach((fn) => fn());
+}
+// 输出层安全：所有用户可输入的字符串字段剥离尖括号，阻断存储型 XSS
+const scrub = (s) => (typeof s === 'string' ? s.replace(/[<>]/g, '') : s);
+function scrubState(s) {
+  s.books?.forEach((b) => { b.name = scrub(b.name); });
+  s.accounts?.forEach((a) => { a.name = scrub(a.name); });
+  ['expense', 'income'].forEach((t) => s.categories?.[t]?.forEach((c) => {
+    c.name = scrub(c.name);
+    c.children?.forEach((x) => { x.name = scrub(x.name); });
+  }));
+  s.bills?.forEach((b) => {
+    b.note = scrub(b.note);
+    if (Array.isArray(b.tags)) b.tags = b.tags.map(scrub);
+  });
+  s.savings?.forEach((p) => { p.name = scrub(p.name); p.note = scrub(p.note); });
+  s.templates?.forEach((t) => { t.note = scrub(t.note); });
+  s.recurrings?.forEach((r) => { r.note = scrub(r.note); });
+  s.loans?.forEach((l) => { l.name = scrub(l.name); });
+  s.budgets?.forEach((b) => { if (typeof b.name === 'string') b.name = scrub(b.name); });
+}
+export function subscribe(fn) { listeners.add(fn); return () => listeners.delete(fn); }
+export function reset() { state = defaultState(); save(); }
+
+// ---- 查询辅助 ----
+export const S = () => state;
+export const curBook = () => state.books.find((b) => b.id === state.currentBookId) || state.books[0];
+export const cats = (type) => state.categories[type] || [];
+export const catById = (id) => [...state.categories.expense, ...state.categories.income, ...state.categories.expense.flatMap((c) => c.children), ...state.categories.income.flatMap((c) => c.children)].find((c) => c.id === id);
+export const accById = (id) => state.accounts.find((a) => a.id === id);
+export const bookBills = (bookId = state.currentBookId, ym = null) =>
+  state.bills.filter((b) => b.bookId === bookId && (!ym || b.date.startsWith(ym)))
+    .sort((a, b) => (b.date + (b.time || '')).localeCompare(a.date + (a.time || '')) || b.created - a.created);
+
+export function monthSum(bookId, ym, type) {
+  return state.bills.filter((b) => b.bookId === bookId && b.type === type && b.date.startsWith(ym))
+    .reduce((s, b) => s + b.amount, 0);
+}
+export function netWorth() {
+  return state.accounts.filter((a) => !a.hidden && !a.archived && a.includeNet)
+    .reduce((s, a) => s + (a.type === 'credit' ? -Math.abs(a.balance) : a.balance), 0);
+}
+export function accountStat() {
+  const list = state.accounts.filter((a) => !a.hidden && !a.archived);
+  return {
+    net: list.filter((a) => a.includeNet).reduce((s, a) => s + (a.type === 'credit' ? -Math.abs(a.balance) : a.balance), 0),
+    asset: list.filter((a) => a.type !== 'credit').reduce((s, a) => s + a.balance, 0),
+    debt: list.filter((a) => a.type === 'credit').reduce((s, a) => s + Math.abs(a.balance), 0),
+    borrowed: list.reduce((s, a) => s + (a.borrow || 0), 0),
+    lent: list.reduce((s, a) => s + (a.lent || 0), 0),
+  };
+}
+// 结余结转：起始月前的净收入累计
+export function carryOver(bookId, ym) {
+  return state.bills.filter((b) => b.bookId === bookId && b.date < ym + '-01')
+    .reduce((s, b) => s + (b.type === 'income' ? b.amount : b.type === 'expense' ? -b.amount : 0), 0);
+}
+
+export function addBill(data) {
+  const bill = {
+    id: uid(), bookId: state.currentBookId, created: Date.now(), time: new Date().toTimeString().slice(0, 5),
+    images: [], tags: [], ...data,
+  };
+  state.bills.push(bill);
+  // 更新账户余额
+  const acc = accById(bill.accountId);
+  if (acc) {
+    if (bill.type === 'expense') acc.balance -= bill.amount;
+    else if (bill.type === 'income') acc.balance += bill.amount;
+    else if (bill.type === 'transfer') {
+      const to = accById(bill.toAccountId);
+      acc.balance -= bill.amount;
+      if (to) to.balance += bill.amount;
+    }
+  }
+  if (bill.claim === 'pending') state.claims.push({ billId: bill.id, amount: bill.amount, status: 'pending' });
+  save();
+  return bill;
+}
+export function deleteBill(id) {
+  const i = state.bills.findIndex((b) => b.id === id);
+  if (i < 0) return;
+  const bill = state.bills[i];
+  const acc = accById(bill.accountId);
+  if (acc) {
+    if (bill.type === 'expense') acc.balance += bill.amount;
+    else if (bill.type === 'income') acc.balance -= bill.amount;
+    else if (bill.type === 'transfer') {
+      const to = accById(bill.toAccountId);
+      acc.balance += bill.amount;
+      if (to) to.balance -= bill.amount;
+    }
+  }
+  state.claims = state.claims.filter((c) => c.billId !== id);
+  state.bills.splice(i, 1);
+  save();
+}
+export function updateBill(id, patch) {
+  const b = state.bills.find((x) => x.id === id);
+  if (b) { Object.assign(b, patch); save(); }
+  return b;
+}
+export function billById(id) { return state.bills.find((b) => b.id === id); }
+
+export function addAccount(data) {
+  const a = { id: uid(), hidden: false, archived: false, includeNet: true, balance: 0, ...data };
+  state.accounts.push(a); save(); return a;
+}
+export function updateAccount(id, patch) {
+  const a = accById(id);
+  if (a) { Object.assign(a, patch); save(); }
+  return a;
+}
