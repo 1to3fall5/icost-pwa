@@ -1,6 +1,6 @@
 /* iCost 复刻 · Service Worker（零依赖手写）
    策略：HTML network-first；静态资源 stale-while-revalidate；离线兜底 index.html */
-const VERSION = 'v1.6.0';
+const VERSION = 'v1.7.0';
 const CACHE = `icost-${VERSION}`;
 const SHELL = [
   './',
@@ -13,7 +13,7 @@ const SHELL = [
 const PAGE_MODULES = [
   'home', 'asset', 'save', 'stats', 'record', 'calendar', 'search', 'detail', 'settings',
   'category', 'budget', 'books', 'templates', 'recurring', 'claim', 'loan',
-  'assetdetail', 'savedetail', 'statsdetail', 'importexport', 'more',
+  'assetdetail', 'savedetail', 'statsdetail', 'importexport', 'syncjoin', 'more',
 ].map((p) => `./js/pages/${p}.js`);
 PAGE_MODULES.push('./js/pages/index.js'); // 路由注册表（app.js 动态 import）
 

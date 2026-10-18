@@ -534,6 +534,25 @@ textarea.form-input { resize: none; min-height: 80px; }
 }
 .ln-add:active { opacity: .7; }
 
+/* ---------- 一键接入页 ---------- */
+.join-wrap {
+  min-height: 100%; display: flex; align-items: center; justify-content: center;
+  padding: 40px 20px;
+}
+.join-card {
+  width: 100%; max-width: 340px; background: var(--card);
+  border: 1px solid var(--line); border-radius: 18px;
+  padding: 28px 22px 24px; text-align: center;
+}
+.join-ico { font-size: 40px; line-height: 1; margin-bottom: 14px; }
+.join-h { font-size: 18px; font-weight: 600; margin-bottom: 8px; }
+.join-p { font-size: 13.5px; color: var(--text2); line-height: 1.6; }
+.join-btn {
+  margin-top: 18px; width: 100%; background: var(--blue); color: #fff;
+  border-radius: 12px; padding: 12px; font-size: 15px; font-weight: 600;
+}
+.join-btn:active { opacity: .75; }
+
 /* 平板 / 窄窗口：居中卡片，去掉手机模型框 */
 @media (min-width: 768px) and (max-width: 1023px) {
   body { background: #0a0a0b; }

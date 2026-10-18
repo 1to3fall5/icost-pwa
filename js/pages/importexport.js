@@ -226,16 +226,39 @@ async function toggleRemember() {
   go('importexport');
 }
 
-// 同步码：把 token + Gist ID 打包成一段字符串，另一台设备粘贴即可接入
-async function copyCode() {
+// 同步码：把 token + Gist ID 打包成一段字符串
+function syncCode() {
   const c = syncCfg();
-  if (!c.token || !c.gistId) { UI.toast('请先成功上传一次，再生成同步码'); return; }
-  const code = 'icost1.' + btoa(encodeURIComponent(c.token + '|' + c.gistId));
+  if (!c.token || !c.gistId) return null;
+  return 'icost1.' + btoa(encodeURIComponent(c.token + '|' + c.gistId));
+}
+
+// 一键接入链接：把同步码塞进 URL，另一台设备点开就自动配好，只差输一次密码
+function joinLink() {
+  const code = syncCode();
+  if (!code) return null;
+  return location.origin + location.pathname + '#/syncjoin?c=' + encodeURIComponent(code);
+}
+
+async function copyCode() {
+  const code = syncCode();
+  if (!code) { UI.toast('请先成功上传一次，再生成同步码'); return; }
   try {
     await navigator.clipboard.writeText(code);
     UI.toast('同步码已复制 —— 到另一台设备粘贴', 3200);
   } catch {
     await UI.prompt('手动复制这段同步码', '', code);
+  }
+}
+
+async function copyLink() {
+  const url = joinLink();
+  if (!url) { UI.toast('请先成功上传一次，再生成接入链接'); return; }
+  try {
+    await navigator.clipboard.writeText(url);
+    UI.toast('接入链接已复制 —— 在另一台设备打开即可', 3600);
+  } catch {
+    await UI.prompt('手动复制这段链接（在另一台设备打开）', '', url);
   }
 }
 
@@ -289,9 +312,19 @@ function syncSection() {
       ${row({ icon: '⬇️', bg: 'rgba(191,90,242,.18)', label: '从云端恢复', sub: '强制拉取并合并，可指定合并或覆盖', act: 'sync-pull' })}
     </div>
 
+    <div class="sec-title">另一台设备怎么接入</div>
     <div class="cell-group">
-      ${row({ icon: '📋', bg: 'rgba(100,210,255,.18)', label: '复制同步码', sub: '给另一台设备粘贴接入（不含密码）', act: 'sync-code' })}
-      ${row({ icon: '📥', bg: 'rgba(100,210,255,.18)', label: '粘贴同步码', sub: '本机接入已有的同步', act: 'sync-code-in' })}
+      ${row({ icon: '🔗', bg: 'rgba(48,209,88,.18)', label: '生成接入链接', sub: '另一台设备点开就配好，只差输一次密码', act: 'sync-link' })}
+      ${row({ icon: '📋', bg: 'rgba(100,210,255,.18)', label: '复制同步码', sub: '备选：手动复制一段码，那边粘贴', act: 'sync-code' })}
+      ${row({ icon: '📥', bg: 'rgba(100,210,255,.18)', label: '粘贴同步码', sub: '如果那边给的是同步码，粘到这里', act: 'sync-code-in' })}
+    </div>
+
+    <div class="st2-note">
+      <div class="tt">🔗 接入链接怎么用</div>
+      复制后发到另一台设备（微信「文件传输助手」最方便），在那台设备上点开链接 —— token 和 Gist 地址会自动配好，
+      你只需输入一次同步密码，选「合并两端」就完成了。
+      <div style="margin-top:6px;color:var(--orange,#ff9f0a)">链接里含有你的 GitHub token（不含密码），
+      只发给你自己，别发到群里。</div>
     </div>
 
     <div class="st2-note">
@@ -356,6 +389,7 @@ export default {
         else if (act === 'sync-pw') setPw();
         else if (act === 'sync-push') doPush();
         else if (act === 'sync-pull') doPull();
+        else if (act === 'sync-link') copyLink();
         else if (act === 'sync-code') copyCode();
         else if (act === 'sync-code-in') pasteCode();
         else if (act === 'sync-auto') { setAuto(!syncCfg().auto); if (syncCfg().auto) runAutoSync({ force: true }); go('importexport'); }

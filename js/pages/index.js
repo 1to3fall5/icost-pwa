@@ -19,10 +19,11 @@ import assetdetail from './assetdetail.js';
 import savedetail from './savedetail.js';
 import statsdetail from './statsdetail.js';
 import importexport from './importexport.js';
+import syncjoin from './syncjoin.js';
 import more from './more.js';
 
 export const pages = {
   home, asset, save, stats, record, calendar, search, detail, settings,
   category, budget, books, templates, recurring, claim, loan,
-  assetdetail, savedetail, statsdetail, importexport, more,
+  assetdetail, savedetail, statsdetail, importexport, syncjoin, more,
 };
