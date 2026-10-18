@@ -1,19 +1,19 @@
 /* iCost 复刻 · Service Worker（零依赖手写）
    策略：HTML network-first；静态资源 stale-while-revalidate；离线兜底 index.html */
-const VERSION = 'v1.7.0';
+const VERSION = 'v1.8.0';
 const CACHE = `icost-${VERSION}`;
 const SHELL = [
   './',
   './index.html',
   './manifest.json',
   './css/style.css',
-  './js/app.js', './js/store.js', './js/icons.js', './js/charts.js', './js/sync.js',
+  './js/app.js', './js/store.js', './js/icons.js', './js/charts.js', './js/sync.js', './js/importers.js',
   './assets/icon-192.png', './assets/icon-512.png', './assets/icon-maskable-512.png', './assets/icon-180.png',
 ];
 const PAGE_MODULES = [
   'home', 'asset', 'save', 'stats', 'record', 'calendar', 'search', 'detail', 'settings',
   'category', 'budget', 'books', 'templates', 'recurring', 'claim', 'loan',
-  'assetdetail', 'savedetail', 'statsdetail', 'importexport', 'syncjoin', 'more',
+  'assetdetail', 'savedetail', 'statsdetail', 'importexport', 'importcsv', 'syncjoin', 'more',
 ].map((p) => `./js/pages/${p}.js`);
 PAGE_MODULES.push('./js/pages/index.js'); // 路由注册表（app.js 动态 import）
 

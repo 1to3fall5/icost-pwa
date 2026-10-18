@@ -344,9 +344,9 @@ export default {
     const n = S().bills.length;
     return `
       <div class="st2-note">
-        <div class="tt">📦 账单迁移说明</div>
-        支持从微信 / 支付宝导出的账单迁移：先在对应 App 中申请账单邮件，得到 CSV 文件后，整理为本页导出的列格式
-        （类型、金额、分类、账户、日期、时间、备注、报销），即可恢复。复刻版演示以 JSON 备份恢复为主。
+        <div class="tt">📦 把微信 / 支付宝的账倒进来</div>
+        点下面的「导入微信 / 支付宝账单」，选 App 导出的 CSV 就行 —— 自动识别来源、自动判断编码、
+        自动猜分类，还能重复导入不记重。
       </div>
 
       <div class="sec-title">导出 · 共 ${n} 笔账单</div>
@@ -359,7 +359,7 @@ export default {
       <div class="sec-title">导入</div>
       <div class="cell-group">
         ${row({ icon: '📥', bg: 'rgba(191,90,242,.18)', label: '导入 JSON 备份', sub: '校验后覆盖当前数据', act: 'importjson' })}
-        ${row({ icon: '📄', bg: 'rgba(100,210,255,.18)', label: '导入表格 CSV', sub: '微信 / 支付宝账单', act: 'importcsv' })}
+        ${row({ icon: '💬', bg: 'rgba(48,209,88,.18)', label: '导入微信 / 支付宝账单', sub: '选 App 导出的 CSV，自动识别并猜分类', act: 'importcsv' })}
       </div>
 
       ${syncSection()}
@@ -382,7 +382,7 @@ export default {
         else if (act === 'json') exportJSON();
         else if (act === 'excel') UI.toast('复刻版以 CSV 代替');
         else if (act === 'importjson') importJSON();
-        else if (act === 'importcsv') UI.toast('复刻版支持 JSON 备份恢复');
+        else if (act === 'importcsv') go('importcsv');
         else if (act === 'clear') clearAll();
         // 云同步
         else if (act === 'sync-token') setToken();
