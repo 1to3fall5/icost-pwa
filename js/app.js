@@ -212,6 +212,28 @@ export const UI = {
       document.getElementById('overlay-root').appendChild(ov);
     });
   },
+  // 多选一：opts = [{label, desc, danger}]，返回选中下标，取消返回 -1
+  choose(title, opts) {
+    return new Promise((resolve) => {
+      const ov = document.createElement('div');
+      ov.className = 'overlay';
+      ov.innerHTML = `<div class="panel">
+        <h3>${title}</h3>
+        <div class="opts">
+          ${opts.map((o, i) => `<div class="cell" data-i="${i}">
+            <span class="cl${o.danger ? ' st2-danger' : ''}">${o.label}${o.desc ? `<span class="cell-sub">${o.desc}</span>` : ''}</span>
+          </div>`).join('')}
+        </div>
+        <button class="form-input" data-cancel style="margin-top:12px;text-align:center;background:#2c2c2e">取消</button>
+      </div>`;
+      ov.addEventListener('click', (e) => {
+        const cell = e.target.closest('[data-i]');
+        if (cell) { ov.remove(); resolve(+cell.dataset.i); }
+        else if (e.target.closest('[data-cancel]') || e.target === ov) { ov.remove(); resolve(-1); }
+      });
+      document.getElementById('overlay-root').appendChild(ov);
+    });
+  },
   sheet(title, opts) {
     // opts: [{label, value, icon, onClick}] 或自定义 html
     return new Promise((resolve) => {

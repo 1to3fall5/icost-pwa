@@ -73,6 +73,8 @@ function defaultState() {
       acc('信用卡', '🪪', '#ff453a', 'credit'),
     ],
     bills: [],
+    // 删除墓碑：合并时用来判断某条账单是"被删了"还是"另一端还没同步到"，避免删掉的账单复活
+    tombstones: { bills: [] },  // {id, deletedAt}
     budgets: [],            // {id, scope:'total'|'category', period:'week'|'month'|'year', categoryId?, amount}
     savings: [],            // {id, mode, name, target, startDate, note, records:[{date,amount}]}
     templates: [],          // 快捷记账模板
@@ -106,7 +108,17 @@ export function load() {
   } catch { state = defaultState(); }
   return state;
 }
-function migrate(s) { if (!s.schema) s.schema = SCHEMA; return s; }
+function migrate(s) {
+  if (!s.schema) s.schema = SCHEMA;
+  // 增量同步依赖 updatedAt 与墓碑，老数据补齐
+  if (!s.tombstones || typeof s.tombstones !== 'object') s.tombstones = {};
+  if (!Array.isArray(s.tombstones.bills)) s.tombstones.bills = [];
+  (s.bills || []).forEach((b) => { if (!b.updatedAt) b.updatedAt = b.created || Date.now(); });
+  // 其它实体补时间戳：缺省一律 0（不能写 now，否则老数据会被误判成"刚刚改过"而覆盖对端）
+  ['accounts', 'books', 'budgets', 'savings', 'templates', 'recurrings', 'loans', 'claims']
+    .forEach((k) => (s[k] || []).forEach((x) => { if (x && x.updatedAt === undefined) x.updatedAt = x.created || 0; }));
+  return s;
+}
 
 export function save() {
   scrubState(state);
@@ -170,8 +182,10 @@ export function carryOver(bookId, ym) {
 }
 
 export function addBill(data) {
+  const now = Date.now();
   const bill = {
-    id: uid(), bookId: state.currentBookId, created: Date.now(), time: new Date().toTimeString().slice(0, 5),
+    id: uid(), bookId: state.currentBookId, created: now, updatedAt: now,
+    time: new Date().toTimeString().slice(0, 5),
     images: [], tags: [], ...data,
   };
   state.bills.push(bill);
@@ -206,21 +220,34 @@ export function deleteBill(id) {
   }
   state.claims = state.claims.filter((c) => c.billId !== id);
   state.bills.splice(i, 1);
+  // 写墓碑：让另一端合并时知道这是"主动删除"，而不是"还没同步到"
+  if (!state.tombstones) state.tombstones = { bills: [] };
+  if (!state.tombstones.bills) state.tombstones.bills = [];
+  state.tombstones.bills = state.tombstones.bills.filter((t) => t.id !== id);
+  state.tombstones.bills.push({ id, deletedAt: Date.now() });
   save();
 }
 export function updateBill(id, patch) {
   const b = state.bills.find((x) => x.id === id);
-  if (b) { Object.assign(b, patch); save(); }
+  if (b) { Object.assign(b, patch, { updatedAt: Date.now() }); save(); }
   return b;
+}
+// 清理过期墓碑（默认保留 30 天，防止无限增长）
+export function pruneTombstones(days = 30) {
+  if (!state?.tombstones?.bills) return;
+  const cutoff = Date.now() - days * 24 * 3600 * 1000;
+  state.tombstones.bills = state.tombstones.bills.filter((t) => t.deletedAt > cutoff);
 }
 export function billById(id) { return state.bills.find((b) => b.id === id); }
 
 export function addAccount(data) {
-  const a = { id: uid(), hidden: false, archived: false, includeNet: true, balance: 0, ...data };
+  const now = Date.now();
+  const a = { id: uid(), hidden: false, archived: false, includeNet: true, balance: 0, created: now, updatedAt: now, ...data };
   state.accounts.push(a); save(); return a;
 }
+// updatedAt 是跨端合并的依据：改余额/改名都必须打时间戳，否则另一端看不到这次修改
 export function updateAccount(id, patch) {
   const a = accById(id);
-  if (a) { Object.assign(a, patch); save(); }
+  if (a) { Object.assign(a, patch, { updatedAt: Date.now() }); save(); }
   return a;
 }

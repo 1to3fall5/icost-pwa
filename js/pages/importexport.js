@@ -3,8 +3,8 @@ import Icons from '../icons.js';
 import { S, save, reset, catById, accById } from '../store.js';
 import { go, UI } from '../app.js';
 import {
-  syncCfg, setSync, pushSync, pullSync, applyRemote,
-  hasPassword, setPassword, fmtTime,
+  syncCfg, setSync, fetchRemote, pushPayload, applyState, mergeRemote,
+  hasLocalChanges, hasPassword, setPassword, fmtTime,
 } from '../sync.js';
 
 const TYPE_CN = { expense: '支出', income: '收入', transfer: '转账' };
@@ -119,28 +119,63 @@ async function ensurePassword() {
   return true;
 }
 
+// 上传前先比对云端版本，避免默默覆盖掉另一台设备刚记的账
 async function doPush() {
   try {
     if (!(await ensurePassword())) return;
-    UI.toast('正在加密并上传…', 3000);
-    const r = await pushSync();
+    const cfg = syncCfg();
+    if (cfg.gistId) {
+      UI.toast('正在核对云端版本…', 3000);
+      const remote = await fetchRemote();
+      // 云端比本机基线新（留 2 秒容差，避免把本机刚传的当成别人改的）
+      if (remote.syncedAt > (cfg.baseSyncedAt || 0) + 2000) {
+        const pick = await UI.choose(
+          `云端有更新的改动（${fmtTime(remote.syncedAt)}，共 ${remote.bills} 笔）`,
+          [
+            { label: '合并后上传', desc: '两边账单都保留，推荐' },
+            { label: '覆盖云端', desc: '只用本机数据，会丢弃云端新改动', danger: true },
+          ]);
+        if (pick < 0) return;
+        if (pick === 0) {
+          applyState(mergeRemote(remote.state));
+          UI.toast('已合并，正在上传…', 3000);
+        } else {
+          UI.toast('正在覆盖上传…', 3000);
+        }
+      }
+    }
+    const r = await pushPayload();
     UI.toast(`已上传 ${Math.max(1, Math.round(r.size / 1024))}KB 密文`);
     go('importexport'); // 同 hash 会强制重渲染，刷新状态行
   } catch (e) { UI.toast('上传失败：' + e.message, 3200); }
 }
 
+// 恢复前先检查本机有没有没上传的改动，避免直接被覆盖掉
 async function doPull() {
   try {
     if (!(await ensurePassword())) return;
     UI.toast('正在从云端拉取…', 3000);
-    const r = await pullSync();
-    const ok = await UI.confirm(
-      `云端 ${r.bills} 笔账单（更新于 ${r.updatedAt}）\n将覆盖本机当前 ${S().bills.length} 笔，确认继续？`,
-      '覆盖本机');
-    if (!ok) return;
-    applyRemote(r.state);
-    setSync({ lastSync: Date.now() });
-    UI.toast('已从云端恢复');
+    const remote = await fetchRemote();
+    let next = remote.state;
+    let merged = false;
+    if (hasLocalChanges()) {
+      const pick = await UI.choose(
+        `云端 ${remote.bills} 笔（${fmtTime(remote.syncedAt)}），本机也有未上传的改动`,
+        [
+          { label: '合并', desc: '两边账单都保留，推荐' },
+          { label: '覆盖本机', desc: '丢弃本机未上传的改动', danger: true },
+        ]);
+      if (pick < 0) return;
+      if (pick === 0) { next = mergeRemote(remote.state); merged = true; }
+    } else {
+      const ok = await UI.confirm(
+        `云端 ${remote.bills} 笔账单（${fmtTime(remote.syncedAt)}）\n将覆盖本机当前 ${S().bills.length} 笔，确认继续？`,
+        '恢复');
+      if (!ok) return;
+    }
+    applyState(next);
+    setSync({ lastSync: Date.now(), baseSyncedAt: remote.syncedAt });
+    UI.toast(merged ? '已合并云端数据' : '已从云端恢复');
     go('home');
   } catch (e) { UI.toast('拉取失败：' + e.message, 3200); }
 }
@@ -205,8 +240,8 @@ function syncSection() {
     </div>
 
     <div class="cell-group">
-      ${row({ icon: '⬆️', bg: 'rgba(48,209,88,.18)', label: '上传到云端', sub: '用本机数据覆盖云端（首次会创建私密 Gist）', act: 'sync-push' })}
-      ${row({ icon: '⬇️', bg: 'rgba(191,90,242,.18)', label: '从云端恢复', sub: '用云端数据覆盖本机', act: 'sync-pull' })}
+      ${row({ icon: '⬆️', bg: 'rgba(48,209,88,.18)', label: '上传到云端', sub: '先核对云端版本，有冲突可先合并', act: 'sync-push' })}
+      ${row({ icon: '⬇️', bg: 'rgba(191,90,242,.18)', label: '从云端恢复', sub: '先检测本机改动，可选合并而非覆盖', act: 'sync-pull' })}
     </div>
 
     <div class="cell-group">
@@ -217,6 +252,7 @@ function syncSection() {
     <div class="st2-note">
       <div class="tt">${ready ? '✅ 已接入同步' : '⚠️ 尚未接入'}</div>
       上次同步：${fmtTime(c.lastSync)}${c.gistId ? ` · Gist ${c.gistId.slice(0, 8)}…` : ''}
+      ${ready && hasLocalChanges() ? '<div style="margin-top:6px;color:var(--orange,#ff9f0a)">本机有未上传的改动，换设备前记得先上传</div>' : ''}
       ${c.token ? '' : `<div style="margin-top:8px">还没有 token？到 <b>${ghTokenUrl}</b> 新建 <b>Classic</b> token，只勾选 <b>gist</b> 一项即可（Fine-grained 不支持 Gist）。</div>`}
     </div>`;
 }
