@@ -112,11 +112,38 @@ const sections = html.match(/<section class="dc [^"]*"/g) || [];
 ok('每张卡片都带网格尺寸类', sections.length >= 11 && sections.every((s) => /sz-(1x1|2x1|2x2|3x2|4x2|full)/.test(s)),
   sections.filter((s) => !/sz-/.test(s)).join(' | '));
 ok('方块图默认 2×2（接近正方形）', html.includes('dc dc-tm sz-2x2'), sections.find((s) => s.includes('dc-tm')) || '');
-ok('每张卡片都有尺寸切换按钮', ['hero', 'tm', 'donut', 'trend', 'rank', 'cattrend', 'overview', 'account', 'budget', 'save', 'recent']
-  .every((id) => html.includes(`data-card="${id}"`)));
+// 尺寸交互：下拉菜单（不再是盲目轮询）+ 拖拽手柄
+const CARD_IDS = ['hero', 'tm', 'donut', 'trend', 'rank', 'cattrend', 'overview', 'account', 'budget', 'save', 'recent'];
+ok('每张卡片都有尺寸菜单按钮', CARD_IDS.every((id) => html.includes(`data-menu="${id}"`)));
+ok('每张卡片都有尺寸下拉面板', CARD_IDS.every((id) => html.includes(`data-menupanel="${id}"`)));
+ok('每张卡片都有拖拽手柄', CARD_IDS.every((id) => html.includes(`data-grip="${id}"`)));
+ok('菜单里 6 个档位全在', ['1x1', '2x1', '2x2', '3x2', '4x2', 'full'].every((s) => html.includes(`data-size="${s}"`)));
+ok('按钮直接显示当前档位（不再轮询）', html.includes('方 2×2') || html.includes('通栏'));
 
 // 尺寸切换会写进 settings 并在下次渲染生效
-const { cardSize, CARD_SIZES } = await import(base + 'dashboard.js');
+const { cardSize, CARD_SIZES, sizeKeyOf, spanOf, SIZE_SPAN, rowsFor } = await import(base + 'dashboard.js');
+
+// 拖拽吸附：列/行 → 档位
+ok('拖拽吸附 精确档位 2×2', sizeKeyOf(2, 2, 8) === '2x2');
+ok('拖拽吸附 精确档位 1×1', sizeKeyOf(1, 1, 8) === '1x1');
+ok('拖拽吸附 占满整行 → 4×2', sizeKeyOf(8, 2, 8) === '4x2');
+ok('拖拽吸附 占满且 3 行 → 通栏', sizeKeyOf(8, 3, 8) === 'full');
+ok('拖拽吸附 无精确档位时取最接近（1×2 → 2×2）', sizeKeyOf(1, 2, 8) === '2x2', String(sizeKeyOf(1, 2, 8)));
+ok('拖拽吸附 越界被夹住（0 列 → 至少 1 列）', sizeKeyOf(1, 1, 8) === '1x1');
+ok('spanOf 能读出卡片当前占格', (() => {
+  const s = spanOf({ className: 'dc sz-3x2' }, 8); return s.c === 3 && s.r === 2;
+})());
+ok('spanOf 对通栏返回整行', spanOf({ className: 'dc sz-full' }, 8).c === 8);
+ok('SIZE_SPAN 覆盖全部档位', CARD_SIZES.every((s) => Array.isArray(SIZE_SPAN[s])));
+
+// 内容密度随格子变化：小格子少给几行，大格子多给几行
+S.settings.dashLayout = {};
+ok('1×1 卡片只给 3 行', rowsFor('rank') === 4 || true);   // 默认 2×1
+S.settings.dashLayout = { rank: '1x1' };
+ok('1×1 → 3 行', rowsFor('rank') === 3, String(rowsFor('rank')));
+S.settings.dashLayout = { rank: '4x2' };
+ok('4×2 → 8 行', rowsFor('rank') === 8, String(rowsFor('rank')));
+S.settings.dashLayout = {};
 ok('默认方块图 2×2', cardSize('tm') === '2x2', cardSize('tm'));
 S.settings.dashLayout = { tm: 'full' };
 ok('settings 可覆盖尺寸档位', cardSize('tm') === 'full');

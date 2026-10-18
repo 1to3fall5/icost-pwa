@@ -33,11 +33,64 @@ export function cardSize(id) {
   const m = S().settings.dashLayout || {};
   return CARD_SIZES.includes(m[id]) ? m[id] : (CARD_DEFAULT[id] || '2x1');
 }
-// 卡片头部右侧的尺寸按钮：显示当前档位，点击循环切换（存到 settings，刷新后保留）
-function sizeBtn(id) {
-  const s = cardSize(id);
-  return `<button class="dc-size" data-card="${id}" title="点击切换卡片尺寸">${s === 'full' ? '通栏' : s.replace('x', '×')}</button>`;
+// 各档位 → 横跨几列 / 纵跨几行（拖拽时的吸附目标也用这份表）
+export const SIZE_SPAN = { '1x1': [1, 1], '2x1': [2, 1], '2x2': [2, 2], '3x2': [3, 2], '4x2': [4, 2], full: [0, 3] };
+// 网格单元格尺寸（列宽 + 行高），拖拽吸附全靠它
+export function cellSize(gridEl) {
+  const cs = typeof getComputedStyle === 'function' ? getComputedStyle(gridEl) : null;
+  const cols = cs ? cs.gridTemplateColumns.split(' ').filter(Boolean).length : 4;
+  const gap = 16;
+  const w = (gridEl.clientWidth - gap * (cols - 1)) / cols;
+  const h = parseFloat(cs ? cs.getPropertyValue('--cell-h') : '') || w;
+  return { cols, w, h };
 }
+// 卡片当前占了几个格子
+export function spanOf(card, cols) {
+  const sz = (String(card.className).match(/sz-(1x1|2x1|2x2|3x2|4x2|full)/) || [])[1] || '2x1';
+  const [c, r] = SIZE_SPAN[sz];
+  return { c: c || cols, r };
+}
+// 拖出来的 (列,行) 落到哪个档位：
+// 先精确匹配；没有就取「能装下这次拖拽的最小档位」——拖成又窄又高(1×2)应该得到 2×2，
+// 而不是被拍平成 2×1（按面积/宽高比排序都会选错）
+export function sizeKeyOf(c, r, cols) {
+  if (c >= cols) return r >= 3 ? 'full' : '4x2';
+  const exact = `${c}x${r}`;
+  if (CARD_SIZES.includes(exact)) return exact;
+  const fit = CARD_SIZES.filter((s) => s !== 'full')
+    .filter((s) => SIZE_SPAN[s][0] >= c && SIZE_SPAN[s][1] >= r)
+    .sort((a, b) => (SIZE_SPAN[a][0] * SIZE_SPAN[a][1]) - (SIZE_SPAN[b][0] * SIZE_SPAN[b][1]));
+  if (fit.length) return fit[0];
+  let best = null, bd = Infinity;
+  CARD_SIZES.filter((s) => s !== 'full').forEach((s) => {
+    const [sc, sr] = SIZE_SPAN[s];
+    const d = Math.abs(sc * sr - c * r) * 4 + Math.abs(sr - r) * 3;
+    if (d < bd) { bd = d; best = s; }
+  });
+  return best;
+}
+const SIZE_LABEL = { '1x1': '小 1×1', '2x1': '扁 2×1', '2x2': '方 2×2', '3x2': '宽 3×2', '4x2': '大 4×2', full: '通栏' };
+// 缩略图尺寸（菜单里直观展示每个档位的形状）
+const SIZE_THUMB = { '1x1': [10, 10], '2x1': [20, 10], '2x2': [20, 20], '3x2': [26, 17], '4x2': [28, 14], full: [28, 18] };
+// 内容密度：卡片越小，列表项越少（否则小格子里挤一堆行，看着乱）
+const DENSITY = { '1x1': 3, '2x1': 4, '2x2': 6, '3x2': 8, '4x2': 8, full: 10 };
+export const rowsFor = (id) => DENSITY[cardSize(id)] || 4;
+
+// 头部右侧：尺寸按钮 + 下拉菜单（不再轮询，直接看到并选择档位）
+// 卡片右下角还有一个拖拽手柄，拖到多大就吸到多大的格子
+function sizeBtn(id) {
+  const cur = cardSize(id);
+  return `<button class="dc-size" data-menu="${id}" title="选择卡片尺寸">${SIZE_LABEL[cur]}</button>
+    <div class="dc-sizemenu" data-menupanel="${id}">
+      ${CARD_SIZES.map((sz) => {
+        const [tw, th] = SIZE_THUMB[sz];
+        return `<button data-size="${sz}" class="${cur === sz ? 'on' : ''}">
+          <i style="width:${tw}px;height:${th}px"></i><span>${SIZE_LABEL[sz]}</span></button>`;
+      }).join('')}
+    </div>`;
+}
+// 卡片右下角的拖拽手柄（放在 dc-tools 里，CSS 绝对定位到角上）
+const grip = (id) => `<span class="dc-grip" data-grip="${id}" title="拖拽调整大小"></span>`;
 
 const hide = () => !!S().settings.hideAmount;
 const yuan = (n) => (hide() ? '****' : '¥' + fmtMoney(n));
@@ -199,7 +252,7 @@ function treemapCard() {
         <div class="dc-sub">方块占比 · 面积代表金额 · ${countLeaves(tree)} 笔${tree.fallbackRange ? '（当前区间无数据，已显示全部）' : ''} · 双击进入下一层</div>
       </div>
       <div class="dc-tools">
-        ${sizeBtn('tm')}
+        ${sizeBtn('tm')}${grip('tm')}
         <div class="seg dc-seg">
           ${dims.map(([v, t]) => `<button class="${dash.tmDim === v ? 'on' : ''}" data-tmdim="${v}">${t}</button>`).join('')}
         </div>
@@ -249,7 +302,7 @@ function heroCard(months) {
         <div class="dc-sub">${curBook().name} · ${syncTxt}</div>
       </div>
       <div class="dc-tools">
-        ${sizeBtn('hero')}
+        ${sizeBtn('hero')}${grip('hero')}
         <label class="dc-search">${Icons.search.replace('<svg', '<svg style="width:14px;height:14px"')}<input id="dash-kw" placeholder="搜索账单" value="${dash.kw}"></label>
         <div class="seg dc-seg">
           ${RANGES.map((r) => `<button class="${dash.range === r.v ? 'on' : ''}" data-rg="${r.v}">${r.t}</button>`).join('')}
@@ -290,14 +343,14 @@ function heroCard(months) {
 function donutCard(bills) {
   const items = catSums(bills, 'expense');
   const total = items.reduce((s, i) => s + i.value, 0);
-  const top = items.slice(0, 6);
+  const top = items.slice(0, rowsFor('donut'));
   const rest = items.slice(6);
   const shown = rest.length
     ? [...top, { id: 'rest', name: '其他', icon: '🧾', color: '#3a3a3c', value: rest.reduce((s, i) => s + i.value, 0) }]
     : top;
   return `
   <section class="dc sz-${cardSize('donut')}">
-    <div class="dc-head"><div class="dc-titles"><div class="dc-title">支出构成</div><div class="dc-sub">${bills.length ? '共 ' + bills.length + ' 笔' : '暂无'}</div></div>${sizeBtn('donut')}</div>
+    <div class="dc-head"><div class="dc-titles"><div class="dc-title">支出构成</div><div class="dc-sub">${bills.length ? '共 ' + bills.length + ' 笔' : '暂无'}</div></div>${sizeBtn('donut')}${grip('donut')}</div>
     <div class="dc-donut"><canvas class="chart" id="dash-donut"></canvas></div>
     <div class="dc-legend">
       ${shown.length ? shown.map((i) => `<div class="lg-row">
@@ -317,7 +370,7 @@ function trendCard(months, bills) {
         <div class="dc-title">收支趋势</div>
         <div class="dc-sub"><i class="dot exp"></i>支出　<i class="dot inc"></i>收入</div>
       </div>
-      ${sizeBtn('trend')}
+      ${sizeBtn('trend')}${grip('trend')}
     </div>
     <div class="dc-chart"><canvas class="chart" id="dash-flow"></canvas></div>
     <div class="dc-foot">
@@ -339,10 +392,10 @@ function rankCard(months, bills) {
   const prevBills = bookBills(curBook().id).filter((b) => b.date >= pFrom + '-01' && b.date <= pTo + '-32');
   const prevMap = {};
   catSums(prevBills, 'expense').forEach((i) => (prevMap[i.name] = i.value));
-  const top = items.slice(0, 8);
+  const top = items.slice(0, rowsFor('rank'));
   return `
   <section class="dc sz-${cardSize('rank')}">
-    <div class="dc-head"><div class="dc-titles"><div class="dc-title">钱花在哪</div><div class="dc-sub">较上一周期</div></div>${sizeBtn('rank')}</div>
+    <div class="dc-head"><div class="dc-titles"><div class="dc-title">钱花在哪</div><div class="dc-sub">较上一周期</div></div>${sizeBtn('rank')}${grip('rank')}</div>
     <div class="dc-rank">
       ${top.length ? top.map((i) => {
         const pv = prevMap[i.name] || 0;
@@ -364,7 +417,7 @@ function catTrendCard(months, bills) {
   const items = catSums(bills, 'expense').slice(0, 3);
   return `
   <section class="dc sz-${cardSize('cattrend')}">
-    <div class="dc-head"><div class="dc-titles"><div class="dc-title">分类趋势</div><div class="dc-sub">支出 Top 3</div></div>${sizeBtn('cattrend')}</div>
+    <div class="dc-head"><div class="dc-titles"><div class="dc-title">分类趋势</div><div class="dc-sub">支出 Top 3</div></div>${sizeBtn('cattrend')}${grip('cattrend')}</div>
     <div class="dc-chart"><canvas class="chart" id="dash-cat"></canvas></div>
     <div class="dc-legend">
       ${items.map((i) => `<div class="lg-row"><i style="background:${i.color}"></i><span>${i.icon} ${i.name}</span><b>${yuan(i.value)}</b></div>`).join('')
@@ -382,7 +435,7 @@ function overviewCard(months, bills) {
   const avg = total / days;
   return `
   <section class="dc sz-${cardSize('overview')}">
-    <div class="dc-head"><div class="dc-titles"><div class="dc-title">收支概览</div><div class="dc-sub">${months.length - 1 || 1} 个月</div></div>${sizeBtn('overview')}</div>
+    <div class="dc-head"><div class="dc-titles"><div class="dc-title">收支概览</div><div class="dc-sub">${months.length - 1 || 1} 个月</div></div>${sizeBtn('overview')}${grip('overview')}</div>
     <div class="dc-grid4">
       <div class="g4"><span>支出笔数</span><b>${exp.length}</b></div>
       <div class="g4"><span>收入笔数</span><b>${inc.length}</b></div>
@@ -395,12 +448,13 @@ function overviewCard(months, bills) {
 }
 
 function accountCard() {
-  const list = S().accounts.filter((a) => !a.hidden && !a.archived)
+  const all = S().accounts.filter((a) => !a.hidden && !a.archived)
     .sort((a, b) => Math.abs(b.balance) - Math.abs(a.balance));
-  const max = Math.max(...list.map((a) => Math.abs(a.balance)), 1);
+  const list = all.slice(0, rowsFor('account'));
+  const max = Math.max(...all.map((a) => Math.abs(a.balance)), 1);
   return `
   <section class="dc sz-${cardSize('account')}">
-    <div class="dc-head"><div class="dc-titles"><div class="dc-title">账户余额</div><div class="dc-sub">${list.length} 个账户</div></div>${sizeBtn('account')}</div>
+    <div class="dc-head"><div class="dc-titles"><div class="dc-title">账户余额</div><div class="dc-sub">${list.length} 个账户</div></div>${sizeBtn('account')}${grip('account')}</div>
     <div class="dc-acc">
       ${list.length ? list.map((a) => {
         const debt = a.type === 'credit';
@@ -437,7 +491,7 @@ function budgetCard() {
   }).join('');
   return `
   <section class="dc sz-${cardSize('budget')}">
-    <div class="dc-head"><div class="dc-titles"><div class="dc-title">预算进度</div><div class="dc-sub">${ymLabel(ym)}</div></div>${sizeBtn('budget')}</div>
+    <div class="dc-head"><div class="dc-titles"><div class="dc-title">预算进度</div><div class="dc-sub">${ymLabel(ym)}</div></div>${sizeBtn('budget')}${grip('budget')}</div>
     <div class="dc-rank">${rows}</div>
   </section>`;
 }
@@ -447,7 +501,7 @@ function saveCard() {
   if (!list.length) return '';
   return `
   <section class="dc sz-${cardSize('save')}">
-    <div class="dc-head"><div class="dc-titles"><div class="dc-title">存钱计划</div><div class="dc-sub">${list.length} 个</div></div>${sizeBtn('save')}</div>
+    <div class="dc-head"><div class="dc-titles"><div class="dc-title">存钱计划</div><div class="dc-sub">${list.length} 个</div></div>${sizeBtn('save')}${grip('save')}</div>
     <div class="dc-rank">
       ${list.slice(0, 5).map((p) => {
         const done = (p.records || []).reduce((s, r) => s + r.amount, 0);
@@ -462,10 +516,10 @@ function saveCard() {
 }
 
 function recentCard() {
-  const list = bookBills(curBook().id).slice(0, 10);
+  const list = bookBills(curBook().id).slice(0, rowsFor('recent'));
   return `
   <section class="dc sz-${cardSize('recent')}">
-    <div class="dc-head"><div class="dc-titles"><div class="dc-title">最近账单</div></div>${sizeBtn('recent')}<button class="dc-more" data-act="allbills">查看全部 ${Icons.chevR.replace('<svg', '<svg style="width:12px;height:12px"')}</button></div>
+    <div class="dc-head"><div class="dc-titles"><div class="dc-title">最近账单</div></div>${sizeBtn('recent')}${grip('recent')}<button class="dc-more" data-act="allbills">查看全部 ${Icons.chevR.replace('<svg', '<svg style="width:12px;height:12px"')}</button></div>
     <div class="dc-bills">
       ${list.length ? list.map(rowHTML).join('') : '<div class="dc-empty">还没有账单，点左上角「记一笔」开始</div>'}
     </div>
@@ -559,18 +613,68 @@ export function mountDashboard(root) {
     if (cols > 0 && cw > 60) grid.style.setProperty('--cell-h', Math.round(cw) + 'px');
   };
   syncGrid();
-  const onResize = () => { syncGrid(); };
+  // 窗口变化后重排：行高变了、格子宽了，图表也要按新高度重绘（charts 高度是量出来的）
+  let rt = null;
+  const onResize = () => {
+    syncGrid();
+    clearTimeout(rt);
+    rt = setTimeout(() => go('home'), 260);
+  };
   window.addEventListener('resize', onResize);
-  onCleanup(() => window.removeEventListener('resize', onResize));
+  onCleanup(() => { window.removeEventListener('resize', onResize); clearTimeout(rt); });
 
-  // 卡片尺寸切换：点一下循环到下一档，存进 settings
-  root.querySelectorAll('[data-card]').forEach((b) => b.addEventListener('click', () => {
-    const id = b.dataset.card;
-    const cur = cardSize(id);
-    const next = CARD_SIZES[(CARD_SIZES.indexOf(cur) + 1) % CARD_SIZES.length];
+  // ---------- 卡片尺寸：下拉菜单 + 拖拽吸附 ----------
+  const setSize = (id, sz) => {
     S().settings.dashLayout = S().settings.dashLayout || {};
-    S().settings.dashLayout[id] = next;
+    S().settings.dashLayout[id] = sz;
     import('./store.js').then((m) => { m.save(); go('home'); });
+  };
+  const closeMenus = () => root.querySelectorAll('.dc-sizemenu.open').forEach((m) => m.classList.remove('open'));
+  root.querySelectorAll('[data-menu]').forEach((b) => b.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const panel = root.querySelector(`[data-menupanel="${b.dataset.menu}"]`);
+    const open = panel && !panel.classList.contains('open');
+    closeMenus();
+    if (open) panel.classList.add('open');
+  }));
+  root.querySelectorAll('[data-menupanel] [data-size]').forEach((b) => b.addEventListener('click', (e) => {
+    e.stopPropagation();
+    setSize(b.closest('[data-menupanel]').dataset.menupanel, b.dataset.size);
+  }));
+  document.addEventListener('click', closeMenus);
+  onCleanup(() => document.removeEventListener('click', closeMenus));
+
+  // 拖拽：按指针位移吸附到最接近的格子数，实时预览，松手落档
+  root.querySelectorAll('[data-grip]').forEach((g) => g.addEventListener('pointerdown', (e) => {
+    const id = g.dataset.grip;
+    const card = g.closest('.dc');
+    if (!card || !grid) return;
+    const cell = cellSize(grid);
+    if (!cell.w || !cell.h) return;
+    e.preventDefault();
+    const x0 = e.clientX, y0 = e.clientY;
+    const cur = spanOf(card, cell.cols);
+    card.classList.add('resizing');
+    let want = null;
+    const move = (ev) => {
+      const c = Math.min(cell.cols, Math.max(1, cur.c + Math.round((ev.clientX - x0) / cell.w)));
+      const r = Math.min(3, Math.max(1, cur.r + Math.round((ev.clientY - y0) / cell.h)));
+      want = sizeKeyOf(c, r, cell.cols);
+      card.style.gridColumnEnd = `span ${c}`;
+      card.style.gridRowEnd = `span ${r}`;
+      const lb = card.querySelector('.dc-size');
+      if (lb) lb.textContent = SIZE_LABEL[want] || `${c}×${r}`;
+    };
+    const up = () => {
+      document.removeEventListener('pointermove', move);
+      document.removeEventListener('pointerup', up);
+      card.classList.remove('resizing');
+      card.style.gridColumnEnd = ''; card.style.gridRowEnd = '';
+      if (want && want !== cardSize(id)) setSize(id, want);
+      else go('home');
+    };
+    document.addEventListener('pointermove', move);
+    document.addEventListener('pointerup', up);
   }));
 
   // 方块占比视图

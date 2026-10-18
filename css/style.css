@@ -1183,6 +1183,7 @@ body.light #tabbar { background: rgba(255, 255, 255, .74); }
   align-items: stretch;
 }
 .dc {
+  position: relative;                 /* 尺寸菜单 / 拖拽手柄的定位基准 */
   background: var(--card);
   border-radius: var(--radius);
   padding: 18px 20px;
@@ -1207,13 +1208,58 @@ body.light #tabbar { background: rgba(255, 255, 255, .74); }
 .sz-full { grid-column: 1 / -1; grid-row: span 3; }
 /* 内容区吃掉剩余高度，超出就内部滚动，绝不撑破格子 */
 .dc-rank, .dc-acc, .dc-bills, .dc-legend, .dc-grid4 { flex: 1; min-height: 0; overflow: auto; }
+/* 图表容器跟着格子伸缩，canvas 高度由 charts.js 按实际布局高度绘制（不再写死） */
+.dc-chart, .dc-donut, .hero-chart { flex: 1; min-height: 110px; display: flex; }
+.dc-chart canvas, .dc-donut canvas, .hero-chart canvas { width: 100%; height: 100%; }
+
+/* 小卡片精简：缩到 1×1 / 2×1 时砍掉次要信息，避免挤成一团 */
+.sz-1x1 { padding: 13px 15px; }
+.sz-1x1 .dc-head { margin-bottom: 8px; gap: 6px; }
+.sz-1x1 .dc-title { font-size: 13px; }
+.sz-1x1 .dc-sub, .sz-1x1 .dc-foot, .sz-1x1 .hero-dist { display: none; }
+.sz-1x1 .dc-size { font-size: 10px; padding: 2px 5px; }
+.sz-2x1 .dc-sub { font-size: 11px; }
+.sz-2x1 .hero-metrics { flex-wrap: wrap; gap: 8px 14px; }
+/* 大卡片放宽：通栏 / 2×2 才有余量显示副信息 */
+.sz-3x2, .sz-4x2, .sz-full { padding: 20px 22px; }
+/* 尺寸按钮 + 下拉菜单 */
 .dc-size {
   background: none; border: none; cursor: pointer; flex: none;
-  font-size: 11px; color: var(--text3); padding: 2px 6px; border-radius: 6px;
-  font-variant-numeric: tabular-nums; opacity: .45; transition: opacity .15s ease, background .15s ease;
+  font-size: 11px; color: var(--text3); padding: 3px 7px; border-radius: 6px;
+  opacity: .5; transition: opacity .15s ease, background .15s ease, color .15s ease;
 }
 .dc:hover .dc-size { opacity: 1; }
 .dc-size:hover { background: var(--card3); color: var(--text); }
+.dc-sizemenu {
+  display: none; position: absolute; right: 14px; top: 38px; z-index: 40;
+  background: #2c2c2e; border: 1px solid var(--sep); border-radius: 12px;
+  padding: 6px; box-shadow: 0 14px 40px rgba(0, 0, 0, .6); min-width: 132px;
+}
+.dc-sizemenu.open { display: block; }
+.dc-sizemenu button {
+  display: flex; align-items: center; gap: 10px; width: 100%;
+  background: none; border: none; cursor: pointer; color: var(--text2);
+  padding: 6px 8px; border-radius: 8px; font-size: 12px; text-align: left;
+}
+.dc-sizemenu button:hover { background: rgba(255, 255, 255, .07); color: var(--text); }
+.dc-sizemenu button.on { color: var(--yellow); }
+.dc-sizemenu button i {
+  flex: none; background: var(--text3); border-radius: 3px; opacity: .55;
+}
+.dc-sizemenu button.on i { background: var(--yellow); opacity: .9; }
+.dc-sizemenu button span { flex: 1; white-space: nowrap; }
+
+/* 右下角拖拽手柄 */
+.dc-grip {
+  position: absolute; right: 3px; bottom: 3px; width: 18px; height: 18px;
+  cursor: nwse-resize; opacity: 0; transition: opacity .15s ease; z-index: 5;
+  background: linear-gradient(135deg, transparent 45%, var(--text3) 45%, var(--text3) 55%, transparent 55%,
+              transparent 70%, var(--text3) 70%, var(--text3) 80%, transparent 80%);
+  border-bottom-right-radius: var(--radius);
+}
+.dc:hover .dc-grip { opacity: .5; }
+.dc-grip:hover { opacity: 1 !important; }
+.dc.resizing { user-select: none; box-shadow: 0 0 0 2px var(--yellow); z-index: 30; }
 
 .dc-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 14px; }
 .dc-titles { min-width: 0; }

@@ -1,9 +1,13 @@
 // 轻量 Canvas 图表（零依赖、暗黑主题）
 import { fmtMoney } from './store.js';
 
-function setup(canvas, h) {
+// 高度优先取「容器」的布局高度（卡片格子给多少就画多高），拿不到才用调用方给的 fallback。
+// 取容器而不是 canvas 自身：canvas 上一次被写死过 inline height，读自己会拿到旧值、尺寸就锁死了。
+function setup(canvas, fallbackH) {
   const dpr = window.devicePixelRatio || 1;
-  const w = canvas.parentElement.clientWidth || 300;
+  const parent = canvas.parentElement;
+  const w = parent.clientWidth || 300;
+  const h = Math.max(60, Math.round(parent.clientHeight || fallbackH || 150));
   canvas.width = w * dpr; canvas.height = h * dpr;
   canvas.style.height = h + 'px';
   const ctx = canvas.getContext('2d');
