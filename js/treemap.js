@@ -233,6 +233,7 @@ export function mountTreemap(el, opts) {
     // 高度必须显式写回：块的定位是 absolute，容器高度一旦为 0（CSS 没加载到 / 布局未完成）
     // 整张图就会被 overflow:hidden 裁成空白，且看不出任何报错
     const W = map.clientWidth || 600;
+    map.style.height = '';                         // 先交还给 flex，让高度由卡片格子决定
     const H = map.clientHeight || 320;
     map.style.height = H + 'px';
     map.innerHTML = '<div class="tm-layer"></div>';

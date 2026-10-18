@@ -23,6 +23,22 @@ const RANGES = [
 // tmDim / tmPath 刻意放在模块级：切换时间范围后仍保留方块图的下钻层级
 export const dash = { range: '6m', kw: '', tmDim: 'expense', tmPath: [] };
 
+// ---------- 卡片网格尺寸（iOS 小组件式：按格子组合，1 格 ≈ 正方形）----------
+export const CARD_SIZES = ['1x1', '2x1', '2x2', '3x2', '4x2', 'full'];
+export const CARD_DEFAULT = {
+  hero: 'full', tm: '2x2', donut: '2x2', trend: '2x2', rank: '2x1',
+  cattrend: '2x1', overview: '2x1', account: '2x1', budget: '1x1', save: '1x1', recent: '2x2',
+};
+export function cardSize(id) {
+  const m = S().settings.dashLayout || {};
+  return CARD_SIZES.includes(m[id]) ? m[id] : (CARD_DEFAULT[id] || '2x1');
+}
+// 卡片头部右侧的尺寸按钮：显示当前档位，点击循环切换（存到 settings，刷新后保留）
+function sizeBtn(id) {
+  const s = cardSize(id);
+  return `<button class="dc-size" data-card="${id}" title="点击切换卡片尺寸">${s === 'full' ? '通栏' : s.replace('x', '×')}</button>`;
+}
+
 const hide = () => !!S().settings.hideAmount;
 const yuan = (n) => (hide() ? '****' : '¥' + fmtMoney(n));
 const plain = (n) => (hide() ? '****' : fmtMoney(n));
@@ -176,13 +192,14 @@ function treemapCard() {
   const dims = [['expense', '支出'], ['income', '收入'], ['asset', '账户余额']];
   const tree = tmTreeSafe(dash.tmDim);
   return `
-  <section class="dc dc-tm span2">
+  <section class="dc dc-tm sz-${cardSize('tm')}">
     <div class="dc-head">
       <div class="dc-titles">
         <div class="dc-title">账本总览</div>
         <div class="dc-sub">方块占比 · 面积代表金额 · ${countLeaves(tree)} 笔${tree.fallbackRange ? '（当前区间无数据，已显示全部）' : ''} · 双击进入下一层</div>
       </div>
       <div class="dc-tools">
+        ${sizeBtn('tm')}
         <div class="seg dc-seg">
           ${dims.map(([v, t]) => `<button class="${dash.tmDim === v ? 'on' : ''}" data-tmdim="${v}">${t}</button>`).join('')}
         </div>
@@ -225,13 +242,14 @@ function heroCard(months) {
   }
 
   return `
-  <section class="dc dc-hero">
+  <section class="dc dc-hero sz-${cardSize('hero')}">
     <div class="dc-head">
       <div class="dc-titles">
         <div class="dc-title">家庭资产总览</div>
         <div class="dc-sub">${curBook().name} · ${syncTxt}</div>
       </div>
       <div class="dc-tools">
+        ${sizeBtn('hero')}
         <label class="dc-search">${Icons.search.replace('<svg', '<svg style="width:14px;height:14px"')}<input id="dash-kw" placeholder="搜索账单" value="${dash.kw}"></label>
         <div class="seg dc-seg">
           ${RANGES.map((r) => `<button class="${dash.range === r.v ? 'on' : ''}" data-rg="${r.v}">${r.t}</button>`).join('')}
@@ -278,8 +296,8 @@ function donutCard(bills) {
     ? [...top, { id: 'rest', name: '其他', icon: '🧾', color: '#3a3a3c', value: rest.reduce((s, i) => s + i.value, 0) }]
     : top;
   return `
-  <section class="dc">
-    <div class="dc-head"><div class="dc-title">支出构成</div><div class="dc-sub">${bills.length ? '共 ' + bills.length + ' 笔' : '暂无'}</div></div>
+  <section class="dc sz-${cardSize('donut')}">
+    <div class="dc-head"><div class="dc-titles"><div class="dc-title">支出构成</div><div class="dc-sub">${bills.length ? '共 ' + bills.length + ' 笔' : '暂无'}</div></div>${sizeBtn('donut')}</div>
     <div class="dc-donut"><canvas class="chart" id="dash-donut"></canvas></div>
     <div class="dc-legend">
       ${shown.length ? shown.map((i) => `<div class="lg-row">
@@ -293,10 +311,13 @@ function donutCard(bills) {
 function trendCard(months, bills) {
   const f = flowByMonth(months, bills);
   return `
-  <section class="dc">
+  <section class="dc sz-${cardSize('trend')}">
     <div class="dc-head">
-      <div class="dc-title">收支趋势</div>
-      <div class="dc-sub"><i class="dot exp"></i>支出　<i class="dot inc"></i>收入</div>
+      <div class="dc-titles">
+        <div class="dc-title">收支趋势</div>
+        <div class="dc-sub"><i class="dot exp"></i>支出　<i class="dot inc"></i>收入</div>
+      </div>
+      ${sizeBtn('trend')}
     </div>
     <div class="dc-chart"><canvas class="chart" id="dash-flow"></canvas></div>
     <div class="dc-foot">
@@ -320,8 +341,8 @@ function rankCard(months, bills) {
   catSums(prevBills, 'expense').forEach((i) => (prevMap[i.name] = i.value));
   const top = items.slice(0, 8);
   return `
-  <section class="dc">
-    <div class="dc-head"><div class="dc-title">钱花在哪</div><div class="dc-sub">较上一周期</div></div>
+  <section class="dc sz-${cardSize('rank')}">
+    <div class="dc-head"><div class="dc-titles"><div class="dc-title">钱花在哪</div><div class="dc-sub">较上一周期</div></div>${sizeBtn('rank')}</div>
     <div class="dc-rank">
       ${top.length ? top.map((i) => {
         const pv = prevMap[i.name] || 0;
@@ -342,8 +363,8 @@ function rankCard(months, bills) {
 function catTrendCard(months, bills) {
   const items = catSums(bills, 'expense').slice(0, 3);
   return `
-  <section class="dc">
-    <div class="dc-head"><div class="dc-title">分类趋势</div><div class="dc-sub">支出 Top 3</div></div>
+  <section class="dc sz-${cardSize('cattrend')}">
+    <div class="dc-head"><div class="dc-titles"><div class="dc-title">分类趋势</div><div class="dc-sub">支出 Top 3</div></div>${sizeBtn('cattrend')}</div>
     <div class="dc-chart"><canvas class="chart" id="dash-cat"></canvas></div>
     <div class="dc-legend">
       ${items.map((i) => `<div class="lg-row"><i style="background:${i.color}"></i><span>${i.icon} ${i.name}</span><b>${yuan(i.value)}</b></div>`).join('')
@@ -360,8 +381,8 @@ function overviewCard(months, bills) {
   const max = exp.reduce((mx, b) => (b.amount > mx.amount ? b : mx), { amount: 0, note: '' });
   const avg = total / days;
   return `
-  <section class="dc">
-    <div class="dc-head"><div class="dc-title">收支概览</div><div class="dc-sub">${months.length - 1 || 1} 个月</div></div>
+  <section class="dc sz-${cardSize('overview')}">
+    <div class="dc-head"><div class="dc-titles"><div class="dc-title">收支概览</div><div class="dc-sub">${months.length - 1 || 1} 个月</div></div>${sizeBtn('overview')}</div>
     <div class="dc-grid4">
       <div class="g4"><span>支出笔数</span><b>${exp.length}</b></div>
       <div class="g4"><span>收入笔数</span><b>${inc.length}</b></div>
@@ -378,8 +399,8 @@ function accountCard() {
     .sort((a, b) => Math.abs(b.balance) - Math.abs(a.balance));
   const max = Math.max(...list.map((a) => Math.abs(a.balance)), 1);
   return `
-  <section class="dc">
-    <div class="dc-head"><div class="dc-title">账户余额</div><div class="dc-sub">${list.length} 个账户</div></div>
+  <section class="dc sz-${cardSize('account')}">
+    <div class="dc-head"><div class="dc-titles"><div class="dc-title">账户余额</div><div class="dc-sub">${list.length} 个账户</div></div>${sizeBtn('account')}</div>
     <div class="dc-acc">
       ${list.length ? list.map((a) => {
         const debt = a.type === 'credit';
@@ -415,8 +436,8 @@ function budgetCard() {
     </div>`;
   }).join('');
   return `
-  <section class="dc">
-    <div class="dc-head"><div class="dc-title">预算进度</div><div class="dc-sub">${ymLabel(ym)}</div></div>
+  <section class="dc sz-${cardSize('budget')}">
+    <div class="dc-head"><div class="dc-titles"><div class="dc-title">预算进度</div><div class="dc-sub">${ymLabel(ym)}</div></div>${sizeBtn('budget')}</div>
     <div class="dc-rank">${rows}</div>
   </section>`;
 }
@@ -425,8 +446,8 @@ function saveCard() {
   const list = (S().savings || []).filter((p) => !p.archived);
   if (!list.length) return '';
   return `
-  <section class="dc">
-    <div class="dc-head"><div class="dc-title">存钱计划</div><div class="dc-sub">${list.length} 个</div></div>
+  <section class="dc sz-${cardSize('save')}">
+    <div class="dc-head"><div class="dc-titles"><div class="dc-title">存钱计划</div><div class="dc-sub">${list.length} 个</div></div>${sizeBtn('save')}</div>
     <div class="dc-rank">
       ${list.slice(0, 5).map((p) => {
         const done = (p.records || []).reduce((s, r) => s + r.amount, 0);
@@ -443,8 +464,8 @@ function saveCard() {
 function recentCard() {
   const list = bookBills(curBook().id).slice(0, 10);
   return `
-  <section class="dc">
-    <div class="dc-head"><div class="dc-title">最近账单</div><button class="dc-more" data-act="allbills">查看全部 ${Icons.chevR.replace('<svg', '<svg style="width:12px;height:12px"')}</button></div>
+  <section class="dc sz-${cardSize('recent')}">
+    <div class="dc-head"><div class="dc-titles"><div class="dc-title">最近账单</div></div>${sizeBtn('recent')}<button class="dc-more" data-act="allbills">查看全部 ${Icons.chevR.replace('<svg', '<svg style="width:12px;height:12px"')}</button></div>
     <div class="dc-bills">
       ${list.length ? list.map(rowHTML).join('') : '<div class="dc-empty">还没有账单，点左上角「记一笔」开始</div>'}
     </div>
@@ -527,6 +548,30 @@ export function mountDashboard(root) {
       )).reduce((s, b) => s + b.amount, 0)),
     })), labels, { height: 170 });
   }
+
+  // 网格行高 = 列宽，让 1×1 单元接近正方形（列数随断点变，行高只能运行时算）
+  const grid = root.querySelector('.dash');
+  const syncGrid = () => {
+    if (!grid || typeof getComputedStyle !== 'function') return;
+    const cols = getComputedStyle(grid).gridTemplateColumns.split(' ').filter(Boolean).length;
+    const gap = 16;
+    const cw = (grid.clientWidth - gap * (cols - 1)) / cols;
+    if (cols > 0 && cw > 60) grid.style.setProperty('--cell-h', Math.round(cw) + 'px');
+  };
+  syncGrid();
+  const onResize = () => { syncGrid(); };
+  window.addEventListener('resize', onResize);
+  onCleanup(() => window.removeEventListener('resize', onResize));
+
+  // 卡片尺寸切换：点一下循环到下一档，存进 settings
+  root.querySelectorAll('[data-card]').forEach((b) => b.addEventListener('click', () => {
+    const id = b.dataset.card;
+    const cur = cardSize(id);
+    const next = CARD_SIZES[(CARD_SIZES.indexOf(cur) + 1) % CARD_SIZES.length];
+    S().settings.dashLayout = S().settings.dashLayout || {};
+    S().settings.dashLayout[id] = next;
+    import('./store.js').then((m) => { m.save(); go('home'); });
+  }));
 
   // 方块占比视图
   const tmEl = root.querySelector('#dash-tm');

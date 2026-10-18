@@ -104,9 +104,27 @@ ok('渲染出仪表盘容器', html.includes('<div class="dash">'));
 ok('卡片数量 ≥ 11', (html.match(/<section class="dc/g) || []).length >= 11,
   '实际 ' + (html.match(/<section class="dc/g) || []).length);
 ok('含 4 个 canvas 图表', (html.match(/<canvas/g) || []).length === 4);
-ok('方块占比卡片跨 2 列', html.includes('dc dc-tm span2'));
 ok('方块图有三大维度切换', ['data-tmdim="expense"', 'data-tmdim="income"', 'data-tmdim="asset"']
   .every((s) => html.includes(s)));
+
+// 卡片网格：每张卡都有尺寸档位类 + 一个尺寸切换按钮
+const sections = html.match(/<section class="dc [^"]*"/g) || [];
+ok('每张卡片都带网格尺寸类', sections.length >= 11 && sections.every((s) => /sz-(1x1|2x1|2x2|3x2|4x2|full)/.test(s)),
+  sections.filter((s) => !/sz-/.test(s)).join(' | '));
+ok('方块图默认 2×2（接近正方形）', html.includes('dc dc-tm sz-2x2'), sections.find((s) => s.includes('dc-tm')) || '');
+ok('每张卡片都有尺寸切换按钮', ['hero', 'tm', 'donut', 'trend', 'rank', 'cattrend', 'overview', 'account', 'budget', 'save', 'recent']
+  .every((id) => html.includes(`data-card="${id}"`)));
+
+// 尺寸切换会写进 settings 并在下次渲染生效
+const { cardSize, CARD_SIZES } = await import(base + 'dashboard.js');
+ok('默认方块图 2×2', cardSize('tm') === '2x2', cardSize('tm'));
+S.settings.dashLayout = { tm: 'full' };
+ok('settings 可覆盖尺寸档位', cardSize('tm') === 'full');
+ok('尺寸档位循环闭合', CARD_SIZES.length === 6 && CARD_SIZES[0] === '1x1' && CARD_SIZES[5] === 'full');
+let szHtml = '';
+try { szHtml = await renderDashboard(); } catch (e) { szHtml = e.message; }
+ok('改成通栏后能正常渲染', szHtml.includes('dc dc-tm sz-full'), szHtml.slice(0, 80));
+S.settings.dashLayout = {};
 
 // 各时间范围都能渲染
 for (const r of ['3m', '6m', '12m', 'all']) {
