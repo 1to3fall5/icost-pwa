@@ -2,7 +2,7 @@
 import Icons from '../icons.js';
 import { S, save, uid, catById, fmtMoney } from '../store.js';
 import { go, UI } from '../app.js';
-import { decodeText, parseStatement, filterExisting, summarize } from '../importers.js';
+import { decodeText, parseStatement, parseXlsx, filterExisting, summarize } from '../importers.js';
 
 let draft = null;   // 解析结果（页面级临时状态，离开即弃）
 
@@ -18,13 +18,17 @@ function defaultAccount(source) {
 async function pickFile() {
   const input = document.createElement('input');
   input.type = 'file';
-  input.accept = '.csv,.txt,text/csv,text/plain';
+  input.accept = '.csv,.txt,.xlsx,text/csv,text/plain';
   input.addEventListener('change', async () => {
     const file = input.files?.[0];
     if (!file) return;
     try {
-      const text = decodeText(await file.arrayBuffer());
-      const parsed = parseStatement(text);
+      if (/\.xls$/i.test(file.name)) throw new Error('不支持老的 .xls 格式，请用 Excel/WPS 另存为 .xlsx 或 CSV');
+      const buf = await file.arrayBuffer();
+      // 微信现在导出 xlsx（zip+XML），支付宝是 CSV（GBK）—— 按扩展名分流
+      const parsed = /\.xlsx$/i.test(file.name)
+        ? await parseXlsx(buf)
+        : parseStatement(decodeText(buf));
       if (!parsed.rows.length) throw new Error('没解析出任何有效交易，请检查文件内容');
       const { fresh, dup } = filterExisting(parsed.rows);
       draft = { ...parsed, fresh, dup, accountId: defaultAccount(parsed.source) };
@@ -57,7 +61,7 @@ export default {
         <div class="st2-note">
           <div class="tt">先从 App 里导出账单</div>
           <b>微信</b>：我 → 服务 → 钱包 → 账单 → 右上角「常见问题」→ 下载账单 → 选
-          <b>用于个人对账</b> → 填邮箱，收到压缩包用解压码解开，得到 CSV。<br><br>
+          <b>用于个人对账</b>，得到 <b>.xlsx</b> 文件（也可解压 CSV）。<br><br>
           <b>支付宝</b>：我的 → 账单 → 右上角 → 开具交易流水证明 → <b>用于个人对账</b>；
           或电脑网页版「服务大厅 → 自助服务 → 交易记录」导出。<br><br>
           <span style="color:var(--orange,#ff9f0a)">注意：选「用作证明材料」导出的是带公章的 PDF，解析不了 —— 必须选「用于个人对账」。</span>
@@ -67,7 +71,7 @@ export default {
         <div class="cell-group">
           <div class="cell" data-act="pick">
             <span class="ci" style="background:rgba(48,209,88,.18)">📄</span>
-            <span class="cl">选择账单 CSV<span class="cell-sub">自动识别微信 / 支付宝，自动判断 UTF-8 或 GBK 编码</span></span>
+            <span class="cl">选择账单文件<span class="cell-sub">支持 .xlsx 与 .csv，自动识别微信 / 支付宝，自动判断 UTF-8 或 GBK</span></span>
             <span class="arrow">${Icons.chevR}</span>
           </div>
         </div>
