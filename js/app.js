@@ -1,6 +1,6 @@
 // 应用外壳：hash 路由 + 导航栏 + TabBar + 弹层工具
 import Icons from './icons.js';
-import { load } from './store.js';
+import { load, deleteBill } from './store.js';
 
 const app = {
   stack: [],          // [{route, params}]
@@ -168,6 +168,19 @@ async function render() {
     console.error(e);
   }
   screen.querySelectorAll('[data-go]').forEach((b) => b.addEventListener('click', () => go(b.dataset.go)));
+  // 桌面表格行内操作（编辑 / 删除），手机端 .bill-actions 被隐藏，走长按/右键
+  screen.querySelectorAll('[data-edit]').forEach((b) => b.addEventListener('click', (e) => {
+    e.stopPropagation();
+    go('record', { edit: b.dataset.edit });
+  }));
+  screen.querySelectorAll('[data-del]').forEach((b) => b.addEventListener('click', async (e) => {
+    e.stopPropagation();
+    if (!(await UI.confirm('确定删除这笔账单？', '删除'))) return;
+    deleteBill(b.dataset.del);
+    UI.toast('已删除');
+    const { route, params } = parseHash();
+    go(route, params);
+  }));
 }
 
 window.addEventListener('hashchange', render);

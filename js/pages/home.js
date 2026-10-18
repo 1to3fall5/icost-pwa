@@ -59,17 +59,55 @@ export function rowHTML(b) {
   const iconHTML = isTransfer
     ? `<span style="color:var(--blue);display:flex;width:19px;height:19px">${Icons.swap}</span>`
     : (cat?.icon || '🧾');
+  // 备注缺失时补一个空 div，保证桌面表格化后各行列位对齐
   return `<div class="bill-row" data-bill="${b.id}">
     <div class="bill-ic" style="background:${color}">${iconHTML}</div>
     <div class="bill-main">
       <div class="bill-cat">${isTransfer ? '转账' : (cat?.name || '其他')}${b.claim === 'pending' ? '<span class="tag-mini">待报销</span>' : ''}${b.recurringId ? '<span class="tag-mini">周期</span>' : ''}</div>
-      ${b.note ? `<div class="bill-note">${b.note}</div>` : ''}
+      <div class="bill-note">${b.note || ''}</div>
     </div>
-    <div style="text-align:right">
+    <div class="bill-actions">
+      <button class="bill-act" data-edit="${b.id}" title="编辑" aria-label="编辑">${Icons.edit}</button>
+      <button class="bill-act del" data-del="${b.id}" title="删除" aria-label="删除">${Icons.trash}</button>
+    </div>
+    <div class="bill-right" style="text-align:right">
       <div class="bill-amt ${amtCls}">${sign}¥${fmtMoney(b.amount)}</div>
       ${b.type === 'transfer' ? `<div class="bill-note">${acc?.name || ''} → ${acc2?.name || ''}</div>` : `<div class="bill-note">${acc?.name || ''}</div>`}
     </div>
   </div>`;
+}
+
+// 超宽屏（≥1600px）第三栏：把右侧剩余面积换成信息，而不是留白
+function insightCard(bills) {
+  const hide = S().settings.hideAmount;
+  const m = (n) => (hide ? '****' : '¥' + fmtMoney(Math.round(n * 100) / 100));
+  const exp = bills.filter((b) => b.type === 'expense');
+  const total = exp.reduce((s, b) => s + b.amount, 0);
+  const days = new Set(exp.map((b) => b.date)).size || 1;
+  const max = exp.reduce((mx, b) => (b.amount > mx.amount ? b : mx), { amount: 0 });
+  const byCat = {};
+  exp.forEach((b) => { byCat[b.categoryId] = (byCat[b.categoryId] || 0) + b.amount; });
+  const top = Object.entries(byCat).sort((a, b) => b[1] - a[1]).slice(0, 5);
+  return `<aside class="hp-insight">
+    <div class="ins-card">
+      <div class="ins-title">本月概览</div>
+      <div class="ins-row"><span>支出笔数</span><b>${exp.length}</b></div>
+      <div class="ins-row"><span>有支出天数</span><b>${days}</b></div>
+      <div class="ins-row"><span>日均支出</span><b>${m(total / days)}</b></div>
+      <div class="ins-row"><span>最大单笔</span><b>${m(max.amount)}</b></div>
+    </div>
+    <div class="ins-card">
+      <div class="ins-title">支出 Top 5</div>
+      ${top.length ? top.map(([cid, v]) => {
+        const c = catById(cid);
+        const pct = total ? Math.round((v / total) * 100) : 0;
+        return `<div class="ins-bar-row">
+          <div class="ins-bar-top"><span>${c?.icon || '🧾'} ${c?.name || '其他'}</span><b>${m(v)}</b></div>
+          <div class="ins-bar"><i style="width:${pct}%;background:${c?.color || '#ff9f0a'}"></i></div>
+        </div>`;
+      }).join('') : '<div class="ins-empty">本月暂无支出</div>'}
+    </div>
+  </aside>`;
 }
 
 export default {
@@ -97,6 +135,7 @@ export default {
           <div style="height:8px"></div>
         </div>
         <div class="hp-right">${billList(bills)}</div>
+        ${insightCard(bills)}
       </div>`;
   },
   mount(root) {

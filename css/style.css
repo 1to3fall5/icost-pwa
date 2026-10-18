@@ -993,3 +993,144 @@ body.light #tabbar { background: rgba(255, 255, 255, .74); }
   .bill-row:hover, .cell:hover, .cj-row:hover { background: rgba(255, 255, 255, .05); }
   .day-head { font-size: 14px; }
 }
+
+/* ============================================================
+   桌面增强：提高信息密度与面积利用率
+   ============================================================ */
+
+/* 行内编辑/删除按钮：手机端不显示（走长按/右键），仅桌面 hover 出现 */
+.bill-actions { display: none; }
+
+@media (min-width: 1024px) {
+  /* 1) 内容区水平居中：消掉超宽屏右侧的大片留白 */
+  #screen { justify-self: center; }
+
+  /* 2) 导航同行：大标题移到左侧与操作区同一行，省掉约 56px 垂直空间 */
+  @supports selector(:has(*)) {
+    #navbar:has(.nb-title) {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center; gap: 24px;
+      padding: 12px 28px;
+    }
+    #navbar:has(.nb-title) .nb-row  { grid-area: 1 / 2; }
+    #navbar:has(.nb-title) .nb-title { grid-area: 1 / 1; font-size: 26px; padding: 0; }
+    #navbar:has(.nb-title) .nb-mini  { display: none; }
+    #navbar:has(.nb-title).collapsed .nb-title { display: block; }
+    /* 导航变矮后，吸顶偏移同步下调 */
+    #tabbar { top: 88px; }
+    .page-home .hp-left { top: 104px; }
+  }
+
+  /* 3) 账单表格化：用 display:contents 把 .bill-main / .bill-right 展平成列，
+        一行从"图标+两行堆叠"变成 6 列，信息密度显著提升 */
+  .bill-row {
+    display: grid;
+    grid-template-columns: 38px 148px minmax(0, 1fr) 120px 132px 76px;
+    align-items: center; gap: 14px;
+    padding: 9px 12px; margin: 0 -12px;
+    border-radius: 10px;
+  }
+  .bill-main, .bill-right { display: contents; }
+  .bill-main > .bill-cat  { grid-column: 2; font-size: 15px; }
+  .bill-main > .bill-note { grid-column: 3; margin-top: 0; }
+  .bill-right > .bill-note { grid-column: 4; text-align: right; }
+  .bill-right > .bill-amt  { grid-column: 5; text-align: right; }
+  .bill-ic { grid-column: 1; }
+
+  /* 4) 行内操作：hover 才出现，不占用常驻视觉空间 */
+  .bill-actions {
+    grid-column: 6;
+    display: flex; gap: 4px; justify-content: flex-end;
+    opacity: 0; transition: opacity .14s ease;
+  }
+  .bill-row:hover .bill-actions { opacity: 1; }
+  .bill-actions:focus-within { opacity: 1; }
+  .bill-act {
+    width: 30px; height: 30px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--text2); background: var(--card2);
+    transition: background .14s ease, color .14s ease;
+  }
+  .bill-act svg { width: 15px; height: 15px; }
+  .bill-act:hover { background: var(--card3); color: var(--text); }
+  .bill-act.del:hover { background: rgba(255, 69, 58, .22); color: var(--red); }
+
+  /* 5) 存钱计划：一列变多列 */
+  #sv-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px; align-items: start;
+  }
+  #sv-list .save-plan { margin-bottom: 0; }
+
+  /* 6) 记账弹窗左右分栏：左「金额+分类+属性」，右「数字键盘」 */
+  .sheet-page {
+    width: 900px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 316px;
+    align-content: start;
+    max-height: 90vh;
+  }
+  .sheet-page .sheet-head { grid-column: 1 / -1; }
+  .sheet-page > .seg,
+  .sheet-page > .amount-display,
+  .sheet-page > .cat-grid,
+  .sheet-page > .props-bar { grid-column: 1; }
+  .sheet-page > .keyboard {
+    grid-column: 2; grid-row: 2 / span 20;
+    align-self: start;
+    padding-left: 14px;
+    border-left: 1px solid var(--sep);
+  }
+  .sheet-page > .cat-grid { max-height: 240px; overflow-y: auto; }
+
+  /* 7) 桌面细节 */
+  .bill-row, .cell, .card, .side-btn, .tab-item, .mode-card { cursor: pointer; }
+  button, .kb-key, .seg button, .pill-btn { cursor: pointer; }
+  :focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; border-radius: 6px; }
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-thumb { background: #3a3a3c; border-radius: 6px; }
+  ::-webkit-scrollbar-thumb:hover { background: #4a4a4d; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  .empty-tip { padding: 40px 0; }
+}
+
+@media (min-width: 1280px) {
+  :root { --content-max: 1240px; --sidebar-w: 240px; }
+  .page-home { grid-template-columns: 360px minmax(0, 1fr); }
+}
+
+/* 洞察栏默认隐藏（必须写在 1600 断点之前，否则同权重下会覆盖掉显示规则） */
+.hp-insight { display: none; }
+
+/* 超宽屏：首页从双栏升到三栏，右侧面积换成「本月洞察」而不是留白 */
+@media (min-width: 1600px) {
+  :root { --content-max: 1520px; --sidebar-w: 260px; }
+  .page-home { grid-template-columns: 340px minmax(0, 1fr) 320px; }
+  .hp-insight { display: block; position: sticky; top: 104px; }
+}
+
+/* 洞察栏样式（显隐由上面的断点控制） */
+.ins-card {
+  background: var(--card); border-radius: var(--radius);
+  padding: 16px 18px; margin-bottom: 16px;
+}
+.ins-title { font-size: 14px; font-weight: 700; margin-bottom: 12px; color: var(--text); }
+.ins-row {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: 7px 0; border-bottom: 1px solid var(--sep);
+  font-size: 13px; color: var(--text2);
+}
+.ins-row:last-child { border-bottom: none; }
+.ins-row b { color: var(--text); font-size: 15px; font-variant-numeric: tabular-nums; }
+.ins-bar-row { margin-bottom: 12px; }
+.ins-bar-row:last-child { margin-bottom: 0; }
+.ins-bar-top {
+  display: flex; justify-content: space-between; align-items: baseline;
+  font-size: 13px; margin-bottom: 5px;
+}
+.ins-bar-top b { font-variant-numeric: tabular-nums; }
+.ins-bar { height: 6px; border-radius: 3px; background: var(--card2); overflow: hidden; }
+.ins-bar i { display: block; height: 100%; border-radius: 3px; }
+.ins-empty { font-size: 13px; color: var(--text3); padding: 8px 0; }
