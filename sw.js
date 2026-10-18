@@ -1,6 +1,6 @@
 /* iCost 复刻 · Service Worker（零依赖手写）
    策略：HTML network-first；静态资源 stale-while-revalidate；离线兜底 index.html */
-const VERSION = 'v1.13.0';
+const VERSION = 'v1.13.1';
 const CACHE = `icost-${VERSION}`;
 const SHELL = [
   './',
@@ -54,7 +54,22 @@ self.addEventListener('fetch', (e) => {
     })());
     return;
   }
-  // 静态资源: SWR
+  // 应用代码（js / css）：network-first —— SWR 会让用户刷新后仍拿到旧 bundle，
+  // 表现为"新功能没出现"。离线或断网时再回退缓存，保证 PWA 仍可启动。
+  if (url.pathname.endsWith('.js') || url.pathname.endsWith('.css')) {
+    e.respondWith((async () => {
+      const cache = await caches.open(CACHE);
+      try {
+        const fresh = await fetch(req);
+        if (fresh && fresh.status === 200) cache.put(req, fresh.clone());
+        return fresh;
+      } catch {
+        return (await cache.match(req)) || (await fetch(req));
+      }
+    })());
+    return;
+  }
+  // 其余静态资源（图标等）: SWR
   e.respondWith((async () => {
     const cache = await caches.open(CACHE);
     const cached = await cache.match(req);

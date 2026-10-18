@@ -182,6 +182,43 @@ try {
 } catch (e) { mErr = e.message; }
 ok('mountTreemap 不抛错', !mErr, mErr);
 
+// ---------- 渲染路径：必须真的产出方块 DOM ----------
+// 之前只测了算法，没测"元素有没有被 append 出来"，导致容器高度塌成 0 时整图空白测不出来
+{
+  const mk = (cls = '') => {
+    const e = {
+      className: cls, style: { setProperty: noop }, dataset: {}, innerHTML: '', textContent: '',
+      classList: { add: noop, remove: noop, toggle: noop, contains: () => false },
+      children: [], _q: {}, _layer: null,
+      appendChild(c) { e.children.push(c); },
+      remove: noop, addEventListener: noop, setAttribute: noop, focus: noop,
+      querySelector(s) {
+        if (s === '.tm-layer') { e._layer = e._layer || mk('tm-layer'); return e._layer; }
+        return (e._q[s] = e._q[s] || mk(s));
+      },
+      querySelectorAll: () => [], closest: () => null,
+      clientWidth: 900, clientHeight: 320, offsetWidth: 900,
+      getContext: () => ctx2d(),
+    };
+    return e;
+  };
+  const container = mk('tm-root');
+  const inst = mountTreemap(container, {
+    root: tmTree('expense'),
+    money: (v) => '¥' + Math.round(v), moneyTight: (v) => '¥' + Math.round(v), path: [],
+  });
+  const map = container._q['.tm-map'];
+  const blocks = (map._layer?.children || []).filter((c) => String(c.className).startsWith('blk'));
+  ok('渲染真的产出了方块元素', blocks.length > 0, '0 个');
+  ok('每个方块都有底色层', blocks.length > 0 && blocks.every((b) => b.innerHTML.includes('blk-fill')));
+  ok('容器块有标题条', blocks.some((b) => b.innerHTML.includes('b-tag')));
+  ok('叶子块有文字区', blocks.some((b) => b.innerHTML.includes('b-in')));
+  ok('容器高度被显式写回（CSS 未加载也不会塌成 0）', map.style.height === '320px', String(map.style.height));
+  ok('方块都写了明度变量 --ov', blocks.every((b) => b.style && b.style.setProperty === noop));
+  inst.destroy();
+  ok('destroy 后容器清空', container.innerHTML === '');
+}
+
 // 空账本：树为空也不能崩
 const savedBills = S.bills; const savedAcc = S.accounts;
 S.bills = []; S.accounts = [];

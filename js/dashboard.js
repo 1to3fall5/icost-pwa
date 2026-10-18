@@ -110,7 +110,8 @@ const TM_LEAF_CAP = 24;   // 每个二级分类最多展开多少笔，超出的
 const ACC_TYPE = { cash: '现金', online: '在线钱包', bank: '银行卡', credit: '信用账户' };
 const ACC_COLOR = { 现金: '#30d158', 在线钱包: '#0a84ff', 银行卡: '#ff9f0a', 信用账户: '#ff453a' };
 
-export function tmTree(dim) {
+// months 传 null 表示不按时间过滤（当前区间没数据时用它兜底，避免卡片整块空白）
+export function tmTree(dim, months = monthList()) {
   if (dim === 'asset') {
     const groups = {};
     S().accounts.filter((a) => !a.hidden && !a.archived && Math.abs(+a.balance || 0) > 0).forEach((a) => {
@@ -129,7 +130,7 @@ export function tmTree(dim) {
     return { name: '账户余额', value: children.reduce((s, c) => s + c.value, 0), children };
   }
 
-  const bills = billsOf(monthList()).filter((b) => b.type === dim && +b.amount > 0);
+  const bills = (months ? billsOf(months) : bookBills(curBook().id)).filter((b) => b.type === dim && +b.amount > 0);
   const byTop = new Map();
   bills.forEach((b) => {
     const c = catById(b.categoryId);
@@ -162,15 +163,24 @@ export function tmTree(dim) {
   return { name: dim === 'income' ? '收入' : '支出', value: children.reduce((s, c) => s + c.value, 0), children };
 }
 
+// 当前区间没数据时退到「全部」，并在副标题里说明，避免用户以为卡片坏了
+function tmTreeSafe(dim) {
+  const t = tmTree(dim);
+  if (t.value > 0 || dash.range === 'all') return t;
+  const all = tmTree(dim, null);
+  if (all.value > 0) all.fallbackRange = true;
+  return all;
+}
+
 function treemapCard() {
   const dims = [['expense', '支出'], ['income', '收入'], ['asset', '账户余额']];
-  const tree = tmTree(dash.tmDim);
+  const tree = tmTreeSafe(dash.tmDim);
   return `
   <section class="dc dc-tm span2">
     <div class="dc-head">
       <div class="dc-titles">
         <div class="dc-title">账本总览</div>
-        <div class="dc-sub">方块占比 · 面积代表金额 · ${countLeaves(tree)} 笔 · 双击进入下一层</div>
+        <div class="dc-sub">方块占比 · 面积代表金额 · ${countLeaves(tree)} 笔${tree.fallbackRange ? '（当前区间无数据，已显示全部）' : ''} · 双击进入下一层</div>
       </div>
       <div class="dc-tools">
         <div class="seg dc-seg">
@@ -522,7 +532,7 @@ export function mountDashboard(root) {
   const tmEl = root.querySelector('#dash-tm');
   if (tmEl) {
     const inst = mountTreemap(tmEl, {
-      root: tmTree(dash.tmDim),
+      root: tmTreeSafe(dash.tmDim),
       money: (n) => (hide() ? '****' : '¥' + Math.round(n).toLocaleString('zh-CN')),
       moneyTight: (n) => {
         if (hide()) return '****';
