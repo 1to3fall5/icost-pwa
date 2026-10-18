@@ -1,7 +1,7 @@
 // 应用外壳：hash 路由 + 导航栏 + TabBar + 弹层工具
 import Icons from './icons.js';
-import { load, deleteBill, subscribe } from './store.js';
-import { restorePassword, scheduleAutoPush, runAutoSync, onAutoSync } from './sync.js';
+import { load, deleteBill, subscribe, curBook } from './store.js';
+import { restorePassword, scheduleAutoPush, runAutoSync, onAutoSync, syncCfg, fmtTime } from './sync.js';
 
 const app = {
   stack: [],          // [{route, params}]
@@ -45,29 +45,105 @@ export const isDesktop = () => typeof window.matchMedia === 'function'
   ? window.matchMedia('(min-width: 1024px)').matches
   : false;
 
-function renderTabbar(active) {
-  const desktop = isDesktop();
-  tabbar.style.display = (isTab(active) || desktop) ? 'flex' : 'none';
-  const addBtn = desktop
-    ? `<button class="side-btn primary" data-act="record">${Icons.plus}<span>记一笔</span></button>`
-    : '';
-  const extra = desktop
-    ? `<div class="side-sep"></div>
-       <button class="side-btn" data-act="settings">${Icons.settings}<span>设置</span></button>
-       <button class="side-btn" data-act="more">${Icons.more}<span>更多功能</span></button>`
-    : '';
-  tabbar.innerHTML = addBtn + TABS.map((t) => `
-    <button class="tab-item ${active === t.route ? 'active' : ''}" data-go="${t.route}">
-      ${Icons[t.icon](active === t.route)}<span>${t.name}</span>
-    </button>`).join('') + extra;
+// 桌面侧栏：品牌区 + 账本切换 + 分组导航 + 同步状态（手机端仍是底部 TabBar）
+const SIDE_GROUPS = [
+  {
+    title: '总览',
+    items: [
+      { route: 'home', name: '账本总览', icon: 'book', fn: true },
+      { route: 'asset', name: '资产', icon: 'layers', fn: true },
+      { route: 'stats', name: '统计', icon: 'bars', fn: true },
+    ],
+  },
+  {
+    title: '我的账本',
+    items: [
+      { route: 'calendar', name: '收支日历', icon: 'calendar' },
+      { route: 'budget', name: '预算', icon: 'chart' },
+      { route: 'save', name: '存钱计划', icon: 'target' },
+      { route: 'templates', name: '快捷模板', icon: 'tag' },
+      { route: 'recurring', name: '周期记账', icon: 'loop' },
+      { route: 'claim', name: '报销', icon: 'claim' },
+    ],
+  },
+  {
+    title: '工具',
+    items: [
+      { route: 'importcsv', name: '导入账单', icon: 'export' },
+      { route: 'importexport', name: '备份与同步', icon: 'lock' },
+      { route: 'category', name: '分类管理', icon: 'pie' },
+      { route: 'more', name: '更多功能', icon: 'more' },
+      { route: 'settings', name: '设置', icon: 'settings' },
+    ],
+  },
+];
+
+function renderSidebar(active) {
+  const book = curBook();
+  const cfg = syncCfg();
+  const on = !!cfg.gistId;
+  const act = (i) => (active === i.route ? ' active' : '');
+  const ico = (i) => (i.fn ? Icons[i.icon](active === i.route) : Icons[i.icon]);
+  tabbar.innerHTML = `
+    <div class="side-brand">
+      <span class="side-logo">¥</span>
+      <div class="side-brand-t"><b>iCost</b><span>记账 · 网页版</span></div>
+    </div>
+    <button class="side-book" data-act="books" title="切换账本">
+      <span class="sb-ic">${book?.icon || '📔'}</span>
+      <span class="sb-nm">${book?.name || '账本'}</span>
+      <span class="sb-ch">${Icons.chevD.replace('<svg', '<svg style="width:14px;height:14px"')}</span>
+    </button>
+    <button class="side-btn primary" data-act="record">${Icons.plus}<span>记一笔</span></button>
+    ${SIDE_GROUPS.map((g) => `
+      <div class="side-group">
+        <div class="side-gt">${g.title}</div>
+        ${g.items.map((i) => {
+          if (i.fn) return `<button class="tab-item${act(i)}" data-go="${i.route}">${ico(i)}<span>${i.name}</span></button>`;
+          return `<button class="side-item${act(i)}" data-go="${i.route}">${ico(i)}<span>${i.name}</span></button>`;
+        }).join('')}
+      </div>`).join('')}
+    <button class="side-sync${on ? ' on' : ''}" data-act="sync">
+      <i class="sdot"></i>
+      <div class="ss-t"><b>${on ? '云端已同步' : '未开启云同步'}</b><span>${on ? (cfg.lastSync ? fmtTime(cfg.lastSync) : '已连接 Gist') : '点此配置加密同步'}</span></div>
+    </button>`;
   tabbar.querySelectorAll('[data-go]').forEach((b) =>
     b.addEventListener('click', () => go(b.dataset.go)));
   tabbar.querySelectorAll('[data-act]').forEach((b) => b.addEventListener('click', () => {
-    const act = b.dataset.act;
-    if (act === 'record') go('record');
-    else if (act === 'settings') go('settings');
-    else if (act === 'more') go('more');
+    const a = b.dataset.act;
+    if (a === 'record') go('record');
+    else if (a === 'sync') go('importexport');
+    else if (a === 'books') switchBook();
   }));
+}
+
+// 桌面切换账本（侧栏顶部下拉）
+async function switchBook() {
+  const s = load();
+  const pick = await UI.sheet('切换账本', [
+    ...s.books.filter((b) => !b.archived).map((b) => ({
+      label: b.name, icon: b.icon, value: b.id === s.currentBookId ? '当前' : '',
+      onClick: () => { s.currentBookId = b.id; },
+    })),
+    { label: '管理账本', icon: '⚙️', onClick: () => go('books') },
+  ]);
+  if (!pick) return;
+  pick.onClick?.();
+  const { save } = await import('./store.js');
+  save();
+  go(parseHash().route, parseHash().params);
+}
+
+function renderTabbar(active) {
+  const desktop = isDesktop();
+  tabbar.style.display = (isTab(active) || desktop) ? 'flex' : 'none';
+  if (desktop) { renderSidebar(active); return; }
+  tabbar.innerHTML = TABS.map((t) => `
+    <button class="tab-item ${active === t.route ? 'active' : ''}" data-go="${t.route}">
+      ${Icons[t.icon](active === t.route)}<span>${t.name}</span>
+    </button>`).join('');
+  tabbar.querySelectorAll('[data-go]').forEach((b) =>
+    b.addEventListener('click', () => go(b.dataset.go)));
 }
 
 // 窗口跨过 1024px 断点时重渲染（手机 ↔ 桌面布局切换）
@@ -158,6 +234,8 @@ async function render() {
   renderTabbar(route);
   renderFab(page, route);
   window.scrollTo(0, 0);
+  // 桌面首页是总览仪表盘，占满整屏宽度（其它页面仍居中，避免列表被拉得过长）
+  screen.classList.toggle('screen-full', isDesktop() && route === 'home');
   screen.innerHTML = '';
   try {
     const html = await page.render(params);

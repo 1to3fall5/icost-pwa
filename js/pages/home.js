@@ -4,7 +4,8 @@ import {
   S, curBook, bookBills, monthSum, carryOver, fmtMoney, ymLabel, shiftMonth,
   catById, accById, monthOf, deleteBill,
 } from '../store.js';
-import { go, onCleanup, UI } from '../app.js';
+import { go, onCleanup, UI, isDesktop } from '../app.js';
+import { renderDashboard, mountDashboard } from '../dashboard.js';
 
 let state = { ym: null, kw: '' };
 const now = () => state.ym || monthOf(new Date().toISOString().slice(0, 10));
@@ -113,9 +114,14 @@ function insightCard(bills) {
 export default {
   header: 'large',
   fab: true,
-  title: () => curBook().name,
-  navLeft: `<button class="nb-btn" data-act="books">${Icons.swap}</button>`,
+  title: () => (isDesktop() ? '总览' : curBook().name),
+  // 桌面已有侧栏账本切换，导航栏左按钮去掉
+  get navLeft() {
+    return isDesktop() ? '' : `<button class="nb-btn" data-act="books">${Icons.swap}</button>`;
+  },
+  // 桌面网页版（≥1024px）：整页换成「总览仪表盘」，手机端保持原有单列流水
   async render() {
+    if (isDesktop()) return renderDashboard();
     const ym = now();
     const bills = bookBills(undefined, ym).filter((b) =>
       !state.kw || (b.note || '').includes(state.kw) || (catById(b.categoryId)?.name || '').includes(state.kw));
@@ -139,6 +145,7 @@ export default {
       </div>`;
   },
   mount(root) {
+    if (isDesktop()) return mountDashboard(root);
     // FAB 固定定位版本由 app.js 注入；这里绑定交互
     root.querySelector('#home-kw')?.addEventListener('input', (e) => {
       state.kw = e.target.value.trim();

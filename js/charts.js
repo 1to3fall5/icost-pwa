@@ -62,13 +62,16 @@ export function bars(canvas, values, opts = {}) {
 }
 
 // 折线趋势图（净资产走势）
-export function line(canvas, values, labels) {
-  const { ctx, w, h } = setup(canvas, 200);
+// opts: { height, color, fill（渐变面积）, padL, fmt(v) 刻度格式化 }
+export function line(canvas, values, labels, opts = {}) {
+  const { ctx, w, h } = setup(canvas, opts.height || 200);
   ctx.clearRect(0, 0, w, h);
-  const padL = 34, padR = 8, padT = 16, padB = 24;
+  const padL = opts.padL ?? 34, padR = 8, padT = 16, padB = 24;
+  const color = opts.color || '#ffd60a';
   const max = Math.max(...values, 1), min = Math.min(...values, 0);
   const X = (i) => padL + (i / Math.max(values.length - 1, 1)) * (w - padL - padR);
   const Y = (v) => padT + (1 - (v - min) / Math.max(max - min, 0.0001)) * (h - padT - padB);
+  const tick = opts.fmt || ((v) => (v >= 1000 ? (v / 1000).toFixed(1) + 'k' : v.toFixed(2).replace(/(\.\d\d)0+$/, '$1')));
   // 网格虚线 + y 轴刻度
   ctx.strokeStyle = 'rgba(255,255,255,.12)';
   ctx.fillStyle = '#636366';
@@ -82,7 +85,7 @@ export function line(canvas, values, labels) {
     ctx.beginPath(); ctx.moveTo(padL, y); ctx.lineTo(w - padR, y); ctx.stroke();
     ctx.setLineDash([]);
     ctx.textAlign = 'right';
-    ctx.fillText(v >= 1000 ? (v / 1000).toFixed(1) + 'k' : v.toFixed(2).replace(/(\.\d\d)0+$/, '$1'), padL - 6, y + 3);
+    ctx.fillText(tick(v), padL - 6, y + 3);
   }
   // x 轴标签
   ctx.textAlign = 'center';
@@ -90,11 +93,24 @@ export function line(canvas, values, labels) {
     const idx = Math.round((i / (labels.length - 1)) * (values.length - 1));
     ctx.fillText(lb, X(idx), h - 6);
   });
+  // 面积填充（需在折线之前画，否则会盖住线）
+  if (opts.fill && values.length > 1) {
+    const g = ctx.createLinearGradient(0, padT, 0, h - padB);
+    g.addColorStop(0, color + '55');
+    g.addColorStop(1, color + '00');
+    ctx.beginPath();
+    ctx.moveTo(X(0), h - padB);
+    values.forEach((v, i) => ctx.lineTo(X(i), Y(v)));
+    ctx.lineTo(X(values.length - 1), h - padB);
+    ctx.closePath();
+    ctx.fillStyle = g;
+    ctx.fill();
+  }
   // 线
   const allZero = values.every((v) => v === 0);
   ctx.beginPath();
   values.forEach((v, i) => i ? ctx.lineTo(X(i), Y(v)) : ctx.moveTo(X(i), Y(v)));
-  ctx.strokeStyle = '#ffd60a';
+  ctx.strokeStyle = color;
   ctx.lineWidth = 2;
   if (allZero) ctx.setLineDash([4, 4]);
   ctx.stroke();
@@ -103,12 +119,97 @@ export function line(canvas, values, labels) {
   const li = values.length - 1;
   ctx.beginPath();
   ctx.arc(X(li), Y(values[li]), 4, 0, Math.PI * 2);
-  ctx.fillStyle = '#ffd60a';
+  ctx.fillStyle = color;
   ctx.fill();
   ctx.beginPath();
   ctx.arc(X(li), Y(values[li]), 2, 0, Math.PI * 2);
   ctx.fillStyle = '#000';
   ctx.fill();
+}
+
+// 多条折线（分类趋势对比）
+// series: [{ name, color, values }]
+export function multiLine(canvas, series, labels, opts = {}) {
+  const { ctx, w, h } = setup(canvas, opts.height || 180);
+  ctx.clearRect(0, 0, w, h);
+  const padL = opts.padL ?? 34, padR = 8, padT = 14, padB = 22;
+  const all = (series || []).flatMap((s) => s.values);
+  const max = Math.max(...all, 1), min = 0;
+  const X = (i, n) => padL + (i / Math.max(n - 1, 1)) * (w - padL - padR);
+  const Y = (v) => padT + (1 - (v - min) / Math.max(max - min, 0.0001)) * (h - padT - padB);
+  ctx.strokeStyle = 'rgba(255,255,255,.10)';
+  ctx.fillStyle = '#636366';
+  ctx.font = '10px -apple-system';
+  for (let i = 0; i <= 3; i++) {
+    const v = min + ((max - min) / 3) * i;
+    const y = Y(v);
+    ctx.setLineDash([3, 4]);
+    ctx.beginPath(); ctx.moveTo(padL, y); ctx.lineTo(w - padR, y); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.textAlign = 'right';
+    ctx.fillText(v >= 1000 ? (v / 1000).toFixed(1) + 'k' : v.toFixed(0), padL - 6, y + 3);
+  }
+  ctx.textAlign = 'center';
+  (labels || []).forEach((lb, i) => {
+    const idx = Math.round((i / (labels.length - 1)) * ((series[0]?.values.length || 1) - 1));
+    ctx.fillText(lb, X(idx, series[0]?.values.length || 1), h - 6);
+  });
+  (series || []).forEach((s) => {
+    const n = s.values.length;
+    ctx.beginPath();
+    s.values.forEach((v, i) => (i ? ctx.lineTo(X(i, n), Y(v)) : ctx.moveTo(X(i, n), Y(v))));
+    ctx.strokeStyle = s.color || '#ff9f0a';
+    ctx.lineWidth = 2;
+    ctx.lineJoin = 'round';
+    ctx.stroke();
+    s.values.forEach((v, i) => {
+      ctx.beginPath();
+      ctx.arc(X(i, n), Y(v), 2.6, 0, Math.PI * 2);
+      ctx.fillStyle = s.color || '#ff9f0a';
+      ctx.fill();
+    });
+  });
+}
+
+// 收支双色柱（每个周期两根：支出 / 收入）
+export function dualBars(canvas, exp, inc, labels, opts = {}) {
+  const { ctx, w, h } = setup(canvas, opts.height || 180);
+  ctx.clearRect(0, 0, w, h);
+  const n = Math.max(exp.length, inc.length, 1);
+  const padL = opts.padL ?? 34, padR = 6, padT = 12, padB = 22;
+  const max = Math.max(...exp, ...inc, 1);
+  const Y = (v) => padT + (1 - v / max) * (h - padT - padB);
+  ctx.strokeStyle = 'rgba(255,255,255,.10)';
+  ctx.fillStyle = '#636366';
+  ctx.font = '10px -apple-system';
+  for (let i = 0; i <= 3; i++) {
+    const v = (max / 3) * i;
+    const y = Y(v);
+    ctx.setLineDash([3, 4]);
+    ctx.beginPath(); ctx.moveTo(padL, y); ctx.lineTo(w - padR, y); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.textAlign = 'right';
+    ctx.fillText(v >= 1000 ? (v / 1000).toFixed(1) + 'k' : v.toFixed(0), padL - 6, y + 3);
+  }
+  const slot = (w - padL - padR) / n;
+  const bw = Math.max(3, Math.min(16, slot / 2 - 4));
+  for (let i = 0; i < n; i++) {
+    const cx = padL + slot * (i + 0.5);
+    const x1 = cx - bw - 1.5, x2 = cx + 1.5;
+    [[x1, exp[i] || 0, '#ff453a'], [x2, inc[i] || 0, '#30d158']].forEach(([x, v, c]) => {
+      const y = Y(v);
+      const bh = Math.max(v > 0 ? 2 : 0, (h - padB) - y);
+      ctx.fillStyle = c;
+      ctx.beginPath();
+      ctx.roundRect(x, y, bw, bh, Math.min(4, bw / 2));
+      ctx.fill();
+    });
+    if (labels && labels[i]) {
+      ctx.fillStyle = '#636366';
+      ctx.textAlign = 'center';
+      ctx.fillText(labels[i], cx, h - 6);
+    }
+  }
 }
 
 // 横向占比列表渲染辅助
