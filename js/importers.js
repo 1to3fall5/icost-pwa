@@ -337,6 +337,30 @@ export function filterExisting(rows) {
   return { fresh, dup };
 }
 
+// 模糊去重：手动录入 / 截图识别的账没有流水号，importKey 兜不住，
+// 只能靠「类型 + 金额 + 日期」找可疑重复。宁可少导一笔，也别记成两笔。
+const dayDiff = (a, b) => Math.abs((Date.parse(a) - Date.parse(b)) / 86400000);
+const r2 = (n) => Math.round((Number(n) || 0) * 100) / 100;
+
+export function findSimilar(fresh, existing, dayTol = 0) {
+  const bucket = new Map();
+  (existing || []).forEach((b) => {
+    if (!b || b.type === 'transfer') return;      // 转账有进出两个方向，不参与模糊比对
+    const k = `${b.type}|${r2(b.amount)}`;
+    if (!bucket.has(k)) bucket.set(k, []);
+    bucket.get(k).push(b);
+  });
+  const used = new Set();                          // 本机一笔只能抵掉导入的一笔（同一天两杯同价咖啡）
+  const unique = []; const similar = [];
+  (fresh || []).forEach((f) => {
+    const hit = (bucket.get(`${f.type}|${r2(f.amount)}`) || [])
+      .find((e) => !used.has(e.id) && dayDiff(e.date, f.date) <= dayTol);
+    if (hit) { used.add(hit.id); similar.push({ bill: f, match: hit }); }
+    else unique.push(f);
+  });
+  return { unique, similar };
+}
+
 export function summarize(rows) {
   const exp = rows.filter((r) => r.type === 'expense');
   const inc = rows.filter((r) => r.type === 'income');

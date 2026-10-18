@@ -128,6 +128,26 @@ writeSync(1, '     微信分类分布：' + Object.entries(dist).sort((a, b) => 
 ok('微信绝大多数落在合理分类', Object.keys(dist).length >= 3 && Object.keys(dist).length <= 16,
   String(Object.keys(dist).length));
 
+// ================= 真实数据上的模糊去重 =================
+// 模拟用户此前手动记过其中 20 笔（金额+日期相同，没有流水号），看能不能认出来
+{
+  const picked = [];
+  const seen = new Set();
+  for (const r of wx.rows) {
+    const k = `${r.type}|${r.amount}|${r.date}`;
+    if (seen.has(k)) continue;                     // 只挑金额日期互不相同的，结果才可预测
+    seen.add(k); picked.push(r);
+    if (picked.length >= 20) break;
+  }
+  const manual = picked.map((r, i) => ({ id: 'm' + i, type: r.type, amount: r.amount, date: r.date, note: '手动记的' }));
+  const sim = imp.findSimilar(wx.rows, manual);
+  writeSync(1, `     模糊去重：本机已手动记 ${manual.length} 笔，导入 ${wx.rows.length} 笔 -> `
+    + `识别重复 ${sim.similar.length} 笔，实际导入 ${sim.unique.length} 笔\n`);
+  ok('真实数据上能认出手动记过的账', sim.similar.length === manual.length,
+    `${sim.similar.length}/${manual.length}`);
+  ok('其余的不误伤', sim.unique.length === wx.rows.length - manual.length);
+}
+
 // ================= 去重（两个文件各导两次） =================
 store.S().bills = [];
 const a1 = imp.filterExisting(ali.rows);

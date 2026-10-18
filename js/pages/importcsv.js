@@ -2,7 +2,7 @@
 import Icons from '../icons.js';
 import { S, save, uid, catById, fmtMoney } from '../store.js';
 import { go, UI } from '../app.js';
-import { decodeText, parseStatement, parseXlsx, filterExisting, summarize } from '../importers.js';
+import { decodeText, parseStatement, parseXlsx, filterExisting, findSimilar, summarize } from '../importers.js';
 
 let draft = null;   // 解析结果（页面级临时状态，离开即弃）
 
@@ -31,7 +31,9 @@ async function pickFile() {
         : parseStatement(decodeText(buf));
       if (!parsed.rows.length) throw new Error('没解析出任何有效交易，请检查文件内容');
       const { fresh, dup } = filterExisting(parsed.rows);
-      draft = { ...parsed, fresh, dup, accountId: defaultAccount(parsed.source) };
+      // 二次去重：本机手动记的账没有流水号，靠 金额+日期 找可疑重复
+      const { unique, similar } = findSimilar(fresh, S().bills);
+      draft = { ...parsed, fresh, dup, unique, similar, skipSimilar: true, accountId: defaultAccount(parsed.source) };
       go('importcsv');
     } catch (e) {
       UI.toast('解析失败：' + e.message, 4200);
@@ -40,8 +42,15 @@ async function pickFile() {
   input.click();
 }
 
+// 开关行：input 设为 disabled，点击统一由外层 .cell 接收
+const swRow = (o) => `<div class="cell" data-act="${o.act}">
+  <span class="ci" style="background:${o.bg || 'var(--card2)'}">${o.icon}</span>
+  <span class="cl">${o.label}<span class="cell-sub">${o.sub}</span></span>
+  <label class="switch"><input type="checkbox" ${o.on ? 'checked' : ''} disabled><i></i></label>
+</div>`;
+
 function previewRows() {
-  const show = draft.fresh.slice(0, 12);
+  const show = (draft.skipSimilar ? draft.unique : draft.fresh).slice(0, 12);
   return show.map((r) => {
     const c = catById(r.categoryId);
     return `<div class="cell">
@@ -77,21 +86,24 @@ export default {
         </div>
 
         <div class="st2-note">
-          <div class="tt">💡 会怎么处理</div>
-          只导入<b>支出和收入</b>，退款与已关闭的交易会跳过；微信的零钱提现、信用卡还款这类「自己账户间转账」不算消费，也会跳过。
-          同一份账单重复导入不会记两遍。
+          <div class="tt">🧹 重复的两笔不会记成四笔</div>
+          <b>同一份账单导两次</b>：靠微信/支付宝的交易单号识别，自动跳过。<br>
+          <b>和你手动记过的账撞了</b>：按「金额 + 日期」比对，标记为疑似重复并默认跳过，你也可以在下面对照后选择全部导入。<br><br>
+          <span style="color:var(--orange,#ff9f0a)">导入前先等自动同步完成（打开 App 约 2 秒），这样本机拿到的是全部设备的最新账，去重才准。</span>
         </div>`;
     }
 
-    const s = summarize(draft.fresh);
+    const use = draft.skipSimilar ? draft.unique : draft.fresh;
+    const s = summarize(use);
     const acc = S().accounts.find((a) => a.id === draft.accountId);
     return `
       <div class="st2-note">
         <div class="tt">✅ 识别为${SRC_CN[draft.source]}账单</div>
-        可导入 <b>${draft.fresh.length}</b> 笔 · 支出 ${s.expenseCount} 笔 ¥${fmtMoney(s.expenseSum)}
+        实际导入 <b>${use.length}</b> 笔 · 支出 ${s.expenseCount} 笔 ¥${fmtMoney(s.expenseSum)}
         · 收入 ${s.incomeCount} 笔 ¥${fmtMoney(s.incomeSum)}<br>
         时间范围：${s.from} ~ ${s.to}
-        ${draft.dup ? `<br><span style="color:var(--orange,#ff9f0a)">另有 ${draft.dup} 笔已存在，将自动跳过</span>` : ''}
+        ${draft.dup ? `<br><span style="color:var(--orange,#ff9f0a)">已导入过 ${draft.dup} 笔（流水号相同），自动跳过</span>` : ''}
+        ${draft.similar.length ? `<br><span style="color:var(--orange,#ff9f0a)">疑似重复 ${draft.similar.length} 笔（金额+日期与本机已有的账撞了），默认跳过</span>` : ''}
       </div>
 
       <div class="sec-title">导入设置</div>
@@ -101,13 +113,29 @@ export default {
           <span class="cl">导入到账户<span class="cell-sub">点此更换</span></span>
           <span class="cv">${(acc && acc.name) || '未选择'}</span>
         </div>
+        ${draft.similar.length ? swRow({
+          icon: '🧹', bg: 'rgba(255,159,10,.18)',
+          label: '跳过疑似重复',
+          sub: `${draft.similar.length} 笔与本机已有账金额、日期都相同，关掉则全部导入`,
+          act: 'toggle-skip', on: draft.skipSimilar,
+        }) : ''}
       </div>
 
-      <div class="sec-title">前 ${Math.min(12, draft.fresh.length)} 笔预览${draft.fresh.length > 12 ? `（共 ${draft.fresh.length} 笔）` : ''}</div>
+      ${draft.similar.length ? `
+      <div class="sec-title">疑似重复对照（前 5 笔）</div>
+      <div class="cell-group">
+        ${draft.similar.slice(0, 5).map((x) => `<div class="cell">
+          <span class="ci" style="background:rgba(255,159,10,.18)">⚠️</span>
+          <span class="cl">${x.bill.date} ¥${fmtMoney(x.bill.amount)}<span class="cell-sub">本机已有：${x.match.note || x.match.date} · ¥${fmtMoney(x.match.amount)}</span></span>
+          <span class="cv">${x.bill.note || '—'}</span>
+        </div>`).join('')}
+      </div>` : ''}
+
+      <div class="sec-title">前 ${Math.min(12, use.length)} 笔预览${use.length > 12 ? `（共 ${use.length} 笔）` : ''}</div>
       <div class="cell-group">${previewRows()}</div>
 
       <div style="padding:16px 8px 0">
-        <button class="join-btn" data-act="do">确认导入 ${draft.fresh.length} 笔</button>
+        <button class="join-btn" data-act="do">确认导入 ${use.length} 笔</button>
         <button class="join-btn" data-act="again" style="margin-top:10px;background:var(--card3);color:var(--text)">重新选择文件</button>
       </div>
 
@@ -128,11 +156,14 @@ export default {
             label: a.name, value: '', icon: a.icon, color: a.color, id: a.id,
           })));
           if (pick) { draft.accountId = pick.id; go('importcsv'); }
+        } else if (act === 'toggle-skip') {
+          draft.skipSimilar = !draft.skipSimilar; go('importcsv');
         } else if (act === 'do') {
           if (!draft.accountId) { UI.toast('先选一个账户'); return; }
           const st = S();
           const now = Date.now();
-          draft.fresh.forEach((r, i) => {
+          const use = draft.skipSimilar ? draft.unique : draft.fresh;
+          use.forEach((r, i) => {
             st.bills.push({
               id: uid(), bookId: st.currentBookId, created: now + i, updatedAt: now + i,
               type: r.type, amount: r.amount, date: r.date, time: r.time,
@@ -141,9 +172,10 @@ export default {
             });
           });
           save();
-          const n = draft.fresh.length;
+          const n = use.length;
+          const skipped = draft.fresh.length - use.length;
           draft = null;
-          UI.toast(`已导入 ${n} 笔账单`);
+          UI.toast(skipped ? `已导入 ${n} 笔，跳过 ${skipped} 笔重复` : `已导入 ${n} 笔账单`);
           go('home');
         }
       });
