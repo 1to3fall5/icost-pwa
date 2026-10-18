@@ -1,6 +1,6 @@
 /* iCost 复刻 · Service Worker（零依赖手写）
    策略：HTML network-first；静态资源 stale-while-revalidate；离线兜底 index.html */
-const VERSION = 'v1.12.0';
+const VERSION = 'v1.13.0';
 const CACHE = `icost-${VERSION}`;
 const SHELL = [
   './',
@@ -8,7 +8,7 @@ const SHELL = [
   './manifest.json',
   './css/style.css',
   './js/app.js', './js/store.js', './js/icons.js', './js/charts.js', './js/sync.js', './js/importers.js',
-  './js/dashboard.js',
+  './js/dashboard.js', './js/treemap.js',
   './assets/icon-192.png', './assets/icon-512.png', './assets/icon-maskable-512.png', './assets/icon-180.png',
 ];
 const PAGE_MODULES = [

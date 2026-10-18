@@ -6,6 +6,7 @@ import {
   monthOf, catById, accById, accountStat, pad2,
 } from './store.js';
 import { donut, line, dualBars, multiLine } from './charts.js';
+import { mountTreemap, countLeaves } from './treemap.js';
 import { go, UI, onCleanup } from './app.js';
 import { syncCfg, fmtTime } from './sync.js';
 
@@ -19,7 +20,8 @@ const RANGES = [
   { v: '12m', t: '近12月', n: 12 },
   { v: 'all', t: '全部', n: 0 },
 ];
-export const dash = { range: '6m', kw: '' };
+// tmDim / tmPath 刻意放在模块级：切换时间范围后仍保留方块图的下钻层级
+export const dash = { range: '6m', kw: '', tmDim: 'expense', tmPath: [] };
 
 const hide = () => !!S().settings.hideAmount;
 const yuan = (n) => (hide() ? '****' : '¥' + fmtMoney(n));
@@ -95,6 +97,89 @@ function catSums(bills, type = 'expense') {
       return { id, value, name: c?.name || '其他', icon: c?.icon || '🧾', color: c?.color || '#98989f' };
     })
     .sort((a, b) => b.value - a.value);
+}
+
+// ---------- 方块占比视图（treemap）----------
+// 一级分类 → 二级分类 → 单笔账单（账户余额维度：账户类型 → 账户）
+function topCatOf(cat, type) {
+  if (!cat) return null;
+  if (cat.color) return cat;                       // 一级分类自带 color，二级只有 {id,name}
+  return S().categories[type].find((p) => p.children?.some((x) => x.id === cat.id)) || cat;
+}
+const TM_LEAF_CAP = 24;   // 每个二级分类最多展开多少笔，超出的合并成「其他 N 笔」
+const ACC_TYPE = { cash: '现金', online: '在线钱包', bank: '银行卡', credit: '信用账户' };
+const ACC_COLOR = { 现金: '#30d158', 在线钱包: '#0a84ff', 银行卡: '#ff9f0a', 信用账户: '#ff453a' };
+
+export function tmTree(dim) {
+  if (dim === 'asset') {
+    const groups = {};
+    S().accounts.filter((a) => !a.hidden && !a.archived && Math.abs(+a.balance || 0) > 0).forEach((a) => {
+      const g = ACC_TYPE[a.type] || '其他';
+      (groups[g] = groups[g] || []).push(a);
+    });
+    const children = Object.entries(groups).map(([gname, list]) => ({
+      name: gname,
+      color: ACC_COLOR[gname] || '#98989f',
+      value: list.reduce((s, a) => s + Math.abs(+a.balance || 0), 0),
+      children: list.map((a) => ({
+        name: a.name, color: a.color || '#0a84ff', value: Math.abs(+a.balance || 0),
+        leaf: true, note: a.type === 'credit' ? '信用账户（负债）' : ACC_TYPE[a.type] || '',
+      })),
+    })).sort((a, b) => b.value - a.value);
+    return { name: '账户余额', value: children.reduce((s, c) => s + c.value, 0), children };
+  }
+
+  const bills = billsOf(monthList()).filter((b) => b.type === dim && +b.amount > 0);
+  const byTop = new Map();
+  bills.forEach((b) => {
+    const c = catById(b.categoryId);
+    const top = topCatOf(c, dim) || { id: 'other', name: '其他', color: '#98989f' };
+    if (!byTop.has(top.id)) byTop.set(top.id, { name: top.name, color: top.color || '#98989f', sub: new Map() });
+    const t = byTop.get(top.id);
+    const subName = (c && !c.color && c.name) ? c.name : '未分类';
+    if (!t.sub.has(subName)) t.sub.set(subName, { name: subName, bills: [] });
+    t.sub.get(subName).bills.push(b);
+  });
+
+  const children = [...byTop.values()].map((t) => {
+    const subs = [...t.sub.values()].map((s) => {
+      const list = s.bills.slice().sort((a, b) => b.amount - a.amount);
+      const rest = list.slice(TM_LEAF_CAP);
+      const leaves = list.slice(0, TM_LEAF_CAP).map((b) => ({
+        name: b.note || `${b.date.slice(5)} ${s.name}`,
+        value: +b.amount, color: t.color, leaf: true,
+        note: `${b.date} · ${b.note || '无备注'}`, billId: b.id,
+      }));
+      if (rest.length) leaves.push({
+        name: `其他 ${rest.length} 笔`, value: rest.reduce((x, b) => x + b.amount, 0),
+        color: t.color, leaf: true, restOf: rest.map((b) => b.note || b.date),
+      });
+      return { name: s.name, color: t.color, value: leaves.reduce((x, l) => x + l.value, 0), children: leaves };
+    }).sort((a, b) => b.value - a.value);
+    return { name: t.name, color: t.color, value: subs.reduce((x, s) => x + s.value, 0), children: subs };
+  }).sort((a, b) => b.value - a.value);
+
+  return { name: dim === 'income' ? '收入' : '支出', value: children.reduce((s, c) => s + c.value, 0), children };
+}
+
+function treemapCard() {
+  const dims = [['expense', '支出'], ['income', '收入'], ['asset', '账户余额']];
+  const tree = tmTree(dash.tmDim);
+  return `
+  <section class="dc dc-tm span2">
+    <div class="dc-head">
+      <div class="dc-titles">
+        <div class="dc-title">账本总览</div>
+        <div class="dc-sub">方块占比 · 面积代表金额 · ${countLeaves(tree)} 笔 · 双击进入下一层</div>
+      </div>
+      <div class="dc-tools">
+        <div class="seg dc-seg">
+          ${dims.map(([v, t]) => `<button class="${dash.tmDim === v ? 'on' : ''}" data-tmdim="${v}">${t}</button>`).join('')}
+        </div>
+      </div>
+    </div>
+    <div id="dash-tm"></div>
+  </section>`;
 }
 
 // ---------- 卡片 ----------
@@ -380,6 +465,7 @@ export async function renderDashboard() {
   const bills = billsOf(months);
   return `<div class="dash">
     ${heroCard(months)}
+    ${treemapCard()}
     ${donutCard(bills)}
     ${trendCard(months, bills)}
     ${rankCard(months, bills)}
@@ -431,6 +517,28 @@ export function mountDashboard(root) {
       )).reduce((s, b) => s + b.amount, 0)),
     })), labels, { height: 170 });
   }
+
+  // 方块占比视图
+  const tmEl = root.querySelector('#dash-tm');
+  if (tmEl) {
+    const inst = mountTreemap(tmEl, {
+      root: tmTree(dash.tmDim),
+      money: (n) => (hide() ? '****' : '¥' + Math.round(n).toLocaleString('zh-CN')),
+      moneyTight: (n) => {
+        if (hide()) return '****';
+        const v = Math.round(n);
+        return v >= 10000 ? '¥' + (v / 10000).toFixed(1) + '万' : '¥' + v;
+      },
+      path: dash.tmPath,
+      onPath: (p) => { dash.tmPath = p; },
+    });
+    onCleanup(() => inst.destroy());
+  }
+  root.querySelectorAll('[data-tmdim]').forEach((b) => b.addEventListener('click', () => {
+    dash.tmDim = b.dataset.tmdim;
+    dash.tmPath = [];
+    go('home');
+  }));
 
   // 交互
   root.querySelectorAll('.dc-seg [data-rg]').forEach((b) => b.addEventListener('click', () => {

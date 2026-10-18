@@ -1293,6 +1293,65 @@ body.light #tabbar { background: rgba(255, 255, 255, .74); }
 .dj-amt { font-size: 14px; font-weight: 700; font-variant-numeric: tabular-nums; }
 .dj-date { font-size: 11px; color: var(--text3); margin-top: 2px; }
 
+/* ---------- 方块占比视图（SpaceSniffer 风格 treemap）---------- */
+.dc-tm.span2 { grid-column: span 2; }
+.tm-crumb { display: flex; align-items: center; flex-wrap: wrap; gap: 4px; font-size: 12px; color: var(--text3); margin-bottom: 8px; min-height: 22px; }
+.tm-crumb button { background: none; border: none; color: var(--text2); font-size: 12px; cursor: pointer; padding: 2px 4px; border-radius: 6px; }
+.tm-crumb button:hover { background: var(--card2); color: var(--text); }
+.tm-crumb b { color: var(--text); font-weight: 600; }
+.tm-crumb .tm-back { color: var(--blue); }
+
+.tm-map { position: relative; height: 320px; border-radius: 10px; overflow: hidden; background: var(--card2); }
+.tm-map:empty, .tm-map .tm-layer:only-child:empty { background: none; }
+.tm-layer { position: absolute; inset: 0; transform-origin: 0 0; will-change: transform; }
+.tm-layer.zooming .b-in, .tm-layer.zooming .b-tag { opacity: 0; }
+.tm-empty { padding: 60px 0; text-align: center; color: var(--text3); font-size: 13px; }
+
+/* 方块：直角（外层四个角由 .tm-map 的 overflow:hidden 裁出来）、1px 分割线 */
+.blk { position: absolute; overflow: hidden; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid rgba(0, 0, 0, .62);
+  transition: border-color .12s ease; }
+/* 明度分层：--ov 由 JS 按 depth 写入，容器压暗当外壳、叶子越往里越亮 */
+.blk::before { content: ''; position: absolute; inset: 0; background: rgba(0, 0, 0, var(--ov, .42)); z-index: 0; transition: background .12s ease; }
+.blk.parent .blk-fill { filter: saturate(.78) brightness(.92); }
+.blk > * { position: relative; z-index: 1; }
+.blk-fill { position: absolute; inset: 0; z-index: 0; }
+/* 悬停只提亮当前这块（不动尺寸、不动其他块，避免"跳一下"） */
+.blk.hot::before { background: rgba(0, 0, 0, calc(max(0, var(--ov, .42) - .18))); }
+.blk.hot { border-color: rgba(255, 255, 255, .9); z-index: 6; }
+.blk.sel { border-color: var(--yellow); z-index: 5; }
+.blk.solid { cursor: default; }
+
+/* 容器标签条："名称 - 金额" 一行，比内容区亮一档 */
+.b-tag { position: absolute; left: 0; right: 0; top: 0; height: 15px; line-height: 15px;
+  font-size: 10px; font-weight: 400; color: #161618; padding: 0 5px; text-align: left;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: opacity .22s ease; }
+.b-tag .t-amt { opacity: .72; }
+
+.b-in { padding: 0 6px; text-align: center; line-height: 1.25; max-width: 100%; transition: opacity .22s ease; }
+/* 全部常规字重 —— 层级靠字号（金额 13 > 名称 11 > 占比 10）拉开 */
+.b-nm { font-size: 11px; font-weight: 400; color: #fff; opacity: .92;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-shadow: 0 1px 3px rgba(0, 0, 0, .75); }
+.b-nm.wrap { white-space: normal; line-height: 1.16; display: -webkit-box; -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical; overflow: hidden; word-break: break-all; }
+.b-amt { font-size: 13px; font-weight: 400; color: #fff; font-variant-numeric: tabular-nums; margin-top: 1px; text-shadow: 0 1px 4px rgba(0, 0, 0, .8); }
+.b-pct { font-size: 10px; font-weight: 400; color: #fff; opacity: .62; margin-top: 1px; text-shadow: 0 1px 3px rgba(0, 0, 0, .75); }
+.b-in.tight .b-nm { font-size: 10px; }
+.b-in.tight .b-amt { font-size: 11.5px; }
+.b-in.tight .b-pct { font-size: 9px; }
+
+/* 状态行 / 提示 */
+.tm-note { margin-top: 8px; font-size: 12px; color: var(--text3); min-height: 18px; }
+.tm-note b { color: var(--text2); font-variant-numeric: tabular-nums; font-weight: 600; }
+.tm-note.show { color: var(--yellow); }
+.tm-tip { position: fixed; z-index: 999; pointer-events: none; background: rgba(28, 28, 30, .97);
+  border: 1px solid var(--sep); border-radius: 10px; padding: 9px 12px; font-size: 12.5px;
+  box-shadow: 0 12px 34px rgba(0, 0, 0, .6); display: none; max-width: 280px; }
+.tm-tip b { display: block; font-size: 13.5px; margin-bottom: 4px; }
+.tm-tip span { color: var(--text2); }
+.tm-tip em { font-style: normal; color: var(--text3); display: block; margin-top: 3px; font-size: 11.5px; }
+
 /* ---------- 桌面侧栏（升级版）---------- */
 .side-brand { display: flex; align-items: center; gap: 10px; padding: 2px 8px 12px; }
 .side-logo {
