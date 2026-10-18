@@ -5,6 +5,7 @@ import { go, UI } from '../app.js';
 import {
   syncCfg, setSync, fetchRemote, pushPayload, applyState, mergeRemote,
   hasLocalChanges, hasPassword, setPassword, fmtTime,
+  autoEnabled, setAuto, isRemembered, rememberPassword, runAutoSync,
 } from '../sync.js';
 
 const TYPE_CN = { expense: '支出', income: '收入', transfer: '转账' };
@@ -107,6 +108,13 @@ const row = (o) => `<div class="cell" data-act="${o.act}">
   <span class="arrow">${Icons.chevR}</span>
 </div>`;
 
+// 开关行：input 设为 disabled，点击统一由外层 .cell 接收，避免 label/input 各触发一次
+const swRow = (o) => `<div class="cell" data-act="${o.act}">
+  <span class="ci" style="background:${o.bg || 'var(--card2)'}">${o.icon}</span>
+  <span class="cl">${o.label}<span class="cell-sub">${o.sub}</span></span>
+  <label class="switch"><input type="checkbox" ${o.on ? 'checked' : ''} disabled><i></i></label>
+</div>`;
+
 // ================= 云同步（端到端加密 + GitHub Secret Gist） =================
 const ghTokenUrl = 'https://github.com/settings/tokens/new';
 
@@ -190,10 +198,31 @@ async function setToken() {
 }
 
 async function setPw() {
-  const pw = await UI.prompt('同步密码', '仅保留在当前会话，刷新后需重填', '', 'password');
+  const pw = await UI.prompt('同步密码', isRemembered() ? '已在本机记住，重设会同步更新' : '仅保留在当前会话，刷新后需重填', '', 'password');
   if (!pw) return;
   setPassword(pw);
-  UI.toast('密码已设置（仅本次会话有效）');
+  UI.toast(isRemembered() ? '密码已更新并保存' : '密码已设置（仅本次会话有效）');
+  go('importexport');
+}
+
+// 开启「记住密码」是自动同步能跨刷新工作的前提，但代价是密码落本机存储 —— 必须让用户知情
+async function toggleRemember() {
+  if (isRemembered()) {
+    rememberPassword(false);
+    UI.toast('已忘记密码，刷新后需重新输入');
+    go('importexport');
+    return;
+  }
+  if (!(await ensurePassword())) return;
+  const ok = await UI.confirm(
+    '密码将以明文保存在本机浏览器中。<br><br>'
+    + '云端数据仍是密文，别人拿到你的账目也解不开；'
+    + '但能操作这台设备浏览器的人，有可能读出这个密码。<br><br>'
+    + '公私混用的电脑不建议开启。',
+    '记住密码');
+  if (!ok) return;
+  rememberPassword(true);
+  UI.toast('已记住 —— 刷新后自动同步照常工作');
   go('importexport');
 }
 
@@ -226,6 +255,8 @@ async function pasteCode() {
 function syncSection() {
   const c = syncCfg();
   const ready = !!c.token && !!c.gistId;
+  const remembered = isRemembered();
+  const autoOn = !!c.auto;
   return `
     <div class="sec-title">云同步 · 端到端加密</div>
     <div class="st2-note">
@@ -239,9 +270,23 @@ function syncSection() {
       ${row({ icon: '🔒', bg: 'rgba(255,159,10,.18)', label: '同步密码', sub: hasPassword() ? '本次会话已设置 · 点击可重设' : '未设置 · 点此设置（刷新后需重填）', act: 'sync-pw' })}
     </div>
 
+    <div class="sec-title">自动同步</div>
     <div class="cell-group">
-      ${row({ icon: '⬆️', bg: 'rgba(48,209,88,.18)', label: '上传到云端', sub: '先核对云端版本，有冲突可先合并', act: 'sync-push' })}
-      ${row({ icon: '⬇️', bg: 'rgba(191,90,242,.18)', label: '从云端恢复', sub: '先检测本机改动，可选合并而非覆盖', act: 'sync-pull' })}
+      ${swRow({ icon: '🔄', bg: 'rgba(48,209,88,.18)', label: '自动同步', sub: autoOn ? '已开启 · 记完账自动上传，进 App 自动拉取' : '已关闭 · 只能手动点上传 / 恢复', act: 'sync-auto', on: autoOn })}
+      ${swRow({ icon: '📌', bg: 'rgba(255,159,10,.18)', label: '在本机记住密码', sub: remembered ? '已记住 · 刷新页面后自动同步照常' : '未记住 · 刷新后需重填密码，自动同步会暂停', act: 'sync-remember', on: remembered })}
+    </div>
+
+    <div class="st2-note">
+      <div class="tt">${autoOn ? '🔄 自动同步已开启' : '⏸ 自动同步已关闭'}</div>
+      记完账 4 秒后自动上传，打开 App 时自动拉取；两端都改过就自动合并，不会再互相覆盖。
+      ${autoOn && !hasPassword() ? '<div style="margin-top:6px;color:var(--orange,#ff9f0a)">本次会话还没密码 —— 填一次密码后自动同步才会真正开始</div>' : ''}
+      ${autoOn && !remembered ? '<div style="margin-top:6px;color:var(--orange,#ff9f0a)">没记住密码的话，刷新页面后自动同步会暂停，直到你重新输入</div>' : ''}
+    </div>
+
+    <div class="sec-title">手动操作</div>
+    <div class="cell-group">
+      ${row({ icon: '⬆️', bg: 'rgba(48,209,88,.18)', label: '上传到云端', sub: '立即同步一次（自动同步开着时一般不用点）', act: 'sync-push' })}
+      ${row({ icon: '⬇️', bg: 'rgba(191,90,242,.18)', label: '从云端恢复', sub: '强制拉取并合并，可指定合并或覆盖', act: 'sync-pull' })}
     </div>
 
     <div class="cell-group">
@@ -252,7 +297,9 @@ function syncSection() {
     <div class="st2-note">
       <div class="tt">${ready ? '✅ 已接入同步' : '⚠️ 尚未接入'}</div>
       上次同步：${fmtTime(c.lastSync)}${c.gistId ? ` · Gist ${c.gistId.slice(0, 8)}…` : ''}
-      ${ready && hasLocalChanges() ? '<div style="margin-top:6px;color:var(--orange,#ff9f0a)">本机有未上传的改动，换设备前记得先上传</div>' : ''}
+      ${ready && autoEnabled() ? '<div style="margin-top:6px;color:var(--green,#30d158)">自动同步运行中</div>' : ''}
+      ${c.lastError ? `<div style="margin-top:6px;color:#ff453a">上次同步失败：${c.lastError}</div>` : ''}
+      ${ready && !autoOn && hasLocalChanges() ? '<div style="margin-top:6px;color:var(--orange,#ff9f0a)">本机有未上传的改动，换设备前记得先上传</div>' : ''}
       ${c.token ? '' : `<div style="margin-top:8px">还没有 token？到 <b>${ghTokenUrl}</b> 新建 <b>Classic</b> token，只勾选 <b>gist</b> 一项即可（Fine-grained 不支持 Gist）。</div>`}
     </div>`;
 }
@@ -311,6 +358,8 @@ export default {
         else if (act === 'sync-pull') doPull();
         else if (act === 'sync-code') copyCode();
         else if (act === 'sync-code-in') pasteCode();
+        else if (act === 'sync-auto') { setAuto(!syncCfg().auto); if (syncCfg().auto) runAutoSync({ force: true }); go('importexport'); }
+        else if (act === 'sync-remember') toggleRemember();
       });
     });
   },

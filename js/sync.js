@@ -4,7 +4,9 @@
 //  1. 同步密码与 token 只存在本机，绝不写入云端
 //  2. 上传前先加密 —— GitHub 侧只能看到密文，看不到任何账单
 //  3. 密码默认只保留在当前会话内存里（刷新即失效），不落 localStorage
+//     —— 用户可显式开启「记住密码」才写入本机，这是自动同步能跨刷新工作的前提
 //  4. Gist 创建为 secret（public:false），不进公开索引
+//  5. 上传的 payload 会剔除 token / 密码，密钥绝不进自己的密文里
 //
 // 同步模型（弱一致 + 增量合并）：
 //  云端 payload = { state, syncedAt, deviceId }
@@ -25,9 +27,38 @@ const STATE_KEYS = [...LIST_KEYS, 'categories', 'settings', 'currentBookId', 'to
 
 // 会话内密码：刷新即失效，不写入设备存储
 let sessionPassword = '';
+const PW_KEY = 'icost.syncpw';   // 只有显式开启「记住密码」才会写这里
 export const hasPassword = () => !!sessionPassword;
-export function setPassword(pw) { sessionPassword = pw || ''; }
-export function clearPassword() { sessionPassword = ''; }
+export function setPassword(pw) {
+  sessionPassword = pw || '';
+  // 已开启记住密码时，重设密码要同步刷新本机副本，否则下次启动用的是旧密码
+  if (isRemembered()) {
+    try {
+      if (sessionPassword) localStorage.setItem(PW_KEY, sessionPassword);
+      else localStorage.removeItem(PW_KEY);
+    } catch {}
+  }
+}
+export function clearPassword() { setPassword(''); }
+
+export function isRemembered() {
+  try { return !!localStorage.getItem(PW_KEY); } catch { return false; }
+}
+// 启动调用：把记住的密码取回会话，自动同步才能在不打扰用户的前提下工作
+export function restorePassword() {
+  try {
+    const v = localStorage.getItem(PW_KEY);
+    if (v) { sessionPassword = v; return true; }
+  } catch {}
+  return false;
+}
+export function rememberPassword(on) {
+  try {
+    if (on && sessionPassword) localStorage.setItem(PW_KEY, sessionPassword);
+    else localStorage.removeItem(PW_KEY);
+  } catch {}
+  return isRemembered();
+}
 
 // ---------- base64（分块，避免大数组 spread 爆栈） ----------
 function b64(buf) {
@@ -51,6 +82,7 @@ export function syncCfg() {
   const c = st.settings.sync;
   if (!c.deviceId) { c.deviceId = 'd' + Math.random().toString(36).slice(2, 10); save(); }
   if (typeof c.baseSyncedAt !== 'number') c.baseSyncedAt = 0;
+  if (typeof c.auto !== 'boolean') { c.auto = true; save(); }   // 自动同步默认开
   return c;
 }
 export function setSync(patch) { Object.assign(syncCfg(), patch); save(); }
@@ -205,7 +237,13 @@ export function applyState(next) {
 
 // ---------- 拉取 / 上传 ----------
 function buildPayload() {
-  return { v: 2, state: S(), syncedAt: Date.now(), deviceId: syncCfg().deviceId };
+  const st = S();
+  // 脱敏：token 与密码只属于本机，不能进自己加密的 payload（否则等于把钥匙锁进保险箱）
+  const sync = { ...(st.settings?.sync || {}) };
+  delete sync.token;
+  delete sync.password;
+  const state = { ...st, settings: { ...st.settings, sync } };
+  return { v: 2, state, syncedAt: Date.now(), deviceId: sync.deviceId };
 }
 
 // 兼容旧版本：早期上传的是裸 state，没有 syncedAt / deviceId 包装
@@ -264,10 +302,70 @@ export async function pushPayload() {
 }
 
 // 本机自上次同步以来是否有未上传的改动（下拉前提示用，避免直接覆盖掉本地新账）
+// 账单 / 账户 / 分类 … 任一集合有更新的条目都算，删除（墓碑）也算
 export function hasLocalChanges() {
   const base = syncCfg().baseSyncedAt || 0;
-  if (!base) return S().bills.length > 0;
-  return S().bills.some((b) => ts(b) > base);
+  const st = S();
+  if (!base) return st.bills.length > 0;
+  const listDirty = LIST_KEYS.some((k) => (st[k] || []).some((x) => ts(x) > base));
+  const tombDirty = (st.tombstones?.bills || []).some((t) => Number(t.deletedAt || 0) > base);
+  return listDirty || tombDirty;
+}
+
+// ---------- 自动同步 ----------
+// 触发：数据保存后 debounce 4s 推一次；回到前台/启动时拉一次。
+// 全程静默：拉到新数据才提示，网络失败只在状态行留痕，不弹窗打断记账。
+const MIN_GAP = 20000;          // 两次同步最小间隔，避免疯狂打 API
+let busy = false;
+let timer = null;
+let lastRun = 0;
+const hooks = [];
+export const onAutoSync = (fn) => { hooks.push(fn); };
+
+// 自动同步的成立条件：开关打开 + token 就绪 + 已建 Gist + 密码在手（没密码解不开也加不了密）
+export function autoEnabled() {
+  if (!sessionPassword) return false;
+  const c = syncCfg();
+  return !!c.auto && !!c.token && !!c.gistId;
+}
+export function setAuto(on) { setSync({ auto: !!on }); }
+
+export function scheduleAutoPush(delay = 4000) {
+  if (busy || !autoEnabled()) return;
+  clearTimeout(timer);
+  timer = setTimeout(runAutoSync, delay);
+}
+
+// 静默拉取并合并，返回新增的账单条数
+async function silentPull() {
+  const cfg = syncCfg();
+  const remote = await fetchRemote();
+  if (remote.syncedAt <= (cfg.baseSyncedAt || 0) + 2000) return 0;   // 云端没有比本机更新的东西
+  const before = S().bills.length;
+  applyState(mergeRemote(remote.state));
+  setSync({ baseSyncedAt: remote.syncedAt, lastSync: Date.now(), lastError: '' });
+  return S().bills.length - before;
+}
+
+// force: 跳过节流立即执行 —— 用户主动触发时必须用它，否则点了没反应
+export async function runAutoSync(opts = {}) {
+  if (busy || !autoEnabled()) return;
+  const gap = Date.now() - lastRun;
+  if (!opts.force && gap < MIN_GAP) { scheduleAutoPush(MIN_GAP - gap); return; }
+  busy = true;
+  lastRun = Date.now();
+  let added = 0; let pushed = false; let err = '';
+  try {
+    added = await silentPull();
+    if (added > 0 || hasLocalChanges()) { await pushPayload(); pushed = true; }
+  } catch (e) {
+    err = e.message || String(e);
+    try { setSync({ lastError: err }); } catch {}
+  } finally {
+    busy = false;
+    hooks.forEach((fn) => { try { fn({ added, pushed, err }); } catch {} });
+    if (err && hasLocalChanges()) scheduleAutoPush(MIN_GAP);   // 失败后重试，但保持间隔
+  }
 }
 
 export const fmtTime = (t) => {

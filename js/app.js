@@ -1,6 +1,7 @@
 // 应用外壳：hash 路由 + 导航栏 + TabBar + 弹层工具
 import Icons from './icons.js';
-import { load, deleteBill } from './store.js';
+import { load, deleteBill, subscribe } from './store.js';
+import { restorePassword, scheduleAutoPush, runAutoSync, onAutoSync } from './sync.js';
 
 const app = {
   stack: [],          // [{route, params}]
@@ -283,12 +284,27 @@ export const UI = {
   },
 };
 
+// ---------- 自动同步接线 ----------
+// 任何一次 save（记账/改账/删账/改设置）都排一次延迟上传；拉到新数据则刷新列表页。
+// runAutoSync 内部的 save 不会再次触发排程（busy 标志拦住），所以不会自激循环。
+subscribe(() => scheduleAutoPush());
+document.addEventListener('visibilitychange', () => { if (!document.hidden) runAutoSync(); });
+onAutoSync(({ added }) => {
+  if (added <= 0) return;
+  const { route } = parseHash();
+  // 只在列表类 Tab 页重渲染 —— 记一笔页面重绘会清掉用户正在输入的内容
+  if (isTab(route)) render();
+  UI.toast(`云端同步了 ${added} 笔新账单`);
+});
+
 // 启动
 load();
+restorePassword();
 import('./pages/index.js').then((m) => {
   registerPages(m.pages);
   const st = load();
   document.body.classList.toggle('light', st.settings.theme === 'light');
   if (!location.hash) location.hash = `#/${st.settings.startPage === 'record' ? 'record' : 'home'}`; // 秒开模式
   render();
+  setTimeout(runAutoSync, 2000); // 进 App 先悄悄对齐一次
 });
