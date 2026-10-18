@@ -39,15 +39,53 @@ const navbar = document.getElementById('navbar');
 const screen = document.getElementById('screen');
 const tabbar = document.getElementById('tabbar');
 
+// 桌面（≥1024px）时侧栏常驻，并追加「记一笔 / 设置 / 更多」
+export const isDesktop = () => typeof window.matchMedia === 'function'
+  ? window.matchMedia('(min-width: 1024px)').matches
+  : false;
+
 function renderTabbar(active) {
-  tabbar.style.display = isTab(active) ? 'flex' : 'none';
-  tabbar.innerHTML = TABS.map((t) => `
+  const desktop = isDesktop();
+  tabbar.style.display = (isTab(active) || desktop) ? 'flex' : 'none';
+  const addBtn = desktop
+    ? `<button class="side-btn primary" data-act="record">${Icons.plus}<span>记一笔</span></button>`
+    : '';
+  const extra = desktop
+    ? `<div class="side-sep"></div>
+       <button class="side-btn" data-act="settings">${Icons.settings}<span>设置</span></button>
+       <button class="side-btn" data-act="more">${Icons.more}<span>更多功能</span></button>`
+    : '';
+  tabbar.innerHTML = addBtn + TABS.map((t) => `
     <button class="tab-item ${active === t.route ? 'active' : ''}" data-go="${t.route}">
       ${Icons[t.icon](active === t.route)}<span>${t.name}</span>
-    </button>`).join('');
+    </button>`).join('') + extra;
   tabbar.querySelectorAll('[data-go]').forEach((b) =>
     b.addEventListener('click', () => go(b.dataset.go)));
+  tabbar.querySelectorAll('[data-act]').forEach((b) => b.addEventListener('click', () => {
+    const act = b.dataset.act;
+    if (act === 'record') go('record');
+    else if (act === 'settings') go('settings');
+    else if (act === 'more') go('more');
+  }));
 }
+
+// 窗口跨过 1024px 断点时重渲染（手机 ↔ 桌面布局切换）
+let wasDesktop = isDesktop();
+window.addEventListener('resize', () => {
+  const now = isDesktop();
+  if (now !== wasDesktop) { wasDesktop = now; render(); }
+});
+
+// 桌面快捷键：N 记一笔，1-4 切 Tab，Esc 返回
+window.addEventListener('keydown', (e) => {
+  if (!isDesktop()) return;
+  const tag = (e.target.tagName || '').toLowerCase();
+  if (tag === 'input' || tag === 'textarea' || tag === 'select') return;
+  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  if (e.key === 'n' || e.key === 'N') { e.preventDefault(); go('record'); }
+  else if (['1', '2', '3', '4'].includes(e.key)) { e.preventDefault(); go(TABS[+e.key - 1].route); }
+  else if (e.key === 'Escape') back();
+});
 
 // FAB（仅账本首页显示，由页面声明 fab:true）
 let fabEl = null;

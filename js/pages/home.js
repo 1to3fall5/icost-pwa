@@ -81,18 +81,23 @@ export default {
     const ym = now();
     const bills = bookBills(undefined, ym).filter((b) =>
       !state.kw || (b.note || '').includes(state.kw) || (catById(b.categoryId)?.name || '').includes(state.kw));
+    // page-home / hp-left / hp-right：桌面下自动变「左汇总 + 右流水」双栏，手机端仍为单列顺序流
     return `
-      <div class="searchbar">${Icons.search}<input id="home-kw" placeholder="输入关键词" value="${state.kw}"></div>
-      <div class="month-row">
-        <span class="month-label">${ymLabel(ym)}</span>
-        <button class="month-nav" data-m="-1">${Icons.chevL}</button>
-        <button class="month-nav" data-m="1" ${ym >= monthOf(new Date().toISOString().slice(0, 10)) ? 'disabled' : ''}>${Icons.chevR}</button>
-        <span class="month-spacer"></span>
-        <button class="pill-btn" data-go="calendar">${Icons.calendar.replace('<svg', '<svg style="width:14px;height:14px"')} 收支日历</button>
-      </div>
-      ${summaryCard(bills)}
-      <div style="height:8px"></div>
-      ${billList(bills)}`;
+      <div class="page-home">
+        <div class="hp-left">
+          <div class="searchbar">${Icons.search}<input id="home-kw" placeholder="输入关键词" value="${state.kw}"></div>
+          <div class="month-row">
+            <span class="month-label">${ymLabel(ym)}</span>
+            <button class="month-nav" data-m="-1">${Icons.chevL}</button>
+            <button class="month-nav" data-m="1" ${ym >= monthOf(new Date().toISOString().slice(0, 10)) ? 'disabled' : ''}>${Icons.chevR}</button>
+            <span class="month-spacer"></span>
+            <button class="pill-btn" data-go="calendar">${Icons.calendar.replace('<svg', '<svg style="width:14px;height:14px"')} 收支日历</button>
+          </div>
+          ${summaryCard(bills)}
+          <div style="height:8px"></div>
+        </div>
+        <div class="hp-right">${billList(bills)}</div>
+      </div>`;
   },
   mount(root) {
     // FAB 固定定位版本由 app.js 注入；这里绑定交互

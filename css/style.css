@@ -534,16 +534,11 @@ textarea.form-input { resize: none; min-height: 80px; }
 }
 .ln-add:active { opacity: .7; }
 
-/* 桌面端查看框架 */
-@media (min-width: 768px) {
+/* 平板 / 窄窗口：居中卡片，去掉手机模型框 */
+@media (min-width: 768px) and (max-width: 1023px) {
   body { background: #0a0a0b; }
-  #app {
-    max-width: 414px; min-height: 896px; height: 896px; margin: 24px auto;
-    border-radius: 44px; overflow: hidden; overflow-y: auto;
-    box-shadow: 0 0 0 10px #1a1a1c, 0 0 0 12px #333, 0 30px 80px rgba(0,0,0,.7);
-  }
-  #screen { max-height: calc(896px - var(--tab-h)); }
-  .sheet-page { max-width: 414px; }
+  #app { max-width: 720px; }
+  #statusbar-spacer { display: none; }
 }
 
 /* ============================================================
@@ -853,3 +848,146 @@ body.light #tabbar { background: rgba(255, 255, 255, .74); }
 .cj-row .sub { font-size: 12px; color: var(--text2); margin-top: 2px; }
 .cj-row .amt { font-size: 16px; font-weight: 700; color: var(--yellow); font-variant-numeric: tabular-nums; }
 .cj-row .amt.done { color: var(--green); }
+
+/* ============================================================
+   桌面网页版（≥1024px）：左侧导航 + 宽屏内容区
+   手机 / 平板 / iOS PWA 完全不受影响（媒体查询隔离）
+   ============================================================ */
+@media (min-width: 1024px) {
+  :root {
+    --radius: 18px;
+    --sidebar-w: 248px;
+    --content-max: 1120px;
+  }
+  body { background: #08080a; user-select: auto; }
+  #statusbar-spacer { display: none; }
+
+  /* 主体改为：侧栏 | 内容 */
+  #app {
+    max-width: none;
+    display: grid;
+    grid-template-columns: var(--sidebar-w) minmax(0, 1fr);
+    grid-template-areas: "nav nav" "side main";
+    min-height: 100dvh;
+    align-content: start;
+  }
+
+  /* 顶部导航：横跨两列，毛玻璃吸顶 */
+  #navbar {
+    grid-area: nav;
+    position: sticky; top: 0;
+    padding: 14px 28px 12px;
+    background: rgba(8, 8, 10, .82);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--sep);
+  }
+  #navbar.nb-solid, #navbar.collapsed { background: rgba(8, 8, 10, .82); }
+  .nb-title { font-size: 30px; padding: 10px 0 4px; }
+
+  /* 侧边导航（由 TabBar 变形而来） */
+  #tabbar {
+    grid-area: side;
+    position: sticky; top: 88px;
+    left: auto; bottom: auto; transform: none;
+    align-self: start;
+    width: calc(var(--sidebar-w) - 32px);
+    height: auto;
+    margin: 0 0 0 16px;
+    flex-direction: column;
+    gap: 4px;
+    padding: 14px 10px;
+    border-radius: 20px;
+    background: rgba(22, 22, 24, .62);
+    -webkit-backdrop-filter: blur(22px) saturate(180%);
+    backdrop-filter: blur(22px) saturate(180%);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, .45);
+  }
+  .tab-item {
+    flex: none;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 12px;
+    height: 44px;
+    padding: 0 14px;
+    border-radius: 12px;
+    font-size: 14px;
+    transition: background .16s ease, color .16s ease;
+  }
+  .tab-item svg { width: 20px; height: 20px; }
+  .tab-item span { font-size: 14px; font-weight: 600; }
+  .tab-item:hover { background: rgba(255, 255, 255, .06); color: var(--text); }
+  .tab-item.active { background: rgba(10, 132, 255, .16); color: var(--blue); }
+  /* 侧栏附加按钮（记一笔 / 设置 / 更多，由 app.js 注入） */
+  .side-btn {
+    display: flex; align-items: center; gap: 12px;
+    height: 44px; padding: 0 14px; border-radius: 12px;
+    color: var(--text2); font-size: 14px; font-weight: 600;
+    transition: background .16s ease, color .16s ease;
+  }
+  .side-btn svg { width: 20px; height: 20px; }
+  .side-btn:hover { background: rgba(255, 255, 255, .06); color: var(--text); }
+  .side-btn.primary {
+    background: var(--fab); color: #1c1c1e; font-weight: 700;
+    margin-bottom: 8px; justify-content: center;
+    box-shadow: 0 6px 18px rgba(246, 196, 69, .22);
+  }
+  .side-btn.primary:hover { background: #ffd260; color: #1c1c1e; }
+  .side-sep { height: 1px; background: var(--sep); margin: 8px 6px; }
+
+  /* 内容区 */
+  #screen {
+    grid-area: main;
+    padding: 20px 28px 60px;
+    max-width: var(--content-max);
+    width: 100%;
+  }
+
+  /* 卡片：更宽松 + hover */
+  .card { padding: 20px; margin-bottom: 16px; }
+  .card:hover { background: #212124; }
+  .st-tap:hover { cursor: pointer; }
+
+  /* 双栏页面：首页（左汇总 / 右流水） */
+  .page-home { display: grid; grid-template-columns: 340px minmax(0, 1fr); gap: 24px; align-items: start; }
+  .page-home .hp-left { position: sticky; top: 132px; }
+  .page-home .hp-right { min-width: 0; }
+  .page-home .day-group { background: var(--card); border-radius: var(--radius); padding: 14px 18px; margin-bottom: 16px; }
+
+  /* 双栏页面：统计（卡片两两并排） */
+  .page-stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; align-items: start; }
+  .page-stats > .seg, .page-stats > .month-row { grid-column: 1 / -1; }
+  .page-stats .card { margin-bottom: 0; }
+  .page-stats .stat-grid { grid-template-columns: repeat(4, 1fr); }
+
+  /* 记账页：居中弹窗而非全屏 sheet */
+  .sheet-page {
+    position: fixed; inset: auto;
+    left: 50%; top: 50%; transform: translate(-50%, -50%);
+    width: 620px; max-width: 92vw; max-height: 88vh;
+    border-radius: 22px; overflow: hidden; overflow-y: auto;
+    box-shadow: 0 30px 90px rgba(0, 0, 0, .8), 0 0 0 1px rgba(255, 255, 255, .08);
+  }
+  .sheet-page::before {
+    content: ''; position: fixed; inset: 0; z-index: -1;
+    background: rgba(0, 0, 0, .55);
+  }
+
+  /* 弹层：居中对话框而非底部抽屉 */
+  .overlay { align-items: center; }
+  .overlay .panel {
+    width: min(560px, 92vw);
+    border-radius: 18px;
+    padding: 20px;
+    max-height: 80vh;
+    animation: dialogin .2s cubic-bezier(.32, .72, .34, 1);
+  }
+  .overlay .panel.center { margin-bottom: 0; width: min(400px, 90vw); max-width: none; }
+  @keyframes dialogin { from { opacity: 0; transform: translateY(12px) scale(.98); } to { opacity: 1; transform: none; } }
+
+  /* FAB 隐藏（侧栏已有「记一笔」） */
+  .fab { display: none; }
+
+  /* 列表行 hover */
+  .bill-row:hover, .cell:hover, .cj-row:hover { background: rgba(255, 255, 255, .05); }
+  .day-head { font-size: 14px; }
+}

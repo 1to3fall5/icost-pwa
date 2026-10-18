@@ -208,7 +208,9 @@ function bodyHTML() {
   const items = catItems();
   const total = items.reduce((s, i) => s + i.value, 0);
 
+  // page-stats：桌面下卡片两两并排成双栏，手机端仍为单列
   return `
+  <div class="page-stats">
   <div class="seg" data-seg="mode">
     ${MODES.map((m) => `<button data-v="${m.v}" class="${m.v === st.mode ? 'on' : ''}">${m.t}</button>`).join('')}
   </div>
@@ -271,6 +273,7 @@ function bodyHTML() {
       <button data-v="income" class="${st.dtype === 'income' ? 'on' : ''}">收入</button>
     </div>
     <div id="st-rank" class="st-list"></div>
+  </div>
   </div>`;
 }
 
