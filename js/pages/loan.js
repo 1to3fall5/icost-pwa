@@ -1,9 +1,8 @@
 // 贷款和分期：贷款列表 / 还款进度 / 记一笔还款
-import { S, cats, addBill, uid, fmtMoney, save } from '../store.js';
+import { S, cats, addBill, uid, fmtMoney, save, today } from '../store.js';
 import { esc } from '../util.js';
 import { UI } from '../app.js';
 
-const today = () => new Date().toISOString().slice(0, 10);
 
 function refresh() {
   const screen = document.getElementById('screen');

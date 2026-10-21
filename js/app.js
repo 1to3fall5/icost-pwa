@@ -1,6 +1,6 @@
 // 应用外壳：hash 路由 + 导航栏 + TabBar + 弹层工具
 import Icons from './icons.js';
-import { load, deleteBill, subscribe, curBook } from './store.js';
+import { load, deleteBill, subscribe, curBook, onSaveError } from './store.js';
 import { esc } from './util.js';
 import { restorePassword, scheduleAutoPush, runAutoSync, onAutoSync, syncCfg, fmtTime } from './sync.js';
 
@@ -373,6 +373,11 @@ export const UI = {
 // 任何一次 save（记账/改账/删账/改设置）都排一次延迟上传；拉到新数据则刷新列表页。
 // runAutoSync 内部的 save 不会再次触发排程（busy 标志拦住），所以不会自激循环。
 subscribe(() => scheduleAutoPush());
+// 写不进 localStorage（配额满）时必须喊出来：内存里的 state 已经改了但没落盘，
+// 用户看到的还是"已记一笔"，刷新就没了 —— 静默吞掉等于骗人
+onSaveError(() => {
+  UI.toast('存储空间不足，本次改动没能保存！请到「备份与同步」导出备份', 6000);
+});
 document.addEventListener('visibilitychange', () => { if (!document.hidden) runAutoSync(); });
 onAutoSync(({ added }) => {
   if (added <= 0) return;

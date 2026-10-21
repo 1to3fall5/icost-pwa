@@ -3,7 +3,7 @@
 import Icons from './icons.js';
 import {
   S, curBook, bookBills, monthSum, carryOver, fmtMoney, ymLabel, shiftMonth,
-  monthOf, catById, accById, accountStat, pad2,
+  monthOf, catById, accById, accountStat, pad2, today,
 } from './store.js';
 import { esc } from './util.js';
 import { donut, line, dualBars, multiLine } from './charts.js';
@@ -11,7 +11,6 @@ import { mountTreemap, countLeaves } from './treemap.js';
 import { go, UI, onCleanup } from './app.js';
 import { syncCfg, fmtTime } from './sync.js';
 
-const today = () => new Date().toISOString().slice(0, 10);
 const curYM = () => monthOf(today());
 
 // 页面级状态：时间范围（影响走势图 + 账单分析）

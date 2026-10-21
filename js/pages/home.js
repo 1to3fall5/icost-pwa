@@ -2,14 +2,14 @@
 import Icons from '../icons.js';
 import {
   S, curBook, bookBills, monthSum, carryOver, fmtMoney, ymLabel, shiftMonth,
-  catById, accById, monthOf, deleteBill,
+  catById, accById, monthOf, deleteBill, today,
 } from '../store.js';
 import { esc } from '../util.js';
 import { go, onCleanup, UI, isDesktop } from '../app.js';
 import { renderDashboard, mountDashboard } from '../dashboard.js';
 
 let state = { ym: null, kw: '' };
-const now = () => state.ym || monthOf(new Date().toISOString().slice(0, 10));
+const now = () => state.ym || monthOf(today());
 
 function summaryCard(bills) {
   const ym = now();
@@ -134,7 +134,7 @@ export default {
           <div class="month-row">
             <span class="month-label">${ymLabel(ym)}</span>
             <button class="month-nav" data-m="-1">${Icons.chevL}</button>
-            <button class="month-nav" data-m="1" ${ym >= monthOf(new Date().toISOString().slice(0, 10)) ? 'disabled' : ''}>${Icons.chevR}</button>
+            <button class="month-nav" data-m="1" ${ym >= monthOf(today()) ? 'disabled' : ''}>${Icons.chevR}</button>
             <span class="month-spacer"></span>
             <button class="pill-btn" data-go="calendar">${Icons.calendar.replace('<svg', '<svg style="width:14px;height:14px"')} 收支日历</button>
           </div>

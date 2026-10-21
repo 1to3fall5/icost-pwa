@@ -2,10 +2,16 @@
 const KEY = 'icost.state.v1';
 const SCHEMA = 1;
 
-const today = () => {
+// 本地日期 YYYY-MM-DD。
+// 千万别换成 new Date().toISOString().slice(0,10) —— 那是 UTC，
+// 东八区在 00:00–08:00 之间会拿到昨天，早上记的账日期就会错一天。
+export const today = () => {
   const d = new Date();
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
 };
+// 金额一律两位小数落地：浮点累加会漂（0.1+0.2 那种），
+// 同步合并那边早就 round2 了，这边不 round 就变成两套精度标准
+export const round2 = (n) => Math.round((Number(n) || 0) * 100) / 100;
 export const fmtMoney = (n, sign = false) => {
   const v = (Math.abs(+n || 0)).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   return (sign && n > 0 ? '+' : n < 0 ? '-' : '') + v;
@@ -106,6 +112,7 @@ export function load() {
     const raw = localStorage.getItem(KEY);
     state = raw ? migrate(JSON.parse(raw)) : defaultState();
   } catch { state = defaultState(); }
+  dropCatIndex();
   return state;
 }
 function migrate(s) {
@@ -122,9 +129,24 @@ function migrate(s) {
 
 export function save() {
   scrubState(state);
-  localStorage.setItem(KEY, JSON.stringify(state));
+  dropCatIndex();          // 分类可能刚被改过，索引作废
+  try {
+    localStorage.setItem(KEY, JSON.stringify(state));
+    lastSaveOk = true;
+  } catch (e) {
+    // 配额满（localStorage 通常 5MB）时写不进去：内存里的 state 已经改了，
+    // 但磁盘没落 —— 静默吞掉的话用户刷新就丢数据还毫无察觉，必须喊出来
+    lastSaveOk = false;
+    console.error('[store] 保存失败', e);
+    if (saveErrorHook) { try { saveErrorHook(e); } catch {} }
+  }
   listeners.forEach((fn) => fn());
 }
+// 上一次 save 是否真的落盘了（配额失败时为 false）
+export const saveOk = () => lastSaveOk;
+let lastSaveOk = true;
+let saveErrorHook = null;
+export function onSaveError(fn) { saveErrorHook = fn; }
 // 输出层安全：所有用户可输入的字符串字段剥离尖括号，阻断存储型 XSS
 const scrub = (s) => (typeof s === 'string' ? s.replace(/[<>]/g, '') : s);
 function scrubState(s) {
@@ -151,7 +173,22 @@ export function reset() { state = defaultState(); save(); }
 export const S = () => state;
 export const curBook = () => state.books.find((b) => b.id === state.currentBookId) || state.books[0];
 export const cats = (type) => state.categories[type] || [];
-export const catById = (id) => [...state.categories.expense, ...state.categories.income, ...state.categories.expense.flatMap((c) => c.children), ...state.categories.income.flatMap((c) => c.children)].find((c) => c.id === id);
+// 分类索引：一级 + 二级放一张 Map，查一次 O(1)。
+// 原来的写法每次调用都重建 4 个展开数组再 find —— 账单列表渲染时每笔都调一次，
+// 几千笔 × 几十个分类就是几十万次操作，还疯狂制造垃圾对象。
+// 索引在 save() / load() 时作废，下次查询重建（分类改动频率远低于查询频率）
+let catIndex = null;
+function dropCatIndex() { catIndex = null; }
+function buildCatIndex() {
+  const m = new Map();
+  ['expense', 'income'].forEach((t) => (state.categories[t] || []).forEach((c) => {
+    if (c && c.id) m.set(c.id, c);
+    (c.children || []).forEach((x) => { if (x && x.id) m.set(x.id, x); });
+  }));
+  catIndex = m;
+  return m;
+}
+export const catById = (id) => (catIndex || buildCatIndex()).get(id);
 export const accById = (id) => state.accounts.find((a) => a.id === id);
 export const bookBills = (bookId = state.currentBookId, ym = null) =>
   state.bills.filter((b) => b.bookId === bookId && (!ym || b.date.startsWith(ym)))
@@ -181,6 +218,22 @@ export function carryOver(bookId, ym) {
     .reduce((s, b) => s + (b.type === 'income' ? b.amount : b.type === 'expense' ? -b.amount : 0), 0);
 }
 
+// 账户余额变动的唯一入口：dir=+1 记账，-1 回滚。
+// 新增 / 删除 / 编辑三处都走它 —— 之前 record.js 自己写了一份回滚，
+// 结果只回滚旧的、没记回新的，编辑账单后余额就错了。
+function applyBalance(bill, dir) {
+  const acc = accById(bill.accountId);
+  if (!acc) return;
+  const amt = round2(bill.amount) * dir;
+  if (bill.type === 'expense') acc.balance = round2(acc.balance - amt);
+  else if (bill.type === 'income') acc.balance = round2(acc.balance + amt);
+  else if (bill.type === 'transfer') {
+    const to = accById(bill.toAccountId);
+    acc.balance = round2(acc.balance - amt);
+    if (to) to.balance = round2(to.balance + amt);
+  }
+}
+
 export function addBill(data) {
   const now = Date.now();
   const bill = {
@@ -189,17 +242,7 @@ export function addBill(data) {
     images: [], tags: [], ...data,
   };
   state.bills.push(bill);
-  // 更新账户余额
-  const acc = accById(bill.accountId);
-  if (acc) {
-    if (bill.type === 'expense') acc.balance -= bill.amount;
-    else if (bill.type === 'income') acc.balance += bill.amount;
-    else if (bill.type === 'transfer') {
-      const to = accById(bill.toAccountId);
-      acc.balance -= bill.amount;
-      if (to) to.balance += bill.amount;
-    }
-  }
+  applyBalance(bill, 1);
   if (bill.claim === 'pending') state.claims.push({ billId: bill.id, amount: bill.amount, status: 'pending' });
   save();
   return bill;
@@ -208,16 +251,7 @@ export function deleteBill(id) {
   const i = state.bills.findIndex((b) => b.id === id);
   if (i < 0) return;
   const bill = state.bills[i];
-  const acc = accById(bill.accountId);
-  if (acc) {
-    if (bill.type === 'expense') acc.balance += bill.amount;
-    else if (bill.type === 'income') acc.balance -= bill.amount;
-    else if (bill.type === 'transfer') {
-      const to = accById(bill.toAccountId);
-      acc.balance += bill.amount;
-      if (to) to.balance -= bill.amount;
-    }
-  }
+  applyBalance(bill, -1);
   state.claims = state.claims.filter((c) => c.billId !== id);
   state.bills.splice(i, 1);
   // 写墓碑：让另一端合并时知道这是"主动删除"，而不是"还没同步到"
@@ -230,6 +264,17 @@ export function deleteBill(id) {
 export function updateBill(id, patch) {
   const b = state.bills.find((x) => x.id === id);
   if (b) { Object.assign(b, patch, { updatedAt: Date.now() }); save(); }
+  return b;
+}
+// 编辑账单：金额 / 类型 / 账户都可能变，余额必须「回滚旧的 + 应用新的」。
+// 页面层别再自己写加减 —— record.js 之前就是只回滚没应用，编辑后余额等于这笔账没记。
+export function updateBillAndBalance(id, patch) {
+  const b = state.bills.find((x) => x.id === id);
+  if (!b) return null;
+  applyBalance(b, -1);
+  Object.assign(b, patch, { updatedAt: Date.now() });
+  applyBalance(b, 1);
+  save();
   return b;
 }
 // 清理过期墓碑（默认保留 30 天，防止无限增长）

@@ -5,7 +5,7 @@
    否则新增模块会两边不同步（离线时 404）。module-test.mjs 会校验一致性。 */
 import { PRECACHE } from './js/modules.js';
 
-const VERSION = 'v1.16.0';
+const VERSION = 'v1.17.0';
 const CACHE = `icost-${VERSION}`;
 
 self.addEventListener('install', (e) => {

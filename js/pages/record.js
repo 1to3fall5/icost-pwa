@@ -1,6 +1,6 @@
 // 记账页（支出 / 收入 / 转账）— 参考实现
 import Icons from '../icons.js';
-import { S, cats, accById, curBook, fmtMoney, addBill, updateBill, billById, save, uid } from '../store.js';
+import { S, cats, accById, curBook, fmtMoney, addBill, updateBillAndBalance, billById, save, uid, today } from '../store.js';
 import { esc } from '../util.js';
 import { back, go, UI } from '../app.js';
 
@@ -21,7 +21,7 @@ const mod = {
       categoryId: bill?.categoryId || cats(type)[0]?.id || '',
       accountId: bill?.accountId || s.accounts[0]?.id || '',
       toAccountId: bill?.toAccountId || s.accounts[1]?.id || '',
-      date: bill?.date || new Date().toISOString().slice(0, 10),
+      date: bill?.date || today(),
       time: bill?.time || new Date().toTimeString().slice(0, 5),
       note: bill?.note || '',
       claim: bill?.claim || (s.settings.claimEnabled && type === 'expense' ? null : null),
@@ -203,20 +203,9 @@ const mod = {
         time: d.time,
       };
       if (d.editId) {
-        // 编辑模式：先按旧账单回滚账户余额，再原位更新（避免复制账单/双扣）
-        const old = billById(d.editId);
-        if (old) {
-          const oacc = accById(old.accountId);
-          if (oacc) {
-            if (old.type === 'expense') oacc.balance += old.amount;
-            else if (old.type === 'income') oacc.balance -= old.amount;
-            else if (old.type === 'transfer') {
-              const to = accById(old.toAccountId);
-              oacc.balance += old.amount;
-              if (to) to.balance -= old.amount;
-            }
-          }
-          updateBill(d.editId, patch);
+        if (billById(d.editId)) {
+          // 回滚旧余额 + 应用新余额都在 store 里做，页面不碰加减法
+          updateBillAndBalance(d.editId, patch);
           // 同步报销记录
           const s = S();
           const c = s.claims.find((x) => x.billId === d.editId);
