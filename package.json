@@ -1,0 +1,11 @@
+{
+  "name": "icost-pwa",
+  "version": "1.17.0",
+  "private": true,
+  "type": "module",
+  "description": "iCost 记账 PWA 复刻版 —— 纯前端、零依赖、零构建",
+  "scripts": {
+    "test": "node scripts/run-tests.mjs",
+    "bundle": "python3 scripts/bundle.py"
+  }
+}
