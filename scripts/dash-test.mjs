@@ -43,7 +43,8 @@ globalThis.requestAnimationFrame = (f) => f();
 globalThis.Node = class Node {};
 globalThis.HTMLElement = class HTMLElement {};
 
-const base = 'file:///C:/Users/Administrator/WorkBuddy/2026-10-17-15-16-37/icost-pwa/js/';
+// 相对本脚本定位 js/ —— 硬编码绝对路径会让测试在别的机器上直接挂掉
+const base = new URL('../js/', import.meta.url).href;
 let pass = 0, fail = 0;
 const ok = (name, cond, extra = '') => {
   if (cond) { pass++; console.log('OK   ' + name); }

@@ -4,6 +4,7 @@ import {
   S, curBook, bookBills, monthSum, carryOver, fmtMoney, ymLabel, shiftMonth,
   catById, accById, monthOf, deleteBill,
 } from '../store.js';
+import { esc } from '../util.js';
 import { go, onCleanup, UI, isDesktop } from '../app.js';
 import { renderDashboard, mountDashboard } from '../dashboard.js';
 
@@ -129,7 +130,7 @@ export default {
     return `
       <div class="page-home">
         <div class="hp-left">
-          <div class="searchbar">${Icons.search}<input id="home-kw" placeholder="输入关键词" value="${state.kw}"></div>
+          <div class="searchbar">${Icons.search}<input id="home-kw" placeholder="输入关键词" value="${esc(state.kw)}"></div>
           <div class="month-row">
             <span class="month-label">${ymLabel(ym)}</span>
             <button class="month-nav" data-m="-1">${Icons.chevL}</button>

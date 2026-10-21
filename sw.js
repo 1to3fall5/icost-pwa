@@ -1,27 +1,17 @@
-/* iCost 复刻 · Service Worker（零依赖手写）
-   策略：HTML network-first；静态资源 stale-while-revalidate；离线兜底 index.html */
-const VERSION = 'v1.15.0';
+/* iCost 复刻 · Service Worker（零依赖手写，ES module worker）
+   策略：HTML network-first；静态资源 stale-while-revalidate；离线兜底 index.html
+
+   预缓存清单来自 js/modules.js —— 不要在这里再抄一份列表，
+   否则新增模块会两边不同步（离线时 404）。module-test.mjs 会校验一致性。 */
+import { PRECACHE } from './js/modules.js';
+
+const VERSION = 'v1.16.0';
 const CACHE = `icost-${VERSION}`;
-const SHELL = [
-  './',
-  './index.html',
-  './manifest.json',
-  './css/style.css',
-  './js/app.js', './js/store.js', './js/icons.js', './js/charts.js', './js/sync.js', './js/importers.js',
-  './js/dashboard.js', './js/treemap.js',
-  './assets/icon-192.png', './assets/icon-512.png', './assets/icon-maskable-512.png', './assets/icon-180.png',
-];
-const PAGE_MODULES = [
-  'home', 'asset', 'save', 'stats', 'record', 'calendar', 'search', 'detail', 'settings',
-  'category', 'budget', 'books', 'templates', 'recurring', 'claim', 'loan',
-  'assetdetail', 'savedetail', 'statsdetail', 'importexport', 'importcsv', 'syncjoin', 'more',
-].map((p) => `./js/pages/${p}.js`);
-PAGE_MODULES.push('./js/pages/index.js'); // 路由注册表（app.js 动态 import）
 
 self.addEventListener('install', (e) => {
   e.waitUntil((async () => {
     const cache = await caches.open(CACHE);
-    await cache.addAll([...SHELL, ...PAGE_MODULES].map((u) => new Request(u, { cache: 'reload' })));
+    await cache.addAll(PRECACHE.map((u) => new Request(u, { cache: 'reload' })));
     await self.skipWaiting();
   })());
 });

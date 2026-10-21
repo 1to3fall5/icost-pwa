@@ -1,6 +1,7 @@
 // 账户详情 / 添加账户
 import Icons from '../icons.js';
 import { S, accById, addAccount, updateAccount, bookBills, catById, fmtMoney, save } from '../store.js';
+import { esc } from '../util.js';
 import { go, back, UI } from '../app.js';
 
 const TYPES = [
@@ -71,7 +72,7 @@ const mod = {
     return `
       <div class="form-group">
         <label class="form-label">账户名称</label>
-        <input class="form-input" id="ad-name" placeholder="如：招商银行储蓄卡" value="${form.name}">
+        <input class="form-input" id="ad-name" placeholder="如：招商银行储蓄卡" value="${esc(form.name)}">
       </div>
 
       <div class="cell-group">

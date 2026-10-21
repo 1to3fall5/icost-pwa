@@ -105,12 +105,20 @@ def transform(mid, src):
   return __exports;
 }}"""
 
+def module_list():
+    """从 js/modules.js 读模块清单 —— 与 sw.js 共用同一份数据源，别在别处再抄一份"""
+    src = read(os.path.join(JS, 'modules.js'))
+    def block(name):
+        m = re.search(r'export const %s = \[(.*?)\]' % name, src, re.S)
+        if not m:
+            raise SystemExit('modules.js 里找不到 %s' % name)
+        return re.findall(r"'([^']+)'", m.group(1))
+    return block('JS_CORE'), block('PAGE_NAMES')
+
 def main():
-    files = [os.path.join(JS, f) for f in
-             ['icons.js', 'store.js', 'charts.js', 'sync.js', 'importers.js', 'treemap.js', 'dashboard.js', 'app.js']]
-    pages_dir = os.path.join(JS, 'pages')
-    page_files = sorted(os.path.join(pages_dir, f) for f in os.listdir(pages_dir) if f.endswith('.js'))
-    files += page_files
+    core, pages = module_list()
+    files = [os.path.join(JS, os.path.basename(c)) for c in core]
+    files += [os.path.join(JS, 'pages', p + '.js') for p in pages]
 
     mods = collect(files)
     order = list(mods.keys())

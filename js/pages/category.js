@@ -1,9 +1,8 @@
 // 分类管理：一级 / 二级分类的增删改
 import Icons from '../icons.js';
 import { S, save, cats, uid } from '../store.js';
+import { esc } from '../util.js';
 import { UI } from '../app.js';
-
-const esc = (v) => String(v ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
 const PALETTE = [
   ['#ff453a', '红'], ['#ff9f0a', '橙'], ['#ffd60a', '黄'], ['#30d158', '绿'],

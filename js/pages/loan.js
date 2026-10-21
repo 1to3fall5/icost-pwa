@@ -1,5 +1,6 @@
 // 贷款和分期：贷款列表 / 还款进度 / 记一笔还款
 import { S, cats, addBill, uid, fmtMoney, save } from '../store.js';
+import { esc } from '../util.js';
 import { UI } from '../app.js';
 
 const today = () => new Date().toISOString().slice(0, 10);
@@ -34,7 +35,7 @@ function loanCard(l) {
   return `
   <div class="card ln-card" data-loan="${l.id}">
     <div class="row1">
-      <span class="nm">${l.name}${l.done ? '<span class="ad-badge-done">已还清</span>' : ''}</span>
+      <span class="nm">${esc(l.name)}${l.done ? '<span class="ad-badge-done">已还清</span>' : ''}</span>
       <button class="ln-pay" data-pay="${l.id}">记一笔还款</button>
     </div>
     <div class="progress"><i style="width:${pct}%;background:${color}"></i></div>

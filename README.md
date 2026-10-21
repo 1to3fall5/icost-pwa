@@ -40,10 +40,12 @@ Service Worker 只在 https 或 localhost 下生效。
 ```
 index.html          入口（含 iOS 全屏 meta / manifest 链接）
 manifest.json       PWA 清单（standalone / maskable icon）
-sw.js               Service Worker
+js/modules.js       模块清单（sw.js 与 scripts/bundle.py 的唯一数据源）
+sw.js               Service Worker（ES module worker，仅 https / localhost 注册）
 css/style.css       设计系统 + 全部组件样式
 js/app.js           路由 / 导航 / TabBar / UI 工具
 js/store.js         localStorage 数据层（含 XSS 净化）
+js/util.js          纯工具（esc —— 所有用户输入进 innerHTML 前必须过它）
 js/charts.js        Canvas 图表（环图 / 柱图 / 折线 / 排行）
 js/icons.js         内联 SVG 图标集
 js/pages/*.js       21 个页面模块

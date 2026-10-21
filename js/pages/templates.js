@@ -1,8 +1,8 @@
 // 模板快捷记账
 import { S, cats, accById, addBill, fmtMoney, save, uid } from '../store.js';
+import { esc } from '../util.js';
 import { go, UI } from '../app.js';
 
-const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const p2 = (n) => String(n).padStart(2, '0');
 const todayStr = () => {
   const d = new Date();

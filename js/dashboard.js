@@ -5,6 +5,7 @@ import {
   S, curBook, bookBills, monthSum, carryOver, fmtMoney, ymLabel, shiftMonth,
   monthOf, catById, accById, accountStat, pad2,
 } from './store.js';
+import { esc } from './util.js';
 import { donut, line, dualBars, multiLine } from './charts.js';
 import { mountTreemap, countLeaves } from './treemap.js';
 import { go, UI, onCleanup } from './app.js';
@@ -299,11 +300,11 @@ function heroCard(months) {
     <div class="dc-head">
       <div class="dc-titles">
         <div class="dc-title">家庭资产总览</div>
-        <div class="dc-sub">${curBook().name} · ${syncTxt}</div>
+        <div class="dc-sub">${esc(curBook().name)} · ${syncTxt}</div>
       </div>
       <div class="dc-tools">
         ${sizeBtn('hero')}${grip('hero')}
-        <label class="dc-search">${Icons.search.replace('<svg', '<svg style="width:14px;height:14px"')}<input id="dash-kw" placeholder="搜索账单" value="${dash.kw}"></label>
+        <label class="dc-search">${Icons.search.replace('<svg', '<svg style="width:14px;height:14px"')}<input id="dash-kw" placeholder="搜索账单" value="${esc(dash.kw)}"></label>
         <div class="seg dc-seg">
           ${RANGES.map((r) => `<button class="${dash.range === r.v ? 'on' : ''}" data-rg="${r.v}">${r.t}</button>`).join('')}
         </div>
@@ -331,9 +332,9 @@ function heroCard(months) {
 
     <div class="hero-dist">
       <div class="hd-head">资产分布</div>
-      <div class="hd-bar">${segs.map((s) => `<i style="width:${s.pct}%;background:${s.color}" title="${s.name}"></i>`).join('') || '<i style="width:100%;background:#3a3a3c"></i>'}</div>
+      <div class="hd-bar">${segs.map((s) => `<i style="width:${s.pct}%;background:${s.color}" title="${esc(s.name)}"></i>`).join('') || '<i style="width:100%;background:#3a3a3c"></i>'}</div>
       <div class="hd-legend">
-        ${segs.map((s) => `<span class="hd-lg"><i style="background:${s.color}"></i>${s.name}<b>${yuan(s.value)}</b><em>${s.pct.toFixed(0)}%</em></span>`).join('')
+        ${segs.map((s) => `<span class="hd-lg"><i style="background:${s.color}"></i>${esc(s.name)}<b>${yuan(s.value)}</b><em>${s.pct.toFixed(0)}%</em></span>`).join('')
           || '<span class="hd-lg">暂无账户资产</span>'}
       </div>
     </div>
@@ -354,7 +355,7 @@ function donutCard(bills) {
     <div class="dc-donut"><canvas class="chart" id="dash-donut"></canvas></div>
     <div class="dc-legend">
       ${shown.length ? shown.map((i) => `<div class="lg-row">
-        <i style="background:${i.color}"></i><span>${i.icon} ${i.name}</span>
+        <i style="background:${i.color}"></i><span>${esc(i.icon)} ${esc(i.name)}</span>
         <b>${yuan(i.value)}</b><em>${total ? ((i.value / total) * 100).toFixed(1) : '0.0'}%</em>
       </div>`).join('') : '<div class="dc-empty">本区间暂无支出</div>'}
     </div>
@@ -403,7 +404,7 @@ function rankCard(months, bills) {
         const cls = d === null ? '' : d >= 0 ? 'up' : 'down';
         return `<div class="rk-row" data-go="stats">
           <div class="rk-top">
-            <span class="rk-nm">${i.icon} ${i.name}</span>
+            <span class="rk-nm">${esc(i.icon)} ${esc(i.name)}</span>
             <span class="rk-v">${yuan(i.value)}${d === null ? '' : `<em class="${cls}">${d >= 0 ? '↑' : '↓'}${Math.abs(d).toFixed(0)}%</em>`}</span>
           </div>
           <div class="rk-bar"><i style="width:${total ? Math.max(2, (i.value / total) * 100) : 0}%;background:${i.color}"></i></div>
@@ -420,7 +421,7 @@ function catTrendCard(months, bills) {
     <div class="dc-head"><div class="dc-titles"><div class="dc-title">分类趋势</div><div class="dc-sub">支出 Top 3</div></div>${sizeBtn('cattrend')}${grip('cattrend')}</div>
     <div class="dc-chart"><canvas class="chart" id="dash-cat"></canvas></div>
     <div class="dc-legend">
-      ${items.map((i) => `<div class="lg-row"><i style="background:${i.color}"></i><span>${i.icon} ${i.name}</span><b>${yuan(i.value)}</b></div>`).join('')
+      ${items.map((i) => `<div class="lg-row"><i style="background:${i.color}"></i><span>${esc(i.icon)} ${esc(i.name)}</span><b>${yuan(i.value)}</b></div>`).join('')
         || '<div class="dc-empty">本区间暂无支出</div>'}
     </div>
   </section>`;
@@ -462,7 +463,7 @@ function accountCard() {
         return `<div class="ac-row" data-acc="${a.id}">
           <span class="ac-ic" style="background:${a.color}22">${a.icon || '💳'}</span>
           <div class="ac-main">
-            <div class="ac-nm">${a.name}${a.includeNet === false ? '<em>不计净资产</em>' : ''}</div>
+            <div class="ac-nm">${esc(a.name)}${a.includeNet === false ? '<em>不计净资产</em>' : ''}</div>
             <div class="ac-bar"><i style="width:${Math.max(3, w)}%;background:${debt ? '#ff453a' : a.color || '#0a84ff'}"></i></div>
           </div>
           <b class="${debt ? 'down' : ''}">${debt ? '-' : ''}${yuan(Math.abs(a.balance))}</b>
@@ -507,7 +508,7 @@ function saveCard() {
         const done = (p.records || []).reduce((s, r) => s + r.amount, 0);
         const pct = p.target ? Math.min(100, (done / p.target) * 100) : 0;
         return `<div class="bd-row" data-go="save">
-          <div class="rk-top"><span class="rk-nm">${p.icon || '🎯'} ${p.name}</span><span class="rk-v">${yuan(done)} / ${yuan(p.target)}</span></div>
+          <div class="rk-top"><span class="rk-nm">${esc(p.icon || '🎯')} ${esc(p.name)}</span><span class="rk-v">${yuan(done)} / ${yuan(p.target)}</span></div>
           <div class="rk-bar"><i style="width:${pct}%;background:#ffd60a"></i></div>
         </div>`;
       }).join('')}

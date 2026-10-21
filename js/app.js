@@ -1,6 +1,7 @@
 // 应用外壳：hash 路由 + 导航栏 + TabBar + 弹层工具
 import Icons from './icons.js';
 import { load, deleteBill, subscribe, curBook } from './store.js';
+import { esc } from './util.js';
 import { restorePassword, scheduleAutoPush, runAutoSync, onAutoSync, syncCfg, fmtTime } from './sync.js';
 
 const app = {
@@ -90,8 +91,8 @@ function renderSidebar(active) {
       <div class="side-brand-t"><b>iCost</b><span>记账 · 网页版</span></div>
     </div>
     <button class="side-book" data-act="books" title="切换账本">
-      <span class="sb-ic">${book?.icon || '📔'}</span>
-      <span class="sb-nm">${book?.name || '账本'}</span>
+      <span class="sb-ic">${esc(book?.icon || '📔')}</span>
+      <span class="sb-nm">${esc(book?.name || '账本')}</span>
       <span class="sb-ch">${Icons.chevD.replace('<svg', '<svg style="width:14px;height:14px"')}</span>
     </button>
     <button class="side-btn primary" data-act="record">${Icons.plus}<span>记一笔</span></button>
@@ -189,6 +190,8 @@ window.addEventListener('scroll', () => {
 function renderNav(page, route, params) {
   const mode = page.header || (isTab(route) ? 'large' : 'sub');
   const title = typeof page.title === 'function' ? page.title(params) : (page.title || '');
+  // 标题可能回显 params（如存钱计划名 / URL 传参），必须转义
+  const titleHTML = esc(title);
   const right = typeof page.navRight === 'function' ? page.navRight(params) : (page.navRight || null);
   if (mode === 'none') { navbar.innerHTML = ''; navbar.className = ''; return; }
   if (mode === 'large') {
@@ -198,14 +201,14 @@ function renderNav(page, route, params) {
         <div class="nb-side">${page.navLeft === '' ? '' : (page.navLeft || `<button class="nb-btn" data-act="nav-left">${Icons.swap}</button>`)}</div>
         <div class="nb-side">${right || `<button class="nb-btn" data-act="nav-more">${Icons.more}</button><button class="nb-btn avatar" data-act="settings">${Icons.avatar}</button>`}</div>
       </div>
-      <div class="nb-title">${title}</div>
-      <div class="nb-mini">${title}</div>`;
+      <div class="nb-title">${titleHTML}</div>
+      <div class="nb-mini">${titleHTML}</div>`;
   } else {
     navbar.className = 'nb-solid';
     navbar.innerHTML = `
       <div class="nb-row">
         <div class="nb-side"><button class="nb-btn" data-act="back">${Icons.back}</button></div>
-        <div class="nb-title center">${title}</div>
+        <div class="nb-title center">${titleHTML}</div>
         <div class="nb-side">${right || ''}</div>
       </div>`;
   }
@@ -243,7 +246,7 @@ async function render() {
     else screen.innerHTML = html;
     if (page.mount) page.mount(screen, params);
   } catch (e) {
-    screen.innerHTML = `<div class="empty-tip">页面出错了：${e.message}</div>`;
+    screen.innerHTML = `<div class="empty-tip">页面出错了：${esc(e.message)}</div>`;
     console.error(e);
   }
   screen.querySelectorAll('[data-go]').forEach((b) => b.addEventListener('click', () => go(b.dataset.go)));
@@ -265,6 +268,10 @@ async function render() {
 window.addEventListener('hashchange', render);
 
 // ---------- UI 工具 ----------
+// 弹层里的 title / label / value 都可能是用户数据（账本名、分类名、金额…），
+// icon 与 color 走校验而不是转义 —— 它们进的是 style 属性，转义挡不住 CSS 上下文注入
+const safeColor = (c) => (/^(#[0-9a-fA-F]{3,8}|rgba?\([\d.,\s%]+\)|[a-zA-Z]+)$/.test(String(c || '')) ? c : '#2c2c2e');
+
 export const UI = {
   toast(msg, ms = 1800) {
     const t = document.createElement('div');
@@ -278,10 +285,10 @@ export const UI = {
       const ov = document.createElement('div');
       ov.className = 'overlay';
       ov.innerHTML = `<div class="panel center">
-        <h3>${title}</h3>
+        <h3>${esc(title)}</h3>
         <div style="display:flex;gap:10px;margin-top:6px">
           <button class="form-input" data-r="0" style="flex:1;text-align:center;background:#3a3a3c">取消</button>
-          <button class="form-input" data-r="1" style="flex:1;text-align:center;background:#ff453a;color:#fff;border-radius:12px">${okText}</button>
+          <button class="form-input" data-r="1" style="flex:1;text-align:center;background:#ff453a;color:#fff;border-radius:12px">${esc(okText)}</button>
         </div></div>`;
       ov.addEventListener('click', (e) => {
         const r = e.target.dataset.r;
@@ -297,10 +304,10 @@ export const UI = {
       const ov = document.createElement('div');
       ov.className = 'overlay';
       ov.innerHTML = `<div class="panel">
-        <h3>${title}</h3>
+        <h3>${esc(title)}</h3>
         <div class="opts">
           ${opts.map((o, i) => `<div class="cell" data-i="${i}">
-            <span class="cl${o.danger ? ' st2-danger' : ''}">${o.label}${o.desc ? `<span class="cell-sub">${o.desc}</span>` : ''}</span>
+            <span class="cl${o.danger ? ' st2-danger' : ''}">${esc(o.label)}${o.desc ? `<span class="cell-sub">${esc(o.desc)}</span>` : ''}</span>
           </div>`).join('')}
         </div>
         <button class="form-input" data-cancel style="margin-top:12px;text-align:center;background:#2c2c2e">取消</button>
@@ -319,11 +326,11 @@ export const UI = {
       const ov = document.createElement('div');
       ov.className = 'overlay';
       ov.innerHTML = `<div class="panel">
-        ${title ? `<h3>${title}</h3>` : ''}
+        ${title ? `<h3>${esc(title)}</h3>` : ''}
         <div class="opts">
           ${opts.map((o, i) => `<div class="cell" data-i="${i}">
-            ${o.icon ? `<span class="ci" style="background:${o.color || '#2c2c2e'}">${o.icon}</span>` : ''}
-            <span class="cl">${o.label}</span>${o.value ? `<span class="cv">${o.value}</span>` : ''}
+            ${o.icon ? `<span class="ci" style="background:${safeColor(o.color)}">${esc(o.icon)}</span>` : ''}
+            <span class="cl">${esc(o.label)}</span>${o.value ? `<span class="cv">${esc(o.value)}</span>` : ''}
           </div>`).join('')}
         </div>
         <button class="form-input" data-cancel style="margin-top:12px;text-align:center;background:#2c2c2e">取消</button>
@@ -341,8 +348,8 @@ export const UI = {
       const ov = document.createElement('div');
       ov.className = 'overlay';
       ov.innerHTML = `<div class="panel">
-        <h3>${title}</h3>
-        <input class="form-input" id="ovp-input" type="${type}" placeholder="${placeholder}" value="${value}">
+        <h3>${esc(title)}</h3>
+        <input class="form-input" id="ovp-input" type="${esc(type)}" placeholder="${esc(placeholder)}" value="${esc(value)}">
         <div style="display:flex;gap:10px;margin-top:14px">
           <button class="form-input" data-r="0" style="flex:1;text-align:center;background:#3a3a3c">取消</button>
           <button class="form-input" data-r="1" style="flex:1;text-align:center;background:#0a84ff;color:#fff;border-radius:12px">确定</button>
@@ -375,9 +382,37 @@ onAutoSync(({ added }) => {
   UI.toast(`云端同步了 ${added} 笔新账单`);
 });
 
+// ---------- Service Worker ----------
+// 只在 https / localhost 下注册（安全上下文要求，和 crypto.subtle 一致）。
+// 注意 sw.js 是 ES module worker（它 import 了 js/modules.js），注册时必须带 type:'module'。
+function registerSW() {
+  try {
+    if (!('serviceWorker' in navigator)) return;
+    const host = location.hostname;
+    if (location.protocol !== 'https:' && host !== 'localhost' && host !== '127.0.0.1') return;
+    navigator.serviceWorker.register('./sw.js', { type: 'module' }).then((reg) => {
+      reg.addEventListener('updatefound', () => {
+        const nw = reg.installing;
+        if (!nw) return;
+        nw.addEventListener('statechange', () => {
+          // controller 存在说明页面上已有旧 SW 在跑 —— 这次是真更新；首次安装不打扰用户
+          if (nw.state === 'installed' && navigator.serviceWorker.controller) {
+            UI.confirm('发现新版本，是否立即更新？', '更新').then((yes) => {
+              if (!yes) return;
+              nw.postMessage('SKIP_WAITING');
+              location.reload();
+            });
+          }
+        });
+      });
+    }).catch(() => {});   // 注册失败不拖累主流程：离线缓存是增强，不是依赖
+  } catch {}
+}
+
 // 启动
 load();
 restorePassword();
+registerSW();
 import('./pages/index.js').then((m) => {
   registerPages(m.pages);
   const st = load();

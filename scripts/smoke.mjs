@@ -20,7 +20,8 @@ globalThis.requestAnimationFrame = (f) => f();
 globalThis.Node = class Node {};
 globalThis.HTMLElement = class HTMLElement {};
 
-const base = 'file:///C:/Users/Administrator/WorkBuddy/2026-10-17-15-16-37/icost-pwa/js/pages/';
+// 相对本脚本定位 js/pages/ —— 硬编码绝对路径会让测试在别的机器上直接挂掉
+const base = new URL('../js/pages/', import.meta.url).href;
 const routes = ['home','asset','save','stats','record','calendar','search','detail','settings','category','budget','books','templates','recurring','claim','loan','assetdetail','savedetail','statsdetail','importexport','importcsv','syncjoin','more'];
 const argOf = { detail: { id: 'x' }, savedetail: { mode: 'fixed' } };
 let fail = 0;

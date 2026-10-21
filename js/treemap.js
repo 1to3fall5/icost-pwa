@@ -7,6 +7,8 @@
 //   · canDrill 要求能切出 ≥2 个子块，否则钻进去还是一块，白加一层路径
 //   · 明度靠 --ov：容器压暗当外壳，叶子按层级越往里越亮
 
+import { esc } from './util.js';
+
 export const MIN_AREA = 2200;   // 子块小于这个面积就不再切，避免切出一堆读不出信息的碎片
 
 function worst(vals, sum, total, w, h, horiz) {
@@ -104,8 +106,6 @@ export function deepGather(n, minPct) {
 }
 
 export const canDrill = (n) => !n.leaf && (n.children || []).filter((k) => k.value > 0).length >= 2;
-
-const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
 export function countLeaves(n) {
   return n.leaf ? 1 : (n.children || []).reduce((s, c) => s + countLeaves(c), 0);

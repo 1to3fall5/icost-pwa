@@ -1,8 +1,8 @@
 // 周期记账
 import { S, cats, accById, addBill, fmtMoney, save, uid } from '../store.js';
+import { esc } from '../util.js';
 import { go, UI } from '../app.js';
 
-const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const p2 = (n) => String(n).padStart(2, '0');
 const WD = '日一二三四五六';
 const fmtD = (d) => `${d.getFullYear()}-${p2(d.getMonth() + 1)}-${p2(d.getDate())}`;

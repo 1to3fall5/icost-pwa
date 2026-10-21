@@ -1,8 +1,8 @@
 // 预算管理：总预算（周/月/年）+ 分类预算
 import { S, save, cats, uid, fmtMoney } from '../store.js';
+import { esc } from '../util.js';
 import { UI } from '../app.js';
 
-const esc = (v) => String(v ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const pad = (n) => String(n).padStart(2, '0');
 const ymd = (d) => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
 

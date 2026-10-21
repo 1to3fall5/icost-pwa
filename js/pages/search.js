@@ -1,6 +1,7 @@
 // 搜索：关键词 + 类型/时间/账户/排序筛选，按日分组展示结果
 import Icons from '../icons.js';
 import { S, curBook, bookBills, catById, accById, fmtMoney, monthOf, pad2 } from '../store.js';
+import { esc } from '../util.js';
 import { go, onCleanup } from '../app.js';
 import { rowHTML } from './home.js';
 
@@ -78,7 +79,7 @@ function bodyHTML() {
   const exp = list.filter((b) => b.type === 'expense').reduce((s, b) => s + b.amount, 0);
   const inc = list.filter((b) => b.type === 'income').reduce((s, b) => s + b.amount, 0);
   return `
-  <div class="searchbar">${Icons.search}<input id="se-kw" placeholder="搜索备注 / 分类 / 账户" value="${st.kw}"></div>
+  <div class="searchbar">${Icons.search}<input id="se-kw" placeholder="搜索备注 / 分类 / 账户" value="${esc(st.kw)}"></div>
   ${chipsHTML()}
   <div id="se-list">${groupsHTML(list)}</div>
   <div class="se-sum" id="se-sum">共 ${list.length} 笔 · 支出 ¥${fmtMoney(exp)} · 收入 ¥${fmtMoney(inc)}</div>`;

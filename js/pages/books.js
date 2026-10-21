@@ -1,9 +1,9 @@
 // 账本管理：列表 / 设为当前 / 重命名 / 复制 / 归档 / 删除 / 新建
 import Icons from '../icons.js';
 import { S, save, uid } from '../store.js';
+import { esc } from '../util.js';
 import { UI } from '../app.js';
 
-const esc = (v) => String(v ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const ICONS = ['📔', '📕', '📗', '📘', '📙', '💼', '🏠', '✈️', '🍔', '🐱', '💰', '🎯'];
 
 const today = () => {

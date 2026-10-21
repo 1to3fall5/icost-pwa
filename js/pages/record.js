@@ -1,6 +1,7 @@
 // 记账页（支出 / 收入 / 转账）— 参考实现
 import Icons from '../icons.js';
 import { S, cats, accById, curBook, fmtMoney, addBill, updateBill, billById, save, uid } from '../store.js';
+import { esc } from '../util.js';
 import { back, go, UI } from '../app.js';
 
 const KEYS = [['7', '8', '9', '÷'], ['4', '5', '6', '×'], ['1', '2', '3', '−'], ['0', '.', '⌫', '+']];
@@ -62,7 +63,7 @@ const mod = {
         grid.style.display = '';
         grid.innerHTML = list.map((c) => `
           <button class="cat-item ${c.id === categoryId ? 'on' : ''}" data-c="${c.id}" style="--c:${c.color}">
-            <span class="ic has-color">${c.icon}</span><span class="nm">${c.name}</span>
+            <span class="ic has-color">${esc(c.icon)}</span><span class="nm">${esc(c.name)}</span>
           </button>`).join('');
         grid.querySelectorAll('[data-c]').forEach((b) => b.addEventListener('click', () => {
           mod.data.categoryId = b.dataset.c;

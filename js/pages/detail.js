@@ -3,10 +3,10 @@ import Icons from '../icons.js';
 import {
   S, accById, billById, addBill, deleteBill, fmtMoney, save, uid,
 } from '../store.js';
+import { esc } from '../util.js';
 import { go, back, UI } from '../app.js';
 
 const TYPE = { expense: '支出', income: '收入', transfer: '转账' };
-const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const p2 = (n) => String(n).padStart(2, '0');
 
 function todayStr() {
