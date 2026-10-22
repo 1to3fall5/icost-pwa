@@ -1,5 +1,5 @@
 // 周期记账
-import { S, cats, accById, addBill, fmtMoney, save, uid } from '../store.js';
+import { S, cats, accById, addBill, fmtMoney, save, uid, addTombstone } from '../store.js';
 import { esc } from '../util.js';
 import { go, UI } from '../app.js';
 
@@ -259,6 +259,7 @@ function bind(root, params) {
     const ok = await UI.confirm('删除这个周期记账？', '删除');
     if (!ok) return;
     S().recurrings = S().recurrings.filter((x) => x.id !== b.dataset.del);
+    addTombstone('recurrings', b.dataset.del);
     save();
     UI.toast('已删除');
     refresh(root, params);

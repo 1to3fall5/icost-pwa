@@ -1,6 +1,6 @@
 // 账本管理：列表 / 设为当前 / 重命名 / 复制 / 归档 / 删除 / 新建
 import Icons from '../icons.js';
-import { S, save, uid } from '../store.js';
+import { S, save, uid, addTombstone } from '../store.js';
 import { esc } from '../util.js';
 import { UI } from '../app.js';
 
@@ -102,6 +102,8 @@ async function bookSheet(id) {
     const ok = await UI.confirm(msg, '删除');
     if (!ok) return false;
     s.books.splice(s.books.indexOf(b), 1);
+    addTombstone('books', b.id);
+    s.bills.forEach((x) => { if (x.bookId === b.id) addTombstone('bills', x.id); });
     s.bills = s.bills.filter((x) => x.bookId !== b.id);
     if (s.currentBookId === b.id) {
       const other = s.books.find((x) => !x.archived);

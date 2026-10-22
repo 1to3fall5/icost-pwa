@@ -1,5 +1,5 @@
 // 预算管理：总预算（周/月/年）+ 分类预算
-import { S, save, cats, uid, fmtMoney } from '../store.js';
+import { S, save, cats, uid, fmtMoney, addTombstone } from '../store.js';
 import { esc } from '../util.js';
 import { UI } from '../app.js';
 
@@ -141,6 +141,7 @@ async function editBudget(id) {
   const ok = await UI.confirm('确认删除该预算？', '删除');
   if (!ok) return false;
   S().budgets.splice(S().budgets.indexOf(b), 1);
+  addTombstone('budgets', b.id);
   save(); UI.toast('已删除');
   return true;
 }

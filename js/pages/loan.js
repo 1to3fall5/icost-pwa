@@ -1,5 +1,5 @@
 // 贷款和分期：贷款列表 / 还款进度 / 记一笔还款
-import { S, cats, addBill, uid, fmtMoney, save, today } from '../store.js';
+import { S, cats, addBill, uid, fmtMoney, save, today, addTombstone } from '../store.js';
 import { esc } from '../util.js';
 import { UI } from '../app.js';
 
@@ -118,6 +118,7 @@ const mod = {
             const ok = await UI.confirm(`删除「${l.name}」？已记录的还款账单会保留`, '删除');
             if (!ok) return;
             S().loans = S().loans.filter((x) => x.id !== l.id);
+            addTombstone('loans', l.id);
             save();
             UI.toast('已删除');
             refresh();

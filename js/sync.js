@@ -15,7 +15,7 @@
 //  合并按实体 id 取并集，同 id 比 updatedAt 取新；删除靠墓碑，避免已删账单复活
 //
 // 依赖：crypto.subtle —— 仅 https 或 localhost 下可用（GitHub Pages 满足）
-import { S, save, pruneTombstones } from './store.js';
+import { S, save, pruneTombstones, TOMB_KEYS } from './store.js';
 
 const API = 'https://api.github.com/gists';
 const FILE = 'icost-sync.json';
@@ -148,18 +148,40 @@ const ts = (o) => Number((o && (o.updatedAt || o.created)) || 0);
 const round2 = (n) => Math.round((Number(n) || 0) * 100) / 100;
 
 // 按 id 取并集，同 id 比 updatedAt 取新；传入墓碑则剔除「删除时间晚于最后修改」的条目
-function mergeList(localArr, remoteArr, tombs) {
+// keyOf 允许指定业务主键：claims 没有 id，只有 billId
+function mergeList(localArr, remoteArr, tombs, keyOf = (x) => x.id, tombKeyOf = keyOf) {
   const byId = new Map();
-  (localArr || []).forEach((x) => { if (x && x.id) byId.set(x.id, x); });
+  (localArr || []).forEach((x) => { const k = x && keyOf(x); if (k) byId.set(k, x); });
   (remoteArr || []).forEach((x) => {
-    if (!x || !x.id) return;
-    const cur = byId.get(x.id);
-    if (!cur || ts(x) > ts(cur)) byId.set(x.id, x);
+    const k = x && keyOf(x);
+    if (!k) return;
+    const cur = byId.get(k);
+    if (!cur || ts(x) > ts(cur)) byId.set(k, x);
   });
   (tombs || []).forEach((t) => {
-    const item = byId.get(t && t.id);
-    if (item && Number(t.deletedAt || 0) > ts(item)) byId.delete(t.id);
+    const k = t && tombKeyOf(t);       // 墓碑统一用 id（claims 的墓碑 id 即 billId）
+    const item = byId.get(k);
+    if (item && Number(t.deletedAt || 0) > ts(item)) byId.delete(k);
   });
+  return [...byId.values()];
+}
+
+// claims 的主键是 billId：同一笔账单只应存在一条报销记录（status 是它的状态机）
+const claimKey = (c) => c && c.billId;
+// 墓碑统一用 id / deletedAt 两个字段表示，claims 的 id 里存的就是 billId。
+// 之前这里按 billId 取键，而 addTombstone 写入的是 { id }，两边对不上，
+// 导致所有报销墓碑在合并时被当成"无键"静默丢弃。
+const TOMB_KEY_OF = { claims: (t) => t && t.id };
+
+// 合并两端墓碑并去重（同主键保留更晚的删除时间）
+function mergeTombs(a, b, keyOf = (t) => t && t.id) {
+  const byId = new Map();
+  [a, b].forEach((arr) => (arr || []).forEach((t) => {
+    const k = keyOf(t);
+    if (!k) return;
+    const cur = byId.get(k);
+    if (!cur || Number(t.deletedAt || 0) > Number(cur.deletedAt || 0)) byId.set(k, t);
+  }));
   return [...byId.values()];
 }
 
@@ -190,10 +212,26 @@ export function mergeRemote(remote) {
     savings: st.savings, templates: st.templates, recurrings: st.recurrings,
     loans: st.loans, claims: st.claims,
   };
-  const tombs = [...(st.tombstones?.bills || []), ...(remote?.tombstones?.bills || [])];
+  // 墓碑按集合分组，两端同类墓碑先合并（同主键保留更晚的删除时间），
+  // 再交给 mergeList 判定「删除时间 > 最后修改时间」 -> 真删
+  // claims 的墓碑同样以 billId 为键，否则去重会全部丢失
+  const tombMap = {};
+  TOMB_KEYS.forEach((k) => {
+    tombMap[k] = mergeTombs(st.tombstones?.[k], remote?.tombstones?.[k], TOMB_KEY_OF[k] || ((t) => t && t.id));
+  });
 
   const merged = {};
-  LIST_KEYS.forEach((k) => { merged[k] = mergeList(local[k], remote?.[k], k === 'bills' ? tombs : null); });
+  LIST_KEYS.forEach((k) => {
+    merged[k] = k === 'claims'
+      ? mergeList(local[k], remote?.[k], tombMap[k], claimKey, TOMB_KEY_OF[k] || ((t) => t && t.id))
+      : mergeList(local[k], remote?.[k], tombMap[k]);
+  });
+
+  // 孤儿报销回收：报销记录靠 billId 指向账单，账单一旦被删（含对端删的），
+  // 留下的报销就会永远挂在"待报销"里、金额也算进总额。这里按合并后的账单集合清理。
+  // 只清理、不写墓碑 —— 账单本身已有墓碑，下次合并没有账单就自然不成立。
+  const billIds = new Set((merged.bills || []).map((b) => b.id));
+  merged.claims = (merged.claims || []).filter((c) => c && billIds.has(c.billId));
 
   // 余额重算：先扣掉"该账户对象原来那一侧的账单贡献"，再加"合并后账单的贡献"。
   // 区分来源很关键 —— 若账户对象取自远端，它里面含的是远端账单的贡献，扣本地就会算错。
@@ -212,18 +250,10 @@ export function mergeRemote(remote) {
   const cats = {};
   ['expense', 'income'].forEach((t) => { cats[t] = mergeList(st.categories?.[t], remote?.categories?.[t]); });
 
-  // 墓碑合并去重，保留最新的删除时间
-  const tombMap = new Map();
-  tombs.forEach((t) => {
-    if (!t || !t.id) return;
-    const cur = tombMap.get(t.id);
-    if (!cur || Number(t.deletedAt || 0) > Number(cur.deletedAt || 0)) tombMap.set(t.id, t);
-  });
-
   return {
     ...merged,
     categories: cats,
-    tombstones: { bills: [...tombMap.values()] },
+    tombstones: tombMap,
     settings: st.settings,          // 保留本机设置（含 token / 同步配置）
     currentBookId: st.currentBookId,
   };
@@ -325,7 +355,9 @@ export function hasLocalChanges() {
   const st = S();
   if (!base) return st.bills.length > 0;
   const listDirty = LIST_KEYS.some((k) => (st[k] || []).some((x) => ts(x) > base));
-  const tombDirty = (st.tombstones?.bills || []).some((t) => Number(t.deletedAt || 0) > base);
+  // 删除也是一种改动：任何集合的墓碑晚于基线，都必须推送，否则对端会把这条拉回来
+  const tombDirty = TOMB_KEYS.some((k) =>
+    (st.tombstones?.[k] || []).some((t) => Number(t.deletedAt || 0) > base));
   return listDirty || tombDirty;
 }
 

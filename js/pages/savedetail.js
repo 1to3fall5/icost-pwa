@@ -1,5 +1,5 @@
 // 存钱计划 新建（?mode=）/ 详情（?id=）
-import { S, save, uid, fmtMoney } from '../store.js';
+import { S, save, uid, fmtMoney, addTombstone } from '../store.js';
 import { go, back, UI } from '../app.js';
 import { MODES, savedOf, periodNo, nextAmount, targetOf, defaultName, punch } from './save.js';
 
@@ -162,6 +162,7 @@ export default {
         const ok = await UI.confirm('删除该存钱计划？打卡记录将一并删除', '删除');
         if (!ok) return;
         S().savings = S().savings.filter((x) => x.id !== params.id);
+        addTombstone('savings', params.id);
         save();
         UI.toast('已删除');
         back();

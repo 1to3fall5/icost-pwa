@@ -1,5 +1,5 @@
 // 报销管理
-import { S, cats, billById, addBill, fmtMoney, save } from '../store.js';
+import { S, cats, billById, addBill, fmtMoney, save, clearClaim, upsertClaim } from '../store.js';
 import { esc } from '../util.js';
 import { go, UI } from '../app.js';
 
@@ -105,9 +105,7 @@ async function onClaim(root, params, billId) {
   if (pick.label === '查看原账单') return go('detail', { id: billId });
 
   if (pick.label === '取消报销标记') {
-    S().claims = S().claims.filter((c) => c.billId !== billId);
-    if (b) b.claim = '';
-    save();
+    clearClaim(billId);
     UI.toast('已取消报销标记');
     return refresh(root, params);
   }
@@ -129,7 +127,7 @@ async function onClaim(root, params, billId) {
     claim.status = 'done';
     claim.doneTime = Date.now();
     if (b) b.claim = 'done';
-    save();
+    upsertClaim(billId, { status: 'done', doneTime: claim.doneTime, amount: claim.amount });
     UI.toast('已报销入账 ✓');
     return refresh(root, params);
   }

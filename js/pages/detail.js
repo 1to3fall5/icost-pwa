@@ -1,7 +1,7 @@
 // 账单详情页
 import Icons from '../icons.js';
 import {
-  S, accById, billById, addBill, deleteBill, fmtMoney, save, uid,
+  S, accById, billById, addBill, deleteBill, fmtMoney, save, uid, clearClaim, upsertClaim,
 } from '../store.js';
 import { esc } from '../util.js';
 import { go, back, UI } from '../app.js';
@@ -182,16 +182,10 @@ async function onClaim(root, params) {
   if (pick.label === '前往报销管理') return go('claim');
 
   if (pick.label === '标记为待报销') {
-    b.claim = 'pending';
-    const c = claimOf(b.id);
-    if (c) { c.amount = b.amount; c.status = 'pending'; c.doneTime = undefined; }
-    else S().claims.push({ billId: b.id, amount: b.amount, status: 'pending' });
-    save();
+    upsertClaim(b.id, { amount: b.amount, status: 'pending', doneTime: undefined });
     UI.toast('已标记为待报销');
   } else {
-    S().claims = S().claims.filter((c) => c.billId !== b.id);
-    b.claim = '';
-    save();
+    clearClaim(b.id);
     UI.toast('已取消报销标记');
   }
   refresh(root, params);

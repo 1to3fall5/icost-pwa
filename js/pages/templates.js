@@ -1,5 +1,5 @@
 // 模板快捷记账
-import { S, cats, accById, addBill, fmtMoney, save, uid } from '../store.js';
+import { S, cats, accById, addBill, fmtMoney, save, uid, addTombstone } from '../store.js';
 import { esc } from '../util.js';
 import { go, UI } from '../app.js';
 
@@ -192,6 +192,7 @@ function bind(root, params) {
     const ok = await UI.confirm('删除这个模板？', '删除');
     if (!ok) return;
     S().templates = S().templates.filter((x) => x.id !== b.dataset.del);
+    addTombstone('templates', b.dataset.del);
     save();
     UI.toast('已删除模板');
     refresh(root, params);

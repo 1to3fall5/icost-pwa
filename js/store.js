@@ -79,8 +79,9 @@ function defaultState() {
       acc('信用卡', '🪪', '#ff453a', 'credit'),
     ],
     bills: [],
-    // 删除墓碑：合并时用来判断某条账单是"被删了"还是"另一端还没同步到"，避免删掉的账单复活
-    tombstones: { bills: [] },  // {id, deletedAt}
+    // 删除墓碑：合并时用来判断某条数据是"被删了"还是"另一端还没同步到"，避免删掉的数据复活
+    // 按集合分桶，结构 { bills:[{id,deletedAt}], accounts:[...], ... }
+    tombstones: { bills: [], accounts: [], books: [], budgets: [], savings: [], templates: [], recurrings: [], loans: [], claims: [] },
     budgets: [],            // {id, scope:'total'|'category', period:'week'|'month'|'year', categoryId?, amount}
     savings: [],            // {id, mode, name, target, startDate, note, records:[{date,amount}]}
     templates: [],          // 快捷记账模板
@@ -119,7 +120,10 @@ function migrate(s) {
   if (!s.schema) s.schema = SCHEMA;
   // 增量同步依赖 updatedAt 与墓碑，老数据补齐
   if (!s.tombstones || typeof s.tombstones !== 'object') s.tombstones = {};
-  if (!Array.isArray(s.tombstones.bills)) s.tombstones.bills = [];
+  // 墓碑是"按集合分桶"的：bills / accounts / books / … 每个集合各一份，
+  // 少了哪一桶，那个集合的删除就会在对端复活
+  ['bills', 'accounts', 'books', 'budgets', 'savings', 'templates', 'recurrings', 'loans', 'claims']
+    .forEach((k) => { if (!Array.isArray(s.tombstones[k])) s.tombstones[k] = []; });
   (s.bills || []).forEach((b) => { if (!b.updatedAt) b.updatedAt = b.created || Date.now(); });
   // 其它实体补时间戳：缺省一律 0（不能写 now，否则老数据会被误判成"刚刚改过"而覆盖对端）
   ['accounts', 'books', 'budgets', 'savings', 'templates', 'recurrings', 'loans', 'claims']
@@ -234,6 +238,30 @@ function applyBalance(bill, dir) {
   }
 }
 
+// 撤销某笔账单的报销（详情页、报销页共用）
+// 直接 filter 掉而不落墓碑，是跨端"撤销的报销又回来"的根源
+export function clearClaim(billId) {
+  const before = (state.claims || []).length;
+  state.claims = (state.claims || []).filter((c) => c.billId !== billId);
+  if (state.claims.length !== before) addTombstone('claims', billId);
+  const b = billById(billId);
+  if (b) b.claim = '';
+  save();
+}
+
+// 标记 / 更新报销记录：统一在这里维护 updatedAt，
+// 否则记录时间戳恒为 0，任何墓碑都会被判成"晚于记录"——要么该删的不删，要么不该删的被删
+export function upsertClaim(billId, patch = {}) {
+  const now = Date.now();
+  let c = (state.claims || []).find((x) => x.billId === billId);
+  if (!c) { c = { billId }; state.claims.push(c); }
+  Object.assign(c, patch, { updatedAt: now });
+  const b = billById(billId);
+  if (b) { b.claim = c.status === 'done' ? 'done' : 'pending'; b.updatedAt = now; }
+  save();
+  return c;
+}
+
 export function addBill(data) {
   const now = Date.now();
   const bill = {
@@ -243,7 +271,7 @@ export function addBill(data) {
   };
   state.bills.push(bill);
   applyBalance(bill, 1);
-  if (bill.claim === 'pending') state.claims.push({ billId: bill.id, amount: bill.amount, status: 'pending' });
+  if (bill.claim === 'pending') state.claims.push({ billId: bill.id, amount: bill.amount, status: 'pending', updatedAt: now });
   save();
   return bill;
 }
@@ -252,13 +280,14 @@ export function deleteBill(id) {
   if (i < 0) return;
   const bill = state.bills[i];
   applyBalance(bill, -1);
-  state.claims = state.claims.filter((c) => c.billId !== id);
+  // 报销记录的主键是 billId：账单删除后这条报销也失效，必须落墓碑，
+  // 否则对端会把它当成一条"还没同步到"的记录重新拉回来
+  const hadClaim = (state.claims || []).some((c) => c.billId === id);
+  state.claims = (state.claims || []).filter((c) => c.billId !== id);
+  if (hadClaim) addTombstone('claims', id);
   state.bills.splice(i, 1);
   // 写墓碑：让另一端合并时知道这是"主动删除"，而不是"还没同步到"
-  if (!state.tombstones) state.tombstones = { bills: [] };
-  if (!state.tombstones.bills) state.tombstones.bills = [];
-  state.tombstones.bills = state.tombstones.bills.filter((t) => t.id !== id);
-  state.tombstones.bills.push({ id, deletedAt: Date.now() });
+  addTombstone('bills', id);
   save();
 }
 export function updateBill(id, patch) {
@@ -279,11 +308,45 @@ export function updateBillAndBalance(id, patch) {
 }
 // 清理过期墓碑（默认保留 30 天，防止无限增长）
 export function pruneTombstones(days = 30) {
-  if (!state?.tombstones?.bills) return;
+  if (!state?.tombstones) return;
   const cutoff = Date.now() - days * 24 * 3600 * 1000;
-  state.tombstones.bills = state.tombstones.bills.filter((t) => t.deletedAt > cutoff);
+  Object.keys(state.tombstones).forEach((k) => {
+    if (Array.isArray(state.tombstones[k])) {
+      state.tombstones[k] = state.tombstones[k].filter((t) => t && t.deletedAt > cutoff);
+    }
+  });
 }
 export function billById(id) { return state.bills.find((b) => b.id === id); }
+
+// 通用墓碑：任何集合里删掉一条，都要在这里留一笔，否则对端合并时会把它当成"新增"拉回来
+export const TOMB_KEYS = ['bills', 'accounts', 'books', 'budgets', 'savings', 'templates', 'recurrings', 'loans', 'claims'];
+function tombKey(k) {
+  if (!state.tombstones) state.tombstones = {};
+  if (!Array.isArray(state.tombstones[k])) state.tombstones[k] = [];
+  return state.tombstones[k];
+}
+export function addTombstone(kind, id) {
+  if (!TOMB_KEYS.includes(kind)) return;
+  const list = tombKey(kind).filter((t) => t.id !== id);
+  // 注意：claims 桶的 id 字段存的是 billId（因为它没有自己的 id）
+  list.push({ id, deletedAt: Date.now() });
+  state.tombstones[kind] = list;
+}
+
+// 从集合里删除一条并落墓碑（不负责余额回滚，由调用方处理）
+function removeEntity(key, id) {
+  const i = (state[key] || []).findIndex((x) => x && x.id === id);
+  if (i < 0) return null;
+  const [gone] = state[key].splice(i, 1);
+  addTombstone(key, id);
+  return gone;
+}
+// 删除账户：先把它名下的账单清掉（否则账单会指向一个不存在的账户，余额与统计都会算错）
+export function deleteAccount(id) {
+  (state.bills || []).filter((b) => b.accountId === id || b.toAccountId === id).forEach((b) => deleteBill(b.id));
+  removeEntity('accounts', id);
+  save();
+}
 
 export function addAccount(data) {
   const now = Date.now();

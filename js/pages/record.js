@@ -1,6 +1,6 @@
 // 记账页（支出 / 收入 / 转账）— 参考实现
 import Icons from '../icons.js';
-import { S, cats, accById, curBook, fmtMoney, addBill, updateBillAndBalance, billById, save, uid, today } from '../store.js';
+import { S, cats, accById, curBook, fmtMoney, addBill, updateBillAndBalance, billById, save, uid, today, clearClaim, upsertClaim } from '../store.js';
 import { esc } from '../util.js';
 import { back, go, UI } from '../app.js';
 
@@ -210,10 +210,10 @@ const mod = {
           const s = S();
           const c = s.claims.find((x) => x.billId === d.editId);
           if (c) {
-            if (patch.claim === 'pending') c.amount = amount;
-            else s.claims = s.claims.filter((x) => x.billId !== d.editId);
+            if (patch.claim === 'pending') upsertClaim(d.editId, { amount });
+            else clearClaim(d.editId);        // 取消标记也要落墓碑，否则对端合并会复活
           } else if (patch.claim === 'pending') {
-            s.claims.push({ billId: d.editId, amount, status: 'pending' });
+            upsertClaim(d.editId, { amount, status: 'pending' });
           }
           save();
         }
