@@ -7,6 +7,7 @@ import {
   hasLocalChanges, hasPassword, setPassword, fmtTime,
   autoEnabled, setAuto, isRemembered, rememberPassword, runAutoSync,
 } from '../sync.js';
+import { parseCode } from './syncjoin.js';
 
 const TYPE_CN = { expense: '支出', income: '收入', transfer: '转账' };
 const CLAIM_CN = { pending: '待报销', done: '已报销' };
@@ -200,10 +201,15 @@ async function doPull() {
 
 async function setToken() {
   const cur = syncCfg().token;
-  const v = await UI.prompt('GitHub token', '只需勾选 gist 权限；留空则清除', cur ? '(已配置，重填会覆盖)' : '', 'password');
-  if (v === null) return;
-  setSync({ token: String(v).trim() });
-  UI.toast(v ? 'token 已保存' : 'token 已清除');
+  const v = await UI.prompt(
+    'GitHub token',
+    '只勾选 gist 权限；留空并确定则清除',
+    cur ? '(已配置，重填会覆盖)' : '', 'password');
+  if (v === null) return;                     // 取消：什么都不做
+  // 注意：UI.prompt 取消返回 null，确定返回 trim 后的字符串（可能是空串 = 用户明确要清除）
+  const next = String(v).trim();
+  setSync({ token: next });
+  UI.toast(next ? 'token 已保存' : 'token 已清除');
   go('importexport');
 }
 
@@ -212,6 +218,19 @@ async function setPw() {
   if (!pw) return;
   setPassword(pw);
   UI.toast(isRemembered() ? '密码已更新并保存' : '密码已设置（仅本次会话有效）');
+  go('importexport');
+}
+
+// 只清 token，保留 Gist 地址和账单 —— 换设备、怀疑泄露时用这一项
+async function clearToken() {
+  const ok = await UI.confirm(
+    '从本机删除 GitHub token。<br><br>'
+    + '同步地址和账单都会保留，但自动同步会暂停，直到重新填入 token。'
+    + '<br><br>如果怀疑泄露，记得同时去 GitHub 设置里吊销这个 token。',
+    '清除 token');
+  if (!ok) return;
+  setSync({ token: '' });
+  UI.toast('token 已清除');
   go('importexport');
 }
 
@@ -236,11 +255,13 @@ async function toggleRemember() {
   go('importexport');
 }
 
-// 同步码：把 token + Gist ID 打包成一段字符串
+// 同步码：只打包 Gist ID。
+// 早先版本把 token 一起编码进去（"一键接入"更方便），代价是这段码 ≈ 一个可写你全部 Gist 的凭证，
+// 只要粘过聊天窗口就算泄露。现在 token 不进码、不进链接，目标设备上手动粘一次即可。
 function syncCode() {
   const c = syncCfg();
-  if (!c.token || !c.gistId) return null;
-  return 'icost1.' + btoa(encodeURIComponent(c.token + '|' + c.gistId));
+  if (!c.gistId) return null;
+  return 'icost2.' + btoa(encodeURIComponent(c.gistId));
 }
 
 // 一键接入链接：把同步码塞进 URL，另一台设备点开就自动配好，只差输一次密码
@@ -288,14 +309,20 @@ async function resetSync() {
 async function pasteCode() {
   const code = await UI.prompt('粘贴另一台设备的同步码', '', '', 'text');
   if (!code) return;
+  let pair;
   try {
-    const raw = decodeURIComponent(atob(String(code).trim().replace(/^icost1\./, '')));
-    const [token, gistId] = raw.split('|');
-    if (!token || !gistId) throw new Error('bad');
-    setSync({ token, gistId });
-    UI.toast('已接入，输入密码后点「从云端恢复」', 3000);
-    go('importexport');
-  } catch { UI.toast('同步码解析失败，请检查是否完整'); }
+    pair = parseCode(code);
+  } catch { UI.toast('同步码解析失败，请检查是否完整'); return; }
+  setSync(pair.gistId ? { gistId: pair.gistId } : {});
+  // 旧版码里自带 token，可直接用；新版码不含 token，需要本机已有或现填
+  if (pair.token) setSync({ token: pair.token });
+  if (!syncCfg().token) {
+    UI.toast('已写入同步地址，还需填入 token 才能读取云端', 3600);
+    await setToken();
+    return;
+  }
+  UI.toast('已接入，输入密码后点「从云端恢复」', 3000);
+  go('importexport');
 }
 
 function syncSection() {
@@ -308,7 +335,10 @@ function syncSection() {
     <div class="st2-note">
       <div class="tt">🔐 你的数据怎么被保护</div>
       上传前用你的密码在本机完成 <b>AES-GCM</b> 加密，GitHub 上只存密文 —— 没有密码谁也解不开，包括 GitHub 自己。
-      密码只留存在当前会话内存里，不写入设备；token 存在本机 localStorage。
+      密码只留存在当前会话内存里，不写入设备。
+      <div style="margin-top:8px">token 存在本机 localStorage（网页无法使用更安全的 HttpOnly 存储），
+      它不进云端密文、也不进同步码和接入链接。<b>建议新建 classic token 时只勾选 gist 一项</b>，
+      怀疑泄露就到 GitHub 设置里吊销，再点上面的「清除本机 token」。</div>
     </div>
 
     <div class="cell-group">
@@ -337,18 +367,18 @@ function syncSection() {
 
     <div class="sec-title">另一台设备怎么接入</div>
     <div class="cell-group">
-      ${row({ icon: '🔗', bg: 'rgba(48,209,88,.18)', label: '生成接入链接', sub: '另一台设备点开就配好，只差输一次密码', act: 'sync-link' })}
+      ${row({ icon: '🔗', bg: 'rgba(48,209,88,.18)', label: '生成接入链接', sub: '只含 Gist 地址；那边再粘一次 token 和密码', act: 'sync-link' })}
       ${row({ icon: '📋', bg: 'rgba(100,210,255,.18)', label: '复制同步码', sub: '备选：手动复制一段码，那边粘贴', act: 'sync-code' })}
       ${row({ icon: '📥', bg: 'rgba(100,210,255,.18)', label: '粘贴同步码', sub: '如果那边给的是同步码，粘到这里', act: 'sync-code-in' })}
       ${ready ? row({ icon: '🧽', bg: 'rgba(255,69,58,.14)', label: '清除本机同步配置', sub: '只清 token 与地址，不碰账单和云端文件', act: 'sync-reset' }) : ''}
+      ${c.token ? row({ icon: '🔑', bg: 'rgba(255,69,58,.14)', label: '清除本机 token', sub: '换设备 / 怀疑泄露时先清掉这一项', act: 'sync-token-clear' }) : ''}
     </div>
 
     <div class="st2-note">
       <div class="tt">🔗 接入链接怎么用</div>
-      复制后发到另一台设备（微信「文件传输助手」最方便），在那台设备上点开链接 —— token 和 Gist 地址会自动配好，
-      你只需输入一次同步密码，选「合并两端」就完成了。
-      <div style="margin-top:6px;color:var(--orange,#ff9f0a)">链接里含有你的 GitHub token（不含密码），
-      只发给你自己，别发到群里。</div>
+      复制后发到另一台设备（微信「文件传输助手」最方便），在那台设备上点开链接 —— Gist 地址会自动配好，
+      再投入一次同步密码、填一次 token，选「合并两端」就完成了。
+      <div style="margin-top:6px">链接与同步码都<b>不含 token</b>，就算不小心转发出去，也只暴露一个加密 Gist 的地址。</div>
     </div>
 
     <div class="st2-note">
@@ -410,6 +440,7 @@ export default {
         else if (act === 'clear') clearAll();
         // 云同步
         else if (act === 'sync-token') setToken();
+        else if (act === 'sync-token-clear') clearToken();
         else if (act === 'sync-pw') setPw();
         else if (act === 'sync-push') doPush();
         else if (act === 'sync-pull') doPull();

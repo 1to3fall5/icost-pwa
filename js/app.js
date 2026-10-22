@@ -155,8 +155,11 @@ window.addEventListener('resize', () => {
 });
 
 // 桌面快捷键：N 记一笔，1-4 切 Tab，Esc 返回
+// 弹层开着时 Esc 归弹层（关闭当前弹层），不能同时把整个页面导航走
+const overlayOpen = () => !!document.querySelector('#overlay-root .overlay');
 window.addEventListener('keydown', (e) => {
   if (!isDesktop()) return;
+  if (e.key === 'Escape' && overlayOpen()) return;
   const tag = (e.target.tagName || '').toLowerCase();
   if (tag === 'input' || tag === 'textarea' || tag === 'select') return;
   if (e.metaKey || e.ctrlKey || e.altKey) return;
@@ -272,10 +275,63 @@ window.addEventListener('hashchange', render);
 // icon 与 color 走校验而不是转义 —— 它们进的是 style 属性，转义挡不住 CSS 上下文注入
 const safeColor = (c) => (/^(#[0-9a-fA-F]{3,8}|rgba?\([\d.,\s%]+\)|[a-zA-Z]+)$/.test(String(c || '')) ? c : '#2c2c2e');
 
+// 弹层的公共收尾：语义、焦点、Esc、点遮罩关闭。
+// 原来直接 append 一个 div：屏幕阅读器读不到"这是一个对话框"，键盘用户 Tab 会跑到背后的页面，
+// 桌面端按 Esc 还会触发全局「返回」把整个页面导航走。
+// 关掉时必须还原焦点，否则焦点掉回 body，键盘用户就"迷失"了。
+const FOCUSABLE = 'button, [href], input, textarea, select, [tabindex]:not([tabindex="-1"])';
+
+function openOverlay(ov, { onEscape }) {
+  const opener = document.activeElement;
+  const panel = ov.querySelector('.panel');
+  if (panel) {
+    panel.setAttribute('role', 'dialog');
+    panel.setAttribute('aria-modal', 'true');
+    const title = panel.querySelector('h3');
+    if (title) {
+      if (!title.id) title.id = 'ovl-title-' + Math.random().toString(36).slice(2, 7);
+      panel.setAttribute('aria-labelledby', title.id);
+    }
+  }
+
+  // 焦点陷阱：Tab / Shift+Tab 只在弹层内循环
+  const onKey = (e) => {
+    if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); onEscape(); return; }
+    if (e.key !== 'Tab' || !panel) return;
+    const items = [...panel.querySelectorAll(FOCUSABLE)].filter((el) => !el.disabled && el.offsetParent !== null);
+    if (!items.length) return;
+    const first = items[0]; const last = items[items.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  };
+  // 捕获阶段拦下 Esc，避免同时触发 window 上的全局返回
+  ov.addEventListener('keydown', onKey, true);
+
+  document.getElementById('overlay-root').appendChild(ov);
+
+  return {
+    // 关闭：先摘掉监听再把焦点还给触发者
+    close() {
+      ov.removeEventListener('keydown', onKey, true);
+      ov.remove();
+      if (opener && typeof opener.focus === 'function' && document.contains(opener)) {
+        try { opener.focus({ preventScroll: true }); } catch { opener.focus(); }
+      }
+    },
+    // 首次聚焦：优先给输入框，其次第一个按钮
+    focusFirst(el) {
+      const target = el || panel?.querySelector('input, button');
+      if (target) setTimeout(() => { try { target.focus({ preventScroll: true }); } catch {} }, 60);
+    },
+  };
+}
+
 export const UI = {
   toast(msg, ms = 1800) {
     const t = document.createElement('div');
     t.className = 'toast';
+    t.setAttribute('role', 'status');
+    t.setAttribute('aria-live', 'polite');
     t.textContent = msg;
     document.getElementById('overlay-root').appendChild(t);
     setTimeout(() => t.remove(), ms);
@@ -290,12 +346,13 @@ export const UI = {
           <button class="form-input" data-r="0" style="flex:1;text-align:center;background:#3a3a3c">取消</button>
           <button class="form-input" data-r="1" style="flex:1;text-align:center;background:#ff453a;color:#fff;border-radius:12px">${esc(okText)}</button>
         </div></div>`;
+      const h = openOverlay(ov, () => { h.close(); resolve(false); });
       ov.addEventListener('click', (e) => {
         const r = e.target.dataset.r;
-        if (r !== undefined) { ov.remove(); resolve(r === '1'); }
-        else if (e.target === ov) { ov.remove(); resolve(false); }
+        if (r !== undefined) { h.close(); resolve(r === '1'); }
+        else if (e.target === ov) { h.close(); resolve(false); }
       });
-      document.getElementById('overlay-root').appendChild(ov);
+      h.focusFirst();
     });
   },
   // 多选一：opts = [{label, desc, danger}]，返回选中下标，取消返回 -1
@@ -306,18 +363,24 @@ export const UI = {
       ov.innerHTML = `<div class="panel">
         <h3>${esc(title)}</h3>
         <div class="opts">
-          ${opts.map((o, i) => `<div class="cell" data-i="${i}">
+          ${opts.map((o, i) => `<div class="cell" data-i="${i}" role="button" tabindex="0">
             <span class="cl${o.danger ? ' st2-danger' : ''}">${esc(o.label)}${o.desc ? `<span class="cell-sub">${esc(o.desc)}</span>` : ''}</span>
           </div>`).join('')}
         </div>
         <button class="form-input" data-cancel style="margin-top:12px;text-align:center;background:#2c2c2e">取消</button>
       </div>`;
+      const h = openOverlay(ov, () => { h.close(); resolve(-1); });
       ov.addEventListener('click', (e) => {
         const cell = e.target.closest('[data-i]');
-        if (cell) { ov.remove(); resolve(+cell.dataset.i); }
-        else if (e.target.closest('[data-cancel]') || e.target === ov) { ov.remove(); resolve(-1); }
+        if (cell) { h.close(); resolve(+cell.dataset.i); }
+        else if (e.target.closest('[data-cancel]') || e.target === ov) { h.close(); resolve(-1); }
       });
-      document.getElementById('overlay-root').appendChild(ov);
+      // 选项是 div，键盘用户按 Enter / 空格也要能选中
+      ov.addEventListener('keydown', (e) => {
+        const cell = e.target.closest?.('[data-i]');
+        if (cell && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); h.close(); resolve(+cell.dataset.i); }
+      });
+      h.focusFirst();
     });
   },
   sheet(title, opts) {
@@ -328,19 +391,24 @@ export const UI = {
       ov.innerHTML = `<div class="panel">
         ${title ? `<h3>${esc(title)}</h3>` : ''}
         <div class="opts">
-          ${opts.map((o, i) => `<div class="cell" data-i="${i}">
+          ${opts.map((o, i) => `<div class="cell" data-i="${i}" role="button" tabindex="0">
             ${o.icon ? `<span class="ci" style="background:${safeColor(o.color)}">${esc(o.icon)}</span>` : ''}
             <span class="cl">${esc(o.label)}</span>${o.value ? `<span class="cv">${esc(o.value)}</span>` : ''}
           </div>`).join('')}
         </div>
         <button class="form-input" data-cancel style="margin-top:12px;text-align:center;background:#2c2c2e">取消</button>
       </div>`;
+      const h = openOverlay(ov, () => { h.close(); resolve(null); });
       ov.addEventListener('click', (e) => {
         const cell = e.target.closest('[data-i]');
-        if (cell) { ov.remove(); resolve(opts[+cell.dataset.i]); }
-        else if (e.target.closest('[data-cancel]') || e.target === ov) { ov.remove(); resolve(null); }
+        if (cell) { h.close(); resolve(opts[+cell.dataset.i]); }
+        else if (e.target.closest('[data-cancel]') || e.target === ov) { h.close(); resolve(null); }
       });
-      document.getElementById('overlay-root').appendChild(ov);
+      ov.addEventListener('keydown', (e) => {
+        const cell = e.target.closest?.('[data-i]');
+        if (cell && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); h.close(); resolve(opts[+cell.dataset.i]); }
+      });
+      h.focusFirst();
     });
   },
   prompt(title, placeholder = '', value = '', type = 'text') {
@@ -355,16 +423,17 @@ export const UI = {
           <button class="form-input" data-r="1" style="flex:1;text-align:center;background:#0a84ff;color:#fff;border-radius:12px">确定</button>
         </div></div>`;
       const input = ov.querySelector('#ovp-input');
-      setTimeout(() => input.focus(), 60);
+      // Esc 取消（返回 null）、Enter 确定，语义与按钮一致
+      const h = openOverlay(ov, () => { h.close(); resolve(null); });
       ov.addEventListener('click', (e) => {
         const r = e.target.dataset.r;
-        if (r !== undefined) { ov.remove(); resolve(r === '1' ? input.value.trim() : null); }
-        else if (e.target === ov) { ov.remove(); resolve(null); }
+        if (r !== undefined) { h.close(); resolve(r === '1' ? input.value.trim() : null); }
+        else if (e.target === ov) { h.close(); resolve(null); }
       });
       ov.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') { ov.remove(); resolve(input.value.trim()); }
+        if (e.key === 'Enter') { e.preventDefault(); h.close(); resolve(input.value.trim()); }
       });
-      document.getElementById('overlay-root').appendChild(ov);
+      h.focusFirst(input);
     });
   },
 };

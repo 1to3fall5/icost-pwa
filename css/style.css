@@ -1014,6 +1014,14 @@ body.light #tabbar { background: rgba(255, 255, 255, .74); }
 
   /* 列表行 hover */
   .bill-row:hover, .cell:hover, .cj-row:hover { background: rgba(255, 255, 255, .05); }
+
+  /* 弹层内可聚焦项（选项是 div 模拟的按钮） */
+  .overlay .cell[role="button"] { cursor: pointer; }
+  .overlay .cell[role="button"]:focus-visible {
+    outline: 2px solid var(--blue); outline-offset: -2px; background: rgba(10, 132, 255, .12);
+  }
+  .overlay .panel h3 { margin-top: 0; }
+}
   .day-head { font-size: 14px; }
 }
 

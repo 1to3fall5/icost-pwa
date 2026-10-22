@@ -7,11 +7,19 @@ import {
   hasLocalChanges, hasPassword, setPassword, fmtTime, setAuto,
 } from '../sync.js';
 
-// 同步码 -> {token, gistId}（导出以便测试编码/解码往返）
+// 同步码 -> {token, gistId}
+// v2（icost2.）：只带 gistId，token 由用户在目标设备手动填一次。
+//   原因：token 一旦塞进链接，分享/粘贴的过程（微信、剪贴板、聊天记录）就是一次明文泄露，
+//   而 token 的权限虽小，仍能读写该账号下所有 Gist。
+// v1（icost1.）：旧码里带 token，仍然接受 —— 否则老用户手里的码会直接失效。
+//   解出来的 token 只是"本次导入用"，不会随着接入链接再次外传。
 export function parseCode(code) {
-  const raw = decodeURIComponent(atob(String(code).trim().replace(/^icost1\./, '')));
-  const [token, gistId] = raw.split('|');
-  if (!token || !gistId) throw new Error('同步码内容不完整');
+  const s = String(code).trim();
+  const raw = decodeURIComponent(atob(s.replace(/^icost[12]\./, '')));
+  const parts = raw.split('|');
+  const gistId = parts.length > 1 ? parts[1] : parts[0];
+  const token = parts.length > 1 ? parts[0] : '';
+  if (!gistId) throw new Error('同步码内容不完整');
   return { token, gistId };
 }
 
@@ -20,6 +28,19 @@ async function ensurePassword() {
   const pw = await UI.prompt('输入设备 A 的同步密码', '两端必须填完全相同的密码才能解开数据', '', 'password');
   if (!pw) return false;
   setPassword(pw);
+  return true;
+}
+
+// v2 码里没有 token，需要用户手动补一次。返回 false 表示用户取消。
+async function ensureToken(parsedToken) {
+  if (parsedToken) { setSync({ token: parsedToken }); return true; }
+  if (syncCfg().token) return true;          // 本机已经有 token（之前接过），直接复用
+  const tk = await UI.prompt(
+    '填入 GitHub token',
+    '只需勾选 gist 权限；为了安全，接入链接里不再携带 token',
+    '', 'password');
+  if (!tk) return false;
+  setSync({ token: String(tk).trim() });
   return true;
 }
 
@@ -38,11 +59,15 @@ export default {
   async mount(root, params) {
     const card = root.querySelector('#join-card');
     const msg = root.querySelector('#join-msg');
+    // 安全：接口错误信息（HTTP 状态、GitHub 返回体、云端校验失败说明）属于不可信文本，
+    // 拼接进 innerHTML 等于给自己开一个存储型 XSS 的口子。这里结构写死，文本一律走 textContent。
     const fail = (text) => {
       card.innerHTML = `<div class="join-ico">⚠️</div>
         <div class="join-h">接入失败</div>
-        <div class="join-p">${text}</div>
+        <div class="join-p" id="join-err"></div>
         <button class="join-btn" id="join-back">返回</button>`;
+      const errEl = card.querySelector('#join-err');
+      if (errEl) errEl.textContent = String(text ?? '');
       card.querySelector('#join-back').addEventListener('click', () => go('importexport'));
     };
 
@@ -53,7 +78,8 @@ export default {
       pair = parseCode(params.c);
     } catch (e) { fail(e.message || '链接解析失败'); return; }
 
-    setSync({ token: pair.token, gistId: pair.gistId });
+    setSync({ gistId: pair.gistId });
+    if (!(await ensureToken(pair.token))) { fail('没有 token 无法访问云端 Gist'); return; }
     msg.textContent = '已写入本机配置，正在读取云端…';
 
     // 2) 要密码才解得开
@@ -64,7 +90,7 @@ export default {
     try {
       remote = await fetchRemote();
     } catch (e) {
-      const hint = /密码|解密/.test(e.message) ? `${e.message}<br><br>两端密码必须完全一致。` : e.message;
+      const hint = /密码|解密/.test(e.message) ? `${e.message}\n\n两端密码必须完全一致。` : e.message;
       fail(hint);
       return;
     }
