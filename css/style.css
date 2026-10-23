@@ -1219,6 +1219,11 @@ body.light #tabbar { background: rgba(255, 255, 255, .74); }
 /* 图表容器跟着格子伸缩，canvas 高度由 charts.js 按实际布局高度绘制（不再写死） */
 .dc-chart, .dc-donut, .hero-chart { flex: 1; min-height: 110px; display: flex; }
 .dc-chart canvas, .dc-donut canvas, .hero-chart canvas { width: 100%; height: 100%; }
+/* 环形卡片：图优先吃空间，图例次之；缩到 1×1 时只留图 + 中心金额（小组件风格） */
+.dc-donutcard .dc-donut { flex: 3; min-height: 130px; }
+.dc-donutcard .dc-legend { flex: 2; min-height: 0; }
+.sz-1x1.dc-donutcard .dc-legend { display: none; }
+.sz-1x1.dc-donutcard .dc-donut { flex: 1; }
 
 /* 小卡片精简：缩到 1×1 / 2×1 时砍掉次要信息，避免挤成一团 */
 .sz-1x1 { padding: 13px 15px; }

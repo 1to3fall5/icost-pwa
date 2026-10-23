@@ -33,6 +33,9 @@ export function cardSize(id) {
   const m = S().settings.dashLayout || {};
   return CARD_SIZES.includes(m[id]) ? m[id] : (CARD_DEFAULT[id] || '2x1');
 }
+// 行高 = 列宽 → 1×1 是正方形。但列数偏少时列宽能到 700+，行高跟着变成巨型，
+// 一张 1×1 卡片就能占满整屏（中间还全是空白）。必须夹在合理区间。
+export const cellHeight = (cw) => Math.min(300, Math.max(120, cw));
 // 各档位 → 横跨几列 / 纵跨几行（拖拽时的吸附目标也用这份表）
 export const SIZE_SPAN = { '1x1': [1, 1], '2x1': [2, 1], '2x2': [2, 2], '3x2': [3, 2], '4x2': [4, 2], full: [0, 3] };
 // 网格单元格尺寸（列宽 + 行高），拖拽吸附全靠它
@@ -349,7 +352,7 @@ function donutCard(bills) {
     ? [...top, { id: 'rest', name: '其他', icon: '🧾', color: '#3a3a3c', value: rest.reduce((s, i) => s + i.value, 0) }]
     : top;
   return `
-  <section class="dc sz-${cardSize('donut')}">
+  <section class="dc dc-donutcard sz-${cardSize('donut')}">
     <div class="dc-head"><div class="dc-titles"><div class="dc-title">支出构成</div><div class="dc-sub">${bills.length ? '共 ' + bills.length + ' 笔' : '暂无'}</div></div>${sizeBtn('donut')}${grip('donut')}</div>
     <div class="dc-donut"><canvas class="chart" id="dash-donut"></canvas></div>
     <div class="dc-legend">
@@ -607,10 +610,11 @@ export function mountDashboard(root) {
   const grid = root.querySelector('.dash');
   const syncGrid = () => {
     if (!grid || typeof getComputedStyle !== 'function') return;
-    const cols = getComputedStyle(grid).gridTemplateColumns.split(' ').filter(Boolean).length;
+    let cols = getComputedStyle(grid).gridTemplateColumns.split(' ').filter(Boolean).length;
+    if (!(cols >= 2)) cols = 4;                 // 拿不到真实列数就按 4 列算，别退化成 1 列
     const gap = 16;
     const cw = (grid.clientWidth - gap * (cols - 1)) / cols;
-    if (cols > 0 && cw > 60) grid.style.setProperty('--cell-h', Math.round(cw) + 'px');
+    if (cw > 60) grid.style.setProperty('--cell-h', Math.round(cellHeight(cw)) + 'px');
   };
   syncGrid();
   // 窗口变化后重排：行高变了、格子宽了，图表也要按新高度重绘（charts 高度是量出来的）

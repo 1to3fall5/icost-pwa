@@ -17,9 +17,12 @@ function setup(canvas, fallbackH) {
 }
 
 // 环形图（支出分类详情）
+// 环的厚度、中心字号都跟着半径走：大卡片里不至于细得像根线、中间空一大块
 export function donut(canvas, items, centerLabel, centerValue) {
   const { ctx, w, h } = setup(canvas, 240);
-  const cx = w / 2, cy = h / 2, r = Math.min(w, h) / 2 - 14, lw = 34;
+  const cx = w / 2, cy = h / 2;
+  const r = Math.min(w, h) / 2 - 8;
+  const lw = Math.max(24, Math.min(58, r * 0.40));
   ctx.clearRect(0, 0, w, h);
   const total = items.reduce((s, i) => s + i.value, 0);
   if (total <= 0) {
@@ -39,13 +42,17 @@ export function donut(canvas, items, centerLabel, centerValue) {
       a += ang;
     });
   }
-  ctx.fillStyle = '#98989f';
-  ctx.font = '12px -apple-system, "PingFang SC"';
+  // 中心文字按「内圈能塞下的宽度」选字号，长金额不会顶出圆环
+  const innerD = (r - lw) * 2;
+  const fit = (txt, cap) => Math.max(11, Math.min(cap, (innerD / Math.max(3, String(txt).length)) * 1.55));
+  const fv = fit(centerValue, 32), fl = fit(centerLabel, 15);
   ctx.textAlign = 'center';
-  ctx.fillText(centerLabel, cx, cy - 12);
+  ctx.fillStyle = '#98989f';
+  ctx.font = `${fl.toFixed(0)}px -apple-system, "PingFang SC"`;
+  ctx.fillText(centerLabel, cx, cy - fv * 0.42);
   ctx.fillStyle = '#fff';
-  ctx.font = '800 24px -apple-system, "PingFang SC"';
-  ctx.fillText(centerValue, cx, cy + 16);
+  ctx.font = `800 ${fv.toFixed(0)}px -apple-system, "PingFang SC"`;
+  ctx.fillText(centerValue, cx, cy + fv * 0.62);
 }
 
 // 竖条图（每日支出统计图）

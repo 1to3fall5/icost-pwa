@@ -122,7 +122,14 @@ ok('菜单里 6 个档位全在', ['1x1', '2x1', '2x2', '3x2', '4x2', 'full'].ev
 ok('按钮直接显示当前档位（不再轮询）', html.includes('方 2×2') || html.includes('通栏'));
 
 // 尺寸切换会写进 settings 并在下次渲染生效
-const { cardSize, CARD_SIZES, sizeKeyOf, spanOf, SIZE_SPAN, rowsFor } = await import(base + 'dashboard.js');
+const { cardSize, CARD_SIZES, sizeKeyOf, spanOf, SIZE_SPAN, rowsFor, cellHeight } = await import(base + 'dashboard.js');
+
+// 行高 = 列宽（保证 1×1 正方形），但必须夹住上下限：
+// 列数偏少时列宽能到 700+，不夹的话一张 1×1 卡片就能占满整屏、中间全是空白
+ok('行高 普通列宽 190 → 190（正方形）', cellHeight(190) === 190);
+ok('行高 巨型列宽 792 → 夹到 300', cellHeight(792) === 300, String(cellHeight(792)));
+ok('行高 极窄列宽 80 → 抬到 120', cellHeight(80) === 120);
+ok('行高 恒在 120~300', [60, 120, 190, 300, 500, 900].every((v) => cellHeight(v) >= 120 && cellHeight(v) <= 300));
 
 // 拖拽吸附：列/行 → 档位
 ok('拖拽吸附 精确档位 2×2', sizeKeyOf(2, 2, 8) === '2x2');
