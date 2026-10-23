@@ -187,7 +187,11 @@ function buildCatIndex() {
   const m = new Map();
   ['expense', 'income'].forEach((t) => (state.categories[t] || []).forEach((c) => {
     if (c && c.id) m.set(c.id, c);
-    (c.children || []).forEach((x) => { if (x && x.id) m.set(x.id, x); });
+    // 二级分类只存了 name，这里补一份父级的 icon / color / type / parent，
+    // 否则列表里二级分类会掉回默认图标。用副本，避免污染持久化数据。
+    (c.children || []).forEach((x) => {
+      if (x && x.id) m.set(x.id, { ...x, icon: c.icon, color: c.color, type: c.type, parent: c.name });
+    });
   }));
   catIndex = m;
   return m;
