@@ -5,6 +5,7 @@ import {
   catById, accById, monthOf, deleteBill, today,
 } from '../store.js';
 import { esc } from '../util.js';
+import { catMarkHTML } from '../caticon.js';
 import { go, onCleanup, UI, isDesktop } from '../app.js';
 import { renderDashboard, mountDashboard } from '../dashboard.js';
 
@@ -55,15 +56,16 @@ export function rowHTML(b) {
   const acc = accById(b.accountId);
   const acc2 = b.type === 'transfer' ? accById(b.toAccountId) : null;
   const isTransfer = b.type === 'transfer';
-  const color = isTransfer ? '#0a84ff22' : b.type === 'income' ? '#30d15822' : (cat?.color || '#ff9f0a') + '22';
   const amtCls = b.type === 'income' ? 'income' : isTransfer ? 'transfer' : 'expense';
   const sign = b.type === 'income' ? '+' : '';
-  const iconHTML = isTransfer
-    ? `<span style="color:var(--blue);display:flex;width:19px;height:19px">${Icons.swap}</span>`
-    : (cat?.icon || '🧾');
+  const iconHTML = catMarkHTML({
+    name: cat?.name || '', parent: cat?.parent || '', icon: cat?.icon || '🧾',
+    color: cat?.color || '#ff9f0a', type: cat?.type || b.type,
+    kind: isTransfer ? 'transfer' : '', cls: 'bill-ic',
+  });
   // 备注缺失时补一个空 div，保证桌面表格化后各行列位对齐
   return `<div class="bill-row" data-bill="${b.id}">
-    <div class="bill-ic" style="background:${color}">${iconHTML}</div>
+    ${iconHTML}
     <div class="bill-main">
       <div class="bill-cat">${isTransfer ? '转账' : (cat?.name || '其他')}${b.claim === 'pending' ? '<span class="tag-mini">待报销</span>' : ''}${b.recurringId ? '<span class="tag-mini">周期</span>' : ''}</div>
       <div class="bill-note">${b.note || ''}</div>
@@ -104,7 +106,7 @@ function insightCard(bills) {
         const c = catById(cid);
         const pct = total ? Math.round((v / total) * 100) : 0;
         return `<div class="ins-bar-row">
-          <div class="ins-bar-top"><span>${c?.icon || '🧾'} ${c?.name || '其他'}</span><b>${m(v)}</b></div>
+          <div class="ins-bar-top"><span>${catMarkHTML({ name: c?.name || '', parent: c?.parent || '', icon: c?.icon || '🧾', color: c?.color || '#ff9f0a', type: c?.type, cls: 'ins-ic' })}<span class="rk-t">${esc(c?.name || '其他')}</span></span><b>${m(v)}</b></div>
           <div class="ins-bar"><i style="width:${pct}%;background:${c?.color || '#ff9f0a'}"></i></div>
         </div>`;
       }).join('') : '<div class="ins-empty">本月暂无支出</div>'}
