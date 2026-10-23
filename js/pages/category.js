@@ -2,6 +2,7 @@
 import Icons from '../icons.js';
 import { S, save, cats, uid } from '../store.js';
 import { esc } from '../util.js';
+import { catMarkHTML } from '../caticon.js';
 import { UI } from '../app.js';
 
 const PALETTE = [
@@ -22,7 +23,7 @@ function catHTML(c) {
   const expanded = open.has(c.id);
   return `<div class="cg-item">
     <div class="cell" data-cat="${c.id}">
-      <span class="cg-ic" style="background:${c.color}22;color:${c.color}">${c.icon}</span>
+      ${catMarkHTML({ name: c.name, icon: c.icon, color: c.color, type: c.type, cls: 'cg-ic' })}
       <span class="cl">${esc(c.name)}<span class="cell-sub">${c.children.length} 个二级分类</span></span>
       <span class="cg-edit" data-edit="${c.id}">✏️</span>
     </div>
