@@ -2,6 +2,7 @@
 import Icons from '../icons.js';
 import { S, accById, addAccount, updateAccount, bookBills, catById, fmtMoney, save } from '../store.js';
 import { esc } from '../util.js';
+import { catMarkHTML, accMarkHTML, markInnerHTML } from '../caticon.js';
 import { go, back, UI } from '../app.js';
 
 const TYPES = [
@@ -33,7 +34,11 @@ function billRows(id) {
     const sign = b.type === 'income' ? '+' : b.type === 'transfer' ? '' : '-';
     return `
     <div class="bill-row" data-bill="${b.id}">
-      <div class="bill-ic" style="background:${(cat?.color || '#98989f')}22">${cat?.icon || (b.type === 'transfer' ? '🔄' : '🧾')}</div>
+      ${catMarkHTML({
+        name: cat?.name || '', parent: cat?.parent || '', icon: cat?.icon || '🧾',
+        color: cat?.color || '#98989f', type: cat?.type || b.type,
+        kind: b.type === 'transfer' ? 'transfer' : '', cls: 'bill-ic',
+      })}
       <div class="bill-main">
         <div class="bill-cat">${cat?.name || (b.type === 'transfer' ? '账户转账' : '其他')}</div>
         <div class="bill-note">${b.date}${b.note ? ' · ' + b.note : ''}</div>
@@ -77,7 +82,7 @@ const mod = {
 
       <div class="cell-group">
         <div class="cell" data-act="icon">
-          <span class="ci ad-acc-ic" style="background:${form.color || '#2c2c2e'}22">${form.icon}</span>
+          ${accMarkHTML({ name: form.name, icon: form.icon, color: form.color, type: form.type, cls: 'ci ad-acc-ic' })}
           <div class="cl"><div class="cell-title">图标</div><div class="cell-sub">点击修改 emoji</div></div>
           <span class="arrow">${Icons.chevR}</span>
         </div>
@@ -126,7 +131,7 @@ const mod = {
     // 图标 emoji
     root.querySelector('[data-act="icon"]')?.addEventListener('click', async () => {
       const v = await UI.prompt('账户图标', '输入一个 emoji，如 💳', form.icon);
-      if (v) { form.icon = v; const el = root.querySelector('[data-act="icon"] .ad-acc-ic'); if (el) el.textContent = v; }
+      if (v) { form.icon = v; const el = root.querySelector('[data-act="icon"] .ad-acc-ic'); if (el) el.innerHTML = markInnerHTML({ name: form.name, icon: v, color: form.color, type: form.type }); }
     });
 
     // 类型
