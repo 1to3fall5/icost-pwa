@@ -1515,6 +1515,9 @@ body.light #tabbar { background: rgba(255, 255, 255, .74); }
 .cat-item .ic-mark svg { stroke-width: 1.55; }    /* 52px → 视觉 ≈2.0 */
 .detail-hero .ic-mark svg { stroke-width: 1.3; }  /* 64px → 视觉 ≈2.0 */
 .rk-ic svg, .ins-ic svg { stroke-width: 3.1; }    /* 18px → 视觉 ≈1.4（再粗会糊） */
+/* 实心图标：没有描边（stroke-width 对它无效），但色块视觉重量更大，占容器比例略收一点 */
+.ic-mark.ic-fill svg { width: 56%; height: 56%; stroke: none; }
+.cat-item .ic-mark.ic-fill svg, .detail-hero .ic-mark.ic-fill svg { width: 58%; height: 58%; }
 body:not(.icon-emoji) .ic-mark { background: var(--card2); }
 body.icon-emoji .ic-mark { background: color-mix(in srgb, var(--c, #98989f) 22%, #1c1c1e); }
 body.light.icon-emoji .ic-mark { background: color-mix(in srgb, var(--c, #98989f) 16%, #fff); }

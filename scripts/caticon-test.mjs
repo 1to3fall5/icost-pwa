@@ -101,5 +101,42 @@ ok('线宽交给 CSS（不在 SVG 上写死）', !multi.includes('stroke-width='
   ok(`${n} 至少一段 path`, ps >= 1);
 });
 
+// ---------- 实心（filled）风格 ----------
+setIconStyle('filled');
+eq('风格切换到 filled', getIconStyle(), 'filled');
+// 内置 31 个图标在实心模式下必须全部命中（不能有任何一个掉成首字）
+const ALLCAT = [...EXPENSE, ...INCOME];
+ALLCAT.forEach((n) => {
+  const t = n === '其他' || ['工资', '奖金', '理财', '红包', '报销', '兼职', '二手', '礼金', '退款'].includes(n) ? 'income' : 'expense';
+  const h = catMarkHTML({ name: n, color: '#ff9f0a', type: t });
+  ok(`实心：${n} 有内置图标（非首字）`, !h.includes('ic-mono') && h.includes('<path '), h.slice(0, 100));
+});
+['transfer', 'cash', 'online', 'bank', 'credit'].forEach((k) => {
+  const h = accMarkHTML({ type: k, name: 'x', color: '#ff9f0a' });
+  ok(`实心：账户类型 ${k} 有内置图标`, !h.includes('ic-mono') && h.includes('<path '));
+});
+// 实心 SVG 必须是 fill=颜色 + 无 stroke（否则画不出来）
+const solidHTML = catMarkHTML({ name: '餐饮', color: '#ff9f0a' });
+ok('实心用 fill 上色', solidHTML.includes('fill="#ff9f0a"'), solidHTML.slice(0, 140));
+ok('实心不掉 stroke 属性（避免重复 fill 冲突）', !solidHTML.includes('stroke="'), solidHTML.slice(0, 140));
+ok('实心不带 stroke-width', !solidHTML.includes('stroke-width'));
+ok('实心容器 class 为 ic-fill', solidHTML.includes('ic-fill') && !solidHTML.includes('ic-line'));
+ok('实心过滤空白占位 path', !solidHTML.includes('M0 0h24v24H0z'));
+// 实心与线性必须是两套不同的 path
+setIconStyle('line');
+const lineD = catMarkHTML({ name: '餐饮', color: '#ff9f0a' });
+setIconStyle('filled');
+ok('实心与线性 path 不同', catMarkHTML({ name: '餐饮', color: '#ff9f0a' }) !== lineD);
+// 收入/支出「其他」在实心下仍然不同
+ok('实心：收入/支出「其他」不同',
+  catMarkHTML({ name: '其他', type: 'income', color: '#f0a' }) !== catMarkHTML({ name: '其他', type: 'expense', color: '#f0a' }));
+// 实心下自定义分类仍降级首字，且首字用 fill="none" 外壳 + text 自带 fill
+const solidMono = catMarkHTML({ name: '自定义XX', color: '#0af' });
+ok('实心：自定义分类降级首字', solidMono.includes('ic-mono') && solidMono.includes('<text'));
+ok('实心：首字外壳 fill="none"', solidMono.includes('fill="none"') && solidMono.includes('fill="#0af"'));
+// 非法风格回落
+setIconStyle('weird');
+eq('非法风格回落 line', getIconStyle(), 'line');
+
 console.log(`\n通过 ${pass} / 失败 ${fail}`);
 process.exit(fail ? 1 : 0);

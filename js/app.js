@@ -186,7 +186,8 @@ function renderFab(page, route) {
 
 export function renderFabCustom(route) { /* 供存钱等 tab 页复用 */ }
 
-// 图标风格（line 线性图标 / emoji 彩色圆底）：写进 caticon 模块 + body class（CSS 靠它切背景）
+// 图标风格（line 线性 / filled 实心 / emoji 彩色圆底）：
+// 写进 caticon 模块 + body class（CSS 靠它切背景：只有 emoji 才是彩色底）
 export function syncIconStyle() {
   const v = S().settings.iconStyle || 'line';
   setIconStyle(v);

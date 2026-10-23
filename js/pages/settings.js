@@ -5,6 +5,7 @@ import { go, UI, syncIconStyle } from '../app.js';
 
 const VERSION = 'v2.0.6';
 const TYPE_LABEL = { expense: '支出', income: '收入', transfer: '转账' };
+const ICON_STYLE_LABEL = { line: '线性', filled: '实心', emoji: 'Emoji 圆底' };
 
 // 【秒开记账】settings.startPage：'record' = 启动直接进记账页，'home' = 启动进账本首页。
 // app.js 启动处（load() 之后）读取方式：
@@ -81,7 +82,7 @@ export default {
         { icon: '🙈', bg: 'rgba(99,99,102,.28)', label: '隐藏金额', sub: '首页与统计中的金额以 **** 显示', sw: 'hideAmount', on: !!s.hideAmount },
         { icon: '🕐', bg: 'rgba(191,90,242,.18)', label: '账单时间', sub: '记账时记录具体到分钟的时间', sw: 'bookTime', on: !!s.bookTime },
         { icon: '🌙', bg: 'rgba(94,92,230,.28)', label: '深色模式', sw: 'dark', on: dark },
-        { icon: '◌', bg: 'rgba(100,210,255,.18)', label: '分类图标', sub: '线性图标（关）或 emoji 彩色圆底（开）', sw: 'iconEmoji', on: (s.iconStyle || 'line') === 'emoji' },
+        { icon: '◌', bg: 'rgba(100,210,255,.18)', label: '分类图标', value: ICON_STYLE_LABEL[s.iconStyle || 'line'], act: 'iconStyle' },
       ])}
 
       ${group('数据', [
@@ -114,11 +115,6 @@ export default {
         else if (k === 'claimEnabled') { st.claimEnabled = on; UI.toast(on ? '已开启报销功能' : '已关闭报销功能'); }
         else if (k === 'hideAmount') { st.hideAmount = on; UI.toast(on ? '金额已隐藏' : '金额已显示'); }
         else if (k === 'bookTime') { st.bookTime = on; UI.toast(on ? '已开启账单时间' : '已关闭账单时间'); }
-        else if (k === 'iconEmoji') {
-          st.iconStyle = on ? 'emoji' : 'line';
-          syncIconStyle();
-          UI.toast(on ? '已切换为 emoji 图标' : '已切换为线性图标');
-        }
         else if (k === 'dark') {
           st.theme = on ? 'dark' : 'light';
           document.body.classList.toggle('light', !on);
@@ -142,6 +138,20 @@ export default {
           save();
           el.querySelector('.cv').textContent = TYPE_LABEL[pick.value];
           UI.toast(`默认记账类型：${TYPE_LABEL[pick.value]}`);
+          return;
+        }
+        if (act === 'iconStyle') {
+          const pick = await UI.sheet('分类图标', [
+            { label: '线性图标', icon: '◌', value: 'line' },
+            { label: '实心图标', icon: '◉', value: 'filled' },
+            { label: 'Emoji 彩色圆底', icon: '🧾', value: 'emoji' },
+          ]);
+          if (!pick) return;
+          S().settings.iconStyle = pick.value;
+          syncIconStyle();
+          save();
+          el.querySelector('.cv').textContent = ICON_STYLE_LABEL[pick.value];
+          UI.toast(`分类图标：${ICON_STYLE_LABEL[pick.value]}`);
           return;
         }
         if (act === 'version') { UI.toast(`iCost 复刻版 ${VERSION}`); return; }
