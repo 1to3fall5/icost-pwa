@@ -906,18 +906,20 @@ body.light #tabbar { background: rgba(255, 255, 255, .74); }
   /* 侧边导航（由 TabBar 变形而来） */
   #tabbar {
     grid-area: side;
-    position: sticky; top: 132px; /* 始终位于吸顶导航（展开态约 126px）下方 */
+    /* --side-top = 吸顶导航实际高度，由 app.js 实测写入 #app（缺省 132px） */
+    position: sticky; top: var(--side-top, 132px);
     left: auto; bottom: auto; transform: none;
     align-self: start;
     width: calc(var(--sidebar-w) - 32px);
-    height: auto;
     margin: 0 0 0 16px;
     flex-direction: column;
     gap: 4px;
     padding: 14px 10px;
-    /* 升级版侧栏内容较长：超出视口时自身滚动，不撑破页面 */
-    max-height: calc(100dvh - 112px);
-    overflow-y: auto;
+    /* 整屏：从吸顶导航下沿一直铺到视口底部（底部留 16px 呼吸位）
+       外层不滚动，由内部 .side-scroll 承载超出部分的滚动 */
+    height: calc(100dvh - var(--side-top, 132px) - 16px);
+    max-height: none;
+    overflow: hidden;
     overscroll-behavior: contain;
     border-radius: 20px;
     background: rgba(22, 22, 24, .62);
@@ -956,6 +958,24 @@ body.light #tabbar { background: rgba(255, 255, 255, .74); }
   }
   .side-btn.primary:hover { background: #ffd260; color: #1c1c1e; }
   .side-sep { height: 1px; background: var(--sep); margin: 8px 6px; }
+
+  /* 侧栏整屏后的三段式布局：
+     顶部（品牌 / 账本 / 记一笔）固定 → 中间导航区滚动 → 底部同步状态贴底 */
+  #tabbar > .side-brand,
+  #tabbar > .side-book,
+  #tabbar > .side-btn,
+  #tabbar > .side-sync { flex: none; }
+  .side-scroll {
+    flex: 1 1 auto; min-height: 0;
+    overflow-y: auto; overscroll-behavior: contain;
+    margin: 0 -6px; padding: 0 6px;
+    scrollbar-width: thin; scrollbar-color: rgba(127, 127, 140, .38) transparent;
+  }
+  .side-scroll::-webkit-scrollbar { width: 6px; }
+  .side-scroll::-webkit-scrollbar-track { background: transparent; }
+  .side-scroll::-webkit-scrollbar-thumb { background: rgba(127, 127, 140, .38); border-radius: 3px; }
+  .side-scroll::-webkit-scrollbar-thumb:hover { background: rgba(127, 127, 140, .6); }
+  #tabbar > .side-sync { margin-top: 10px; }
 
   /* 内容区 */
   #screen {
@@ -1050,8 +1070,8 @@ body.light #tabbar { background: rgba(255, 255, 255, .74); }
     #navbar:has(.nb-title) .nb-title { grid-area: 1 / 1; font-size: 26px; padding: 0; }
     #navbar:has(.nb-title) .nb-mini  { display: none; }
     #navbar:has(.nb-title).collapsed .nb-title { display: block; }
-    /* 导航变矮后，吸顶偏移同步下调 */
-    #tabbar { top: 88px; }
+    /* 导航变矮后，吸顶偏移 + 整屏高度同步下调（JS 会按实测高度覆写） */
+    #app { --side-top: 88px; }
     .page-home .hp-left { top: 104px; }
   }
 
