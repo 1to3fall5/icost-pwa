@@ -2,6 +2,7 @@
 import Icons from '../icons.js';
 import { S, save, uid, catById, fmtMoney } from '../store.js';
 import { go, UI } from '../app.js';
+import { catMarkHTML, accMarkHTML } from '../caticon.js';
 import { decodeText, parseStatement, parseXlsx, filterExisting, findSimilar, summarize } from '../importers.js';
 
 let draft = null;   // 解析结果（页面级临时状态，离开即弃）
@@ -54,7 +55,7 @@ function previewRows() {
   return show.map((r) => {
     const c = catById(r.categoryId);
     return `<div class="cell">
-      <span class="ci" style="background:${(c && c.color) || '#2c2c2e'}">${(c && c.icon) || '🧾'}</span>
+      ${catMarkHTML({ name: (c && c.name) || '', parent: c && c.parent, icon: (c && c.icon) || '🧾', color: (c && c.color) || '#98989f', type: c && c.type, cls: 'ci' })}
       <span class="cl">${(c && c.name) || '其他'}<span class="cell-sub">${r.date} ${r.time} ${r.note || '—'}</span></span>
       <span class="cv">${r.type === 'expense' ? '-' : '+'}${fmtMoney(r.amount)}</span>
     </div>`;
@@ -109,7 +110,7 @@ export default {
       <div class="sec-title">导入设置</div>
       <div class="cell-group">
         <div class="cell" data-act="account">
-          <span class="ci" style="background:${(acc && acc.color) || '#2c2c2e'}">${(acc && acc.icon) || '💳'}</span>
+          ${accMarkHTML({ name: acc && acc.name, icon: (acc && acc.icon) || '💳', color: (acc && acc.color) || '#98989f', type: acc && acc.type, cls: 'ci' })}
           <span class="cl">导入到账户<span class="cell-sub">点此更换</span></span>
           <span class="cv">${(acc && acc.name) || '未选择'}</span>
         </div>
