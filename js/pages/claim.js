@@ -1,6 +1,7 @@
 // 报销管理
 import { S, cats, billById, addBill, fmtMoney, save, clearClaim, upsertClaim } from '../store.js';
 import { esc } from '../util.js';
+import { catMarkHTML } from '../caticon.js';
 import { go, UI } from '../app.js';
 
 const p2 = (n) => String(n).padStart(2, '0');
@@ -33,12 +34,15 @@ function sumOf(status) {
 function rowHTML(c) {
   const b = billById(c.billId);
   const cat = b ? catInfo(b.categoryId) : null;
-  const icon = cat?.icon || '🧾';
+  const mark = catMarkHTML({
+    name: cat?.name || '', parent: cat?.parent || '', icon: cat?.icon || '🧾',
+    color: color, type: cat?.type, cls: 'badge-ic',
+  });
   const color = cat?.color || '#ff9f0a';
   const title = b?.note || cat?.name || '已删除的账单';
   const sub = `${b ? b.date : '—'}${cat?.name ? ' · ' + cat.name : ''}`;
   return `<div class="cj-row" data-claim="${c.billId}">
-    <span class="badge-ic" style="background:color-mix(in srgb, ${color} 22%, #1c1c1e)">${icon}</span>
+    ${mark}
     <div class="main">
       <div class="nm">${esc(title)}</div>
       <div class="sub">${esc(sub)}</div>
