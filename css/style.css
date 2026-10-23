@@ -1499,3 +1499,30 @@ body.light #tabbar { background: rgba(255, 255, 255, .74); }
 .ss-t { min-width: 0; }
 .ss-t b { display: block; font-size: 12px; font-weight: 600; }
 .ss-t span { font-size: 11px; color: var(--text3); display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* ============================================================
+   分类 / 账户图标标记（.ic-mark）
+   line（默认）：中性圆底 + 分类色线性 SVG，无内置图标时降级为「首字」
+   emoji（设置里切换）：旧版彩色圆底 + emoji，靠 body.icon-emoji 覆盖背景
+   ============================================================ */
+.ic-mark {
+  display: flex; align-items: center; justify-content: center; flex: none;
+  overflow: hidden;
+}
+.ic-mark svg { flex: none; width: 62%; height: 62%; display: block; }
+body:not(.icon-emoji) .ic-mark { background: var(--card2); }
+body.icon-emoji .ic-mark { background: color-mix(in srgb, var(--c, #98989f) 22%, #1c1c1e); }
+body.light.icon-emoji .ic-mark { background: color-mix(in srgb, var(--c, #98989f) 16%, #fff); }
+
+/* 分类选择器（.ic 自带背景，需要更高特异性压过） */
+body:not(.icon-emoji) .cat-item .ic.has-color { background: var(--card2); }
+body:not(.icon-emoji) .cat-item.on .ic { background: var(--card2); border-color: var(--fab); }
+body.icon-emoji .cat-item .ic.has-color { background: color-mix(in srgb, var(--c) 22%, #1c1c1e); }
+body.icon-emoji .cat-item.on .ic { background: color-mix(in srgb, var(--c, #ffcc33) 30%, #1c1c1e); }
+
+/* 行内小图标：排行 / 洞察条 */
+.rk-nm { display: flex; align-items: center; gap: 6px; }
+.rk-t { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.rk-ic { width: 18px; height: 18px; border-radius: 5px; display: inline-flex; }
+.ins-bar-top span { display: flex; align-items: center; gap: 6px; min-width: 0; }
+.ins-ic { width: 16px; height: 16px; border-radius: 4px; display: inline-flex; }
