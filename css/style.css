@@ -1509,7 +1509,12 @@ body.light #tabbar { background: rgba(255, 255, 255, .74); }
   display: flex; align-items: center; justify-content: center; flex: none;
   overflow: hidden;
 }
-.ic-mark svg { flex: none; width: 62%; height: 62%; display: block; }
+.ic-mark svg { flex: none; width: 62%; height: 62%; display: block; stroke-width: 2; }
+/* 线宽按容器反推：svg 显示为容器的 62%，缩放后视觉线宽 = stroke-width × 0.62 × 容器/24，
+   统一调到约 2px。大容器要减、小容器要加。 */
+.cat-item .ic-mark svg { stroke-width: 1.55; }    /* 52px → 视觉 ≈2.0 */
+.detail-hero .ic-mark svg { stroke-width: 1.3; }  /* 64px → 视觉 ≈2.0 */
+.rk-ic svg, .ins-ic svg { stroke-width: 3.1; }    /* 18px → 视觉 ≈1.4（再粗会糊） */
 body:not(.icon-emoji) .ic-mark { background: var(--card2); }
 body.icon-emoji .ic-mark { background: color-mix(in srgb, var(--c, #98989f) 22%, #1c1c1e); }
 body.light.icon-emoji .ic-mark { background: color-mix(in srgb, var(--c, #98989f) 16%, #fff); }

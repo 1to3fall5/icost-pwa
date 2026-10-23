@@ -66,7 +66,7 @@ setIconStyle('line');
 
 // ---------- 特殊场景 ----------
 const tr = catMarkHTML({ kind: 'transfer', color: '#0a84ff', cls: 'bill-ic' });
-ok('转账走内置双向箭头', tr.includes('<path d="M4 8h13'));
+ok('转账走内置双向箭头（Tabler arrows-left-right）', tr.includes('<path d="M21 17l-18 0'));
 ['cash', 'online', 'bank', 'credit'].forEach((t) => {
   const h = accMarkHTML({ name: '账户', type: t, color: '#30d158', cls: 'ac-ic' });
   ok(`账户类型 ${t} 有内置图标`, h.includes('<path d="'), h.slice(0, 80));
@@ -86,6 +86,20 @@ all += catMarkHTML({ name: '', color: '' });
 ok('全量渲染无 NaN', !all.includes('NaN'));
 ok('全量渲染无 undefined', !all.includes('undefined'));
 ok('空输入不抛错', catMarkHTML({}).includes('ic-mono'));
+
+
+// ---------- Tabler 图标（多段 path） ----------
+const multi = catMarkHTML({ name: '餐饮', color: '#ff9f0a' });
+ok('多段 path 被拆成多个 <path>', (multi.match(/<path /g) || []).length >= 3, multi.slice(0, 120));
+ok('多段 path 用 | 分隔且未被合并', !multi.includes('|'));
+ok('过滤了 Tabler 的空白占位 path', !multi.includes('M0 0h24v24H0z'));
+ok('线宽交给 CSS（不在 SVG 上写死）', !multi.includes('stroke-width='));
+// 每个内置图标都至少有一段有效 path
+[...EXPENSE, ...INCOME].forEach((n) => {
+  const h = catMarkHTML({ name: n, color: '#ff9f0a', type: 'expense' });
+  const ps = (h.match(/<path d="/g) || []).length;
+  ok(`${n} 至少一段 path`, ps >= 1);
+});
 
 console.log(`\n通过 ${pass} / 失败 ${fail}`);
 process.exit(fail ? 1 : 0);
