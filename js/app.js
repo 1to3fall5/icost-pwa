@@ -96,14 +96,16 @@ function renderSidebar(active) {
       <span class="sb-ch">${Icons.chevD.replace('<svg', '<svg style="width:14px;height:14px"')}</span>
     </button>
     <button class="side-btn primary" data-act="record">${Icons.plus}<span>记一笔</span></button>
-    ${SIDE_GROUPS.map((g) => `
-      <div class="side-group">
-        <div class="side-gt">${g.title}</div>
-        ${g.items.map((i) => {
-          if (i.fn) return `<button class="tab-item${act(i)}" data-go="${i.route}">${ico(i)}<span>${i.name}</span></button>`;
-          return `<button class="side-item${act(i)}" data-go="${i.route}">${ico(i)}<span>${i.name}</span></button>`;
-        }).join('')}
-      </div>`).join('')}
+    <div class="side-scroll">
+      ${SIDE_GROUPS.map((g) => `
+        <div class="side-group">
+          <div class="side-gt">${g.title}</div>
+          ${g.items.map((i) => {
+            if (i.fn) return `<button class="tab-item${act(i)}" data-go="${i.route}">${ico(i)}<span>${i.name}</span></button>`;
+            return `<button class="side-item${act(i)}" data-go="${i.route}">${ico(i)}<span>${i.name}</span></button>`;
+          }).join('')}
+        </div>`).join('')}
+    </div>
     <button class="side-sync${on ? ' on' : ''}" data-act="sync">
       <i class="sdot"></i>
       <div class="ss-t"><b>${on ? '云端已同步' : '未开启云同步'}</b><span>${on ? (cfg.lastSync ? fmtTime(cfg.lastSync) : '已连接 Gist') : '点此配置加密同步'}</span></div>
@@ -183,11 +185,27 @@ function renderFab(page, route) {
 
 export function renderFabCustom(route) { /* 供存钱等 tab 页复用 */ }
 
+// 桌面侧栏整屏：把「吸顶导航实测高度」写进 --side-top，
+// 侧栏的起点与高度都跟着它走（大标题页 / 子页 / 折叠态高度各不相同）
+let sideTopRaf = 0;
+function syncSideTop() {
+  const appEl = document.getElementById('app');
+  if (!appEl || !isDesktop()) return;
+  const h = navbar.offsetHeight;
+  if (h > 0) appEl.style.setProperty('--side-top', h + 'px');
+}
+function queueSideTop() {
+  if (sideTopRaf) return;
+  sideTopRaf = requestAnimationFrame(() => { sideTopRaf = 0; syncSideTop(); });
+}
+
 // 滚动时大标题折叠为小标题（模仿 iCost）
 window.addEventListener('scroll', () => {
   const isLarge = !!navbar.querySelector('.nb-title') && !navbar.querySelector('.nb-title.center');
   navbar.classList.toggle('collapsed', isLarge && window.scrollY > 34);
+  queueSideTop();
 }, { passive: true });
+window.addEventListener('resize', queueSideTop);
 
 // ---------- 导航栏 ----------
 function renderNav(page, route, params) {
@@ -239,6 +257,7 @@ async function render() {
   renderNav(page, route, params);
   renderTabbar(route);
   renderFab(page, route);
+  syncSideTop();
   window.scrollTo(0, 0);
   // 桌面首页是总览仪表盘，占满整屏宽度（其它页面仍居中，避免列表被拉得过长）
   screen.classList.toggle('screen-full', isDesktop() && route === 'home');
