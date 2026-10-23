@@ -2,6 +2,7 @@
 import Icons from '../icons.js';
 import { S, accountStat, fmtMoney, updateAccount, save } from '../store.js';
 import { esc } from '../util.js';
+import { accMarkHTML } from '../caticon.js';
 import { go, UI } from '../app.js';
 
 const hide = () => !!S().settings.hideAmount;
@@ -63,7 +64,7 @@ function accList() {
   <div class="cell-group">
     ${list.map((a) => `
       <div class="cell" data-acc="${a.id}">
-        <span class="ci ad-acc-ic" style="background:${a.color}22">${a.icon}</span>
+        ${accMarkHTML({ name: a.name, icon: a.icon, color: a.color, type: a.type, cls: 'ci ad-acc-ic' })}
         <div class="cl">
           <div class="cell-title">${esc(a.name)}</div>
           ${a.includeNet === false ? `<div class="cell-sub">不计入净资产</div>` : ''}
