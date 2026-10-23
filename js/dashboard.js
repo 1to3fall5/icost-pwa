@@ -6,6 +6,7 @@ import {
   monthOf, catById, accById, accountStat, pad2, today,
 } from './store.js';
 import { esc } from './util.js';
+import { catMarkHTML, accMarkHTML } from './caticon.js';
 import { donut, line, dualBars, multiLine } from './charts.js';
 import { mountTreemap, countLeaves } from './treemap.js';
 import { go, UI, onCleanup } from './app.js';
@@ -156,9 +157,9 @@ function catSums(bills, type = 'expense') {
   const map = {};
   bills.filter((b) => b.type === type).forEach((b) => {
     let c = catById(b.categoryId);
-    if (c && !c.color) {                       // 二级分类 → 归到一级
+    if (c && c.parent) {                       // 二级分类（catById 会补 parent）→ 归到一级
       const all = [...S().categories.expense, ...S().categories.income];
-      c = all.find((p) => p.children?.some((x) => x.id === c.id)) || c;
+      c = all.find((p) => p.name === c.parent) || c;
     }
     const id = c?.id || 'other';
     map[id] = (map[id] || 0) + b.amount;
@@ -175,8 +176,8 @@ function catSums(bills, type = 'expense') {
 // 一级分类 → 二级分类 → 单笔账单（账户余额维度：账户类型 → 账户）
 function topCatOf(cat, type) {
   if (!cat) return null;
-  if (cat.color) return cat;                       // 一级分类自带 color，二级只有 {id,name}
-  return S().categories[type].find((p) => p.children?.some((x) => x.id === cat.id)) || cat;
+  if (!cat.parent) return cat;                     // 一级分类没有 parent（catById 给二级补了）
+  return S().categories[type].find((p) => p.name === cat.parent) || cat;
 }
 const TM_LEAF_CAP = 24;   // 每个二级分类最多展开多少笔，超出的合并成「其他 N 笔」
 const ACC_TYPE = { cash: '现金', online: '在线钱包', bank: '银行卡', credit: '信用账户' };
@@ -209,7 +210,7 @@ export function tmTree(dim, months = monthList()) {
     const top = topCatOf(c, dim) || { id: 'other', name: '其他', color: '#98989f' };
     if (!byTop.has(top.id)) byTop.set(top.id, { name: top.name, color: top.color || '#98989f', sub: new Map() });
     const t = byTop.get(top.id);
-    const subName = (c && !c.color && c.name) ? c.name : '未分类';
+    const subName = (c && c.parent && c.name) ? c.name : '未分类';
     if (!t.sub.has(subName)) t.sub.set(subName, { name: subName, bills: [] });
     t.sub.get(subName).bills.push(b);
   });
@@ -357,7 +358,7 @@ function donutCard(bills) {
     <div class="dc-donut"><canvas class="chart" id="dash-donut"></canvas></div>
     <div class="dc-legend">
       ${shown.length ? shown.map((i) => `<div class="lg-row">
-        <i style="background:${i.color}"></i><span>${esc(i.icon)} ${esc(i.name)}</span>
+        <i style="background:${i.color}"></i><span>${esc(i.name)}</span>
         <b>${yuan(i.value)}</b><em>${total ? ((i.value / total) * 100).toFixed(1) : '0.0'}%</em>
       </div>`).join('') : '<div class="dc-empty">本区间暂无支出</div>'}
     </div>
@@ -406,7 +407,7 @@ function rankCard(months, bills) {
         const cls = d === null ? '' : d >= 0 ? 'up' : 'down';
         return `<div class="rk-row" data-go="stats">
           <div class="rk-top">
-            <span class="rk-nm">${esc(i.icon)} ${esc(i.name)}</span>
+            <span class="rk-nm">${catMarkHTML({ name: i.name, parent: i.parent, icon: i.icon, color: i.color, type: i.type, cls: 'rk-ic' })}<span class="rk-t">${esc(i.name)}</span></span>
             <span class="rk-v">${yuan(i.value)}${d === null ? '' : `<em class="${cls}">${d >= 0 ? '↑' : '↓'}${Math.abs(d).toFixed(0)}%</em>`}</span>
           </div>
           <div class="rk-bar"><i style="width:${total ? Math.max(2, (i.value / total) * 100) : 0}%;background:${i.color}"></i></div>
@@ -423,7 +424,7 @@ function catTrendCard(months, bills) {
     <div class="dc-head"><div class="dc-titles"><div class="dc-title">分类趋势</div><div class="dc-sub">支出 Top 3</div></div>${sizeBtn('cattrend')}${grip('cattrend')}</div>
     <div class="dc-chart"><canvas class="chart" id="dash-cat"></canvas></div>
     <div class="dc-legend">
-      ${items.map((i) => `<div class="lg-row"><i style="background:${i.color}"></i><span>${esc(i.icon)} ${esc(i.name)}</span><b>${yuan(i.value)}</b></div>`).join('')
+      ${items.map((i) => `<div class="lg-row"><i style="background:${i.color}"></i><span>${esc(i.name)}</span><b>${yuan(i.value)}</b></div>`).join('')
         || '<div class="dc-empty">本区间暂无支出</div>'}
     </div>
   </section>`;
@@ -463,7 +464,7 @@ function accountCard() {
         const debt = a.type === 'credit';
         const w = (Math.abs(a.balance) / max) * 100;
         return `<div class="ac-row" data-acc="${a.id}">
-          <span class="ac-ic" style="background:${a.color}22">${a.icon || '💳'}</span>
+          ${accMarkHTML({ name: a.name, icon: a.icon, color: a.color, type: a.type, cls: 'ac-ic' })}
           <div class="ac-main">
             <div class="ac-nm">${esc(a.name)}${a.includeNet === false ? '<em>不计净资产</em>' : ''}</div>
             <div class="ac-bar"><i style="width:${Math.max(3, w)}%;background:${debt ? '#ff453a' : a.color || '#0a84ff'}"></i></div>
@@ -533,9 +534,12 @@ function rowHTML(b) {
   const cat = catById(b.categoryId);
   const acc = accById(b.accountId);
   const isT = b.type === 'transfer';
-  const color = isT ? '#0a84ff22' : b.type === 'income' ? '#30d15822' : (cat?.color || '#ff9f0a') + '22';
   return `<div class="dj-row" data-bill="${b.id}">
-    <span class="dj-ic" style="background:${color}">${isT ? Icons.swap : (cat?.icon || '🧾')}</span>
+    ${catMarkHTML({
+      name: cat?.name || '', parent: cat?.parent || '', icon: cat?.icon || '🧾',
+      color: cat?.color || '#ff9f0a', type: cat?.type || b.type,
+      kind: isT ? 'transfer' : '', cls: 'dj-ic',
+    })}
     <div class="dj-main">
       <div class="dj-cat">${isT ? '转账' : (cat?.name || '其他')}</div>
       <div class="dj-note">${b.note || acc?.name || ''}</div>
