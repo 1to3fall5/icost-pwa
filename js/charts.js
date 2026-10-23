@@ -1,6 +1,7 @@
 // 轻量 Canvas 图表（零依赖、暗黑主题）
 import { fmtMoney } from './store.js';
 import { esc } from './util.js';
+import { catMarkHTML } from './caticon.js';
 
 // 高度优先取「容器」的布局高度（卡片格子给多少就画多高），拿不到才用调用方给的 fallback。
 // 取容器而不是 canvas 自身：canvas 上一次被写死过 inline height，读自己会拿到旧值、尺寸就锁死了。
@@ -228,7 +229,7 @@ export function dualBars(canvas, exp, inc, labels, opts = {}) {
 export function rankList(el, items, total) {
   el.innerHTML = items.map((it) => `
     <div class="bill-row" data-cat="${it.id}">
-      <div class="bill-ic" style="background:${it.color}22">${it.icon || ''}</div>
+      ${catMarkHTML({ name: it.name, parent: it.parent, icon: it.icon, color: it.color, type: it.type, cls: 'bill-ic' })}
       <div class="bill-main">
         <div class="bill-cat">${esc(it.name)}</div>
         <div class="rank-bar" style="height:4px;border-radius:2px;background:#2c2c2e;margin-top:6px;overflow:hidden">
