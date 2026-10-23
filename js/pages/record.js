@@ -2,6 +2,7 @@
 import Icons from '../icons.js';
 import { S, cats, accById, curBook, fmtMoney, addBill, updateBillAndBalance, billById, save, uid, today, clearClaim, upsertClaim } from '../store.js';
 import { esc } from '../util.js';
+import { catMarkHTML } from '../caticon.js';
 import { back, go, UI } from '../app.js';
 
 const KEYS = [['7', '8', '9', '÷'], ['4', '5', '6', '×'], ['1', '2', '3', '−'], ['0', '.', '⌫', '+']];
@@ -63,7 +64,7 @@ const mod = {
         grid.style.display = '';
         grid.innerHTML = list.map((c) => `
           <button class="cat-item ${c.id === categoryId ? 'on' : ''}" data-c="${c.id}" style="--c:${c.color}">
-            <span class="ic has-color">${esc(c.icon)}</span><span class="nm">${esc(c.name)}</span>
+            ${catMarkHTML({ name: c.name, icon: c.icon, color: c.color, type: c.type, cls: 'ic has-color' })}<span class="nm">${esc(c.name)}</span>
           </button>`).join('');
         grid.querySelectorAll('[data-c]').forEach((b) => b.addEventListener('click', () => {
           mod.data.categoryId = b.dataset.c;
