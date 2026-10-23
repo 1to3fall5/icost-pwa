@@ -1528,6 +1528,15 @@ body:not(.icon-emoji) .cat-item.on .ic { background: var(--card2); border-color:
 body.icon-emoji .cat-item .ic.has-color { background: color-mix(in srgb, var(--c) 22%, #1c1c1e); }
 body.icon-emoji .cat-item.on .ic { background: color-mix(in srgb, var(--c, #ffcc33) 30%, #1c1c1e); }
 
+/* 彩色插画：32 网格、自带配色，构图比 24 网格更满，占容器比例相应收一点；
+   插画里有 #212121 这类深色细节，深色卡片上会糊掉，所以给它一层固定的浅底（带一点分类色） */
+.ic-mark.ic-illust svg { width: 60%; height: 60%; stroke: none; }
+body:not(.icon-emoji) .ic-mark.ic-illust,
+body:not(.icon-emoji) .cat-item .ic.ic-illust.has-color,
+body:not(.icon-emoji) .cat-item.on .ic.ic-illust {
+  background: color-mix(in srgb, var(--c, #98989f) 16%, #f2f2f7);
+}
+
 /* 行内小图标：排行 / 洞察条 */
 .rk-nm { display: flex; align-items: center; gap: 6px; }
 .rk-t { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }

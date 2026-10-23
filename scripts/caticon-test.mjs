@@ -134,6 +134,43 @@ ok('实心：收入/支出「其他」不同',
 const solidMono = catMarkHTML({ name: '自定义XX', color: '#0af' });
 ok('实心：自定义分类降级首字', solidMono.includes('ic-mono') && solidMono.includes('<text'));
 ok('实心：首字外壳 fill="none"', solidMono.includes('fill="none"') && solidMono.includes('fill="#0af"'));
+// ---------- 彩色插画（illust）风格 ----------
+setIconStyle('illust');
+eq('风格切换到 illust', getIconStyle(), 'illust');
+// 内置 31 个图标在插画模式下必须全部命中（不能有任何一个掉成首字）
+ALLCAT.forEach((n) => {
+  const t = n === '其他' || ['工资', '奖金', '理财', '红包', '报销', '兼职', '二手', '礼金', '退款'].includes(n) ? 'income' : 'expense';
+  const h = catMarkHTML({ name: n, color: '#ff9f0a', type: t });
+  ok(`插画：${n} 有内置图标（非首字）`, !h.includes('ic-mono') && h.includes('<path '), h.slice(0, 100));
+});
+['transfer', 'cash', 'online', 'bank', 'credit'].forEach((k) => {
+  const h = accMarkHTML({ type: k, name: 'x', color: '#ff9f0a' });
+  ok(`插画：账户类型 ${k} 有内置图标`, !h.includes('ic-mono') && h.includes('<path '));
+});
+const illHTML = catMarkHTML({ name: '餐饮', color: '#ff9f0a' });
+ok('插画用 32 网格 viewBox', illHTML.includes('viewBox="0 0 32 32"'), illHTML.slice(0, 160));
+ok('插画自带配色（不套分类色）',
+  /<path d="[^"]+" fill="#[0-9a-fA-F]{6}"/.test(illHTML) && !illHTML.includes('fill="#ff9f0a"'), illHTML.slice(0, 200));
+ok('插画容器 class 为 ic-illust',
+  illHTML.includes('ic-illust') && !illHTML.includes('ic-line') && !illHTML.includes('ic-fill'));
+ok('插画不带 stroke', !illHTML.includes('stroke="'), illHTML.slice(0, 160));
+const illPaths = (illHTML.match(/<path /g) || []).length;
+ok('插画每段 path 都自带 fill', illPaths >= 1 && illPaths === (illHTML.match(/ fill="#/g) || []).length, illHTML.slice(0, 200));
+// 三套风格必须互不相同
+setIconStyle('line');
+const illLine = catMarkHTML({ name: '餐饮', color: '#ff9f0a' });
+setIconStyle('filled');
+const illFill = catMarkHTML({ name: '餐饮', color: '#ff9f0a' });
+setIconStyle('illust');
+const illSelf = catMarkHTML({ name: '餐饮', color: '#ff9f0a' });
+ok('插画与线性、实心都不同', illSelf !== illLine && illSelf !== illFill);
+ok('插画：收入/支出「其他」不同',
+  catMarkHTML({ name: '其他', type: 'income', color: '#f0a' }) !== catMarkHTML({ name: '其他', type: 'expense', color: '#f0a' }));
+// 插画下自定义分类仍降级首字
+const illMono = catMarkHTML({ name: '自定义XX', color: '#0af' });
+ok('插画：自定义分类降级首字', illMono.includes('ic-mono') && illMono.includes('<text'));
+ok('插画：首字外壳 fill="none"', illMono.includes('fill="none"') && illMono.includes('fill="#0af"'));
+
 // 非法风格回落
 setIconStyle('weird');
 eq('非法风格回落 line', getIconStyle(), 'line');
