@@ -13,6 +13,7 @@ export const JS_CORE = [
   './js/util.js',
   './js/store.js',
   './js/icons.js',
+  './js/caticon.js',
   './js/charts.js',
   './js/sync.js',
   './js/importers.js',
