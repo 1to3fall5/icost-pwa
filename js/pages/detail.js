@@ -4,6 +4,7 @@ import {
   S, accById, billById, addBill, deleteBill, fmtMoney, save, uid, clearClaim, upsertClaim,
 } from '../store.js';
 import { esc } from '../util.js';
+import { catMarkHTML } from '../caticon.js';
 import { go, back, UI } from '../app.js';
 
 const TYPE = { expense: '支出', income: '收入', transfer: '转账' };
@@ -49,8 +50,11 @@ const mod = {
     if (!b) return `<div class="empty-tip">账单不存在或已删除</div>`;
 
     const cat = catInfo(b.categoryId);
-    const icon = b.type === 'transfer' ? '🔄' : (cat?.icon || '🧾');
     const color = b.type === 'transfer' ? '#0a84ff' : (cat?.color || '#98989f');
+    const heroMark = catMarkHTML({
+      name: cat?.name || '', parent: cat?.parent || '', icon: cat?.icon || '🧾',
+      color, type: cat?.type || b.type, kind: b.type === 'transfer' ? 'transfer' : '', cls: 'ic',
+    });
     const amtColor = b.type === 'income' ? 'var(--green)' : b.type === 'transfer' ? 'var(--text2)' : 'var(--text)';
     const sign = b.type === 'income' ? '+' : '';
     const acc = accById(b.accountId);
@@ -68,7 +72,7 @@ const mod = {
 
     return `
       <div class="detail-hero">
-        <div class="ic" style="background:color-mix(in srgb, ${color} 22%, #1c1c1e)">${icon}</div>
+        ${heroMark}
         <div class="amt" style="color:${amtColor}">${sign}¥${fmtMoney(b.amount)}</div>
         <div style="font-size:13px;color:var(--text2);margin-top:6px">${TYPE[b.type] || '支出'}</div>
       </div>
