@@ -1,6 +1,7 @@
 // 模板快捷记账
 import { S, cats, accById, addBill, fmtMoney, save, uid, addTombstone } from '../store.js';
 import { esc } from '../util.js';
+import { catMarkHTML } from '../caticon.js';
 import { go, UI } from '../app.js';
 
 const p2 = (n) => String(n).padStart(2, '0');
@@ -50,8 +51,11 @@ function cardHTML(t) {
   const cat = catInfo(t.categoryId);
   const acc = accById(t.accountId);
   const acc2 = t.type === 'transfer' ? accById(t.toAccountId) : null;
-  const icon = t.type === 'transfer' ? '🔄' : (cat?.icon || '🧾');
   const color = t.type === 'transfer' ? '#0a84ff' : (cat?.color || '#98989f');
+  const mark = catMarkHTML({
+    name: cat?.name || '', parent: cat?.parent || '', icon: cat?.icon || '🧾',
+    color, type: t.type, kind: t.type === 'transfer' ? 'transfer' : '', cls: 'badge-ic',
+  });
   const name = t.type === 'transfer'
     ? `${acc?.name || '?'} → ${acc2?.name || '?'}`
     : (cat ? (cat.parent ? `${cat.parent} › ${cat.name}` : cat.name) : '未分类');
@@ -60,7 +64,7 @@ function cardHTML(t) {
     : (acc?.name || '未选账户');
   return `<div class="card tp-card">
     <div class="row1">
-      <span class="badge-ic" style="background:color-mix(in srgb, ${color} 22%, #1c1c1e)">${icon}</span>
+      ${mark}
       <span class="nm">${esc(name)}</span>
       <span class="amt">¥${fmtMoney(t.amount)}</span>
     </div>
@@ -88,7 +92,7 @@ function formHTML() {
     ${d.type === 'transfer' ? '' : `<div class="form-label">分类</div>
       <div class="tp-cats">
         ${list.map((c) => `<button class="tp-cat ${c.id === d.categoryId ? 'on' : ''}" data-c="${c.id}">
-          <span class="ic" style="background:color-mix(in srgb, ${c.color} 22%, #1c1c1e)">${c.icon}</span>${esc(c.name)}
+          ${catMarkHTML({ name: c.name, icon: c.icon, color: c.color, type: c.type, cls: 'ic' })}${esc(c.name)}
         </button>`).join('')}
       </div>`}
     <div class="fr">
