@@ -1,7 +1,8 @@
 // 应用外壳：hash 路由 + 导航栏 + TabBar + 弹层工具
 import Icons from './icons.js';
-import { load, deleteBill, subscribe, curBook, onSaveError } from './store.js';
+import { load, deleteBill, subscribe, curBook, onSaveError, S } from './store.js';
 import { esc } from './util.js';
+import { catMarkHTML, setIconStyle } from './caticon.js';
 import { restorePassword, scheduleAutoPush, runAutoSync, onAutoSync, syncCfg, fmtTime } from './sync.js';
 
 const app = {
@@ -185,6 +186,13 @@ function renderFab(page, route) {
 
 export function renderFabCustom(route) { /* 供存钱等 tab 页复用 */ }
 
+// 图标风格（line 线性图标 / emoji 彩色圆底）：写进 caticon 模块 + body class（CSS 靠它切背景）
+export function syncIconStyle() {
+  const v = S().settings.iconStyle || 'line';
+  setIconStyle(v);
+  document.body.classList.toggle('icon-emoji', v === 'emoji');
+}
+
 // 桌面侧栏整屏：把「吸顶导航实测高度」写进 --side-top，
 // 侧栏的起点与高度都跟着它走（大标题页 / 子页 / 折叠态高度各不相同）
 let sideTopRaf = 0;
@@ -254,6 +262,7 @@ async function render() {
   if (!page) { go('home'); return; }
   cleanups.forEach((fn) => { try { fn(); } catch {} });
   cleanups = [];
+  syncIconStyle();
   renderNav(page, route, params);
   renderTabbar(route);
   renderFab(page, route);
@@ -411,7 +420,7 @@ export const UI = {
         ${title ? `<h3>${esc(title)}</h3>` : ''}
         <div class="opts">
           ${opts.map((o, i) => `<div class="cell" data-i="${i}" role="button" tabindex="0">
-            ${o.icon ? `<span class="ci" style="background:${safeColor(o.color)}">${esc(o.icon)}</span>` : ''}
+            ${o.icon ? catMarkHTML({ name: o.label, icon: o.icon, color: o.color, kind: o.kind, cls: 'ci' }) : ''}
             <span class="cl">${esc(o.label)}</span>${o.value ? `<span class="cv">${esc(o.value)}</span>` : ''}
           </div>`).join('')}
         </div>
