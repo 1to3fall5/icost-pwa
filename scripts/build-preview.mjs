@@ -8,7 +8,7 @@
  *
  * 用法：node scripts/build-preview.mjs
  */
-import { readFileSync, writeFileSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { catMarkHTML } from '../js/caticon.js';
@@ -163,6 +163,7 @@ ${panels}
 `;
 
 const out = join(root, 'docs/分类图标预览.html');
+mkdirSync(dirname(out), { recursive: true });   // 别让缺失 docs/ 把这脚本变成 CI 的失败点
 writeFileSync(out, html, 'utf8');
 console.log(`OK  ${total} 项 × ${STYLES.length} 档  ->  docs/分类图标预览.html`);
 console.log(`    symbol ${defs.length} 个，页面 ${(html.length / 1024).toFixed(1)} KB`);
