@@ -5,7 +5,7 @@ import { go, UI, syncIconStyle } from '../app.js';
 
 const VERSION = 'v2.0.6';
 const TYPE_LABEL = { expense: '支出', income: '收入', transfer: '转账' };
-const ICON_STYLE_LABEL = { line: '线性', filled: '实心', illust: '彩色插画', emoji: 'Emoji 圆底' };
+const ICON_STYLE_LABEL = { line: '线性', filled: '实心', tint: '彩底实心', illust: '彩色插画', emoji: 'Emoji 圆底' };
 
 // 【秒开记账】settings.startPage：'record' = 启动直接进记账页，'home' = 启动进账本首页。
 // app.js 启动处（load() 之后）读取方式：
@@ -144,6 +144,7 @@ export default {
           const pick = await UI.sheet('分类图标', [
             { label: '线性图标', icon: '◌', value: 'line' },
             { label: '实心图标', icon: '◉', value: 'filled' },
+            { label: '彩底实心（分类色底 + 单色图形）', icon: '◍', value: 'tint' },
             { label: '彩色插画（Fluent Emoji）', icon: '🎨', value: 'illust' },
             { label: 'Emoji 彩色圆底', icon: '🧾', value: 'emoji' },
           ]);

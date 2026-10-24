@@ -1537,6 +1537,18 @@ body:not(.icon-emoji) .cat-item.on .ic.ic-illust {
   background: color-mix(in srgb, var(--c, #98989f) 16%, #f2f2f7);
 }
 
+/* tint（彩底实心）：圆/方底整块填分类色，图形是单色实心。
+   前景色由 caticon.js 的 inkOn() 按底色亮度挑（亮底用深墨、其余用白），这里只管底色。
+   注意：底色规则要压过 `body:not(.icon-emoji) .ic-mark`(0,2,1) 和分类选择器的 (0,4,1)，
+   所以下面每条都多带一个 .ic-tint 提特异性。 */
+.ic-mark.ic-tint svg { width: 56%; height: 56%; stroke: none; }
+.cat-item .ic-mark.ic-tint svg, .detail-hero .ic-mark.ic-tint svg { width: 58%; height: 58%; }
+body:not(.icon-emoji) .ic-mark.ic-tint,
+body:not(.icon-emoji) .cat-item .ic.ic-tint.has-color,
+body:not(.icon-emoji) .cat-item.on .ic.ic-tint {
+  background: var(--c, #98989f);
+}
+
 /* 行内小图标：排行 / 洞察条 */
 .rk-nm { display: flex; align-items: center; gap: 6px; }
 .rk-t { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }

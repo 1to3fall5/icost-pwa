@@ -165,13 +165,30 @@ const SUB2TOP = {
   闲鱼: '二手', 转转: '二手',
 };
 
-const STYLES = { line: 1, filled: 1, illust: 1, emoji: 1 };
+const STYLES = { line: 1, filled: 1, tint: 1, illust: 1, emoji: 1 };
 let style = 'line';
 export const setIconStyle = (s) => { style = STYLES[s] ? s : 'line'; };
 export const getIconStyle = () => style;
 
 // 颜色只接受 #rgb / #rrggbb / #rrggbbaa，其它一律回退 —— 它要写进 style / stroke 属性
 const safeColor = (c) => (/^#[0-9a-fA-F]{3,8}$/.test(String(c || '')) ? String(c) : '#98989f');
+
+/**
+ * 相对亮度（WCAG）—— tint 档要用它挑前景色：
+ * 分类色当底色后，浅色（黄/亮绿）上必须换深墨，否则白图标看不清。
+ */
+const luminance = (hex) => {
+  const m = /^#?([0-9a-f]{6})$/i.exec(String(hex || '').trim());
+  if (!m) return 0;
+  const n = parseInt(m[1], 16);
+  const ch = [(n >> 16) & 255, (n >> 8) & 255, n & 255].map((v) => {
+    const s = v / 255;
+    return s <= 0.03928 ? s / 12.92 : Math.pow((s + 0.055) / 1.055, 2.4);
+  });
+  return 0.2126 * ch[0] + 0.7152 * ch[1] + 0.0722 * ch[2];
+};
+// 底色之上用哪种墨色：亮底用深墨，其余用白
+export const inkOn = (c) => (luminance(c) > 0.42 ? '#1c1c1e' : '#ffffff');
 
 // 取首字：中文取第一个字，英文/数字取首字母（大写）
 export function initialOf(name) {
@@ -182,7 +199,7 @@ export function initialOf(name) {
 
 // 名字 → 图标路径（parent 优先，因为二级名可能与一级重名）
 export function glyphOf(name, parent, type, st) {
-  const g = (st === 'filled' ? GLYPH_FILLED : st === 'illust' ? GLYPH_ILLUST : GLYPH);
+  const g = (st === 'filled' || st === 'tint' ? GLYPH_FILLED : st === 'illust' ? GLYPH_ILLUST : GLYPH);
   if (name && type && g[`${type}:${name}`]) return g[`${type}:${name}`];
   if (parent && g[parent]) return g[parent];
   if (name && g[name]) return g[name];
@@ -221,13 +238,14 @@ export function markInnerHTML(o = {}) {
   const st = o.style || style;
   const name = String(o.name || '');
   if (st === 'emoji') return esc(o.icon || (o.kind === 'transfer' ? '🔄' : '🧾'));
-  const solid = st === 'filled';
+  const solid = st === 'filled' || st === 'tint';
+  const ink = st === 'tint' ? inkOn(c) : c;
   const sp = solid ? SPECIAL_FILLED : st === 'illust' ? SPECIAL_ILLUST : SPECIAL;
   const d = (o.kind && sp[o.kind]) ? sp[o.kind] : glyphOf(name, o.parent, o.type, st);
-  if (d) return svgWrap(c, d, solid ? 'fill' : st === 'illust' ? 'raw' : 'stroke');
+  if (d) return svgWrap(ink, d, solid ? 'fill' : st === 'illust' ? 'raw' : 'stroke');
   const ch = esc(initialOf(name || o.parent));
-  const txt = `<text x="12" y="12.5" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="500" fill="${c}" stroke="none">${ch}</text>`;
-  return svgWrap(c, txt, 'text');
+  const txt = `<text x="12" y="12.5" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="500" fill="${ink}" stroke="none">${ch}</text>`;
+  return svgWrap(ink, txt, 'text');
 }
 
 export function catMarkHTML(o = {}) {
@@ -237,10 +255,10 @@ export function catMarkHTML(o = {}) {
   if (st === 'emoji') {
     return `<span class="ic-mark ic-emoji ${cls}" style="--c:${c}">${markInnerHTML(o)}</span>`;
   }
-  const solid = st === 'filled';
+  const solid = st === 'filled' || st === 'tint';
   const sp = solid ? SPECIAL_FILLED : st === 'illust' ? SPECIAL_ILLUST : SPECIAL;
   const mono = !((o.kind && sp[o.kind]) || glyphOf(String(o.name || ''), o.parent, o.type, st));
-  const skin = st === 'illust' ? 'ic-illust' : solid ? 'ic-fill' : 'ic-line';
+  const skin = st === 'illust' ? 'ic-illust' : st === 'tint' ? 'ic-tint' : solid ? 'ic-fill' : 'ic-line';
   return `<span class="ic-mark ${skin}${mono ? ' ic-mono' : ''} ${cls}" style="--c:${c}">${markInnerHTML(o)}</span>`;
 }
 
