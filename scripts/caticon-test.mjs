@@ -1,6 +1,6 @@
 // 分类图标测试：内置图标覆盖度、降级首字、颜色注入安全、渲染 HTML 合法
 // 跑法：node scripts/caticon-test.mjs
-import { catMarkHTML, accMarkHTML, markInnerHTML, glyphOf, initialOf, setIconStyle, getIconStyle, inkOn } from '../js/caticon.js';
+import { catMarkHTML, accMarkHTML, markInnerHTML, glyphOf, initialOf, setIconStyle, getIconStyle } from '../js/caticon.js';
 
 let pass = 0, fail = 0;
 const ok = (name, cond, extra = '') => {
@@ -171,7 +171,7 @@ const illMono = catMarkHTML({ name: '自定义XX', color: '#0af' });
 ok('插画：自定义分类降级首字', illMono.includes('ic-mono') && illMono.includes('<text'));
 ok('插画：首字外壳 fill="none"', illMono.includes('fill="none"') && illMono.includes('fill="#0af"'));
 
-// ---------- 彩底实心（tint）：分类色铺底 + 单色图形 ----------
+// ---------- 统一彩底（tint）：所有图标同一个底色 + 白色图形，只靠形状区分 ----------
 setIconStyle('tint');
 eq('风格切换到 tint', getIconStyle(), 'tint');
 // 复用实心那套 path，所以同样要求 31 项全覆盖、零降级
@@ -188,24 +188,18 @@ ALLCAT.forEach((n) => {
 const tintHTML = catMarkHTML({ name: '餐饮', color: '#0a84ff' });
 ok('彩底容器 class 为 ic-tint', tintHTML.includes('ic-tint') && !tintHTML.includes('ic-line'), tintHTML.slice(0, 140));
 ok('彩底不带 ic-fill（两套底色规则不能打架）', !tintHTML.includes('ic-fill'));
-// 图形必须是 fill 单色、无 stroke，且**不是**分类色（分类色去铺底了）
-ok('彩底图形用 fill 上色', tintHTML.includes('fill="#ffffff"'), tintHTML.slice(0, 160));
-ok('彩底图形不再用分类色', !tintHTML.includes('fill="#0a84ff"'));
+// 图形必须是 fill 单色、无 stroke；颜色不写死，交给 CSS 的 currentColor（底色/墨色统一由 CSS 决定）
+ok('彩底图形用 currentColor', tintHTML.includes('fill="currentColor"'), tintHTML.slice(0, 160));
+ok('彩底图形不写死分类色', !tintHTML.includes('fill="#0a84ff"'));
 ok('彩底不掉 stroke 属性', !tintHTML.includes('stroke="'));
-// 前景色按底色亮度自适应：暗底白、亮底深墨
-eq('inkOn 蓝色底 -> 白', inkOn('#0a84ff'), '#ffffff');
-eq('inkOn 红色底 -> 白', inkOn('#ff375f'), '#ffffff');
-eq('inkOn 紫色底 -> 白', inkOn('#bf5af2'), '#ffffff');
-eq('inkOn 灰色底 -> 白', inkOn('#98989f'), '#ffffff');
-eq('inkOn 黄色底 -> 深墨', inkOn('#ffd60a'), '#1c1c1e');
-eq('inkOn 亮绿底 -> 深墨', inkOn('#32d74b'), '#1c1c1e');
-eq('inkOn 亮青底 -> 深墨', inkOn('#64d2ff'), '#1c1c1e');
-eq('inkOn 非法颜色回落白', inkOn('nonsense'), '#ffffff');
-// 亮色分类实际渲染出来的墨色要对
-const tintYellow = catMarkHTML({ name: '学习', color: '#ffd60a' });
-ok('彩底：黄色「学习」用深墨', tintYellow.includes('fill="#1c1c1e"'), tintYellow.slice(0, 160));
-const tintBlue = catMarkHTML({ name: '交通', color: '#0a84ff' });
-ok('彩底：蓝色「交通」用白', tintBlue.includes('fill="#ffffff"'), tintBlue.slice(0, 160));
+// 底色统一：任意两个分类，抹掉 path 数据后图形外壳必须完全一致（说明颜色不再是变量）
+const shellOf = (h) => h.replace(/d="[^"]*"/g, '');
+const shA = shellOf(markInnerHTML({ name: '餐饮', color: '#ff9f0a' }));
+const shB = shellOf(markInnerHTML({ name: '学习', color: '#ffd60a' }));
+// 只比颜色：不同图标的 path 段数本来就不同，外壳不可能全等
+ok('彩底：不同分类的图形颜色一致（都是 currentColor）',
+  shA.includes('fill="currentColor"') && shB.includes('fill="currentColor"'), `${shA.slice(0, 80)} || ${shB.slice(0, 80)}`);
+ok('彩底：图形里不出现各自的分类色', !shA.includes('#ff9f0a') && !shB.includes('#ffd60a'));
 // 与实心/线性必须是三套不同的 HTML
 setIconStyle('line');
 const tintLine = catMarkHTML({ name: '餐饮', color: '#0a84ff' });
@@ -215,11 +209,11 @@ setIconStyle('tint');
 const tintSelf = catMarkHTML({ name: '餐饮', color: '#0a84ff' });
 ok('彩底与线性、实心都不同', tintSelf !== tintLine && tintSelf !== tintFilled);
 ok('彩底与实心图形 path 相同（共用一套实心 path）',
-  tintSelf.replace('ic-tint', 'ic-fill').replace(/#ffffff/g, '#0a84ff') === tintFilled);
+  tintSelf.replace('ic-tint', 'ic-fill').replace(/currentColor/g, '#0a84ff') === tintFilled);
 // 自定义分类降级首字，首字也要用墨色而不是分类色
 const tintMono = catMarkHTML({ name: '自定义XX', color: '#0a84ff' });
 ok('彩底：自定义分类降级首字', tintMono.includes('ic-mono') && tintMono.includes('<text'));
-ok('彩底：首字用墨色', tintMono.includes('fill="#ffffff"') && !tintMono.includes('fill="#0a84ff"'), tintMono.slice(0, 200));
+ok('彩底：首字也用 currentColor', tintMono.includes('fill="currentColor"') && !tintMono.includes('fill="#0a84ff"'), tintMono.slice(0, 200));
 // 收入/支出「其他」在彩底下仍然不同
 ok('彩底：收入/支出「其他」不同',
   catMarkHTML({ name: '其他', type: 'income', color: '#f0a' }) !== catMarkHTML({ name: '其他', type: 'expense', color: '#f0a' }));

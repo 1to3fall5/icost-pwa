@@ -62,7 +62,7 @@ const SIZES = [
 const STYLES = [
   { key: 'line', label: '线性' },
   { key: 'filled', label: '实心' },
-  { key: 'tint', label: '彩底实心' },
+  { key: 'tint', label: '统一彩底' },
   { key: 'illust', label: '彩色插画' },
   { key: 'emoji', label: 'Emoji 圆底' },
 ];
@@ -138,8 +138,8 @@ h2{font-size:14px;font-weight:500;color:#98989f;margin:22px 0 10px}
 .mk.ic-illust svg{width:60%;height:60%;stroke:none}
 .mk.ic-illust{background:color-mix(in srgb,var(--c,#98989f) 16%,#f2f2f7)}
 .mk.ic-emoji{background:color-mix(in srgb,var(--c,#98989f) 22%,#1c1c1e)}
-.mk.ic-tint{background:var(--c,#98989f)}
-.mk.ic-tint svg{width:56%;height:56%;stroke:none}
+.mk.ic-tint{background:#0a84ff}
+.mk.ic-tint svg{width:56%;height:56%;stroke:none;color:#fff}
 .mk .em{line-height:1}
 .row>.mk:nth-child(2) .em{font-size:32px}
 .row>.mk:nth-child(3) .em{font-size:23px}
