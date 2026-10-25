@@ -8,7 +8,8 @@ import { esc } from '../util.js';
 import { catMarkHTML } from '../caticon.js';
 import { uiMark } from '../uiicon.js';
 import { go, onCleanup, UI, isDesktop } from '../app.js';
-import { renderDashboard, mountDashboard } from '../dashboard.js';
+import { renderDashboard, mountDashboard, disposeCard } from '../dashboard.js';
+import { monthly } from '../fixed.js';
 
 let state = { ym: null, kw: '' };
 const now = () => state.ym || monthOf(today());
@@ -142,6 +143,7 @@ export default {
             <button class="pill-btn" data-go="calendar">${Icons.calendar.replace('<svg', '<svg style="width:14px;height:14px"')} 收支日历</button>
           </div>
           ${summaryCard(bills)}
+          ${disposeCard(monthly(ym))}
           <div style="height:8px"></div>
         </div>
         <div class="hp-right">${billList(bills)}</div>

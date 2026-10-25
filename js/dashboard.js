@@ -12,6 +12,7 @@ import { donut, line, dualBars, multiLine } from './charts.js';
 import { mountTreemap, countLeaves } from './treemap.js';
 import { go, UI, onCleanup } from './app.js';
 import { syncCfg, fmtTime } from './sync.js';
+import { monthly, activeFixed } from './fixed.js';
 
 const curYM = () => monthOf(today());
 
@@ -30,6 +31,7 @@ export const CARD_SIZES = ['1x1', '2x1', '2x2', '3x2', '4x2', 'full'];
 export const CARD_DEFAULT = {
   hero: 'full', tm: '2x2', donut: '2x2', trend: '2x2', rank: '2x1',
   cattrend: '2x1', overview: '2x1', account: '2x1', budget: '1x1', save: '1x1', recent: '2x2',
+  fixed: '2x1',
 };
 export function cardSize(id) {
   const m = S().settings.dashLayout || {};
@@ -477,6 +479,44 @@ function accountCard() {
   </section>`;
 }
 
+// ---------- 可支配金额卡（首页汇总区与仪表盘共用同一段，口径只有一处）----------
+// 还没配过固定支出、也没设额度、本月又没有收入时，数字全是 0，摆出来只是噪音 → 退化成引导卡
+const disposedReady = (m) => activeFixed().length > 0
+  || (Number(S().settings?.spendCap) || 0) > 0
+  || m.income > 0;
+
+export function disposeCard(m = monthly(curYM())) {
+  const chev = Icons.chevR.replace('<svg', '<svg style="width:12px;height:12px"');
+  if (!disposedReady(m)) {
+    return `<div class="dp-card" data-go="fixed">
+      <div class="dp-top">${uiMark('moneybag', 'rk-ic')}<span class="dp-tt">可支配金额</span></div>
+      <div class="dp-sub">把停车费、水电这类每月必付登记成固定支出，就能算出「还能花多少、大概能存多少」。</div>
+      <div class="dp-unpaid" style="color:var(--blue)">去设置 ${chev}</div>
+    </div>`;
+  }
+  const pct = m.cap > 0 ? Math.min(100, Math.round((m.flex / m.cap) * 100)) : 0;
+  const over = m.cap > 0 && m.flex > m.cap;
+  const cls = over ? 'over' : (pct > 80 ? 'warn' : '');
+  const names = m.unpaid.slice(0, 3).map((i) => esc(i.item?.name || '未命名'));
+  const more = m.unpaid.length > 3 ? ` 等 ${m.unpaid.length} 项` : '';
+  return `<div class="dp-card" data-go="fixed">
+    <div class="dp-top">${uiMark('wallet', 'rk-ic')}<span class="dp-tt">${m.capIsDefault ? '还能花（按可分配）' : '还能花'}</span></div>
+    <div class="dp-amt" style="color:${over ? 'var(--red)' : 'var(--text)'}">${yuan(m.left)}</div>
+    <div class="dp-sub">额度 ${yuan(m.cap)} · 已花 ${yuan(m.flex)} · 预计可存 ${yuan(m.expectSave)}</div>
+    <div class="dp-bar"><i class="${cls}" style="width:${pct}%"></i></div>
+    <div class="dp-foot"><span>收入 ${yuan(m.income)}</span><span>固定 ${yuan(m.fixedPlan)}</span><span>可分配 ${yuan(m.allocatable)}</span></div>
+    ${m.unpaid.length ? `<div class="dp-unpaid">待缴 ${m.unpaid.length} 项：${names.join('、')}${more}</div>` : ''}
+  </div>`;
+}
+
+function disposeSection() {
+  return `
+  <section class="dc sz-${cardSize('fixed')}">
+    <div class="dc-head"><div class="dc-titles"><div class="dc-title">可支配</div><div class="dc-sub">${ymLabel(curYM())}</div></div>${sizeBtn('fixed')}${grip('fixed')}<button class="dc-more" data-go="fixed">管理 ${Icons.chevR.replace('<svg', '<svg style="width:12px;height:12px"')}</button></div>
+    ${disposeCard()}
+  </section>`;
+}
+
 function budgetCard() {
   const ym = curYM();
   const list = S().budgets || [];
@@ -566,6 +606,7 @@ export async function renderDashboard() {
     ${overviewCard(months, bills)}
     ${accountCard()}
     ${budgetCard()}
+    ${disposeSection()}
     ${saveCard()}
     ${recentCard()}
   </div>`;

@@ -22,9 +22,10 @@ import importexport from './importexport.js';
 import importcsv from './importcsv.js';
 import syncjoin from './syncjoin.js';
 import more from './more.js';
+import fixed from './fixed.js';
 
 export const pages = {
   home, asset, save, stats, record, calendar, search, detail, settings,
   category, budget, books, templates, recurring, claim, loan,
-  assetdetail, savedetail, statsdetail, importexport, importcsv, syncjoin, more,
+  assetdetail, savedetail, statsdetail, importexport, importcsv, syncjoin, more, fixed,
 };

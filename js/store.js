@@ -81,8 +81,12 @@ function defaultState() {
     bills: [],
     // 删除墓碑：合并时用来判断某条数据是"被删了"还是"另一端还没同步到"，避免删掉的数据复活
     // 按集合分桶，结构 { bills:[{id,deletedAt}], accounts:[...], ... }
-    tombstones: { bills: [], accounts: [], books: [], budgets: [], savings: [], templates: [], recurrings: [], loans: [], claims: [] },
+    tombstones: { bills: [], accounts: [], books: [], budgets: [], savings: [], templates: [], recurrings: [], loans: [], claims: [], fixedCosts: [] },
     budgets: [],            // {id, scope:'total'|'category', period:'week'|'month'|'year', categoryId?, amount}
+    // 固定支出：每月 / 每季 / 每年雷打不动要付的钱（停车费、水电、房租、宽带…）
+    // {id, name, amount, cycle:'month'|'quarter'|'year', categoryId?, keywords:[], active, note}
+    // keywords 用来把导入的账单自动归到这一项（命中即视为「本月已缴」）
+    fixedCosts: [],
     savings: [],            // {id, mode, name, target, startDate, note, records:[{date,amount}]}
     templates: [],          // 快捷记账模板
     recurrings: [],         // 周期记账 {id,type,amount,categoryId,accountId,cycle:'day'|'week'|'month',nextDate,note}
@@ -97,6 +101,9 @@ function defaultState() {
       calendarMode: 'month',
       showCircled: true,   // 显示结余结转
       bookTime: false,
+      // 每月可用额度（浮动支出上限）：收入 − 固定支出 = 可分配，再从里面划出这块计划要花的，
+      // 剩下的就是「这个月大概能存多少」。0 / null = 还没设，此时额度默认等于可分配。
+      spendCap: 0,
       // 云同步（端到端加密 + GitHub Secret Gist）
       // token / 密码只存在本机 localStorage，永不写入 Gist 明文
       sync: { token: '', gistId: '', hasPassword: false, lastSync: 0 },
@@ -122,11 +129,13 @@ function migrate(s) {
   if (!s.tombstones || typeof s.tombstones !== 'object') s.tombstones = {};
   // 墓碑是"按集合分桶"的：bills / accounts / books / … 每个集合各一份，
   // 少了哪一桶，那个集合的删除就会在对端复活
-  ['bills', 'accounts', 'books', 'budgets', 'savings', 'templates', 'recurrings', 'loans', 'claims']
+  ['bills', 'accounts', 'books', 'budgets', 'savings', 'templates', 'recurrings', 'loans', 'claims', 'fixedCosts']
     .forEach((k) => { if (!Array.isArray(s.tombstones[k])) s.tombstones[k] = []; });
+  if (!Array.isArray(s.fixedCosts)) s.fixedCosts = [];
+  if (s.settings && s.settings.spendCap === undefined) s.settings.spendCap = 0;
   (s.bills || []).forEach((b) => { if (!b.updatedAt) b.updatedAt = b.created || Date.now(); });
   // 其它实体补时间戳：缺省一律 0（不能写 now，否则老数据会被误判成"刚刚改过"而覆盖对端）
-  ['accounts', 'books', 'budgets', 'savings', 'templates', 'recurrings', 'loans', 'claims']
+  ['accounts', 'books', 'budgets', 'savings', 'templates', 'recurrings', 'loans', 'claims', 'fixedCosts']
     .forEach((k) => (s[k] || []).forEach((x) => { if (x && x.updatedAt === undefined) x.updatedAt = x.created || 0; }));
   return s;
 }
@@ -323,7 +332,7 @@ export function pruneTombstones(days = 30) {
 export function billById(id) { return state.bills.find((b) => b.id === id); }
 
 // 通用墓碑：任何集合里删掉一条，都要在这里留一笔，否则对端合并时会把它当成"新增"拉回来
-export const TOMB_KEYS = ['bills', 'accounts', 'books', 'budgets', 'savings', 'templates', 'recurrings', 'loans', 'claims'];
+export const TOMB_KEYS = ['bills', 'accounts', 'books', 'budgets', 'savings', 'templates', 'recurrings', 'loans', 'claims', 'fixedCosts'];
 function tombKey(k) {
   if (!state.tombstones) state.tombstones = {};
   if (!Array.isArray(state.tombstones[k])) state.tombstones[k] = [];

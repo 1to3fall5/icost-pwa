@@ -1597,3 +1597,52 @@ body:not(.icon-emoji) .cat-item.on .ic.ic-tint {
 body:not(.icon-emoji) .cell .ci.ci-demo { background: var(--card2); color: var(--text); }
 body:not(.icon-emoji) .cell .ci.ci-demo.ic-tint { background: var(--blue); color: #fff; }
 body:not(.icon-emoji) .cell .ci.ci-demo.ic-illust { background: color-mix(in srgb, var(--c, #98989f) 16%, #f2f2f7); }
+
+/* ============================================================
+   固定支出 / 可支配金额（fx-）
+   汇总卡 + 固定项列表 + 额度
+   ============================================================ */
+.fx-sum { padding: 18px 16px 14px; }
+.fx-top { display: flex; align-items: flex-start; gap: 14px; }
+.fx-main { flex: 1; min-width: 0; }
+.fx-lb { font-size: 13px; color: var(--text2); }
+.fx-amt { font-size: 32px; font-weight: 800; line-height: 1.2; margin: 2px 0 4px; font-variant-numeric: tabular-nums; }
+.fx-sub { font-size: 12px; color: var(--text2); }
+.fx-side { flex: none; text-align: right; }
+.fx-kv { font-size: 12px; color: var(--text2); display: flex; gap: 8px; justify-content: flex-end; }
+.fx-kv + .fx-kv { margin-top: 6px; }
+.fx-kv b { font-size: 15px; color: var(--text); font-variant-numeric: tabular-nums; }
+
+.fx-bar { height: 8px; border-radius: 4px; background: var(--card2); margin: 14px 0 12px; overflow: hidden; }
+.fx-bar i { display: block; height: 100%; border-radius: 4px; background: var(--blue); transition: width .3s ease; }
+.fx-bar i.warn { background: var(--orange); }
+.fx-bar i.over { background: var(--red); }
+
+.fx-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.fx-cell { background: var(--card2); border-radius: 12px; padding: 10px; }
+.fx-cell span { display: block; font-size: 12px; color: var(--text2); }
+.fx-cell b { display: block; font-size: 15px; font-weight: 700; margin-top: 3px; font-variant-numeric: tabular-nums; }
+
+.fx-right { flex: none; display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
+.fx-right b { font-size: 15px; font-variant-numeric: tabular-nums; }
+.fx-cyc { font-size: 11px; color: var(--text2); }
+.fx-tag {
+  font-size: 11px; border-radius: 6px; padding: 1px 6px; margin-top: 2px;
+  background: var(--card2); color: var(--text2);
+}
+.fx-tag.ok { background: rgba(48, 209, 88, .18); color: var(--green); }
+.fx-tag.mid { background: rgba(255, 159, 10, .18); color: var(--orange); }
+.fx-tag.no { background: rgba(255, 69, 58, .16); color: var(--red); }
+
+/* 首页 / 仪表盘里的「可支配」卡片 */
+.dp-card { padding: 16px; }
+.dp-top { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+.dp-tt { font-size: 15px; font-weight: 700; flex: 1; }
+.dp-amt { font-size: 28px; font-weight: 800; font-variant-numeric: tabular-nums; }
+.dp-sub { font-size: 12.5px; color: var(--text2); margin-top: 4px; }
+.dp-bar { height: 7px; border-radius: 4px; background: var(--card2); margin: 12px 0 10px; overflow: hidden; }
+.dp-bar i { display: block; height: 100%; border-radius: 4px; background: var(--blue); }
+.dp-bar i.warn { background: var(--orange); }
+.dp-bar i.over { background: var(--red); }
+.dp-foot { display: flex; justify-content: space-between; font-size: 12px; color: var(--text2); }
+.dp-unpaid { font-size: 12.5px; color: var(--orange); margin-top: 8px; }

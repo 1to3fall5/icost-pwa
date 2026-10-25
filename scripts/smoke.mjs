@@ -22,7 +22,9 @@ globalThis.HTMLElement = class HTMLElement {};
 
 // 相对本脚本定位 js/pages/ —— 硬编码绝对路径会让测试在别的机器上直接挂掉
 const base = new URL('../js/pages/', import.meta.url).href;
-const routes = ['home','asset','save','stats','record','calendar','search','detail','settings','category','budget','books','templates','recurring','claim','loan','assetdetail','savedetail','statsdetail','importexport','importcsv','syncjoin','more'];
+// 路由表直接取 modules.js 的页面清单（index 是路由注册表不是页面），新增页面自动被冒烟覆盖
+const { PAGE_NAMES } = await import(new URL('../js/modules.js', import.meta.url).href);
+const routes = PAGE_NAMES.filter((r) => r !== 'index');
 const argOf = { detail: { id: 'x' }, savedetail: { mode: 'fixed' } };
 let fail = 0;
 for (const r of routes) {

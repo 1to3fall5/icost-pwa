@@ -22,7 +22,7 @@ const FILE = 'icost-sync.json';
 const ITER = 150000;
 
 // 参与合并的集合型字段（settings / currentBookId 不参与，始终保留本机）
-const LIST_KEYS = ['books', 'accounts', 'bills', 'budgets', 'savings', 'templates', 'recurrings', 'loans', 'claims'];
+const LIST_KEYS = ['books', 'accounts', 'bills', 'budgets', 'savings', 'templates', 'recurrings', 'loans', 'claims', 'fixedCosts'];
 const STATE_KEYS = [...LIST_KEYS, 'categories', 'settings', 'currentBookId', 'tombstones'];
 
 // 会话内密码：刷新即失效，不写入设备存储
@@ -210,7 +210,7 @@ export function mergeRemote(remote) {
   const local = {
     books: st.books, accounts: st.accounts, bills: st.bills, budgets: st.budgets,
     savings: st.savings, templates: st.templates, recurrings: st.recurrings,
-    loans: st.loans, claims: st.claims,
+    loans: st.loans, claims: st.claims, fixedCosts: st.fixedCosts,
   };
   // 墓碑按集合分组，两端同类墓碑先合并（同主键保留更晚的删除时间），
   // 再交给 mergeList 判定「删除时间 > 最后修改时间」 -> 真删

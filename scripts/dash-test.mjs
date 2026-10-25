@@ -189,6 +189,12 @@ let mountErr = '';
 try { mountDashboard(el()); } catch (e) { mountErr = e.message; }
 ok('mountDashboard 不抛错', !mountErr, mountErr);
 
+// 可支配卡：配了固定支出就要出现在仪表盘里
+S.fixedCosts = [{ id: 'fx1', name: '停车费', amount: 300, cycle: 'month', keywords: ['停车'], active: true, updatedAt: 1 }];
+const dh = await renderDashboard();
+ok('仪表盘含可支配卡', dh.includes('dp-card') && dh.includes('还能花'), dh.slice(0, 0));
+S.fixedCosts = [];
+
 // 空数据（新用户）不崩
 const empty = store.defaultState ? null : null;
 const savedBills = S.bills; const savedAcc = S.accounts; const savedBd = S.budgets; const savedSv = S.savings;

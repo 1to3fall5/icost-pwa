@@ -6,6 +6,7 @@ import { uiMark } from '../uiicon.js';
 const FEATURES = [
   ['category', '分类管理', '自定义一 / 二级分类', 'category'],
   ['target', '预算管理', '周 / 月 / 年总预算与分类预算', 'budget'],
+  ['moneybag', '固定支出', '每月必付清单与可支配金额', 'fixed'],
   ['books', '账本管理', '多账本、归档与复制', 'books'],
   ['template', '模板记账', '常用账单一键记账', 'templates'],
   ['refresh', '周期记账', '按天 / 周 / 月自动生成', 'recurring'],

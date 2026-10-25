@@ -21,13 +21,14 @@ export const JS_CORE = [
   './js/importers.js',
   './js/treemap.js',
   './js/dashboard.js',
+  './js/fixed.js',
 ];
 
 export const PAGE_NAMES = [
   'home', 'asset', 'save', 'stats', 'record', 'calendar', 'search', 'detail',
   'settings', 'category', 'budget', 'books', 'templates', 'recurring', 'claim',
   'loan', 'assetdetail', 'savedetail', 'statsdetail', 'importexport', 'importcsv',
-  'syncjoin', 'more',
+  'syncjoin', 'more', 'fixed',
   'index',   // 路由注册表，app.js 动态 import 它
 ];
 

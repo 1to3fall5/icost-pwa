@@ -63,6 +63,7 @@ const SIDE_GROUPS = [
     items: [
       { route: 'calendar', name: '收支日历', icon: 'calendar' },
       { route: 'budget', name: '预算', icon: 'chart' },
+      { route: 'fixed', name: '固定支出', icon: 'moneybag' },
       { route: 'save', name: '存钱计划', icon: 'target' },
       { route: 'templates', name: '快捷模板', icon: 'tag' },
       { route: 'recurring', name: '周期记账', icon: 'loop' },
