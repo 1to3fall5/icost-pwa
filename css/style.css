@@ -882,6 +882,9 @@ body.light #tabbar { background: rgba(255, 255, 255, .74); }
     --radius: 18px;
     --sidebar-w: 248px;
     --content-max: 1120px;
+    /* 吸顶导航下沿到内容的统一上间距：右侧内容区用它做 padding-top，
+       左侧栏也用同一份做 sticky 偏移 —— 两边顶部因此永远在同一条线上 */
+    --side-gap: 20px;
   }
   body { background: #08080a; user-select: auto; }
   #statusbar-spacer { display: none; }
@@ -911,8 +914,9 @@ body.light #tabbar { background: rgba(255, 255, 255, .74); }
   /* 侧边导航（由 TabBar 变形而来） */
   #tabbar {
     grid-area: side;
-    /* --side-top = 吸顶导航实际高度，由 app.js 实测写入 #app（缺省 132px） */
-    position: sticky; top: var(--side-top, 132px);
+    /* --side-top = 吸顶导航实际高度，由 app.js 实测写入 #app（缺省 132px）；
+       再往下让一个 --side-gap，正好等于右侧内容区的 padding-top —— 两侧顶部对齐 */
+    position: sticky; top: calc(var(--side-top, 132px) + var(--side-gap));
     left: auto; bottom: auto; transform: none;
     align-self: start;
     width: calc(var(--sidebar-w) - 32px);
@@ -920,9 +924,9 @@ body.light #tabbar { background: rgba(255, 255, 255, .74); }
     flex-direction: column;
     gap: 4px;
     padding: 14px 10px;
-    /* 整屏：从吸顶导航下沿一直铺到视口底部（底部留 16px 呼吸位）
+    /* 整屏：从吸顶导航下沿 + 上间距开始，一直铺到视口底部（底部留 16px 呼吸位）
        外层不滚动，由内部 .side-scroll 承载超出部分的滚动 */
-    height: calc(100dvh - var(--side-top, 132px) - 16px);
+    height: calc(100dvh - var(--side-top, 132px) - var(--side-gap) - 16px);
     max-height: none;
     overflow: hidden;
     overscroll-behavior: contain;
