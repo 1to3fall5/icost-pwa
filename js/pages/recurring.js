@@ -1,1 +1,323 @@
-Ly8g5ZGo5pyf6K6w6LSmCmltcG9ydCB7IFMsIGNhdHMsIGFjY0J5SWQsIGFkZEJpbGwsIGZtdE1vbmV5LCBzYXZlLCB1aWQsIGFkZFRvbWJzdG9uZSB9IGZyb20gJy4uL3N0b3JlLmpzJzsKaW1wb3J0IHsgZXNjIH0gZnJvbSAnLi4vdXRpbC5qcyc7CmltcG9ydCB7IGNhdE1hcmtIVE1MIH0gZnJvbSAnLi4vY2F0aWNvbi5qcyc7CmltcG9ydCB7IHVpTWFyayB9IGZyb20gJy4uL3VpaWNvbi5qcyc7CmltcG9ydCB7IGdvLCBVSSB9IGZyb20gJy4uL2FwcC5qcyc7Cgpjb25zdCBwMiA9IChuKSA9PiBTdHJpbmcobikucGFkU3RhcnQoMiwgJzAnKTsKY29uc3QgV0QgPSAn5pel5LiA5LqM5LiJ5Zub5LqU5YWtJzsKY29uc3QgZm10RCA9IChkKSA9PiBgJHtkLmdldEZ1bGxZZWFyKCl9LSR7cDIoZC5nZXRNb250aCgpICsgMSl9LSR7cDIoZC5nZXREYXRlKCkpfWA7CmNvbnN0IHRvZGF5U3RyID0gKCkgPT4gZm10RChuZXcgRGF0ZSgpKTsKY29uc3QgcGFyc2VEID0gKHMpID0+IG5ldyBEYXRlKFN0cmluZyhzIHx8IHRvZGF5U3RyKCkpLnJlcGxhY2UoLy0vZywgJy8nKSk7CgpmdW5jdGlvbiBjYXRJbmZvKGlkKSB7CiAgY29uc3QgcyA9IFMoKTsKICBmb3IgKGNvbnN0IHQgb2YgWydleHBlbnNlJywgJ2luY29tZSddKSB7CiAgICBmb3IgKGNvbnN0IHAgb2Ygcy5jYXRlZ29yaWVzW3RdIHx8IFtdKSB7CiAgICAgIGlmIChwLmlkID09PSBpZCkgcmV0dXJuIHsgaWNvbjogcC5pY29uLCBjb2xvcjogcC5jb2xvciwgbmFtZTogcC5uYW1lLCBwYXJlbnQ6ICcnIH07CiAgICAgIGNvbnN0IGMgPSAocC5jaGlsZHJlbiB8fCBbXSkuZmluZCgoeCkgPT4geC5pZCA9PT0gaWQpOwogICAgICBpZiAoYykgcmV0dXJuIHsgaWNvbjogcC5pY29uLCBjb2xvcjogcC5jb2xvciwgbmFtZTogYy5uYW1lLCBwYXJlbnQ6IHAubmFtZSB9OwogICAgfQogIH0KICByZXR1cm4gbnVsbDsKfQpmdW5jdGlvbiBjeWNsZVRleHQocikgewogIGlmIChyLmN5Y2xlID09PSAnZGF5JykgcmV0dXJuICfmr4/lpKknOwogIGNvbnN0IGQgPSBwYXJzZUQoci5uZXh0RGF0ZSk7CiAgaWYgKHIuY3ljbGUgPT09ICd3ZWVrJykgcmV0dXJuIGDmr4/lkagke1dEW2QuZ2V0RGF5KCldfWA7CiAgcmV0dXJuIGDmr4/mnIggJHtkLmdldERhdGUoKX0g5pelYDsKfQpmdW5jdGlvbiBpc0R1ZShyKSB7IHJldHVybiAhIXIubmV4dERhdGUgJiYgci5uZXh0RGF0ZSA8PSB0b2RheVN0cigpOyB9CmZ1bmN0aW9uIGFkdmFuY2UoZGF0ZVN0ciwgY3ljbGUpIHsKICBjb25zdCBkID0gcGFyc2VEKGRhdGVTdHIpOwogIGlmIChjeWNsZSA9PT0gJ2RheScpIGQuc2V0RGF0ZShkLmdldERhdGUoKSArIDEpOwogIGVsc2UgaWYgKGN5Y2xlID09PSAnd2VlaycpIGQuc2V0RGF0ZShkLmdldERhdGUoKSArIDcpOwogIGVsc2UgewogICAgY29uc3QgeSA9IGQuZ2V0RnVsbFllYXIoKSwgbSA9IGQuZ2V0TW9udGgoKSwgZGF5ID0gZC5nZXREYXRlKCk7CiAgICBjb25zdCBsYXN0ID0gbmV3IERhdGUoeSwgbSArIDIsIDApLmdldERhdGUoKTsKICAgIHJldHVybiBmbXREKG5ldyBEYXRlKHksIG0gKyAxLCBNYXRoLm1pbihkYXksIGxhc3QpKSk7CiAgfQogIHJldHVybiBmbXREKGQpOwp9Ci8vIOeUseW8gOWni+aXpeacnyArIOWRqOacn+aOqOeul+mmluasoeWFpei0puaXpQpmdW5jdGlvbiBjb21wdXRlTmV4dChzdGFydCwgY3ljbGUsIHdkLCBtZCkgewogIGNvbnN0IGJhc2UgPSBzdGFydCB8fCB0b2RheVN0cigpOwogIGlmIChjeWNsZSA9PT0gJ2RheScpIHJldHVybiBiYXNlOwogIGNvbnN0IGQgPSBwYXJzZUQoYmFzZSk7CiAgaWYgKGN5Y2xlID09PSAnd2VlaycpIHsKICAgIGQuc2V0RGF0ZShkLmdldERhdGUoKSArICgod2QgLSBkLmdldERheSgpICsgNykgJSA3KSk7CiAgICByZXR1cm4gZm10RChkKTsKICB9CiAgY29uc3QgeSA9IGQuZ2V0RnVsbFllYXIoKSwgbSA9IGQuZ2V0TW9udGgoKTsKICBjb25zdCBsYXN0ID0gbmV3IERhdGUoeSwgbSArIDEsIDApLmdldERhdGUoKTsKICBjb25zdCBuZCA9IG5ldyBEYXRlKHksIG0sIE1hdGgubWluKG1kLCBsYXN0KSk7CiAgaWYgKG5kIDwgcGFyc2VEKGJhc2UpKSB7CiAgICBjb25zdCBsMiA9IG5ldyBEYXRlKHksIG0gKyAyLCAwKS5nZXREYXRlKCk7CiAgICByZXR1cm4gZm10RChuZXcgRGF0ZSh5LCBtICsgMSwgTWF0aC5taW4obWQsIGwyKSkpOwogIH0KICByZXR1cm4gZm10RChuZCk7Cn0KCmNvbnN0IGRyYWZ0ID0gewogIG9wZW46IGZhbHNlLCBpZDogbnVsbCwgdHlwZTogJ2V4cGVuc2UnLCBhbW91bnQ6ICcnLCBjYXRlZ29yeUlkOiAnJywgYWNjb3VudElkOiAnJywKICBjeWNsZTogJ21vbnRoJywgd2Q6IG5ldyBEYXRlKCkuZ2V0RGF5KCksIG1kOiBuZXcgRGF0ZSgpLmdldERhdGUoKSwgc3RhcnREYXRlOiB0b2RheVN0cigpLCBub3RlOiAnJywKfTsKZnVuY3Rpb24gcmVzZXREcmFmdCgpIHsKICBjb25zdCBzID0gUygpOwogIE9iamVjdC5hc3NpZ24oZHJhZnQsIHsKICAgIG9wZW46IHRydWUsIGlkOiBudWxsLCB0eXBlOiAnZXhwZW5zZScsIGFtb3VudDogJycsCiAgICBjYXRlZ29yeUlkOiBjYXRzKCdleHBlbnNlJylbMF0/LmlkIHx8ICcnLAogICAgYWNjb3VudElkOiBzLmFjY291bnRzWzBdPy5pZCB8fCAnJywKICAgIGN5Y2xlOiAnbW9udGgnLCB3ZDogbmV3IERhdGUoKS5nZXREYXkoKSwgbWQ6IG5ldyBEYXRlKCkuZ2V0RGF0ZSgpLAogICAgc3RhcnREYXRlOiB0b2RheVN0cigpLCBub3RlOiAnJywKICB9KTsKfQpmdW5jdGlvbiBsb2FkRHJhZnQocikgewogIGNvbnN0IGQgPSBwYXJzZUQoci5uZXh0RGF0ZSk7CiAgT2JqZWN0LmFzc2lnbihkcmFmdCwgewogICAgb3BlbjogdHJ1ZSwgaWQ6IHIuaWQsIHR5cGU6IHIudHlwZSB8fCAnZXhwZW5zZScsIGFtb3VudDogU3RyaW5nKHIuYW1vdW50ID8/ICcnKSwKICAgIGNhdGVnb3J5SWQ6IHIuY2F0ZWdvcnlJZCB8fCAnJywgYWNjb3VudElkOiByLmFjY291bnRJZCB8fCAnJywKICAgIGN5Y2xlOiByLmN5Y2xlIHx8ICdtb250aCcsIHdkOiBkLmdldERheSgpLCBtZDogZC5nZXREYXRlKCksCiAgICBzdGFydERhdGU6IHIubmV4dERhdGUgfHwgdG9kYXlTdHIoKSwgbm90ZTogci5ub3RlIHx8ICcnLAogIH0pOwp9CgpmdW5jdGlvbiBjYXJkSFRNTChyKSB7CiAgY29uc3QgY2F0ID0gY2F0SW5mbyhyLmNhdGVnb3J5SWQpOwogIGNvbnN0IGFjYyA9IGFjY0J5SWQoci5hY2NvdW50SWQpOwogIGNvbnN0IGNvbG9yID0gci50eXBlID09PSAndHJhbnNmZXInID8gJyMwYTg0ZmYnIDogKGNhdD8uY29sb3IgfHwgJyM5ODk4OWYnKTsKICBjb25zdCBtYXJrID0gY2F0TWFya0hUTUwoewogICAgbmFtZTogY2F0Py5uYW1lIHx8ICcnLCBwYXJlbnQ6IGNhdD8ucGFyZW50IHx8ICcnLCBpY29uOiBjYXQ/Lmljb24gfHwgJ/Cfp74nLAogICAgY29sb3IsIHR5cGU6IHIudHlwZSwga2luZDogci50eXBlID09PSAndHJhbnNmZXInID8gJ3RyYW5zZmVyJyA6ICcnLCBjbHM6ICdiYWRnZS1pYycsCiAgfSk7CiAgY29uc3QgbmFtZSA9IHIudHlwZSA9PT0gJ3RyYW5zZmVyJyA/ICfotKbmiLfovazotKYnIDogKGNhdD8ubmFtZSB8fCAn5pyq5YiG57G7Jyk7CiAgY29uc3QgZHVlID0gaXNEdWUocik7CiAgcmV0dXJuIGA8ZGl2IGNsYXNzPSJjYXJkIHJjLWNhcmQgJHtkdWUgPyAnZHVlJyA6ICcnfSI+CiAgICA8ZGl2IGNsYXNzPSJyb3cxIj4KICAgICAgJHttYXJrfQogICAgICA8c3BhbiBjbGFzcz0ibm0iPiR7ZXNjKG5hbWUpfSR7ci5ub3RlID8gYDxzcGFuIGNsYXNzPSJzdWIiPiDCtyAke2VzYyhyLm5vdGUpfTwvc3Bhbj5gIDogJyd9PC9zcGFuPgogICAgICA8c3BhbiBjbGFzcz0iYW10ICR7ci50eXBlID09PSAnaW5jb21lJyA/ICdpbmNvbWUnIDogJyd9Ij7CpSR7Zm10TW9uZXkoci5hbW91bnQpfTwvc3Bhbj4KICAgIDwvZGl2PgogICAgPGRpdiBjbGFzcz0ibWV0YSI+CiAgICAgIDxzcGFuIGNsYXNzPSJ0cC1iYWRnZSAke3IudHlwZX0iPiR7ci50eXBlID09PSAnZXhwZW5zZScgPyAn5pSvJyA6IHIudHlwZSA9PT0gJ2luY29tZScgPyAn5pS2JyA6ICfovawnfTwvc3Bhbj4KICAgICAgJHtlc2MoY3ljbGVUZXh0KHIpKX0gwrcgJHtlc2MoYWNjPy5uYW1lIHx8ICfmnKrpgInotKbmiLcnKX0KICAgIDwvZGl2PgogICAgPGRpdiBjbGFzcz0ibmV4dCI+5LiL5qyh5YWl6LSmIDxiIGNsYXNzPSJkdC1tb25vIj4ke3IubmV4dERhdGUgfHwgJ+KAlCd9PC9iPgogICAgICAke2R1ZSA/ICc8c3BhbiBjbGFzcz0idHAtYmFkZ2UgcGVuZGluZyI+5b6F5YWl6LSmPC9zcGFuPicgOiAnJ30KICAgIDwvZGl2PgogICAgPGRpdiBjbGFzcz0iYWN0cyI+CiAgICAgIDxidXR0b24gY2xhc3M9InRwLWJ0biBibHVlIiBkYXRhLXJ1bj0iJHtyLmlkfSI+56uL5Y2z5YWl6LSmPC9idXR0b24+CiAgICAgIDxidXR0b24gY2xhc3M9InRwLWJ0biIgZGF0YS1lZGl0PSIke3IuaWR9Ij7nvJbovpE8L2J1dHRvbj4KICAgICAgPGJ1dHRvbiBjbGFzcz0idHAtYnRuIHJlZCIgZGF0YS1kZWw9IiR7ci5pZH0iPuWIoOmZpDwvYnV0dG9uPgogICAgPC9kaXY+CiAgPC9kaXY+YDsKfQoKZnVuY3Rpb24gZm9ybUhUTUwoKSB7CiAgY29uc3QgZCA9IGRyYWZ0OwogIGNvbnN0IGxpc3QgPSBkLnR5cGUgPT09ICd0cmFuc2ZlcicgPyBbXSA6IGNhdHMoZC50eXBlKTsKICBjb25zdCBhY2MgPSBhY2NCeUlkKGQuYWNjb3VudElkKTsKICByZXR1cm4gYDxkaXYgY2xhc3M9InRwLWZvcm0iPgogICAgPGRpdiBjbGFzcz0ic2VjLXRpdGxlIiBzdHlsZT0ibWFyZ2luOjAgMCA4cHgiPiR7ZC5pZCA/ICfnvJbovpHlkajmnJ8nIDogJ+aWsOW7uuWRqOacnyd9PC9kaXY+CiAgICA8ZGl2IGNsYXNzPSJzZWcgc21hbGwiIGlkPSJyYy10eXBlIj4KICAgICAgPGJ1dHRvbiBkYXRhLXQ9ImV4cGVuc2UiIGNsYXNzPSIke2QudHlwZSA9PT0gJ2V4cGVuc2UnID8gJ29uJyA6ICcnfSI+5pSv5Ye6PC9idXR0b24+CiAgICAgIDxidXR0b24gZGF0YS10PSJpbmNvbWUiIGNsYXNzPSIke2QudHlwZSA9PT0gJ2luY29tZScgPyAnb24nIDogJyd9Ij7mlLblhaU8L2J1dHRvbj4KICAgICAgPGJ1dHRvbiBkYXRhLXQ9InRyYW5zZmVyIiBjbGFzcz0iJHtkLnR5cGUgPT09ICd0cmFuc2ZlcicgPyAnb24nIDogJyd9Ij7ovazotKY8L2J1dHRvbj4KICAgIDwvZGl2PgogICAgJHtkLnR5cGUgPT09ICd0cmFuc2ZlcicgPyAnJyA6IGA8ZGl2IGNsYXNzPSJmb3JtLWxhYmVsIj7liIbnsbs8L2Rpdj4KICAgICAgPGRpdiBjbGFzcz0idHAtY2F0cyI+CiAgICAgICAgJHtsaXN0Lm1hcCgoYykgPT4gYDxidXR0b24gY2xhc3M9InRwLWNhdCAke2MuaWQgPT09IGQuY2F0ZWdvcnlJZCA/ICdvbicgOiAnJ30iIGRhdGEtYz0iJHtjLmlkfSI+CiAgICAgICAgICAke2NhdE1hcmtIVE1MKHsgbmFtZTogYy5uYW1lLCBpY29uOiBjLmljb24sIGNvbG9yOiBjLmNvbG9yLCB0eXBlOiBjLnR5cGUsIGNsczogJ2ljJyB9KX0ke2VzYyhjLm5hbWUpfQogICAgICAgIDwvYnV0dG9uPmApLmpvaW4oJycpfQogICAgICA8L2Rpdj5gfQogICAgPGRpdiBjbGFzcz0iZnIiPgogICAgICA8c3BhbiBjbGFzcz0iZmwiPumHkeminTwvc3Bhbj4KICAgICAgPGlucHV0IGNsYXNzPSJmb3JtLWlucHV0IGZ2IiBpZD0icmMtYW10IiB0eXBlPSJudW1iZXIiIGlucHV0bW9kZT0iZGVjaW1hbCIgcGxhY2Vob2xkZXI9IjAuMDAiIHZhbHVlPSIke2QuYW1vdW50fSI+CiAgICA8L2Rpdj4KICAgIDxkaXYgY2xhc3M9ImZyIj4KICAgICAgPHNwYW4gY2xhc3M9ImZsIj7lpIfms6g8L3NwYW4+CiAgICAgIDxpbnB1dCBjbGFzcz0iZm9ybS1pbnB1dCBmdiIgaWQ9InJjLW5vdGUiIHBsYWNlaG9sZGVyPSLlj6/nlZnnqboiIHZhbHVlPSIke2VzYyhkLm5vdGUpfSI+CiAgICA8L2Rpdj4KICAgIDxkaXYgY2xhc3M9ImZyIj4KICAgICAgPHNwYW4gY2xhc3M9ImZsIj7otKbmiLc8L3NwYW4+CiAgICAgIDxidXR0b24gY2xhc3M9ImZvcm0taW5wdXQgZnYiIGlkPSJyYy1hY2MiIHN0eWxlPSJ0ZXh0LWFsaWduOmxlZnQ7YmFja2dyb3VuZDp2YXIoLS1jYXJkMikiPiR7ZXNjKGFjYz8ubmFtZSB8fCAn6YCJ5oup6LSm5oi3Jyl9PC9idXR0b24+CiAgICA8L2Rpdj4KICAgIDxkaXYgY2xhc3M9ImZvcm0tbGFiZWwiIHN0eWxlPSJtYXJnaW4tdG9wOjEycHgiPuWRqOacnzwvZGl2PgogICAgPGRpdiBjbGFzcz0ic2VnIHNtYWxsIiBpZD0icmMtY3ljbGUiPgogICAgICA8YnV0dG9uIGRhdGEtYz0iZGF5IiBjbGFzcz0iJHtkLmN5Y2xlID09PSAnZGF5JyA/ICdvbicgOiAnJ30iPuavj+WkqTwvYnV0dG9uPgogICAgICA8YnV0dG9uIGRhdGEtYz0id2VlayIgY2xhc3M9IiR7ZC5jeWNsZSA9PT0gJ3dlZWsnID8gJ29uJyA6ICcnfSI+5q+P5ZGoPC9idXR0b24+CiAgICAgIDxidXR0b24gZGF0YS1jPSJtb250aCIgY2xhc3M9IiR7ZC5jeWNsZSA9PT0gJ21vbnRoJyA/ICdvbicgOiAnJ30iPuavj+aciDwvYnV0dG9uPgogICAgPC9kaXY+CiAgICAke2QuY3ljbGUgPT09ICd3ZWVrJyA/IGA8ZGl2IGNsYXNzPSJyYy1waWNrcyI+CiAgICAgICR7V0Quc3BsaXQoJycpLm1hcCgodywgaSkgPT4gYDxidXR0b24gY2xhc3M9ImNoaXAgJHtkLndkID09PSBpID8gJ29uJyA6ICcnfSIgZGF0YS13ZD0iJHtpfSI+5ZGoJHt3fTwvYnV0dG9uPmApLmpvaW4oJycpfQogICAgPC9kaXY+YCA6ICcnfQogICAgJHtkLmN5Y2xlID09PSAnbW9udGgnID8gYDxkaXYgY2xhc3M9InJjLXBpY2tzIj4KICAgICAgJHtBcnJheS5mcm9tKHsgbGVuZ3RoOiAzMSB9LCAoXywgaSkgPT4gaSArIDEpLm1hcCgobikgPT4gYDxidXR0b24gY2xhc3M9ImNoaXAgJHtkLm1kID09PSBuID8gJ29uJyA6ICcnfSIgZGF0YS1tZD0iJHtufSI+JHtufTwvYnV0dG9uPmApLmpvaW4oJycpfQogICAgPC9kaXY+YCA6ICcnfQogICAgPGRpdiBjbGFzcz0iZnIiIHN0eWxlPSJtYXJnaW4tdG9wOjEycHgiPgogICAgICA8c3BhbiBjbGFzcz0iZmwiPuW8gOWni+aXpeacnzwvc3Bhbj4KICAgICAgPGlucHV0IGNsYXNzPSJmb3JtLWlucHV0IGZ2IiBpZD0icmMtc3RhcnQiIHR5cGU9ImRhdGUiIHZhbHVlPSIke2Quc3RhcnREYXRlfSI+CiAgICA8L2Rpdj4KICAgIDxkaXYgY2xhc3M9ImFjdHMiIHN0eWxlPSJtYXJnaW4tdG9wOjE0cHgiPgogICAgICA8YnV0dG9uIGNsYXNzPSJ0cC1idG4iIGRhdGEtYWN0PSJjYW5jZWwiPuWPlua2iDwvYnV0dG9uPgogICAgICA8YnV0dG9uIGNsYXNzPSJ0cC1idG4gYmx1ZSIgZGF0YS1hY3Q9InNhdmUiPuS/neWtmDwvYnV0dG9uPgogICAgPC9kaXY+CiAgPC9kaXY+YDsKfQoKY29uc3QgbW9kID0gewogIHRpdGxlOiAn5ZGo5pyf6K6w6LSmJywKICBoZWFkZXI6ICdzdWInLAogIGFzeW5jIHJlbmRlcigpIHsKICAgIGNvbnN0IGxpc3QgPSBTKCkucmVjdXJyaW5ncyB8fCBbXTsKICAgIGNvbnN0IGR1ZUxpc3QgPSBsaXN0LmZpbHRlcihpc0R1ZSk7CiAgICByZXR1cm4gYAogICAgICA8ZGl2IGNsYXNzPSJyYy10aXAgY2FyZCIgc3R5bGU9InBhZGRpbmc6MTJweCAxNHB4O2ZvbnQtc2l6ZToxM3B4O2NvbG9yOnZhcigtLXRleHQyKTtsaW5lLWhlaWdodDoxLjUiPgogICAgICAgIOWRqOacn+aAp+WbuuWumuaUtuaUr+WPr+iHquWKqOWFpei0pu+8m+S/ruaUueWRqOacn+S7heW9seWTjeWQjue7reeUn+aIkOeahOi0puWNle+8jOW3sueUn+aIkOeahOi0puWNleS4jeS8muiiq+aUueWKqOOAggogICAgICA8L2Rpdj4KICAgICAgJHtkdWVMaXN0Lmxlbmd0aCA/IGA8YnV0dG9uIGNsYXNzPSJyYy1ydW5hbGwiIGRhdGEtYWN0PSJydW5hbGwiPuaJp+ihjOWFqOmDqOWIsOacn+mhue+8iCR7ZHVlTGlzdC5sZW5ndGh977yJPC9idXR0b24+YCA6ICcnfQogICAgICAke2RyYWZ0Lm9wZW4gPyBmb3JtSFRNTCgpIDogJyd9CiAgICAgIDxkaXYgY2xhc3M9ImNlbGwtZ3JvdXAiPgogICAgICAgIDxkaXYgY2xhc3M9ImNlbGwiIGRhdGEtYWN0PSJuZXciPgogICAgICAgICAgJHt1aU1hcmsoJ3BsdXMnLCAnY2knKX0KICAgICAgICAgIDxzcGFuIGNsYXNzPSJjbCBjZWxsLXRpdGxlIiBzdHlsZT0iY29sb3I6dmFyKC0tYmx1ZSkiPuaWsOW7uuWRqOacnzwvc3Bhbj4KICAgICAgICA8L2Rpdj4KICAgICAgPC9kaXY+CiAgICAgICR7bGlzdC5sZW5ndGgKICAgICAgICA/IGxpc3QubWFwKGNhcmRIVE1MKS5qb2luKCcnKQogICAgICAgIDogYDxkaXYgY2xhc3M9ImVtcHR5LXRpcCI+5pqC5peg5ZGo5pyfIMK3IOaKiuaIv+enn+OAgeW3pei1hOetieWbuuWumuaUtuaUr+iuvuS4uuWRqOacnzwvZGl2PmB9CiAgICAgIDxkaXYgc3R5bGU9ImhlaWdodDoxMHB4Ij48L2Rpdj5gOwogIH0sCiAgbW91bnQocm9vdCwgcGFyYW1zKSB7IGJpbmQocm9vdCwgcGFyYW1zKTsgfSwKfTsKCmZ1bmN0aW9uIGJpbmQocm9vdCwgcGFyYW1zKSB7CiAgcm9vdC5xdWVyeVNlbGVjdG9yQWxsKCcjcmMtdHlwZSBbZGF0YS10XScpLmZvckVhY2goKGIpID0+IGIuYWRkRXZlbnRMaXN0ZW5lcignY2xpY2snLCAoKSA9PiB7CiAgICBkcmFmdC50eXBlID0gYi5kYXRhc2V0LnQ7CiAgICBkcmFmdC5jYXRlZ29yeUlkID0gY2F0cyhkcmFmdC50eXBlKVswXT8uaWQgfHwgJyc7CiAgICByZWZyZXNoKHJvb3QsIHBhcmFtcyk7CiAgfSkpOwogIHJvb3QucXVlcnlTZWxlY3RvckFsbCgnI3JjLWN5Y2xlIFtkYXRhLWNdJykuZm9yRWFjaCgoYikgPT4gYi5hZGRFdmVudExpc3RlbmVyKCdjbGljaycsICgpID0+IHsKICAgIGRyYWZ0LmN5Y2xlID0gYi5kYXRhc2V0LmM7CiAgICByZWZyZXNoKHJvb3QsIHBhcmFtcyk7CiAgfSkpOwogIHJvb3QucXVlcnlTZWxlY3RvckFsbCgnW2RhdGEtY10nKS5mb3JFYWNoKChiKSA9PiBiLmFkZEV2ZW50TGlzdGVuZXIoJ2NsaWNrJywgKCkgPT4gewogICAgaWYgKCFiLmRhdGFzZXQuYyB8fCBiLmNsb3Nlc3QoJyNyYy1jeWNsZScpKSByZXR1cm47CiAgICBkcmFmdC5jYXRlZ29yeUlkID0gYi5kYXRhc2V0LmM7CiAgICByZWZyZXNoKHJvb3QsIHBhcmFtcyk7CiAgfSkpOwogIHJvb3QucXVlcnlTZWxlY3RvckFsbCgnW2RhdGEtd2RdJykuZm9yRWFjaCgoYikgPT4gYi5hZGRFdmVudExpc3RlbmVyKCdjbGljaycsICgpID0+IHsKICAgIGRyYWZ0LndkID0gK2IuZGF0YXNldC53ZDsKICAgIHJlZnJlc2gocm9vdCwgcGFyYW1zKTsKICB9KSk7CiAgcm9vdC5xdWVyeVNlbGVjdG9yQWxsKCdbZGF0YS1tZF0nKS5mb3JFYWNoKChiKSA9PiBiLmFkZEV2ZW50TGlzdGVuZXIoJ2NsaWNrJywgKCkgPT4gewogICAgZHJhZnQubWQgPSArYi5kYXRhc2V0Lm1kOwogICAgcmVmcmVzaChyb290LCBwYXJhbXMpOwogIH0pKTsKICByb290LnF1ZXJ5U2VsZWN0b3IoJyNyYy1hbXQnKT8uYWRkRXZlbnRMaXN0ZW5lcignaW5wdXQnLCAoZSkgPT4geyBkcmFmdC5hbW91bnQgPSBlLnRhcmdldC52YWx1ZTsgfSk7CiAgcm9vdC5xdWVyeVNlbGVjdG9yKCcjcmMtbm90ZScpPy5hZGRFdmVudExpc3RlbmVyKCdpbnB1dCcsIChlKSA9PiB7IGRyYWZ0Lm5vdGUgPSBlLnRhcmdldC52YWx1ZTsgfSk7CiAgcm9vdC5xdWVyeVNlbGVjdG9yKCcjcmMtc3RhcnQnKT8uYWRkRXZlbnRMaXN0ZW5lcignY2hhbmdlJywgKGUpID0+IHsgZHJhZnQuc3RhcnREYXRlID0gZS50YXJnZXQudmFsdWUgfHwgdG9kYXlTdHIoKTsgfSk7CiAgcm9vdC5xdWVyeVNlbGVjdG9yKCcjcmMtYWNjJyk/LmFkZEV2ZW50TGlzdGVuZXIoJ2NsaWNrJywgYXN5bmMgKCkgPT4gewogICAgY29uc3QgYWNjcyA9IFMoKS5hY2NvdW50cy5maWx0ZXIoKGEpID0+ICFhLmFyY2hpdmVkKTsKICAgIGNvbnN0IHBpY2sgPSBhd2FpdCBVSS5zaGVldCgn6YCJ5oup6LSm5oi3JywgYWNjcy5tYXAoKGEpID0+ICh7CiAgICAgIGxhYmVsOiBhLm5hbWUsIGljb246IGEuaWNvbiwgY29sb3I6IGEuY29sb3IsIGtpbmQ6IGEudHlwZSwgdmFsdWU6IGEuaWQgPT09IGRyYWZ0LmFjY291bnRJZCA/ICfinJMnIDogJycsIGlkOiBhLmlkLAogICAgfSkpKTsKICAgIGlmIChwaWNrKSB7IGRyYWZ0LmFjY291bnRJZCA9IHBpY2suaWQ7IHJlZnJlc2gocm9vdCwgcGFyYW1zKTsgfQogIH0pOwoKICByb290LnF1ZXJ5U2VsZWN0b3IoJ1tkYXRhLWFjdD0ibmV3Il0nKT8uYWRkRXZlbnRMaXN0ZW5lcignY2xpY2snLCAoKSA9PiB7CiAgICByZXNldERyYWZ0KCk7CiAgICByZWZyZXNoKHJvb3QsIHBhcmFtcyk7CiAgfSk7CiAgcm9vdC5xdWVyeVNlbGVjdG9yKCdbZGF0YS1hY3Q9ImNhbmNlbCJdJyk/LmFkZEV2ZW50TGlzdGVuZXIoJ2NsaWNrJywgKCkgPT4gewogICAgZHJhZnQub3BlbiA9IGZhbHNlOyBkcmFmdC5pZCA9IG51bGw7CiAgICByZWZyZXNoKHJvb3QsIHBhcmFtcyk7CiAgfSk7CiAgcm9vdC5xdWVyeVNlbGVjdG9yKCdbZGF0YS1hY3Q9InNhdmUiXScpPy5hZGRFdmVudExpc3RlbmVyKCdjbGljaycsICgpID0+IHNhdmVGb3JtKHJvb3QsIHBhcmFtcykpOwoKICByb290LnF1ZXJ5U2VsZWN0b3IoJ1tkYXRhLWFjdD0icnVuYWxsIl0nKT8uYWRkRXZlbnRMaXN0ZW5lcignY2xpY2snLCAoKSA9PiB7CiAgICBjb25zdCBsaXN0ID0gKFMoKS5yZWN1cnJpbmdzIHx8IFtdKS5maWx0ZXIoaXNEdWUpOwogICAgaWYgKCFsaXN0Lmxlbmd0aCkgcmV0dXJuIFVJLnRvYXN0KCfmsqHmnInliLDmnJ/pobknKTsKICAgIGxldCBzdW0gPSAwOwogICAgbGlzdC5mb3JFYWNoKChyKSA9PiB7IHN1bSArPSBydW5PbmUocik7IH0pOwogICAgc2F2ZSgpOwogICAgVUkudG9hc3QoYOW3suWFpei0piAke2xpc3QubGVuZ3RofSDnrJTvvIzlhbEgwqUke2ZtdE1vbmV5KHN1bSl9YCk7CiAgICByZWZyZXNoKHJvb3QsIHBhcmFtcyk7CiAgfSk7CgogIHJvb3QucXVlcnlTZWxlY3RvckFsbCgnW2RhdGEtcnVuXScpLmZvckVhY2goKGIpID0+IGIuYWRkRXZlbnRMaXN0ZW5lcignY2xpY2snLCAoKSA9PiB7CiAgICBjb25zdCByID0gUygpLnJlY3VycmluZ3MuZmluZCgoeCkgPT4geC5pZCA9PT0gYi5kYXRhc2V0LnJ1bik7CiAgICBpZiAoIXIpIHJldHVybjsKICAgIGNvbnN0IGFtdCA9IHJ1bk9uZShyKTsKICAgIHNhdmUoKTsKICAgIFVJLnRvYXN0KGDlt7LlhaXotKYgwqUke2ZtdE1vbmV5KGFtdCl977yM5LiL5qyhICR7ci5uZXh0RGF0ZX1gKTsKICAgIHJlZnJlc2gocm9vdCwgcGFyYW1zKTsKICB9KSk7CiAgcm9vdC5xdWVyeVNlbGVjdG9yQWxsKCdbZGF0YS1lZGl0XScpLmZvckVhY2goKGIpID0+IGIuYWRkRXZlbnRMaXN0ZW5lcignY2xpY2snLCAoKSA9PiB7CiAgICBjb25zdCByID0gUygpLnJlY3VycmluZ3MuZmluZCgoeCkgPT4geC5pZCA9PT0gYi5kYXRhc2V0LmVkaXQpOwogICAgaWYgKCFyKSByZXR1cm47CiAgICBsb2FkRHJhZnQocik7CiAgICByZWZyZXNoKHJvb3QsIHBhcmFtcyk7CiAgfSkpOwogIHJvb3QucXVlcnlTZWxlY3RvckFsbCgnW2RhdGEtZGVsXScpLmZvckVhY2goKGIpID0+IGIuYWRkRXZlbnRMaXN0ZW5lcignY2xpY2snLCBhc3luYyAoKSA9PiB7CiAgICBjb25zdCBvayA9IGF3YWl0IFVJLmNvbmZpcm0oJ+WIoOmZpOi/meS4quWRqOacn+iusOi0pu+8nycsICfliKDpmaQnKTsKICAgIGlmICghb2spIHJldHVybjsKICAgIFMoKS5yZWN1cnJpbmdzID0gUygpLnJlY3VycmluZ3MuZmlsdGVyKCh4KSA9PiB4LmlkICE9PSBiLmRhdGFzZXQuZGVsKTsKICAgIGFkZFRvbWJzdG9uZSgncmVjdXJyaW5ncycsIGIuZGF0YXNldC5kZWwpOwogICAgc2F2ZSgpOwogICAgVUkudG9hc3QoJ+W3suWIoOmZpCcpOwogICAgcmVmcmVzaChyb290LCBwYXJhbXMpOwogIH0pKTsKfQoKLy8g55Sf5oiQ5LiA56yU6LSm5Y2V5bm25o6o6L+b5LiL5qyh5pel5pyfCmZ1bmN0aW9uIHJ1bk9uZShyKSB7CiAgY29uc3QgYW1vdW50ID0gK3IuYW1vdW50IHx8IDA7CiAgYWRkQmlsbCh7CiAgICB0eXBlOiByLnR5cGUsCiAgICBhbW91bnQsCiAgICBjYXRlZ29yeUlkOiByLnR5cGUgPT09ICd0cmFuc2ZlcicgPyAnJyA6IHIuY2F0ZWdvcnlJZCwKICAgIGFjY291bnRJZDogci5hY2NvdW50SWQsCiAgICBkYXRlOiByLm5leHREYXRlIHx8IHRvZGF5U3RyKCksCiAgICBub3RlOiByLm5vdGUgfHwgJycsCiAgICByZWN1cnJpbmdJZDogci5pZCwKICB9KTsKICByLm5leHREYXRlID0gYWR2YW5jZShyLm5leHREYXRlIHx8IHRvZGF5U3RyKCksIHIuY3ljbGUpOwogIHJldHVybiBhbW91bnQ7Cn0KCmZ1bmN0aW9uIHNhdmVGb3JtKHJvb3QsIHBhcmFtcykgewogIGNvbnN0IGQgPSBkcmFmdDsKICBjb25zdCBhbW91bnQgPSBwYXJzZUZsb2F0KGQuYW1vdW50KTsKICBpZiAoIWFtb3VudCB8fCBhbW91bnQgPD0gMCkgcmV0dXJuIFVJLnRvYXN0KCfor7fovpPlhaXph5Hpop0nKTsKICBpZiAoZC50eXBlICE9PSAndHJhbnNmZXInICYmICFkLmNhdGVnb3J5SWQpIHJldHVybiBVSS50b2FzdCgn6K+36YCJ5oup5YiG57G7Jyk7CiAgaWYgKCFkLmFjY291bnRJZCkgcmV0dXJuIFVJLnRvYXN0KCfor7fpgInmi6notKbmiLcnKTsKICBjb25zdCBkYXRhID0gewogICAgdHlwZTogZC50eXBlLAogICAgYW1vdW50LAogICAgY2F0ZWdvcnlJZDogZC50eXBlID09PSAndHJhbnNmZXInID8gJycgOiBkLmNhdGVnb3J5SWQsCiAgICBhY2NvdW50SWQ6IGQuYWNjb3VudElkLAogICAgY3ljbGU6IGQuY3ljbGUsCiAgICBuZXh0RGF0ZTogY29tcHV0ZU5leHQoZC5zdGFydERhdGUsIGQuY3ljbGUsIGQud2QsIGQubWQpLAogICAgbm90ZTogZC5ub3RlLnRyaW0oKSwKICB9OwogIGlmIChkLmlkKSB7CiAgICBjb25zdCByID0gUygpLnJlY3VycmluZ3MuZmluZCgoeCkgPT4geC5pZCA9PT0gZC5pZCk7CiAgICBpZiAocikgT2JqZWN0LmFzc2lnbihyLCBkYXRhKTsKICB9IGVsc2UgewogICAgUygpLnJlY3VycmluZ3MucHVzaCh7IGlkOiB1aWQoKSwgLi4uZGF0YSB9KTsKICB9CiAgc2F2ZSgpOwogIGRyYWZ0Lm9wZW4gPSBmYWxzZTsgZHJhZnQuaWQgPSBudWxsOwogIFVJLnRvYXN0KGQuaWQgPyAn5ZGo5pyf5bey5pu05pawJyA6ICflkajmnJ/lt7LliJvlu7onKTsKICByZWZyZXNoKHJvb3QsIHBhcmFtcyk7Cn0KCmFzeW5jIGZ1bmN0aW9uIHJlZnJlc2gocm9vdCwgcGFyYW1zKSB7CiAgcm9vdC5pbm5lckhUTUwgPSBhd2FpdCBtb2QucmVuZGVyKHBhcmFtcyk7CiAgYmluZChyb290LCBwYXJhbXMpOwogIHJvb3QucXVlcnlTZWxlY3RvckFsbCgnW2RhdGEtZ29dJykuZm9yRWFjaCgoYikgPT4gYi5hZGRFdmVudExpc3RlbmVyKCdjbGljaycsICgpID0+IGdvKGIuZGF0YXNldC5nbykpKTsKfQoKZXhwb3J0IGRlZmF1bHQgbW9kOwo=
+// 周期记账
+import { S, cats, accById, addBill, fmtMoney, save, uid, addTombstone } from '../store.js';
+import { esc } from '../util.js';
+import { catMarkHTML } from '../caticon.js';
+import { uiMark } from '../uiicon.js';
+import { go, UI } from '../app.js';
+
+const p2 = (n) => String(n).padStart(2, '0');
+const WD = '日一二三四五六';
+const fmtD = (d) => `${d.getFullYear()}-${p2(d.getMonth() + 1)}-${p2(d.getDate())}`;
+const todayStr = () => fmtD(new Date());
+const parseD = (s) => new Date(String(s || todayStr()).replace(/-/g, '/'));
+
+function catInfo(id) {
+  const s = S();
+  for (const t of ['expense', 'income']) {
+    for (const p of s.categories[t] || []) {
+      if (p.id === id) return { icon: p.icon, color: p.color, name: p.name, parent: '' };
+      const c = (p.children || []).find((x) => x.id === id);
+      if (c) return { icon: p.icon, color: p.color, name: c.name, parent: p.name };
+    }
+  }
+  return null;
+}
+function cycleText(r) {
+  if (r.cycle === 'day') return '每天';
+  const d = parseD(r.nextDate);
+  if (r.cycle === 'week') return `每周${WD[d.getDay()]}`;
+  return `每月 ${d.getDate()} 日`;
+}
+function isDue(r) { return !!r.nextDate && r.nextDate <= todayStr(); }
+function advance(dateStr, cycle) {
+  const d = parseD(dateStr);
+  if (cycle === 'day') d.setDate(d.getDate() + 1);
+  else if (cycle === 'week') d.setDate(d.getDate() + 7);
+  else {
+    const y = d.getFullYear(), m = d.getMonth(), day = d.getDate();
+    const last = new Date(y, m + 2, 0).getDate();
+    return fmtD(new Date(y, m + 1, Math.min(day, last)));
+  }
+  return fmtD(d);
+}
+// 由开始日期 + 周期推算首次入账日
+function computeNext(start, cycle, wd, md) {
+  const base = start || todayStr();
+  if (cycle === 'day') return base;
+  const d = parseD(base);
+  if (cycle === 'week') {
+    d.setDate(d.getDate() + ((wd - d.getDay() + 7) % 7));
+    return fmtD(d);
+  }
+  const y = d.getFullYear(), m = d.getMonth();
+  const last = new Date(y, m + 1, 0).getDate();
+  const nd = new Date(y, m, Math.min(md, last));
+  if (nd < parseD(base)) {
+    const l2 = new Date(y, m + 2, 0).getDate();
+    return fmtD(new Date(y, m + 1, Math.min(md, l2)));
+  }
+  return fmtD(nd);
+}
+
+const draft = {
+  open: false, id: null, type: 'expense', amount: '', categoryId: '', accountId: '',
+  cycle: 'month', wd: new Date().getDay(), md: new Date().getDate(), startDate: todayStr(), note: '',
+};
+function resetDraft() {
+  const s = S();
+  Object.assign(draft, {
+    open: true, id: null, type: 'expense', amount: '',
+    categoryId: cats('expense')[0]?.id || '',
+    accountId: s.accounts[0]?.id || '',
+    cycle: 'month', wd: new Date().getDay(), md: new Date().getDate(),
+    startDate: todayStr(), note: '',
+  });
+}
+function loadDraft(r) {
+  const d = parseD(r.nextDate);
+  Object.assign(draft, {
+    open: true, id: r.id, type: r.type || 'expense', amount: String(r.amount ?? ''),
+    categoryId: r.categoryId || '', accountId: r.accountId || '',
+    cycle: r.cycle || 'month', wd: d.getDay(), md: d.getDate(),
+    startDate: r.nextDate || todayStr(), note: r.note || '',
+  });
+}
+
+function cardHTML(r) {
+  const cat = catInfo(r.categoryId);
+  const acc = accById(r.accountId);
+  const color = r.type === 'transfer' ? '#0a84ff' : (cat?.color || '#98989f');
+  const mark = catMarkHTML({
+    name: cat?.name || '', parent: cat?.parent || '', icon: cat?.icon || '🧾',
+    color, type: r.type, kind: r.type === 'transfer' ? 'transfer' : '', cls: 'badge-ic',
+  });
+  const name = r.type === 'transfer' ? '账户转账' : (cat?.name || '未分类');
+  const due = isDue(r);
+  return `<div class="card rc-card ${due ? 'due' : ''}">
+    <div class="row1">
+      ${mark}
+      <span class="nm">${esc(name)}${r.note ? `<span class="sub"> · ${esc(r.note)}</span>` : ''}</span>
+      <span class="amt ${r.type === 'income' ? 'income' : ''}">¥${fmtMoney(r.amount)}</span>
+    </div>
+    <div class="meta">
+      <span class="tp-badge ${r.type}">${r.type === 'expense' ? '支' : r.type === 'income' ? '收' : '转'}</span>
+      ${esc(cycleText(r))} · ${esc(acc?.name || '未选账户')}
+    </div>
+    <div class="next">下次入账 <b class="dt-mono">${r.nextDate || '—'}</b>
+      ${due ? '<span class="tp-badge pending">待入账</span>' : ''}
+    </div>
+    <div class="acts">
+      <button class="tp-btn blue" data-run="${r.id}">立即入账</button>
+      <button class="tp-btn" data-edit="${r.id}">编辑</button>
+      <button class="tp-btn red" data-del="${r.id}">删除</button>
+    </div>
+  </div>`;
+}
+
+function formHTML() {
+  const d = draft;
+  const list = d.type === 'transfer' ? [] : cats(d.type);
+  const acc = accById(d.accountId);
+  return `<div class="tp-form">
+    <div class="sec-title" style="margin:0 0 8px">${d.id ? '编辑周期' : '新建周期'}</div>
+    <div class="seg small" id="rc-type">
+      <button data-t="expense" class="${d.type === 'expense' ? 'on' : ''}">支出</button>
+      <button data-t="income" class="${d.type === 'income' ? 'on' : ''}">收入</button>
+      <button data-t="transfer" class="${d.type === 'transfer' ? 'on' : ''}">转账</button>
+    </div>
+    ${d.type === 'transfer' ? '' : `<div class="form-label">分类</div>
+      <div class="tp-cats">
+        ${list.map((c) => `<button class="tp-cat ${c.id === d.categoryId ? 'on' : ''}" data-c="${c.id}">
+          ${catMarkHTML({ name: c.name, icon: c.icon, color: c.color, type: c.type, cls: 'ic' })}${esc(c.name)}
+        </button>`).join('')}
+      </div>`}
+    <div class="fr">
+      <span class="fl">金额</span>
+      <input class="form-input fv" id="rc-amt" type="number" inputmode="decimal" placeholder="0.00" value="${d.amount}">
+    </div>
+    <div class="fr">
+      <span class="fl">备注</span>
+      <input class="form-input fv" id="rc-note" placeholder="可留空" value="${esc(d.note)}">
+    </div>
+    <div class="fr">
+      <span class="fl">账户</span>
+      <button class="form-input fv" id="rc-acc" style="text-align:left;background:var(--card2)">${esc(acc?.name || '选择账户')}</button>
+    </div>
+    <div class="form-label" style="margin-top:12px">周期</div>
+    <div class="seg small" id="rc-cycle">
+      <button data-c="day" class="${d.cycle === 'day' ? 'on' : ''}">每天</button>
+      <button data-c="week" class="${d.cycle === 'week' ? 'on' : ''}">每周</button>
+      <button data-c="month" class="${d.cycle === 'month' ? 'on' : ''}">每月</button>
+    </div>
+    ${d.cycle === 'week' ? `<div class="rc-picks">
+      ${WD.split('').map((w, i) => `<button class="chip ${d.wd === i ? 'on' : ''}" data-wd="${i}">周${w}</button>`).join('')}
+    </div>` : ''}
+    ${d.cycle === 'month' ? `<div class="rc-picks">
+      ${Array.from({ length: 31 }, (_, i) => i + 1).map((n) => `<button class="chip ${d.md === n ? 'on' : ''}" data-md="${n}">${n}</button>`).join('')}
+    </div>` : ''}
+    <div class="fr" style="margin-top:12px">
+      <span class="fl">开始日期</span>
+      <input class="form-input fv" id="rc-start" type="date" value="${d.startDate}">
+    </div>
+    <div class="acts" style="margin-top:14px">
+      <button class="tp-btn" data-act="cancel">取消</button>
+      <button class="tp-btn blue" data-act="save">保存</button>
+    </div>
+  </div>`;
+}
+
+const mod = {
+  title: '周期记账',
+  header: 'sub',
+  async render() {
+    const list = S().recurrings || [];
+    const dueList = list.filter(isDue);
+    return `
+      <div class="rc-tip card" style="padding:12px 14px;font-size:13px;color:var(--text2);line-height:1.5">
+        周期性固定收支可自动入账；修改周期仅影响后续生成的账单，已生成的账单不会被改动。
+      </div>
+      ${dueList.length ? `<button class="rc-runall" data-act="runall">执行全部到期项（${dueList.length}）</button>` : ''}
+      ${draft.open ? formHTML() : ''}
+      <div class="cell-group">
+        <div class="cell" data-act="new">
+          ${uiMark('plus', 'ci')}
+          <span class="cl cell-title" style="color:var(--blue)">新建周期</span>
+        </div>
+      </div>
+      ${list.length
+        ? list.map(cardHTML).join('')
+        : `<div class="empty-tip">暂无周期 · 把房租、工资等固定收支设为周期</div>`}
+      <div style="height:10px"></div>`;
+  },
+  mount(root, params) { bind(root, params); },
+};
+
+function bind(root, params) {
+  root.querySelectorAll('#rc-type [data-t]').forEach((b) => b.addEventListener('click', () => {
+    draft.type = b.dataset.t;
+    draft.categoryId = cats(draft.type)[0]?.id || '';
+    refresh(root, params);
+  }));
+  root.querySelectorAll('#rc-cycle [data-c]').forEach((b) => b.addEventListener('click', () => {
+    draft.cycle = b.dataset.c;
+    refresh(root, params);
+  }));
+  root.querySelectorAll('[data-c]').forEach((b) => b.addEventListener('click', () => {
+    if (!b.dataset.c || b.closest('#rc-cycle')) return;
+    draft.categoryId = b.dataset.c;
+    refresh(root, params);
+  }));
+  root.querySelectorAll('[data-wd]').forEach((b) => b.addEventListener('click', () => {
+    draft.wd = +b.dataset.wd;
+    refresh(root, params);
+  }));
+  root.querySelectorAll('[data-md]').forEach((b) => b.addEventListener('click', () => {
+    draft.md = +b.dataset.md;
+    refresh(root, params);
+  }));
+  root.querySelector('#rc-amt')?.addEventListener('input', (e) => { draft.amount = e.target.value; });
+  root.querySelector('#rc-note')?.addEventListener('input', (e) => { draft.note = e.target.value; });
+  root.querySelector('#rc-start')?.addEventListener('change', (e) => { draft.startDate = e.target.value || todayStr(); });
+  root.querySelector('#rc-acc')?.addEventListener('click', async () => {
+    const accs = S().accounts.filter((a) => !a.archived);
+    const pick = await UI.sheet('选择账户', accs.map((a) => ({
+      label: a.name, icon: a.icon, color: a.color, kind: a.type, value: a.id === draft.accountId ? '✓' : '', id: a.id,
+    })));
+    if (pick) { draft.accountId = pick.id; refresh(root, params); }
+  });
+
+  root.querySelector('[data-act="new"]')?.addEventListener('click', () => {
+    resetDraft();
+    refresh(root, params);
+  });
+  root.querySelector('[data-act="cancel"]')?.addEventListener('click', () => {
+    draft.open = false; draft.id = null;
+    refresh(root, params);
+  });
+  root.querySelector('[data-act="save"]')?.addEventListener('click', () => saveForm(root, params));
+
+  root.querySelector('[data-act="runall"]')?.addEventListener('click', () => {
+    const list = (S().recurrings || []).filter(isDue);
+    if (!list.length) return UI.toast('没有到期项');
+    let sum = 0;
+    list.forEach((r) => { sum += runOne(r); });
+    save();
+    UI.toast(`已入账 ${list.length} 笔，共 ¥${fmtMoney(sum)}`);
+    refresh(root, params);
+  });
+
+  root.querySelectorAll('[data-run]').forEach((b) => b.addEventListener('click', () => {
+    const r = S().recurrings.find((x) => x.id === b.dataset.run);
+    if (!r) return;
+    const amt = runOne(r);
+    save();
+    UI.toast(`已入账 ¥${fmtMoney(amt)}，下次 ${r.nextDate}`);
+    refresh(root, params);
+  }));
+  root.querySelectorAll('[data-edit]').forEach((b) => b.addEventListener('click', () => {
+    const r = S().recurrings.find((x) => x.id === b.dataset.edit);
+    if (!r) return;
+    loadDraft(r);
+    refresh(root, params);
+  }));
+  root.querySelectorAll('[data-del]').forEach((b) => b.addEventListener('click', async () => {
+    const ok = await UI.confirm('删除这个周期记账？', '删除');
+    if (!ok) return;
+    S().recurrings = S().recurrings.filter((x) => x.id !== b.dataset.del);
+    addTombstone('recurrings', b.dataset.del);
+    save();
+    UI.toast('已删除');
+    refresh(root, params);
+  }));
+}
+
+// 生成一笔账单并推进下次日期
+function runOne(r) {
+  const amount = +r.amount || 0;
+  addBill({
+    type: r.type,
+    amount,
+    categoryId: r.type === 'transfer' ? '' : r.categoryId,
+    accountId: r.accountId,
+    date: r.nextDate || todayStr(),
+    note: r.note || '',
+    recurringId: r.id,
+  });
+  r.nextDate = advance(r.nextDate || todayStr(), r.cycle);
+  return amount;
+}
+
+function saveForm(root, params) {
+  const d = draft;
+  const amount = parseFloat(d.amount);
+  if (!amount || amount <= 0) return UI.toast('请输入金额');
+  if (d.type !== 'transfer' && !d.categoryId) return UI.toast('请选择分类');
+  if (!d.accountId) return UI.toast('请选择账户');
+  const data = {
+    type: d.type,
+    amount,
+    categoryId: d.type === 'transfer' ? '' : d.categoryId,
+    accountId: d.accountId,
+    cycle: d.cycle,
+    nextDate: computeNext(d.startDate, d.cycle, d.wd, d.md),
+    note: d.note.trim(),
+  };
+  if (d.id) {
+    const r = S().recurrings.find((x) => x.id === d.id);
+    if (r) Object.assign(r, data);
+  } else {
+    S().recurrings.push({ id: uid(), ...data });
+  }
+  save();
+  draft.open = false; draft.id = null;
+  UI.toast(d.id ? '周期已更新' : '周期已创建');
+  refresh(root, params);
+}
+
+async function refresh(root, params) {
+  root.innerHTML = await mod.render(params);
+  bind(root, params);
+  root.querySelectorAll('[data-go]').forEach((b) => b.addEventListener('click', () => go(b.dataset.go)));
+}
+
+export default mod;

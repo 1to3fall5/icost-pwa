@@ -1,1 +1,205 @@
-Ly8g5YiG57G7566h55CG77ya5LiA57qnIC8g5LqM57qn5YiG57G755qE5aKe5Yig5pS5CmltcG9ydCBJY29ucyBmcm9tICcuLi9pY29ucy5qcyc7CmltcG9ydCB7IFMsIHNhdmUsIGNhdHMsIHVpZCB9IGZyb20gJy4uL3N0b3JlLmpzJzsKaW1wb3J0IHsgZXNjIH0gZnJvbSAnLi4vdXRpbC5qcyc7CmltcG9ydCB7IGNhdE1hcmtIVE1MIH0gZnJvbSAnLi4vY2F0aWNvbi5qcyc7CmltcG9ydCB7IHVpTWFyaywgdWlJY29uIH0gZnJvbSAnLi4vdWlpY29uLmpzJzsKaW1wb3J0IHsgVUkgfSBmcm9tICcuLi9hcHAuanMnOwoKY29uc3QgUEFMRVRURSA9IFsKICBbJyNmZjQ1M2EnLCAn57qiJ10sIFsnI2ZmOWYwYScsICfmqZknXSwgWycjZmZkNjBhJywgJ+m7hCddLCBbJyMzMGQxNTgnLCAn57u/J10sCiAgWycjNjRkMmZmJywgJ+a1heiTnSddLCBbJyMwYTg0ZmYnLCAn6JOdJ10sIFsnI2JmNWFmMicsICfntKsnXSwgWycjZmY2NDgyJywgJ+eyiSddLApdOwpjb25zdCBwaWNrID0gKGFycikgPT4gYXJyW01hdGguZmxvb3IoTWF0aC5yYW5kb20oKSAqIGFyci5sZW5ndGgpXTsKCmxldCB0eXBlID0gJ2V4cGVuc2UnOyAgICAgICAgLy8g5b2T5YmNIHNlZwpjb25zdCBvcGVuID0gbmV3IFNldCgpOyAgICAgIC8vIOW3suWxleW8gOeahOS4gOe6p+WIhuexuyBpZAoKZnVuY3Rpb24gY2F0QmlsbHMoYykgewogIHJldHVybiBTKCkuYmlsbHMuZmlsdGVyKChiKSA9PiBiLmNhdGVnb3J5SWQgPT09IGMuaWQgfHwgYy5jaGlsZHJlbi5zb21lKCh4KSA9PiB4LmlkID09PSBiLmNhdGVnb3J5SWQpKS5sZW5ndGg7Cn0KCmZ1bmN0aW9uIGNhdEhUTUwoYykgewogIGNvbnN0IGV4cGFuZGVkID0gb3Blbi5oYXMoYy5pZCk7CiAgcmV0dXJuIGA8ZGl2IGNsYXNzPSJjZy1pdGVtIj4KICAgIDxkaXYgY2xhc3M9ImNlbGwiIGRhdGEtY2F0PSIke2MuaWR9Ij4KICAgICAgJHtjYXRNYXJrSFRNTCh7IG5hbWU6IGMubmFtZSwgaWNvbjogYy5pY29uLCBjb2xvcjogYy5jb2xvciwgdHlwZTogYy50eXBlLCBjbHM6ICdjZy1pYycgfSl9CiAgICAgIDxzcGFuIGNsYXNzPSJjbCI+JHtlc2MoYy5uYW1lKX08c3BhbiBjbGFzcz0iY2VsbC1zdWIiPiR7Yy5jaGlsZHJlbi5sZW5ndGh9IOS4quS6jOe6p+WIhuexuzwvc3Bhbj48L3NwYW4+CiAgICAgIDxzcGFuIGNsYXNzPSJjZy1lZGl0IHVpLWljIiBkYXRhLWVkaXQ9IiR7Yy5pZH0iPiR7dWlJY29uKCdlZGl0Jyl9PC9zcGFuPgogICAgPC9kaXY+CiAgICAke2V4cGFuZGVkID8gYDxkaXYgY2xhc3M9ImNnLXN1YnMiPgogICAgICAke2MuY2hpbGRyZW4ubWFwKChzKSA9PiBgPHNwYW4gY2xhc3M9ImNnLWNoaXAiIGRhdGEtc3ViPSIke3MuaWR9Ij4ke2VzYyhzLm5hbWUpfTxpIGNsYXNzPSJ4IiBkYXRhLWRlbD0iJHtzLmlkfSI+JHtJY29ucy54fTwvaT48L3NwYW4+YCkuam9pbignJyl9CiAgICAgIDxzcGFuIGNsYXNzPSJjZy1jaGlwIGFkZCIgZGF0YS1hZGRzdWI9IiR7Yy5pZH0iPisg5LqM57qn5YiG57G7PC9zcGFuPgogICAgPC9kaXY+YCA6ICcnfQogIDwvZGl2PmA7Cn0KCmZ1bmN0aW9uIGxpc3RIVE1MKCkgewogIGNvbnN0IGxpc3QgPSBjYXRzKHR5cGUpOwogIHJldHVybiBgJHtsaXN0Lm1hcChjYXRIVE1MKS5qb2luKCcnKX1gOwp9Cgphc3luYyBmdW5jdGlvbiBhZGRUb3AoKSB7CiAgY29uc3QgbmFtZSA9IGF3YWl0IFVJLnByb21wdCgn5paw5bu65LiA57qn5YiG57G7JywgJ+ivt+i+k+WFpeWIhuexu+WQjeensCcpOwogIGlmICghbmFtZSkgcmV0dXJuOwogIC8vIOWbvuagh+eUseWIhuexu+WQjeWGhee9ruaYoOWwhOe7meWHuu+8iOayoeacieaYoOWwhOeahOmZjee6p+aIkOmmluWtl++8ie+8jOS4jeWGjemaj+acuuWPkeS4gOS4qiBlbW9qaQogIGNvbnN0IGMgPSB7IGlkOiB1aWQoKSwgbmFtZSwgaWNvbjogJycsIGNvbG9yOiBwaWNrKFBBTEVUVEUpWzBdLCB0eXBlLCBjaGlsZHJlbjogW10gfTsKICBTKCkuY2F0ZWdvcmllc1t0eXBlXS5wdXNoKGMpOwogIHNhdmUoKTsKICBvcGVuLmFkZChjLmlkKTsKICBVSS50b2FzdCgn5bey5re75Yqg5YiG57G7Jyk7CiAgcmV0dXJuIHRydWU7Cn0KCmFzeW5jIGZ1bmN0aW9uIGFkZFN1YihwaWQpIHsKICBjb25zdCBwYXJlbnQgPSBjYXRzKHR5cGUpLmZpbmQoKGMpID0+IGMuaWQgPT09IHBpZCk7CiAgaWYgKCFwYXJlbnQpIHJldHVybiBmYWxzZTsKICBjb25zdCBuYW1lID0gYXdhaXQgVUkucHJvbXB0KGDkuLrjgIwke3BhcmVudC5uYW1lfeOAjea3u+WKoOS6jOe6p+WIhuexu2AsICfor7fovpPlhaXkuoznuqfliIbnsbvlkI3np7AnKTsKICBpZiAoIW5hbWUpIHJldHVybiBmYWxzZTsKICBwYXJlbnQuY2hpbGRyZW4ucHVzaCh7IGlkOiB1aWQoKSwgbmFtZSB9KTsKICBzYXZlKCk7CiAgVUkudG9hc3QoJ+W3sua3u+WKoOS6jOe6p+WIhuexuycpOwogIHJldHVybiB0cnVlOwp9Cgphc3luYyBmdW5jdGlvbiBlZGl0Q2F0KGlkKSB7CiAgY29uc3QgYyA9IGNhdHModHlwZSkuZmluZCgoeCkgPT4geC5pZCA9PT0gaWQpOwogIGlmICghYykgcmV0dXJuIGZhbHNlOwogIGNvbnN0IHBpY2tPcHQgPSBhd2FpdCBVSS5zaGVldChjLm5hbWUsIFsKICAgIHsgbGFiZWw6ICfkv67mlLnlkI3np7AnLCBpY29uOiAnZWRpdCcsIHY6ICduYW1lJyB9LAogICAgeyBsYWJlbDogJ+S/ruaUueWbvuaghycsIGljb246IGMuaWNvbiwgdjogJ2ljb24nIH0sCiAgICB7IGxhYmVsOiAn5L+u5pS56aKc6ImyJywgaWNvbjogJ3BhbGV0dGUnLCB2OiAnY29sb3InIH0sCiAgICB7IGxhYmVsOiAn5Yig6Zmk5YiG57G7JywgaWNvbjogJ3RyYXNoJywgZGFuZ2VyOiB0cnVlLCB2OiAnZGVsJyB9LAogIF0pOwogIGlmICghcGlja09wdCkgcmV0dXJuIGZhbHNlOwogIGlmIChwaWNrT3B0LnYgPT09ICduYW1lJykgewogICAgY29uc3QgbmFtZSA9IGF3YWl0IFVJLnByb21wdCgn5L+u5pS55YiG57G75ZCN56ewJywgYy5uYW1lLCBjLm5hbWUpOwogICAgaWYgKCFuYW1lKSByZXR1cm4gZmFsc2U7CiAgICBjLm5hbWUgPSBuYW1lOyBzYXZlKCk7IFVJLnRvYXN0KCflt7Lkv53lrZgnKTsKICAgIHJldHVybiB0cnVlOwogIH0KICBpZiAocGlja09wdC52ID09PSAnaWNvbicpIHsKICAgIGNvbnN0IGljb24gPSBhd2FpdCBVSS5wcm9tcHQoJ+S/ruaUueWbvuaghycsICfovpPlhaXkuIDkuKogZW1vamnvvIjlj6rmnInjgIxFbW9qaSDlvanoibLlnIblupXjgI3po47moLzkvJrnlKjliLDvvIknLCBjLmljb24pOwogICAgaWYgKCFpY29uKSByZXR1cm4gZmFsc2U7CiAgICBjLmljb24gPSBpY29uOyBzYXZlKCk7IFVJLnRvYXN0KCflt7Lkv53lrZgnKTsKICAgIHJldHVybiB0cnVlOwogIH0KICBpZiAocGlja09wdC52ID09PSAnY29sb3InKSB7CiAgICBjb25zdCBjb2xvciA9IGF3YWl0IFVJLnNoZWV0KCfpgInmi6npopzoibInLCBQQUxFVFRFLm1hcCgoW2hleCwgbm1dKSA9PiAoewogICAgICBsYWJlbDogbm0sIGljb246ICfil48nLCBjb2xvcjogaGV4LCB2OiBoZXgsCiAgICB9KSkpOwogICAgaWYgKCFjb2xvcikgcmV0dXJuIGZhbHNlOwogICAgYy5jb2xvciA9IGNvbG9yLnY7IHNhdmUoKTsgVUkudG9hc3QoJ+W3suS/neWtmCcpOwogICAgcmV0dXJuIHRydWU7CiAgfQogIGlmIChwaWNrT3B0LnYgPT09ICdkZWwnKSB7CiAgICBjb25zdCB1c2VkID0gY2F0QmlsbHMoYyk7CiAgICBjb25zdCBtc2cgPSB1c2VkID4gMAogICAgICA/IGDjgIwke2MubmFtZX3jgI3kuIvlt7LmnIkgJHt1c2VkfSDnrJTotKbljZXvvIzliKDpmaTlkI7ov5nkupvotKbljZXlsIblvZLlhaXjgIzlhbbku5bjgI3vvIznoa7orqTliKDpmaTvvJ9gCiAgICAgIDogYOehruiupOWIoOmZpOWIhuexu+OAjCR7Yy5uYW1lfeOAje+8n2A7CiAgICBjb25zdCBvayA9IGF3YWl0IFVJLmNvbmZpcm0obXNnLCAn5Yig6ZmkJyk7CiAgICBpZiAoIW9rKSByZXR1cm4gZmFsc2U7CiAgICBjb25zdCBsaXN0ID0gY2F0cyh0eXBlKTsKICAgIGxpc3Quc3BsaWNlKGxpc3QuaW5kZXhPZihjKSwgMSk7CiAgICAvLyDlt7LlvJXnlKjor6XliIbnsbvnmoTotKbljZXlm57okL3liLDjgIzlhbbku5bjgI0KICAgIGNvbnN0IG90aGVyID0gKFMoKS5jYXRlZ29yaWVzW3R5cGVdIHx8IFtdKS5maW5kKCh4KSA9PiB4Lm5hbWUgPT09ICflhbbku5YnKSB8fCBTKCkuY2F0ZWdvcmllc1t0eXBlXVtTKCkuY2F0ZWdvcmllc1t0eXBlXS5sZW5ndGggLSAxXTsKICAgIGlmIChvdGhlcikgUygpLmJpbGxzLmZvckVhY2goKGIpID0+IHsKICAgICAgaWYgKGIuY2F0ZWdvcnlJZCA9PT0gYy5pZCB8fCBjLmNoaWxkcmVuLnNvbWUoKHgpID0+IHguaWQgPT09IGIuY2F0ZWdvcnlJZCkpIGIuY2F0ZWdvcnlJZCA9IG90aGVyLmlkOwogICAgfSk7CiAgICBzYXZlKCk7CiAgICBVSS50b2FzdCgn5bey5Yig6Zmk5YiG57G7Jyk7CiAgICByZXR1cm4gdHJ1ZTsKICB9CiAgcmV0dXJuIGZhbHNlOwp9Cgphc3luYyBmdW5jdGlvbiBkZWxTdWIoaWQpIHsKICBjb25zdCBwYXJlbnQgPSBjYXRzKHR5cGUpLmZpbmQoKGMpID0+IGMuY2hpbGRyZW4uc29tZSgocykgPT4gcy5pZCA9PT0gaWQpKTsKICBjb25zdCBzdWIgPSBwYXJlbnQ/LmNoaWxkcmVuLmZpbmQoKHMpID0+IHMuaWQgPT09IGlkKTsKICBpZiAoIXN1YikgcmV0dXJuIGZhbHNlOwogIGNvbnN0IHVzZWQgPSBTKCkuYmlsbHMuZmlsdGVyKChiKSA9PiBiLmNhdGVnb3J5SWQgPT09IGlkKS5sZW5ndGg7CiAgY29uc3Qgb2sgPSBhd2FpdCBVSS5jb25maXJtKHVzZWQgPiAwCiAgICA/IGDjgIwke3N1Yi5uYW1lfeOAjeS4i+W3suaciSAke3VzZWR9IOeslOi0puWNle+8jOWIoOmZpOWQjui/meS6m+i0puWNleWwhuW9kuWFpeOAjCR7cGFyZW50Lm5hbWV944CN77yM56Gu6K6k5Yig6Zmk77yfYAogICAgOiBg56Gu6K6k5Yig6Zmk5LqM57qn5YiG57G744CMJHtzdWIubmFtZX3jgI3vvJ9gLCAn5Yig6ZmkJyk7CiAgaWYgKCFvaykgcmV0dXJuIGZhbHNlOwogIHBhcmVudC5jaGlsZHJlbi5zcGxpY2UocGFyZW50LmNoaWxkcmVuLmluZGV4T2Yoc3ViKSwgMSk7CiAgaWYgKHBhcmVudCkgUygpLmJpbGxzLmZvckVhY2goKGIpID0+IHsgaWYgKGIuY2F0ZWdvcnlJZCA9PT0gaWQpIGIuY2F0ZWdvcnlJZCA9IHBhcmVudC5pZDsgfSk7CiAgc2F2ZSgpOwogIFVJLnRvYXN0KCflt7LliKDpmaQnKTsKICByZXR1cm4gdHJ1ZTsKfQoKZXhwb3J0IGRlZmF1bHQgewogIHRpdGxlOiAn5YiG57G7566h55CGJywKICBoZWFkZXI6ICdzdWInLAogIGFzeW5jIHJlbmRlcigpIHsKICAgIGNvbnN0IGxpc3QgPSBjYXRzKHR5cGUpOwogICAgcmV0dXJuIGAKICAgICAgPGRpdiBjbGFzcz0ic2VnIj4KICAgICAgICA8YnV0dG9uIGRhdGEtdD0iZXhwZW5zZSIgY2xhc3M9IiR7dHlwZSA9PT0gJ2V4cGVuc2UnID8gJ29uJyA6ICcnfSI+5pSv5Ye6PC9idXR0b24+CiAgICAgICAgPGJ1dHRvbiBkYXRhLXQ9ImluY29tZSIgY2xhc3M9IiR7dHlwZSA9PT0gJ2luY29tZScgPyAnb24nIDogJyd9Ij7mlLblhaU8L2J1dHRvbj4KICAgICAgPC9kaXY+CiAgICAgIDxkaXYgY2xhc3M9ImNlbGwtZ3JvdXAiPgogICAgICAgIDxkaXYgY2xhc3M9ImNlbGwiIGRhdGEtYWN0PSJhZGR0b3AiPgogICAgICAgICAgJHt1aU1hcmsoJ3BsdXMnLCAnY2knKX0KICAgICAgICAgIDxzcGFuIGNsYXNzPSJjbCI+5re75Yqg5LiA57qn5YiG57G7PC9zcGFuPgogICAgICAgICAgPHNwYW4gY2xhc3M9ImFycm93Ij4ke0ljb25zLmNoZXZSfTwvc3Bhbj4KICAgICAgICA8L2Rpdj4KICAgICAgPC9kaXY+CiAgICAgIDxkaXYgY2xhc3M9InNlYy10aXRsZSI+JHt0eXBlID09PSAnZXhwZW5zZScgPyAn5pSv5Ye6JyA6ICfmlLblhaUnfeWIhuexuyDCtyAke2xpc3QubGVuZ3RofSDkuKrkuIDnuqc8L2Rpdj4KICAgICAgPGRpdiBjbGFzcz0iY2VsbC1ncm91cCIgaWQ9ImNnLWxpc3QiPiR7bGlzdEhUTUwoKX08L2Rpdj4KICAgICAgPGRpdiBjbGFzcz0ic3QyLW5vdGUiPgogICAgICAgIDxkaXYgY2xhc3M9InR0Ij4ke3VpTWFyaygnaW5mby1jaXJjbGUnLCAnYmFkZ2UtaWMnKX3kvb/nlKjmj5DnpLo8L2Rpdj4KICAgICAgICDngrnlh7vkuIDnuqfliIbnsbvooYzlsZXlvIDkuoznuqfliIbnsbvvvJvngrnlj7Pkvqfpk4XnrJTlm77moIflj6/mlLnlkI0gLyDmjaLlm77moIcgLyDmjaLpopzoibIgLyDliKDpmaTvvJvkuoznuqfliIbnsbvngrkgw5cg5oiW6ZW/5oyJ5Y2z5Y+v5Yig6Zmk44CCCiAgICAgIDwvZGl2PmA7CiAgfSwKICBtb3VudChyb290KSB7CiAgICBjb25zdCByZXBhaW50ID0gKCkgPT4gewogICAgICBjb25zdCBib3ggPSByb290LnF1ZXJ5U2VsZWN0b3IoJyNjZy1saXN0Jyk7CiAgICAgIGlmIChib3gpIGJveC5pbm5lckhUTUwgPSBsaXN0SFRNTCgpOwogICAgICByb290LnF1ZXJ5U2VsZWN0b3IoJy5zZWMtdGl0bGUnKS50ZXh0Q29udGVudCA9CiAgICAgICAgYCR7dHlwZSA9PT0gJ2V4cGVuc2UnID8gJ+aUr+WHuicgOiAn5pS25YWlJ33liIbnsbsgwrcgJHtjYXRzKHR5cGUpLmxlbmd0aH0g5Liq5LiA57qnYDsKICAgICAgYmluZCgpOwogICAgfTsKICAgIGNvbnN0IHJlZnJlc2ggPSBhc3luYyAoY2hhbmdlZCkgPT4geyBpZiAoY2hhbmdlZCkgcmVwYWludCgpOyB9OwoKICAgIGZ1bmN0aW9uIGJpbmQoKSB7CiAgICAgIHJvb3QucXVlcnlTZWxlY3RvckFsbCgnW2RhdGEtdF0nKS5mb3JFYWNoKChiKSA9PiBiLmFkZEV2ZW50TGlzdGVuZXIoJ2NsaWNrJywgKCkgPT4gewogICAgICAgIGlmICh0eXBlID09PSBiLmRhdGFzZXQudCkgcmV0dXJuOwogICAgICAgIHR5cGUgPSBiLmRhdGFzZXQudDsKICAgICAgICBvcGVuLmNsZWFyKCk7CiAgICAgICAgcmVwYWludCgpOwogICAgICAgIHJvb3QucXVlcnlTZWxlY3RvckFsbCgnW2RhdGEtdF0nKS5mb3JFYWNoKCh4KSA9PiB4LmNsYXNzTGlzdC50b2dnbGUoJ29uJywgeC5kYXRhc2V0LnQgPT09IHR5cGUpKTsKICAgICAgfSkpOwogICAgICByb290LnF1ZXJ5U2VsZWN0b3JBbGwoJ1tkYXRhLWNhdF0nKS5mb3JFYWNoKChlbCkgPT4gewogICAgICAgIGVsLmFkZEV2ZW50TGlzdGVuZXIoJ2NsaWNrJywgKCkgPT4gewogICAgICAgICAgY29uc3QgaWQgPSBlbC5kYXRhc2V0LmNhdDsKICAgICAgICAgIGlmIChvcGVuLmhhcyhpZCkpIG9wZW4uZGVsZXRlKGlkKTsgZWxzZSBvcGVuLmFkZChpZCk7CiAgICAgICAgICByZXBhaW50KCk7CiAgICAgICAgfSk7CiAgICAgIH0pOwogICAgICByb290LnF1ZXJ5U2VsZWN0b3JBbGwoJ1tkYXRhLWVkaXRdJykuZm9yRWFjaCgoZWwpID0+IHsKICAgICAgICBlbC5hZGRFdmVudExpc3RlbmVyKCdjbGljaycsIGFzeW5jIChlKSA9PiB7CiAgICAgICAgICBlLnN0b3BQcm9wYWdhdGlvbigpOwogICAgICAgICAgcmVmcmVzaChhd2FpdCBlZGl0Q2F0KGVsLmRhdGFzZXQuZWRpdCkpOwogICAgICAgIH0pOwogICAgICB9KTsKICAgICAgcm9vdC5xdWVyeVNlbGVjdG9yQWxsKCdbZGF0YS1hZGRzdWJdJykuZm9yRWFjaCgoZWwpID0+IHsKICAgICAgICBlbC5hZGRFdmVudExpc3RlbmVyKCdjbGljaycsIGFzeW5jICgpID0+IHsgcmVmcmVzaChhd2FpdCBhZGRTdWIoZWwuZGF0YXNldC5hZGRzdWIpKTsgfSk7CiAgICAgIH0pOwogICAgICByb290LnF1ZXJ5U2VsZWN0b3JBbGwoJ1tkYXRhLWRlbF0nKS5mb3JFYWNoKChlbCkgPT4gewogICAgICAgIGNvbnN0IGZpcmUgPSBhc3luYyAoKSA9PiB7IHJlZnJlc2goYXdhaXQgZGVsU3ViKGVsLmRhdGFzZXQuZGVsKSk7IH07CiAgICAgICAgZWwuYWRkRXZlbnRMaXN0ZW5lcignY2xpY2snLCAoZSkgPT4geyBlLnN0b3BQcm9wYWdhdGlvbigpOyBmaXJlKCk7IH0pOwogICAgICAgIGxldCB0aW1lciA9IG51bGw7CiAgICAgICAgZWwuYWRkRXZlbnRMaXN0ZW5lcigndG91Y2hzdGFydCcsICgpID0+IHsgdGltZXIgPSBzZXRUaW1lb3V0KGZpcmUsIDYwMCk7IH0sIHsgcGFzc2l2ZTogdHJ1ZSB9KTsKICAgICAgICBlbC5hZGRFdmVudExpc3RlbmVyKCd0b3VjaGVuZCcsICgpID0+IGNsZWFyVGltZW91dCh0aW1lcikpOwogICAgICAgIGVsLmFkZEV2ZW50TGlzdGVuZXIoJ2NvbnRleHRtZW51JywgKGUpID0+IHsgZS5wcmV2ZW50RGVmYXVsdCgpOyBmaXJlKCk7IH0pOwogICAgICB9KTsKICAgIH0KCiAgICByb290LnF1ZXJ5U2VsZWN0b3IoJ1tkYXRhLWFjdD0iYWRkdG9wIl0nKT8uYWRkRXZlbnRMaXN0ZW5lcignY2xpY2snLCBhc3luYyAoKSA9PiB7CiAgICAgIHJlZnJlc2goYXdhaXQgYWRkVG9wKCkpOwogICAgfSk7CiAgICBiaW5kKCk7CiAgfSwKfTsK
+// 分类管理：一级 / 二级分类的增删改
+import Icons from '../icons.js';
+import { S, save, cats, uid } from '../store.js';
+import { esc } from '../util.js';
+import { catMarkHTML } from '../caticon.js';
+import { uiMark, uiIcon } from '../uiicon.js';
+import { UI } from '../app.js';
+
+const PALETTE = [
+  ['#ff453a', '红'], ['#ff9f0a', '橙'], ['#ffd60a', '黄'], ['#30d158', '绿'],
+  ['#64d2ff', '浅蓝'], ['#0a84ff', '蓝'], ['#bf5af2', '紫'], ['#ff6482', '粉'],
+];
+const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
+
+let type = 'expense';        // 当前 seg
+const open = new Set();      // 已展开的一级分类 id
+
+function catBills(c) {
+  return S().bills.filter((b) => b.categoryId === c.id || c.children.some((x) => x.id === b.categoryId)).length;
+}
+
+function catHTML(c) {
+  const expanded = open.has(c.id);
+  return `<div class="cg-item">
+    <div class="cell" data-cat="${c.id}">
+      ${catMarkHTML({ name: c.name, icon: c.icon, color: c.color, type: c.type, cls: 'cg-ic' })}
+      <span class="cl">${esc(c.name)}<span class="cell-sub">${c.children.length} 个二级分类</span></span>
+      <span class="cg-edit ui-ic" data-edit="${c.id}">${uiIcon('edit')}</span>
+    </div>
+    ${expanded ? `<div class="cg-subs">
+      ${c.children.map((s) => `<span class="cg-chip" data-sub="${s.id}">${esc(s.name)}<i class="x" data-del="${s.id}">${Icons.x}</i></span>`).join('')}
+      <span class="cg-chip add" data-addsub="${c.id}">+ 二级分类</span>
+    </div>` : ''}
+  </div>`;
+}
+
+function listHTML() {
+  const list = cats(type);
+  return `${list.map(catHTML).join('')}`;
+}
+
+async function addTop() {
+  const name = await UI.prompt('新建一级分类', '请输入分类名称');
+  if (!name) return;
+  // 图标由分类名内置映射给出（没有映射的降级成首字），不再随机发一个 emoji
+  const c = { id: uid(), name, icon: '', color: pick(PALETTE)[0], type, children: [] };
+  S().categories[type].push(c);
+  save();
+  open.add(c.id);
+  UI.toast('已添加分类');
+  return true;
+}
+
+async function addSub(pid) {
+  const parent = cats(type).find((c) => c.id === pid);
+  if (!parent) return false;
+  const name = await UI.prompt(`为「${parent.name}」添加二级分类`, '请输入二级分类名称');
+  if (!name) return false;
+  parent.children.push({ id: uid(), name });
+  save();
+  UI.toast('已添加二级分类');
+  return true;
+}
+
+async function editCat(id) {
+  const c = cats(type).find((x) => x.id === id);
+  if (!c) return false;
+  const pickOpt = await UI.sheet(c.name, [
+    { label: '修改名称', icon: 'edit', v: 'name' },
+    { label: '修改图标', icon: c.icon, v: 'icon' },
+    { label: '修改颜色', icon: 'palette', v: 'color' },
+    { label: '删除分类', icon: 'trash', danger: true, v: 'del' },
+  ]);
+  if (!pickOpt) return false;
+  if (pickOpt.v === 'name') {
+    const name = await UI.prompt('修改分类名称', c.name, c.name);
+    if (!name) return false;
+    c.name = name; save(); UI.toast('已保存');
+    return true;
+  }
+  if (pickOpt.v === 'icon') {
+    const icon = await UI.prompt('修改图标', '输入一个 emoji（只有「Emoji 彩色圆底」风格会用到）', c.icon);
+    if (!icon) return false;
+    c.icon = icon; save(); UI.toast('已保存');
+    return true;
+  }
+  if (pickOpt.v === 'color') {
+    const color = await UI.sheet('选择颜色', PALETTE.map(([hex, nm]) => ({
+      label: nm, icon: '●', color: hex, v: hex,
+    })));
+    if (!color) return false;
+    c.color = color.v; save(); UI.toast('已保存');
+    return true;
+  }
+  if (pickOpt.v === 'del') {
+    const used = catBills(c);
+    const msg = used > 0
+      ? `「${c.name}」下已有 ${used} 笔账单，删除后这些账单将归入「其他」，确认删除？`
+      : `确认删除分类「${c.name}」？`;
+    const ok = await UI.confirm(msg, '删除');
+    if (!ok) return false;
+    const list = cats(type);
+    list.splice(list.indexOf(c), 1);
+    // 已引用该分类的账单回落到「其他」
+    const other = (S().categories[type] || []).find((x) => x.name === '其他') || S().categories[type][S().categories[type].length - 1];
+    if (other) S().bills.forEach((b) => {
+      if (b.categoryId === c.id || c.children.some((x) => x.id === b.categoryId)) b.categoryId = other.id;
+    });
+    save();
+    UI.toast('已删除分类');
+    return true;
+  }
+  return false;
+}
+
+async function delSub(id) {
+  const parent = cats(type).find((c) => c.children.some((s) => s.id === id));
+  const sub = parent?.children.find((s) => s.id === id);
+  if (!sub) return false;
+  const used = S().bills.filter((b) => b.categoryId === id).length;
+  const ok = await UI.confirm(used > 0
+    ? `「${sub.name}」下已有 ${used} 笔账单，删除后这些账单将归入「${parent.name}」，确认删除？`
+    : `确认删除二级分类「${sub.name}」？`, '删除');
+  if (!ok) return false;
+  parent.children.splice(parent.children.indexOf(sub), 1);
+  if (parent) S().bills.forEach((b) => { if (b.categoryId === id) b.categoryId = parent.id; });
+  save();
+  UI.toast('已删除');
+  return true;
+}
+
+export default {
+  title: '分类管理',
+  header: 'sub',
+  async render() {
+    const list = cats(type);
+    return `
+      <div class="seg">
+        <button data-t="expense" class="${type === 'expense' ? 'on' : ''}">支出</button>
+        <button data-t="income" class="${type === 'income' ? 'on' : ''}">收入</button>
+      </div>
+      <div class="cell-group">
+        <div class="cell" data-act="addtop">
+          ${uiMark('plus', 'ci')}
+          <span class="cl">添加一级分类</span>
+          <span class="arrow">${Icons.chevR}</span>
+        </div>
+      </div>
+      <div class="sec-title">${type === 'expense' ? '支出' : '收入'}分类 · ${list.length} 个一级</div>
+      <div class="cell-group" id="cg-list">${listHTML()}</div>
+      <div class="st2-note">
+        <div class="tt">${uiMark('info-circle', 'badge-ic')}使用提示</div>
+        点击一级分类行展开二级分类；点右侧铅笔图标可改名 / 换图标 / 换颜色 / 删除；二级分类点 × 或长按即可删除。
+      </div>`;
+  },
+  mount(root) {
+    const repaint = () => {
+      const box = root.querySelector('#cg-list');
+      if (box) box.innerHTML = listHTML();
+      root.querySelector('.sec-title').textContent =
+        `${type === 'expense' ? '支出' : '收入'}分类 · ${cats(type).length} 个一级`;
+      bind();
+    };
+    const refresh = async (changed) => { if (changed) repaint(); };
+
+    function bind() {
+      root.querySelectorAll('[data-t]').forEach((b) => b.addEventListener('click', () => {
+        if (type === b.dataset.t) return;
+        type = b.dataset.t;
+        open.clear();
+        repaint();
+        root.querySelectorAll('[data-t]').forEach((x) => x.classList.toggle('on', x.dataset.t === type));
+      }));
+      root.querySelectorAll('[data-cat]').forEach((el) => {
+        el.addEventListener('click', () => {
+          const id = el.dataset.cat;
+          if (open.has(id)) open.delete(id); else open.add(id);
+          repaint();
+        });
+      });
+      root.querySelectorAll('[data-edit]').forEach((el) => {
+        el.addEventListener('click', async (e) => {
+          e.stopPropagation();
+          refresh(await editCat(el.dataset.edit));
+        });
+      });
+      root.querySelectorAll('[data-addsub]').forEach((el) => {
+        el.addEventListener('click', async () => { refresh(await addSub(el.dataset.addsub)); });
+      });
+      root.querySelectorAll('[data-del]').forEach((el) => {
+        const fire = async () => { refresh(await delSub(el.dataset.del)); };
+        el.addEventListener('click', (e) => { e.stopPropagation(); fire(); });
+        let timer = null;
+        el.addEventListener('touchstart', () => { timer = setTimeout(fire, 600); }, { passive: true });
+        el.addEventListener('touchend', () => clearTimeout(timer));
+        el.addEventListener('contextmenu', (e) => { e.preventDefault(); fire(); });
+      });
+    }
+
+    root.querySelector('[data-act="addtop"]')?.addEventListener('click', async () => {
+      refresh(await addTop());
+    });
+    bind();
+  },
+};

@@ -1,1 +1,75 @@
-Ly8gVUkg5Zu+5qCH5rWL6K+V77ya55WM6Z2i5Zu+5qCH5b+F6aG757uf5LiA5b2p5bqVICsg55m96ImyIFNWR++8jOS4jeiDvemAgOWbnuW9qeiJsiBlbW9qaQovLyDot5Hms5XvvJpub2RlIHNjcmlwdHMvc2V0dGluZ3MtaWNvbi10ZXN0Lm1qcwovLyDlj6rlvJUganMvc2V0aWNvbi5qc++8iOaXoCBET00g5L6d6LWW77yJ77yMc2V0dGluZ3MuanMg5Y+q5YGa5rqQ56CB6Z2Z5oCB5qOA5p+lCmltcG9ydCB7IHJlYWRGaWxlU3luYyB9IGZyb20gJ25vZGU6ZnMnOwppbXBvcnQgeyBmaWxlVVJMVG9QYXRoIH0gZnJvbSAnbm9kZTp1cmwnOwppbXBvcnQgeyBkaXJuYW1lLCBqb2luIH0gZnJvbSAnbm9kZTpwYXRoJzsKaW1wb3J0IHsgc2V0SWNvbkhUTUwgfSBmcm9tICcuLi9qcy9zZXRpY29uLmpzJzsKaW1wb3J0IHsgaGFzSWNvbiwgdWlJY29uLCB1aU1hcmsgfSBmcm9tICcuLi9qcy91aWljb24uanMnOwoKY29uc3Qgcm9vdCA9IGpvaW4oZGlybmFtZShmaWxlVVJMVG9QYXRoKGltcG9ydC5tZXRhLnVybCkpLCAnLi4nKTsKY29uc3Qgc3JjID0gcmVhZEZpbGVTeW5jKGpvaW4ocm9vdCwgJ2pzL3BhZ2VzL3NldHRpbmdzLmpzJyksICd1dGY4Jyk7CgpsZXQgcGFzcyA9IDAsIGZhaWwgPSAwOwpjb25zdCBvayA9IChuYW1lLCBjb25kLCBleHRyYSA9ICcnKSA9PiB7CiAgaWYgKGNvbmQpIHsgcGFzcysrOyBjb25zb2xlLmxvZygnT0sgICcsIG5hbWUpOyB9CiAgZWxzZSB7IGZhaWwrKzsgY29uc29sZS5sb2coJ0ZBSUwnLCBuYW1lLCBleHRyYSk7IH0KfTsKY29uc3QgZXEgPSAobmFtZSwgYSwgYikgPT4gb2sobmFtZSwgYSA9PT0gYiwgYGdvdD0ke0pTT04uc3RyaW5naWZ5KGEpfSB3YW50PSR7SlNPTi5zdHJpbmdpZnkoYil9YCk7CgovLyAxKSDkuI3lho3mnInjgIxlbW9qaSArIOWQhOiHquW6leiJsuOAjeeahOWGmeazle+8iOaXp+agvOW8j++8mmljb246ICfimqEnLCBiZzogJ3JnYmEoLi4uKSfvvIkKY29uc3QgbGVnYWN5ID0gc3JjLm1hdGNoKC9pY29uOiAnW14nXSonLCBiZzogJ1teJ10qJy9nKSB8fCBbXTsKb2soJ+iuvue9rumhueS4jeWGjeeUqOOAjGVtb2ppICsg5ZCE6Ieq5bqV6Imy44CNJywgbGVnYWN5Lmxlbmd0aCA9PT0gMCwgbGVnYWN5LnNsaWNlKDAsIDMpLmpvaW4oJyB8ICcpKTsKCi8vIDIpIOa4suafk+WHuuadpeeahOWbvuagh+W/hemhu+aYryBTVkfvvIzkuJTloqjoibLkuqTnu5kgQ1NTCmNvbnN0IHN2ZyA9IHNldEljb25IVE1MKCdib2x0Jyk7Cm9rKCfooajlhoXlkI3lrZfmuLLmn5PmiJAgU1ZHJywgc3ZnLnN0YXJ0c1dpdGgoJzxzdmcnKSAmJiBzdmcuaW5jbHVkZXMoJzxwYXRoICcpLCBzdmcuc2xpY2UoMCwgMTIwKSk7Cm9rKCfloqjoibLnlKggY3VycmVudENvbG9y77yI55SxIENTUyDnu5/kuIDnu5nnmb3vvIknLCBzdmcuaW5jbHVkZXMoJ3N0cm9rZT0iY3VycmVudENvbG9yIicpLCBzdmcuc2xpY2UoMCwgMTYwKSk7Cm9rKCfkuI3lhpnmrbvpopzoibInLCAhLyNmZmZ8I2ZmZmZmZnwjWzAtOWEtZl17Nn0vaS50ZXN0KHN2ZyksIHN2Zy5zbGljZSgwLCAxNjApKTsKb2soJ+i/h+a7pCBUYWJsZXIg5Y2g5L2NIHBhdGgnLCAhc3ZnLmluY2x1ZGVzKCdNMCAwaDI0djI0SDB6JykpOwpvaygnMjQg572R5qC8Jywgc3ZnLmluY2x1ZGVzKCd2aWV3Qm94PSIwIDAgMjQgMjQiJykpOwoKLy8gMykg6KGo6YeM5p+l5LiN5Yiw55qE5ZCN5a2X77yIZW1vamkgLyDnqbrvvInlv4Xpobvljp/moLfov5Tlm57vvIzkuI3og73ltKkKZXEoJ+acquefpeWQjeWtl+WbnumAgOWOn+agtycsIHNldEljb25IVE1MKCfwn46JJyksICfwn46JJyk7CmVxKCfnqbrlgLzlm57pgIDnqbonLCBzZXRJY29uSFRNTCgnJyksICcnKTsKZXEoJ3VuZGVmaW5lZCDkuI3mipvplJknLCB0eXBlb2Ygc2V0SWNvbkhUTUwodW5kZWZpbmVkKSwgJ3N0cmluZycpOwoKLy8gNCkg6K6+572u6aG15a6e6ZmF55So5Yiw55qE5Zu+5qCH5ZCN77yM57ud5aSn5aSa5pWw6YO96KaB6IO95Zyo6KGo6YeM5p+l5YiwCmNvbnN0IHVzZWQgPSBbLi4ubmV3IFNldChbLi4uc3JjLm1hdGNoQWxsKC9pY29uOiAnKFteJ10rKScvZyldLm1hcCgobSkgPT4gbVsxXSkpXTsKY29uc3QgaGl0ID0gdXNlZC5maWx0ZXIoaGFzSWNvbik7CmNvbnN0IG1pc3MgPSB1c2VkLmZpbHRlcigobikgPT4gIWhhc0ljb24obikpOwpvaygn55So5Yiw55qE5Zu+5qCH5ZCN5aSn5aSa5ZG95Lit6KGoJywgaGl0Lmxlbmd0aCA+PSAyMCwgYOWRveS4rSAke2hpdC5sZW5ndGh9IC8g5YWxICR7dXNlZC5sZW5ndGh9YCk7Cm9rKCfmnKrlkb3kuK3nmoTlj6rliakgc2hlZXQg6YeM55qEIGVtb2ppL+espuWPtycsIG1pc3MuZXZlcnkoKG0pID0+ICEvXlthLXpdW2Etel8tXSokLy50ZXN0KG0pKSwKICBg5pyq5ZG95LitOiAke21pc3Muam9pbignLCAnKX1gKTsKY29uc29sZS5sb2coYCAgICDlkb3kuK0gJHtoaXQubGVuZ3RofSDkuKrvvJoke2hpdC5qb2luKCcgJyl9YCk7CmNvbnNvbGUubG9nKGAgICAg5Zue6YCAICR7bWlzcy5sZW5ndGh9IOS4qu+8miR7bWlzcy5qb2luKCcgJyl9YCk7CgovLyA1KSDlhajpobnnm67miavmj4/vvJrmiYDmnInpobXpnaIgLyDlvLnlsYLph4zlhpnmrbvnmoTlm77moIflkI3lv4Xpobvpg73og73mn6XliLDvvIwKLy8gICAg5ou86ZSZ5ZCN5a2X5Lya6Z2Z6buY6YCA5YyW5oiQIGVtb2ppIOKAlOKAlCDov5nmnaHlsLHmmK/mi6blroPnmoTvvIhlbW9qaSDlkI3pmaTlpJbvvIkKY29uc3QgeyByZWFkZGlyU3luYywgc3RhdFN5bmMgfSA9IGF3YWl0IGltcG9ydCgnbm9kZTpmcycpOwpjb25zdCB3YWxrID0gKGRpcikgPT4gcmVhZGRpclN5bmMoZGlyKS5mbGF0TWFwKChmKSA9PiB7CiAgY29uc3QgcCA9IGpvaW4oZGlyLCBmKTsKICByZXR1cm4gc3RhdFN5bmMocCkuaXNEaXJlY3RvcnkoKSA/IHdhbGsocCkgOiAocC5lbmRzV2l0aCgnLmpzJykgPyBbcF0gOiBbXSk7Cn0pOwpjb25zdCBmaWxlcyA9IHdhbGsoam9pbihyb290LCAnanMnKSkuZmlsdGVyKChmKSA9PiAhZi5lbmRzV2l0aCgnY2F0aWNvbi5qcycpICYmICFmLmVuZHNXaXRoKCdzdG9yZS5qcycpKTsKY29uc3QgbmFtZXMgPSBuZXcgU2V0KCk7CmZvciAoY29uc3QgZiBvZiBmaWxlcykgewogIGNvbnN0IGNvZGUgPSByZWFkRmlsZVN5bmMoZiwgJ3V0ZjgnKTsKICBmb3IgKGNvbnN0IG0gb2YgY29kZS5tYXRjaEFsbCgvaWNvbjogJyhbXiddKyknL2cpKSBuYW1lcy5hZGQobVsxXSk7CiAgZm9yIChjb25zdCBtIG9mIGNvZGUubWF0Y2hBbGwoL3VpTWFya1woJyhbXiddKyknL2cpKSBuYW1lcy5hZGQobVsxXSk7CiAgZm9yIChjb25zdCBtIG9mIGNvZGUubWF0Y2hBbGwoL3VpSWNvblwoJyhbXiddKyknL2cpKSBuYW1lcy5hZGQobVsxXSk7CiAgZm9yIChjb25zdCBtIG9mIGNvZGUubWF0Y2hBbGwoL2NhcmRIZWFkXCgnKFteJ10rKScvZykpIG5hbWVzLmFkZChtWzFdKTsKfQpjb25zdCBiYWQgPSBbLi4ubmFtZXNdLmZpbHRlcigobikgPT4gL15bYS16XVthLXpfLV0qJC8udGVzdChuKSAmJiAhaGFzSWNvbihuKSk7Cm9rKCflhajpobnnm67lm77moIflkI3pg73og73mn6XliLDvvIjmi7zplJnkvJrpgIDljJbmiJAgZW1vamnvvIknLCBiYWQubGVuZ3RoID09PSAwLCBg5p+l5LiN5YiwOiAke2JhZC5qb2luKCcsICcpfWApOwpjb25zb2xlLmxvZyhgICAgIOWFseaJq+aPjyAke2ZpbGVzLmxlbmd0aH0g5Liq5qih5Z2X44CBJHtuYW1lcy5zaXplfSDkuKrlm77moIflkI1gKTsKCi8vIDYpIHVpTWFyayDlv4Xpobvoh6rluKblvanlupXlpJblo7PvvIzkuJTloqjoibLkuqTnu5kgQ1NTCmNvbnN0IG1hcmsgPSB1aU1hcmsoJ3RyYXNoJywgJ2NpJywgdHJ1ZSk7Cm9rKCd1aU1hcmsg5bim5b2p5bqV5aSW5aOzJywgbWFyay5pbmNsdWRlcygnY2xhc3M9ImNpIHVpLWljIHVpLWljLWRhbmdlciInKSwgbWFyay5zbGljZSgwLCA4MCkpOwpvaygndWlNYXJrIOWGheaYryBTVkcnLCBtYXJrLmluY2x1ZGVzKCc8c3ZnJyksIG1hcmsuc2xpY2UoMCwgMTIwKSk7Cm9rKCd1aU1hcmsg5LiN5YaZ5q276aKc6ImyJywgIS8jZmZmfCNbMC05YS1mXXs2fS9pLnRlc3QobWFyayksIG1hcmsuc2xpY2UoMCwgMTYwKSk7Cm9rKCfnqbrlm77moIflkI3kuI3muLLmn5Pnqbrlo7MnLCB1aU1hcmsoJycsICdjaScpID09PSAnJyk7Cgpjb25zb2xlLmxvZyhgXG7pgJrov4cgJHtwYXNzfSAvIOWksei0pSAke2ZhaWx9YCk7CnByb2Nlc3MuZXhpdChmYWlsID8gMSA6IDApOwo=
+// UI 图标测试：界面图标必须统一彩底 + 白色 SVG，不能退回彩色 emoji
+// 跑法：node scripts/settings-icon-test.mjs
+// 只引 js/seticon.js（无 DOM 依赖），settings.js 只做源码静态检查
+import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import { dirname, join } from 'node:path';
+import { setIconHTML } from '../js/seticon.js';
+import { hasIcon, uiIcon, uiMark } from '../js/uiicon.js';
+
+const root = join(dirname(fileURLToPath(import.meta.url)), '..');
+const src = readFileSync(join(root, 'js/pages/settings.js'), 'utf8');
+
+let pass = 0, fail = 0;
+const ok = (name, cond, extra = '') => {
+  if (cond) { pass++; console.log('OK  ', name); }
+  else { fail++; console.log('FAIL', name, extra); }
+};
+const eq = (name, a, b) => ok(name, a === b, `got=${JSON.stringify(a)} want=${JSON.stringify(b)}`);
+
+// 1) 不再有「emoji + 各自底色」的写法（旧格式：icon: '⚡', bg: 'rgba(...)'）
+const legacy = src.match(/icon: '[^']*', bg: '[^']*'/g) || [];
+ok('设置项不再用「emoji + 各自底色」', legacy.length === 0, legacy.slice(0, 3).join(' | '));
+
+// 2) 渲染出来的图标必须是 SVG，且墨色交给 CSS
+const svg = setIconHTML('bolt');
+ok('表内名字渲染成 SVG', svg.startsWith('<svg') && svg.includes('<path '), svg.slice(0, 120));
+ok('墨色用 currentColor（由 CSS 统一给白）', svg.includes('stroke="currentColor"'), svg.slice(0, 160));
+ok('不写死颜色', !/#fff|#ffffff|#[0-9a-f]{6}/i.test(svg), svg.slice(0, 160));
+ok('过滤 Tabler 占位 path', !svg.includes('M0 0h24v24H0z'));
+ok('24 网格', svg.includes('viewBox="0 0 24 24"'));
+
+// 3) 表里查不到的名字（emoji / 空）必须原样返回，不能崩
+eq('未知名字回退原样', setIconHTML('🎉'), '🎉');
+eq('空值回退空', setIconHTML(''), '');
+eq('undefined 不抛错', typeof setIconHTML(undefined), 'string');
+
+// 4) 设置页实际用到的图标名，绝大多数都要能在表里查到
+const used = [...new Set([...src.matchAll(/icon: '([^']+)'/g)].map((m) => m[1]))];
+const hit = used.filter(hasIcon);
+const miss = used.filter((n) => !hasIcon(n));
+ok('用到的图标名大多命中表', hit.length >= 20, `命中 ${hit.length} / 共 ${used.length}`);
+ok('未命中的只剩 sheet 里的 emoji/符号', miss.every((m) => !/^[a-z][a-z_-]*$/.test(m)),
+  `未命中: ${miss.join(', ')}`);
+console.log(`    命中 ${hit.length} 个：${hit.join(' ')}`);
+console.log(`    回退 ${miss.length} 个：${miss.join(' ')}`);
+
+// 5) 全项目扫描：所有页面 / 弹层里写死的图标名必须都能查到，
+//    拼错名字会静默退化成 emoji —— 这条就是拦它的（emoji 名除外）
+const { readdirSync, statSync } = await import('node:fs');
+const walk = (dir) => readdirSync(dir).flatMap((f) => {
+  const p = join(dir, f);
+  return statSync(p).isDirectory() ? walk(p) : (p.endsWith('.js') ? [p] : []);
+});
+const files = walk(join(root, 'js')).filter((f) => !f.endsWith('caticon.js') && !f.endsWith('store.js'));
+const names = new Set();
+for (const f of files) {
+  const code = readFileSync(f, 'utf8');
+  for (const m of code.matchAll(/icon: '([^']+)'/g)) names.add(m[1]);
+  for (const m of code.matchAll(/uiMark\('([^']+)'/g)) names.add(m[1]);
+  for (const m of code.matchAll(/uiIcon\('([^']+)'/g)) names.add(m[1]);
+  for (const m of code.matchAll(/cardHead\('([^']+)'/g)) names.add(m[1]);
+}
+const bad = [...names].filter((n) => /^[a-z][a-z_-]*$/.test(n) && !hasIcon(n));
+ok('全项目图标名都能查到（拼错会退化成 emoji）', bad.length === 0, `查不到: ${bad.join(', ')}`);
+console.log(`    共扫描 ${files.length} 个模块、${names.size} 个图标名`);
+
+// 6) uiMark 必须自带彩底外壳，且墨色交给 CSS
+const mark = uiMark('trash', 'ci', true);
+ok('uiMark 带彩底外壳', mark.includes('class="ci ui-ic ui-ic-danger"'), mark.slice(0, 80));
+ok('uiMark 内是 SVG', mark.includes('<svg'), mark.slice(0, 120));
+ok('uiMark 不写死颜色', !/#fff|#[0-9a-f]{6}/i.test(mark), mark.slice(0, 160));
+ok('空图标名不渲染空壳', uiMark('', 'ci') === '');
+
+console.log(`\n通过 ${pass} / 失败 ${fail}`);
+process.exit(fail ? 1 : 0);

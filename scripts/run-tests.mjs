@@ -1,1 +1,31 @@
-Ly8g57uf5LiA5rWL6K+V5YWl5Y+j77yabnBtIHRlc3QKLy8KLy8g6Ieq5Yqo5Y+R546wIHNjcmlwdHMvIOS4i+eahOa1i+ivleiEmuacrOW5tuS+neasoei3ke+8jOaWsOWinua1i+ivleaWh+S7tuS4jeeUqOaUuei/memHjOOAggovLyDlj6rorqQgKi10ZXN0Lm1qcyDkuI4gc21va2UubWpzIOKAlOKAlCDlkIznm67lvZXph4znmoTmnoTlu7ogLyDmiZPljIXohJrmnKzvvIhidWlsZC1wcmV2aWV3Lm1qcyDnrYnvvIkKLy8g5LiN5piv5rWL6K+V77yM6LeR5a6D5Lus5Lya6aG65bim5b6AIGRvY3MvIOWGmeaWh+S7tu+8jENJIOS4iuWboOS4uuebruW9leS4jeWtmOWcqOebtOaOpeWksei0peOAggovLyDlj6blpJbmjpLpmaTvvJoKLy8gICBydW4tdGVzdHMubWpzICDoh6rlt7EKLy8gICBzeW5jLWUyZS5tanMgICDpnIDopoHnnJ/lrp4gR0hfVE9LRU4g5LiU5Lya6IGU572R5bu6IEdpc3TvvIzlj6rog73lnKjmnKzlnLDmiYvliqjot5EKaW1wb3J0IHsgcmVhZGRpclN5bmMgfSBmcm9tICdub2RlOmZzJzsKaW1wb3J0IHsgc3Bhd25TeW5jIH0gZnJvbSAnbm9kZTpjaGlsZF9wcm9jZXNzJzsKaW1wb3J0IHsgZmlsZVVSTFRvUGF0aCB9IGZyb20gJ25vZGU6dXJsJzsKaW1wb3J0IHsgZGlybmFtZSwgam9pbiB9IGZyb20gJ25vZGU6cGF0aCc7Cgpjb25zdCBESVIgPSBkaXJuYW1lKGZpbGVVUkxUb1BhdGgoaW1wb3J0Lm1ldGEudXJsKSk7CmNvbnN0IFNLSVAgPSBuZXcgU2V0KFsncnVuLXRlc3RzLm1qcycsICdzeW5jLWUyZS5tanMnXSk7CmNvbnN0IGlzVGVzdCA9IChmKSA9PiBmLmVuZHNXaXRoKCctdGVzdC5tanMnKSB8fCBmID09PSAnc21va2UubWpzJzsKY29uc3QgZmlsZXMgPSByZWFkZGlyU3luYyhESVIpLmZpbHRlcigoZikgPT4gZi5lbmRzV2l0aCgnLm1qcycpICYmICFTS0lQLmhhcyhmKSAmJiBpc1Rlc3QoZikpLnNvcnQoKTsKCmNvbnN0IGZhaWxlZCA9IFtdOwpmb3IgKGNvbnN0IGYgb2YgZmlsZXMpIHsKICBjb25zb2xlLmxvZyhgXG7ilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIAgJHtmfSDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIBgKTsKICBjb25zdCByID0gc3Bhd25TeW5jKHByb2Nlc3MuZXhlY1BhdGgsIFtqb2luKERJUiwgZildLCB7IHN0ZGlvOiAnaW5oZXJpdCcgfSk7CiAgaWYgKHIuc3RhdHVzICE9PSAwKSBmYWlsZWQucHVzaChmKTsKfQoKY29uc29sZS5sb2coJ1xuJyArICc9Jy5yZXBlYXQoNDYpKTsKaWYgKGZhaWxlZC5sZW5ndGgpIHsKICBjb25zb2xlLmxvZyhgRkFJTEVEICgke2ZhaWxlZC5sZW5ndGh9LyR7ZmlsZXMubGVuZ3RofSk6ICR7ZmFpbGVkLmpvaW4oJywgJyl9YCk7CiAgcHJvY2Vzcy5leGl0KDEpOwp9CmNvbnNvbGUubG9nKGDlhajpg6jpgJrov4cg4oCU4oCUICR7ZmlsZXMubGVuZ3RofSDkuKrmtYvor5XohJrmnKxgKTsK
+// 统一测试入口：npm test
+//
+// 自动发现 scripts/ 下的测试脚本并依次跑，新增测试文件不用改这里。
+// 只认 *-test.mjs 与 smoke.mjs —— 同目录里的构建 / 打包脚本（build-preview.mjs 等）
+// 不是测试，跑它们会顺带往 docs/ 写文件，CI 上因为目录不存在直接失败。
+// 另外排除：
+//   run-tests.mjs  自己
+//   sync-e2e.mjs   需要真实 GH_TOKEN 且会联网建 Gist，只能在本地手动跑
+import { readdirSync } from 'node:fs';
+import { spawnSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
+import { dirname, join } from 'node:path';
+
+const DIR = dirname(fileURLToPath(import.meta.url));
+const SKIP = new Set(['run-tests.mjs', 'sync-e2e.mjs']);
+const isTest = (f) => f.endsWith('-test.mjs') || f === 'smoke.mjs';
+const files = readdirSync(DIR).filter((f) => f.endsWith('.mjs') && !SKIP.has(f) && isTest(f)).sort();
+
+const failed = [];
+for (const f of files) {
+  console.log(`\n──────────── ${f} ────────────`);
+  const r = spawnSync(process.execPath, [join(DIR, f)], { stdio: 'inherit' });
+  if (r.status !== 0) failed.push(f);
+}
+
+console.log('\n' + '='.repeat(46));
+if (failed.length) {
+  console.log(`FAILED (${failed.length}/${files.length}): ${failed.join(', ')}`);
+  process.exit(1);
+}
+console.log(`全部通过 —— ${files.length} 个测试脚本`);

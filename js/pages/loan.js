@@ -1,1 +1,135 @@
-Ly8g6LS35qy+5ZKM5YiG5pyf77ya6LS35qy+5YiX6KGoIC8g6L+Y5qy+6L+b5bqmIC8g6K6w5LiA56yU6L+Y5qy+CmltcG9ydCB7IFMsIGNhdHMsIGFkZEJpbGwsIHVpZCwgZm10TW9uZXksIHNhdmUsIHRvZGF5LCBhZGRUb21ic3RvbmUgfSBmcm9tICcuLi9zdG9yZS5qcyc7CmltcG9ydCB7IGVzYyB9IGZyb20gJy4uL3V0aWwuanMnOwppbXBvcnQgeyB1aU1hcmsgfSBmcm9tICcuLi91aWljb24uanMnOwppbXBvcnQgeyBVSSB9IGZyb20gJy4uL2FwcC5qcyc7CgoKZnVuY3Rpb24gcmVmcmVzaCgpIHsKICBjb25zdCBzY3JlZW4gPSBkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgnc2NyZWVuJyk7CiAgUHJvbWlzZS5yZXNvbHZlKG1vZC5yZW5kZXIoKSkudGhlbigoaHRtbCkgPT4gewogICAgc2NyZWVuLmlubmVySFRNTCA9IGh0bWw7CiAgICBtb2QubW91bnQoc2NyZWVuKTsKICB9KTsKfQoKZnVuY3Rpb24gdGlwQ2FyZCgpIHsKICByZXR1cm4gYAogIDxkaXYgY2xhc3M9ImNhcmQiPgogICAgPGRpdiBjbGFzcz0iY2FyZC10aXRsZS1yb3ciPiR7dWlNYXJrKCdjb2luJywgJ2JhZGdlLWljJyl9PHNwYW4gY2xhc3M9ImNhcmQtdGl0bGUiPuWKn+iDveivtOaYjjwvc3Bhbj48L2Rpdj4KICAgIDxkaXYgY2xhc3M9ImxuLXRpcCI+CiAgICAgIDxkaXYgY2xhc3M9ImxuLXRpcC1yb3ciPjxiPui0t+asvuiusOW9lTwvYj7orrDlvZXmiL/otLfjgIHovabotLfnrYnplb/mnJ/otLfmrL7vvIzmjInmnIjot5/ouKrov5jmrL7ov5vluqbjgII8L2Rpdj4KICAgICAgPGRpdiBjbGFzcz0ibG4tdGlwLXJvdyI+PGI+5raI6LS55YiG5pyfPC9iPuWkp+minea2iOi0ueWIhuacn++8jOiusOW9leavj+acn+mHkemineS4juWJqeS9meacn+aVsOOAgjwvZGl2PgogICAgICA8ZGl2IGNsYXNzPSJsbi10aXAtcm93Ij48Yj7otKbljZXliIbmnJ88L2I+5L+h55So5Y2h6LSm5Y2V5YiG5pyf77yM6ZqP5pe25p+l55yL5bey6L+Y5q+U5L6L44CCPC9kaXY+CiAgICA8L2Rpdj4KICA8L2Rpdj5gOwp9CgpmdW5jdGlvbiBsb2FuQ2FyZChsKSB7CiAgY29uc3QgbW9udGhzID0gK2wubW9udGhzIHx8IDA7CiAgY29uc3QgcGFpZCA9ICtsLnBhaWQgfHwgMDsKICBjb25zdCBsZWZ0ID0gTWF0aC5tYXgoMCwgbW9udGhzIC0gcGFpZCk7CiAgY29uc3QgcGFpZEFtdCA9IE1hdGgubWluKHBhaWQgKiAoK2wubW9udGhBbW91bnQgfHwgMCksICtsLnRvdGFsIHx8IDApOwogIGNvbnN0IHBjdCA9IG1vbnRocyA/IE1hdGgubWluKDEwMCwgKHBhaWQgLyBtb250aHMpICogMTAwKSA6IDA7CiAgY29uc3QgY29sb3IgPSBsLmRvbmUgPyAndmFyKC0tZ3JlZW4pJyA6ICd2YXIoLS1ibHVlKSc7CiAgcmV0dXJuIGAKICA8ZGl2IGNsYXNzPSJjYXJkIGxuLWNhcmQiIGRhdGEtbG9hbj0iJHtsLmlkfSI+CiAgICA8ZGl2IGNsYXNzPSJyb3cxIj4KICAgICAgPHNwYW4gY2xhc3M9Im5tIj4ke2VzYyhsLm5hbWUpfSR7bC5kb25lID8gJzxzcGFuIGNsYXNzPSJhZC1iYWRnZS1kb25lIj7lt7Lov5jmuIU8L3NwYW4+JyA6ICcnfTwvc3Bhbj4KICAgICAgPGJ1dHRvbiBjbGFzcz0ibG4tcGF5IiBkYXRhLXBheT0iJHtsLmlkfSI+6K6w5LiA56yU6L+Y5qy+PC9idXR0b24+CiAgICA8L2Rpdj4KICAgIDxkaXYgY2xhc3M9InByb2dyZXNzIj48aSBzdHlsZT0id2lkdGg6JHtwY3R9JTtiYWNrZ3JvdW5kOiR7Y29sb3J9Ij48L2k+PC9kaXY+CiAgICA8ZGl2IGNsYXNzPSJsbi1tZXRhIj4KICAgICAgPHNwYW4+5bey6L+YIMKlJHtmbXRNb25leShwYWlkQW10KX0gLyDCpSR7Zm10TW9uZXkobC50b3RhbCl9PC9zcGFuPgogICAgICA8c3Bhbj7liankvZkgJHtsZWZ0fSDmnJ88L3NwYW4+CiAgICA8L2Rpdj4KICAgIDxkaXYgY2xhc3M9ImxuLW1ldGEiIHN0eWxlPSJtYXJnaW4tdG9wOjZweCI+CiAgICAgIDxzcGFuPuaciOS+myDCpSR7Zm10TW9uZXkobC5tb250aEFtb3VudCl9IMK3IOWFsSAke21vbnRoc30g5pyfIMK3IOW3sui/mCAke3BhaWR9IOacnzwvc3Bhbj4KICAgICAgPHNwYW4+JHtsLnN0YXJ0RGF0ZSB8fCAnJ308L3NwYW4+CiAgICA8L2Rpdj4KICA8L2Rpdj5gOwp9CgovLyDorrDkuIDnrJTov5jmrL7vvJrnlJ/miJDmlK/lh7rotKbljZXvvIjliIbnsbvjgIzlhbbku5bjgI3vvInlubbmjqjov5vmnJ/mlbAKYXN5bmMgZnVuY3Rpb24gcGF5T25jZShsKSB7CiAgaWYgKCgrbC5wYWlkIHx8IDApID49ICgrbC5tb250aHMgfHwgMCkpIHJldHVybiBVSS50b2FzdCgn6K+l6LS35qy+5bey6L+Y5riFIOKckycpOwogIGNvbnN0IGFjY3MgPSBTKCkuYWNjb3VudHMuZmlsdGVyKChhKSA9PiAhYS5hcmNoaXZlZCAmJiAhYS5oaWRkZW4pOwogIGlmICghYWNjcy5sZW5ndGgpIHJldHVybiBVSS50b2FzdCgn6K+35YWI5Zyo6LWE5Lqn6aG15re75Yqg5LiA5Liq6LSm5oi3Jyk7CiAgY29uc3QgY2F0ID0gY2F0cygnZXhwZW5zZScpLmZpbmQoKGMpID0+IGMubmFtZSA9PT0gJ+WFtuS7licpIHx8IGNhdHMoJ2V4cGVuc2UnKVswXTsKICBjb25zdCBuZXh0ID0gKCtsLnBhaWQgfHwgMCkgKyAxOwogIGFkZEJpbGwoewogICAgdHlwZTogJ2V4cGVuc2UnLAogICAgYW1vdW50OiArbC5tb250aEFtb3VudCB8fCAwLAogICAgY2F0ZWdvcnlJZDogY2F0Py5pZCB8fCAnJywKICAgIGFjY291bnRJZDogYWNjc1swXS5pZCwKICAgIGRhdGU6IHRvZGF5KCksCiAgICBub3RlOiBgJHtsLm5hbWV9IOesrCAke25leHR9LyR7bC5tb250aHN9IOacn+i/mOasvmAsCiAgfSk7CiAgbC5wYWlkID0gbmV4dDsKICBpZiAobC5wYWlkID49ICgrbC5tb250aHMgfHwgMCkpIGwuZG9uZSA9IHRydWU7CiAgc2F2ZSgpOwogIFVJLnRvYXN0KGwuZG9uZSA/ICflt7Lov5jmuIXvvIzmga3llpwg8J+OiScgOiBg5bey6K6w5b2V56ysICR7bmV4dH0g5pyf6L+Y5qy+IOKck2ApOwogIHJlZnJlc2goKTsKfQoKYXN5bmMgZnVuY3Rpb24gbmV3TG9hbigpIHsKICBjb25zdCBuYW1lID0gYXdhaXQgVUkucHJvbXB0KCfotLfmrL7lkI3np7AnLCAn5aaC77ya5oi/6LS3IC8g6L2m6LS3IC8g5omL5py65YiG5pyfJyk7CiAgaWYgKCFuYW1lKSByZXR1cm47CiAgY29uc3QgdG90YWwgPSBwYXJzZUZsb2F0KGF3YWl0IFVJLnByb21wdCgn6LS35qy+5oC76aKdJywgJzAuMDAnLCAnJywgJ251bWJlcicpKTsKICBpZiAoISh0b3RhbCA+IDApKSByZXR1cm4gVUkudG9hc3QoJ+ivt+i+k+WFpeato+ehrueahOaAu+minScpOwogIGNvbnN0IG1vbnRocyA9IHBhcnNlSW50KGF3YWl0IFVJLnByb21wdCgn5oC75pyf5pWwJywgJ+Wmgu+8mjI0JywgJzEyJywgJ251bWJlcicpLCAxMCk7CiAgaWYgKCEobW9udGhzID4gMCkpIHJldHVybiBVSS50b2FzdCgn6K+36L6T5YWl5q2j56Gu55qE5pyf5pWwJyk7CiAgY29uc3QgbW9udGhBbW91bnQgPSBwYXJzZUZsb2F0KGF3YWl0IFVJLnByb21wdCgn5q+P5pyf6L+Y5qy+6YeR6aKdJywgJzAuMDAnLCAodG90YWwgLyBtb250aHMpLnRvRml4ZWQoMiksICdudW1iZXInKSk7CiAgaWYgKCEobW9udGhBbW91bnQgPiAwKSkgcmV0dXJuIFVJLnRvYXN0KCfor7fovpPlhaXmraPnoa7nmoTmnIjkvpsnKTsKICBjb25zdCBzdGFydERhdGUgPSAoYXdhaXQgVUkucHJvbXB0KCflvIDlp4vml6XmnJ8nLCAnJywgdG9kYXkoKSwgJ2RhdGUnKSkgfHwgdG9kYXkoKTsKICBTKCkubG9hbnMucHVzaCh7IGlkOiB1aWQoKSwgbmFtZSwgdG90YWwsIG1vbnRocywgbW9udGhBbW91bnQsIHN0YXJ0RGF0ZSwgcGFpZDogMCwgZG9uZTogZmFsc2UgfSk7CiAgc2F2ZSgpOwogIFVJLnRvYXN0KCflt7Lmt7vliqDotLfmrL4g4pyTJyk7CiAgcmVmcmVzaCgpOwp9Cgpjb25zdCBtb2QgPSB7CiAgaGVhZGVyOiAnc3ViJywKICB0aXRsZTogJ+i0t+asvuWSjOWIhuacnycsCgogIHJlbmRlcigpIHsKICAgIGNvbnN0IGxpc3QgPSBTKCkubG9hbnMgfHwgW107CiAgICByZXR1cm4gYAogICAgICAke3RpcENhcmQoKX0KICAgICAgPGRpdiBjbGFzcz0ic2VjLXRpdGxlIj7miJHnmoTotLfmrL48L2Rpdj4KICAgICAgJHtsaXN0Lmxlbmd0aCA/IGxpc3QubWFwKGxvYW5DYXJkKS5qb2luKCcnKSA6IGA8ZGl2IGNsYXNzPSJlbXB0eS10aXAiPuaaguaXoOaVsOaNriDCtyDmt7vliqDkuIDnrJTotLfmrL7lvIDlp4vorrDlvZU8L2Rpdj5gfQogICAgICA8YnV0dG9uIGNsYXNzPSJsbi1hZGQiIGRhdGEtYWN0PSJhZGQiPisg5paw5bu66LS35qy+PC9idXR0b24+YDsKICB9LAoKICBtb3VudChyb290KSB7CiAgICByb290LnF1ZXJ5U2VsZWN0b3JBbGwoJ1tkYXRhLXBheV0nKS5mb3JFYWNoKChiKSA9PgogICAgICBiLmFkZEV2ZW50TGlzdGVuZXIoJ2NsaWNrJywgKGUpID0+IHsKICAgICAgICBlLnN0b3BQcm9wYWdhdGlvbigpOwogICAgICAgIGNvbnN0IGwgPSAoUygpLmxvYW5zIHx8IFtdKS5maW5kKCh4KSA9PiB4LmlkID09PSBiLmRhdGFzZXQucGF5KTsKICAgICAgICBpZiAobCkgcGF5T25jZShsKTsKICAgICAgfSkpOwoKICAgIHJvb3QucXVlcnlTZWxlY3RvckFsbCgnW2RhdGEtbG9hbl0nKS5mb3JFYWNoKChlbCkgPT4KICAgICAgZWwuYWRkRXZlbnRMaXN0ZW5lcignY2xpY2snLCBhc3luYyAoKSA9PiB7CiAgICAgICAgY29uc3QgbCA9IChTKCkubG9hbnMgfHwgW10pLmZpbmQoKHgpID0+IHguaWQgPT09IGVsLmRhdGFzZXQubG9hbik7CiAgICAgICAgaWYgKCFsKSByZXR1cm47CiAgICAgICAgY29uc3QgcGljayA9IGF3YWl0IFVJLnNoZWV0KGwubmFtZSwgWwogICAgICAgICAgeyBsYWJlbDogJ+iusOS4gOeslOi/mOasvicsIGljb246ICdjb2luJywgb25DbGljazogKCkgPT4gcGF5T25jZShsKSB9LAogICAgICAgICAgeyBsYWJlbDogJ+WIoOmZpOi0t+asvicsIGljb246ICd0cmFzaCcsIGRhbmdlcjogdHJ1ZSwgb25DbGljazogYXN5bmMgKCkgPT4gewogICAgICAgICAgICBjb25zdCBvayA9IGF3YWl0IFVJLmNvbmZpcm0oYOWIoOmZpOOAjCR7bC5uYW1lfeOAje+8n+W3suiusOW9leeahOi/mOasvui0puWNleS8muS/neeVmWAsICfliKDpmaQnKTsKICAgICAgICAgICAgaWYgKCFvaykgcmV0dXJuOwogICAgICAgICAgICBTKCkubG9hbnMgPSBTKCkubG9hbnMuZmlsdGVyKCh4KSA9PiB4LmlkICE9PSBsLmlkKTsKICAgICAgICAgICAgYWRkVG9tYnN0b25lKCdsb2FucycsIGwuaWQpOwogICAgICAgICAgICBzYXZlKCk7CiAgICAgICAgICAgIFVJLnRvYXN0KCflt7LliKDpmaQnKTsKICAgICAgICAgICAgcmVmcmVzaCgpOwogICAgICAgICAgfSB9LAogICAgICAgIF0pOwogICAgICAgIHBpY2s/Lm9uQ2xpY2s/LigpOwogICAgICB9KSk7CgogICAgcm9vdC5xdWVyeVNlbGVjdG9yKCdbZGF0YS1hY3Q9ImFkZCJdJyk/LmFkZEV2ZW50TGlzdGVuZXIoJ2NsaWNrJywgbmV3TG9hbik7CiAgfSwKfTsKCmV4cG9ydCBkZWZhdWx0IG1vZDsK
+// 贷款和分期：贷款列表 / 还款进度 / 记一笔还款
+import { S, cats, addBill, uid, fmtMoney, save, today, addTombstone } from '../store.js';
+import { esc } from '../util.js';
+import { uiMark } from '../uiicon.js';
+import { UI } from '../app.js';
+
+
+function refresh() {
+  const screen = document.getElementById('screen');
+  Promise.resolve(mod.render()).then((html) => {
+    screen.innerHTML = html;
+    mod.mount(screen);
+  });
+}
+
+function tipCard() {
+  return `
+  <div class="card">
+    <div class="card-title-row">${uiMark('coin', 'badge-ic')}<span class="card-title">功能说明</span></div>
+    <div class="ln-tip">
+      <div class="ln-tip-row"><b>贷款记录</b>记录房贷、车贷等长期贷款，按月跟踪还款进度。</div>
+      <div class="ln-tip-row"><b>消费分期</b>大额消费分期，记录每期金额与剩余期数。</div>
+      <div class="ln-tip-row"><b>账单分期</b>信用卡账单分期，随时查看已还比例。</div>
+    </div>
+  </div>`;
+}
+
+function loanCard(l) {
+  const months = +l.months || 0;
+  const paid = +l.paid || 0;
+  const left = Math.max(0, months - paid);
+  const paidAmt = Math.min(paid * (+l.monthAmount || 0), +l.total || 0);
+  const pct = months ? Math.min(100, (paid / months) * 100) : 0;
+  const color = l.done ? 'var(--green)' : 'var(--blue)';
+  return `
+  <div class="card ln-card" data-loan="${l.id}">
+    <div class="row1">
+      <span class="nm">${esc(l.name)}${l.done ? '<span class="ad-badge-done">已还清</span>' : ''}</span>
+      <button class="ln-pay" data-pay="${l.id}">记一笔还款</button>
+    </div>
+    <div class="progress"><i style="width:${pct}%;background:${color}"></i></div>
+    <div class="ln-meta">
+      <span>已还 ¥${fmtMoney(paidAmt)} / ¥${fmtMoney(l.total)}</span>
+      <span>剩余 ${left} 期</span>
+    </div>
+    <div class="ln-meta" style="margin-top:6px">
+      <span>月供 ¥${fmtMoney(l.monthAmount)} · 共 ${months} 期 · 已还 ${paid} 期</span>
+      <span>${l.startDate || ''}</span>
+    </div>
+  </div>`;
+}
+
+// 记一笔还款：生成支出账单（分类「其他」）并推进期数
+async function payOnce(l) {
+  if ((+l.paid || 0) >= (+l.months || 0)) return UI.toast('该贷款已还清 ✓');
+  const accs = S().accounts.filter((a) => !a.archived && !a.hidden);
+  if (!accs.length) return UI.toast('请先在资产页添加一个账户');
+  const cat = cats('expense').find((c) => c.name === '其他') || cats('expense')[0];
+  const next = (+l.paid || 0) + 1;
+  addBill({
+    type: 'expense',
+    amount: +l.monthAmount || 0,
+    categoryId: cat?.id || '',
+    accountId: accs[0].id,
+    date: today(),
+    note: `${l.name} 第 ${next}/${l.months} 期还款`,
+  });
+  l.paid = next;
+  if (l.paid >= (+l.months || 0)) l.done = true;
+  save();
+  UI.toast(l.done ? '已还清，恭喜 🎉' : `已记录第 ${next} 期还款 ✓`);
+  refresh();
+}
+
+async function newLoan() {
+  const name = await UI.prompt('贷款名称', '如：房贷 / 车贷 / 手机分期');
+  if (!name) return;
+  const total = parseFloat(await UI.prompt('贷款总额', '0.00', '', 'number'));
+  if (!(total > 0)) return UI.toast('请输入正确的总额');
+  const months = parseInt(await UI.prompt('总期数', '如：24', '12', 'number'), 10);
+  if (!(months > 0)) return UI.toast('请输入正确的期数');
+  const monthAmount = parseFloat(await UI.prompt('每期还款金额', '0.00', (total / months).toFixed(2), 'number'));
+  if (!(monthAmount > 0)) return UI.toast('请输入正确的月供');
+  const startDate = (await UI.prompt('开始日期', '', today(), 'date')) || today();
+  S().loans.push({ id: uid(), name, total, months, monthAmount, startDate, paid: 0, done: false });
+  save();
+  UI.toast('已添加贷款 ✓');
+  refresh();
+}
+
+const mod = {
+  header: 'sub',
+  title: '贷款和分期',
+
+  render() {
+    const list = S().loans || [];
+    return `
+      ${tipCard()}
+      <div class="sec-title">我的贷款</div>
+      ${list.length ? list.map(loanCard).join('') : `<div class="empty-tip">暂无数据 · 添加一笔贷款开始记录</div>`}
+      <button class="ln-add" data-act="add">+ 新建贷款</button>`;
+  },
+
+  mount(root) {
+    root.querySelectorAll('[data-pay]').forEach((b) =>
+      b.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const l = (S().loans || []).find((x) => x.id === b.dataset.pay);
+        if (l) payOnce(l);
+      }));
+
+    root.querySelectorAll('[data-loan]').forEach((el) =>
+      el.addEventListener('click', async () => {
+        const l = (S().loans || []).find((x) => x.id === el.dataset.loan);
+        if (!l) return;
+        const pick = await UI.sheet(l.name, [
+          { label: '记一笔还款', icon: 'coin', onClick: () => payOnce(l) },
+          { label: '删除贷款', icon: 'trash', danger: true, onClick: async () => {
+            const ok = await UI.confirm(`删除「${l.name}」？已记录的还款账单会保留`, '删除');
+            if (!ok) return;
+            S().loans = S().loans.filter((x) => x.id !== l.id);
+            addTombstone('loans', l.id);
+            save();
+            UI.toast('已删除');
+            refresh();
+          } },
+        ]);
+        pick?.onClick?.();
+      }));
+
+    root.querySelector('[data-act="add"]')?.addEventListener('click', newLoan);
+  },
+};
+
+export default mod;

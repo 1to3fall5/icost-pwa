@@ -1,1 +1,193 @@
-Ly8g6aKE566X566h55CG77ya5oC76aKE566X77yI5ZGoL+aciC/lubTvvIkrIOWIhuexu+mihOeulwppbXBvcnQgeyBTLCBzYXZlLCBjYXRzLCB1aWQsIGZtdE1vbmV5LCBhZGRUb21ic3RvbmUgfSBmcm9tICcuLi9zdG9yZS5qcyc7CmltcG9ydCB7IGVzYyB9IGZyb20gJy4uL3V0aWwuanMnOwppbXBvcnQgeyBjYXRNYXJrSFRNTCB9IGZyb20gJy4uL2NhdGljb24uanMnOwppbXBvcnQgeyB1aU1hcmsgfSBmcm9tICcuLi91aWljb24uanMnOwppbXBvcnQgeyBVSSB9IGZyb20gJy4uL2FwcC5qcyc7Cgpjb25zdCBwYWQgPSAobikgPT4gU3RyaW5nKG4pLnBhZFN0YXJ0KDIsICcwJyk7CmNvbnN0IHltZCA9IChkKSA9PiBgJHtkLmdldEZ1bGxZZWFyKCl9LSR7cGFkKGQuZ2V0TW9udGgoKSArIDEpfS0ke3BhZChkLmdldERhdGUoKSl9YDsKCmNvbnN0IFBFUklPRFMgPSBbWyd3ZWVrJywgJ+WRqCddLCBbJ21vbnRoJywgJ+aciCddLCBbJ3llYXInLCAn5bm0J11dOwpjb25zdCBQRVJJT0RfTEFCRUwgPSB7IHdlZWs6ICfmnKzlkagnLCBtb250aDogJ+acrOaciCcsIHllYXI6ICfmnKzlubQnIH07CgovLyDpppbmrKHmuLLmn5Pml7blho3ku44gc2V0dGluZ3Mg6K+75Y+W77yI5qih5Z2X5Yqg6L295pe2IHN0b3JlIOWPr+iDveWwmuacqiBsb2Fk77yJCmxldCBwZXJpb2QgPSBudWxsOwoKLy8g5b2T5pyf5pel5pyf5Yy66Ze077yI6LSm5Y2VIGRhdGUg5Li6ICdZWVlZLU1NLUREJ++8jOWtl+espuS4suavlOi+g+WNs+WPr++8iQpmdW5jdGlvbiByYW5nZShwID0gcGVyaW9kKSB7CiAgY29uc3QgbiA9IG5ldyBEYXRlKCk7CiAgaWYgKHAgPT09ICd3ZWVrJykgewogICAgY29uc3Qgd3MgPSBTKCkuc2V0dGluZ3Mud2Vla1N0YXJ0ID8/IDE7CiAgICBjb25zdCBvZmYgPSAobi5nZXREYXkoKSAtIHdzICsgNykgJSA3OwogICAgY29uc3QgcyA9IG5ldyBEYXRlKG4pOyBzLnNldERhdGUobi5nZXREYXRlKCkgLSBvZmYpOwogICAgY29uc3QgZSA9IG5ldyBEYXRlKHMpOyBlLnNldERhdGUocy5nZXREYXRlKCkgKyA2KTsKICAgIHJldHVybiBbeW1kKHMpLCB5bWQoZSldOwogIH0KICBpZiAocCA9PT0gJ3llYXInKSByZXR1cm4gW2Ake24uZ2V0RnVsbFllYXIoKX0tMDEtMDFgLCBgJHtuLmdldEZ1bGxZZWFyKCl9LTEyLTMxYF07CiAgcmV0dXJuIFtgJHtuLmdldEZ1bGxZZWFyKCl9LSR7cGFkKG4uZ2V0TW9udGgoKSArIDEpfS0wMWAsIGAke24uZ2V0RnVsbFllYXIoKX0tJHtwYWQobi5nZXRNb250aCgpICsgMSl9LTMxYF07Cn0KCmZ1bmN0aW9uIHNwZW50T2YoY2F0ZWdvcnlJZCwgcCA9IHBlcmlvZCkgewogIGNvbnN0IFtzLCBlXSA9IHJhbmdlKHApOwogIHJldHVybiBTKCkuYmlsbHMuZmlsdGVyKChiKSA9PiB7CiAgICBpZiAoYi50eXBlICE9PSAnZXhwZW5zZScgfHwgYi5ib29rSWQgIT09IFMoKS5jdXJyZW50Qm9va0lkKSByZXR1cm4gZmFsc2U7CiAgICBpZiAoYi5kYXRlIDwgcyB8fCBiLmRhdGUgPiBlKSByZXR1cm4gZmFsc2U7CiAgICBpZiAoIWNhdGVnb3J5SWQpIHJldHVybiB0cnVlOwogICAgY29uc3QgYyA9IGNhdHMoJ2V4cGVuc2UnKS5maW5kKCh4KSA9PiB4LmlkID09PSBjYXRlZ29yeUlkKTsKICAgIGlmICghYykgcmV0dXJuIGIuY2F0ZWdvcnlJZCA9PT0gY2F0ZWdvcnlJZDsKICAgIHJldHVybiBiLmNhdGVnb3J5SWQgPT09IGMuaWQgfHwgYy5jaGlsZHJlbi5zb21lKCh4KSA9PiB4LmlkID09PSBiLmNhdGVnb3J5SWQpOwogIH0pLnJlZHVjZSgoc3VtLCBiKSA9PiBzdW0gKyBiLmFtb3VudCwgMCk7Cn0KCmNvbnN0IG1vbmV5ID0gKHYpID0+IChTKCkuc2V0dGluZ3MuaGlkZUFtb3VudCA/ICcqKioqJyA6ICfCpScgKyBmbXRNb25leSh2KSk7CgovLyDov5vluqbmnaEgKyDliankvZkv6LaF5pSvCmZ1bmN0aW9uIHByb2dyZXNzSFRNTChiLCB1c2VkKSB7CiAgY29uc3QgcmF0aW8gPSBiLmFtb3VudCA+IDAgPyB1c2VkIC8gYi5hbW91bnQgOiAwOwogIGNvbnN0IHBjdCA9IE1hdGgubWluKDEwMCwgTWF0aC5yb3VuZChyYXRpbyAqIDEwMCkpOwogIGNvbnN0IGNscyA9IHJhdGlvID4gMSA/ICdvdmVyJyA6IHJhdGlvID4gMC44ID8gJ3dhcm4nIDogJyc7CiAgY29uc3QgbGVmdCA9IGIuYW1vdW50IC0gdXNlZDsKICByZXR1cm4gYDxkaXYgY2xhc3M9ImJnLWJhciI+PGkgY2xhc3M9IiR7Y2xzfSIgc3R5bGU9IndpZHRoOiR7cGN0fSUiPjwvaT48L2Rpdj4KICAgIDxkaXYgY2xhc3M9ImJnLW1ldGEiPgogICAgICA8c3Bhbj4ke01hdGgucm91bmQocmF0aW8gKiAxMDApfSUg5bey5L2/55SoPC9zcGFuPgogICAgICA8c3Bhbj4ke2xlZnQgPj0gMCA/IGDliankvZkgJHttb25leShsZWZ0KX1gIDogYOi2heaUryAke21vbmV5KC1sZWZ0KX1gfTwvc3Bhbj4KICAgIDwvZGl2PmA7Cn0KCmZ1bmN0aW9uIGNhcmRIVE1MKGIsIG5hbWUsIGljb24sIGNvbG9yKSB7CiAgY29uc3QgdXNlZCA9IHNwZW50T2YoYi5jYXRlZ29yeUlkLCBiLnBlcmlvZCk7CiAgcmV0dXJuIGA8ZGl2IGNsYXNzPSJiZy1jYXJkIiBkYXRhLWJ1ZGdldD0iJHtiLmlkfSI+CiAgICA8ZGl2IGNsYXNzPSJiZy1yb3cxIj4KICAgICAgJHtjYXRNYXJrSFRNTCh7IG5hbWUsIGljb24sIGNvbG9yLCB0eXBlOiAnZXhwZW5zZScsIGNsczogJ2JnLWljJyB9KX0KICAgICAgPHNwYW4gY2xhc3M9ImJnLW5tIj4ke2VzYyhuYW1lKX08c3BhbiBjbGFzcz0iYmctc3ViIj4ke1BFUklPRF9MQUJFTFtiLnBlcmlvZF0gfHwgYi5wZXJpb2R95bey55SoICR7bW9uZXkodXNlZCl9PC9zcGFuPjwvc3Bhbj4KICAgICAgPHNwYW4gY2xhc3M9ImJnLWFtdCI+JHttb25leShiLmFtb3VudCl9PC9zcGFuPgogICAgPC9kaXY+CiAgICAke3Byb2dyZXNzSFRNTChiLCB1c2VkKX0KICA8L2Rpdj5gOwp9CgpmdW5jdGlvbiBib2R5SFRNTCgpIHsKICBjb25zdCBzdCA9IFMoKTsKICBjb25zdCB0b3RhbCA9IHN0LmJ1ZGdldHMuZmluZCgoYikgPT4gYi5zY29wZSA9PT0gJ3RvdGFsJyAmJiBiLnBlcmlvZCA9PT0gcGVyaW9kKTsKICBjb25zdCBsaXN0ID0gc3QuYnVkZ2V0cy5maWx0ZXIoKGIpID0+IGIuc2NvcGUgPT09ICdjYXRlZ29yeScgJiYgYi5wZXJpb2QgPT09IHBlcmlvZCk7CiAgY29uc3QgdG90YWxJbm5lciA9IHRvdGFsCiAgICA/IHByb2dyZXNzSFRNTCh0b3RhbCwgc3BlbnRPZihudWxsLCB0b3RhbC5wZXJpb2QpKQogICAgOiBgPGRpdiBjbGFzcz0ic3QyLWFkZCIgZGF0YS1hY3Q9InNldHRvdGFsIj4rIOiuvue9riR7UEVSSU9EX0xBQkVMW3BlcmlvZF195oC76aKE566XPC9kaXY+YDsKICByZXR1cm4gYAogICAgPGRpdiBjbGFzcz0iYmctY2FyZCI+CiAgICAgIDxkaXYgY2xhc3M9ImJnLXJvdzEiPgogICAgICAgICR7dWlNYXJrKCd0YXJnZXQnLCAnYmctaWMnKX0KICAgICAgICA8c3BhbiBjbGFzcz0iYmctbm0iPuaAu+mihOeulzxzcGFuIGNsYXNzPSJiZy1zdWIiPiR7UEVSSU9EX0xBQkVMW3BlcmlvZF195pSv5Ye65LiK6ZmQPC9zcGFuPjwvc3Bhbj4KICAgICAgICAke3RvdGFsID8gYDxzcGFuIGNsYXNzPSJiZy1hbXQiPiR7bW9uZXkodG90YWwuYW1vdW50KX08L3NwYW4+YCA6ICcnfQogICAgICA8L2Rpdj4KICAgICAgJHt0b3RhbElubmVyfQogICAgPC9kaXY+CiAgICA8ZGl2IGNsYXNzPSJzZWMtdGl0bGUiPuWIhuexu+mihOeulyDCtyAke2xpc3QubGVuZ3RofSDkuKo8L2Rpdj4KICAgICR7bGlzdC5sZW5ndGgKICAgICAgPyBsaXN0Lm1hcCgoYikgPT4gewogICAgICAgIGNvbnN0IGMgPSBjYXRzKCdleHBlbnNlJykuZmluZCgoeCkgPT4geC5pZCA9PT0gYi5jYXRlZ29yeUlkKTsKICAgICAgICByZXR1cm4gY2FyZEhUTUwoYiwgYz8ubmFtZSB8fCAn5bey5Yig6Zmk5YiG57G7JywgYz8uaWNvbiB8fCAn8J+nvicsIGM/LmNvbG9yIHx8ICcjOTg5ODlmJyk7CiAgICAgIH0pLmpvaW4oJycpCiAgICAgIDogJzxkaXYgY2xhc3M9ImNnLXRpcCI+5pqC5peg5YiG57G76aKE566X77yM5Y+v5Zyo5LiL5pa55re75YqgPC9kaXY+J30KICAgIDxkaXYgY2xhc3M9InN0Mi1hZGQiIGRhdGEtYWN0PSJhZGRjYXQiPisg5re75Yqg5YiG57G76aKE566XPC9kaXY+YDsKfQoKYXN5bmMgZnVuY3Rpb24gc2V0VG90YWwoKSB7CiAgY29uc3QgY3VyID0gUygpLmJ1ZGdldHMuZmluZCgoYikgPT4gYi5zY29wZSA9PT0gJ3RvdGFsJyAmJiBiLnBlcmlvZCA9PT0gcGVyaW9kKTsKICBjb25zdCB2YWwgPSBhd2FpdCBVSS5wcm9tcHQoYOiuvue9riR7UEVSSU9EX0xBQkVMW3BlcmlvZF195oC76aKE566XYCwgJ+ivt+i+k+WFpemHkeminScsIGN1ciA/IFN0cmluZyhjdXIuYW1vdW50KSA6ICcnLCAnbnVtYmVyJyk7CiAgaWYgKHZhbCA9PT0gbnVsbCkgcmV0dXJuIGZhbHNlOwogIGNvbnN0IGFtb3VudCA9IHBhcnNlRmxvYXQodmFsKTsKICBpZiAoIShhbW91bnQgPiAwKSkgeyBVSS50b2FzdCgn6K+36L6T5YWl5pyJ5pWI6YeR6aKdJyk7IHJldHVybiBmYWxzZTsgfQogIGlmIChjdXIpIGN1ci5hbW91bnQgPSBhbW91bnQ7CiAgZWxzZSBTKCkuYnVkZ2V0cy5wdXNoKHsgaWQ6IHVpZCgpLCBzY29wZTogJ3RvdGFsJywgcGVyaW9kLCBhbW91bnQgfSk7CiAgc2F2ZSgpOwogIFVJLnRvYXN0KCflt7Lkv53lrZjpooTnrpcnKTsKICByZXR1cm4gdHJ1ZTsKfQoKYXN5bmMgZnVuY3Rpb24gYWRkQ2F0QnVkZ2V0KCkgewogIGNvbnN0IG9wdHMgPSBjYXRzKCdleHBlbnNlJykubWFwKChjKSA9PiAoeyBsYWJlbDogYy5uYW1lLCBpY29uOiBjLmljb24sIGNvbG9yOiBjLmNvbG9yLCB2OiBjLmlkIH0pKTsKICBpZiAoIW9wdHMubGVuZ3RoKSB7IFVJLnRvYXN0KCfmmoLml6DmlK/lh7rliIbnsbsnKTsgcmV0dXJuIGZhbHNlOyB9CiAgY29uc3QgcGljayA9IGF3YWl0IFVJLnNoZWV0KCfpgInmi6nliIbnsbsnLCBvcHRzKTsKICBpZiAoIXBpY2spIHJldHVybiBmYWxzZTsKICBjb25zdCB2YWwgPSBhd2FpdCBVSS5wcm9tcHQoYOOAjCR7cGljay5sYWJlbH3jgI0ke1BFUklPRF9MQUJFTFtwZXJpb2RdfemihOeul2AsICfor7fovpPlhaXph5Hpop0nLCAnJywgJ251bWJlcicpOwogIGlmICh2YWwgPT09IG51bGwpIHJldHVybiBmYWxzZTsKICBjb25zdCBhbW91bnQgPSBwYXJzZUZsb2F0KHZhbCk7CiAgaWYgKCEoYW1vdW50ID4gMCkpIHsgVUkudG9hc3QoJ+ivt+i+k+WFpeacieaViOmHkeminScpOyByZXR1cm4gZmFsc2U7IH0KICBjb25zdCBleGlzdCA9IFMoKS5idWRnZXRzLmZpbmQoKGIpID0+IGIuc2NvcGUgPT09ICdjYXRlZ29yeScgJiYgYi5wZXJpb2QgPT09IHBlcmlvZCAmJiBiLmNhdGVnb3J5SWQgPT09IHBpY2sudik7CiAgaWYgKGV4aXN0KSBleGlzdC5hbW91bnQgPSBhbW91bnQ7CiAgZWxzZSBTKCkuYnVkZ2V0cy5wdXNoKHsgaWQ6IHVpZCgpLCBzY29wZTogJ2NhdGVnb3J5JywgcGVyaW9kLCBjYXRlZ29yeUlkOiBwaWNrLnYsIGFtb3VudCB9KTsKICBzYXZlKCk7CiAgVUkudG9hc3QoJ+W3suS/neWtmOmihOeulycpOwogIHJldHVybiB0cnVlOwp9Cgphc3luYyBmdW5jdGlvbiBlZGl0QnVkZ2V0KGlkKSB7CiAgY29uc3QgYiA9IFMoKS5idWRnZXRzLmZpbmQoKHgpID0+IHguaWQgPT09IGlkKTsKICBpZiAoIWIpIHJldHVybiBmYWxzZTsKICBjb25zdCBjID0gY2F0cygnZXhwZW5zZScpLmZpbmQoKHgpID0+IHguaWQgPT09IGIuY2F0ZWdvcnlJZCk7CiAgY29uc3QgcGljayA9IGF3YWl0IFVJLnNoZWV0KGM/Lm5hbWUgfHwgJ+aAu+mihOeulycsIFsKICAgIHsgbGFiZWw6ICfkv67mlLnph5Hpop0nLCBpY29uOiAnY29pbicsIHY6ICdhbW91bnQnIH0sCiAgICB7IGxhYmVsOiAn5Yig6Zmk6aKE566XJywgaWNvbjogJ3RyYXNoJywgZGFuZ2VyOiB0cnVlLCB2OiAnZGVsJyB9LAogIF0pOwogIGlmICghcGljaykgcmV0dXJuIGZhbHNlOwogIGlmIChwaWNrLnYgPT09ICdhbW91bnQnKSB7CiAgICBjb25zdCB2YWwgPSBhd2FpdCBVSS5wcm9tcHQoJ+S/ruaUuemihOeul+mHkeminScsIFN0cmluZyhiLmFtb3VudCksIFN0cmluZyhiLmFtb3VudCksICdudW1iZXInKTsKICAgIGlmICh2YWwgPT09IG51bGwpIHJldHVybiBmYWxzZTsKICAgIGNvbnN0IGFtb3VudCA9IHBhcnNlRmxvYXQodmFsKTsKICAgIGlmICghKGFtb3VudCA+IDApKSB7IFVJLnRvYXN0KCfor7fovpPlhaXmnInmlYjph5Hpop0nKTsgcmV0dXJuIGZhbHNlOyB9CiAgICBiLmFtb3VudCA9IGFtb3VudDsgc2F2ZSgpOyBVSS50b2FzdCgn5bey5L+d5a2YJyk7CiAgICByZXR1cm4gdHJ1ZTsKICB9CiAgY29uc3Qgb2sgPSBhd2FpdCBVSS5jb25maXJtKCfnoa7orqTliKDpmaTor6XpooTnrpfvvJ8nLCAn5Yig6ZmkJyk7CiAgaWYgKCFvaykgcmV0dXJuIGZhbHNlOwogIFMoKS5idWRnZXRzLnNwbGljZShTKCkuYnVkZ2V0cy5pbmRleE9mKGIpLCAxKTsKICBhZGRUb21ic3RvbmUoJ2J1ZGdldHMnLCBiLmlkKTsKICBzYXZlKCk7IFVJLnRvYXN0KCflt7LliKDpmaQnKTsKICByZXR1cm4gdHJ1ZTsKfQoKZXhwb3J0IGRlZmF1bHQgewogIHRpdGxlOiAn6aKE566X566h55CGJywKICBoZWFkZXI6ICdzdWInLAogIGFzeW5jIHJlbmRlcigpIHsKICAgIGlmICghcGVyaW9kKSBwZXJpb2QgPSBTKCkuc2V0dGluZ3MuYnVkZ2V0UGVyaW9kIHx8ICdtb250aCc7CiAgICByZXR1cm4gYAogICAgICA8ZGl2IGNsYXNzPSJzZWciPgogICAgICAgICR7UEVSSU9EUy5tYXAoKFtwLCBubV0pID0+IGA8YnV0dG9uIGRhdGEtcD0iJHtwfSIgY2xhc3M9IiR7cGVyaW9kID09PSBwID8gJ29uJyA6ICcnfSI+JHtubX08L2J1dHRvbj5gKS5qb2luKCcnKX0KICAgICAgPC9kaXY+CiAgICAgIDxkaXYgaWQ9ImJnLWJvZHkiPiR7Ym9keUhUTUwoKX08L2Rpdj4KICAgICAgPGRpdiBjbGFzcz0ic3QyLW5vdGUiPgogICAgICAgIDxkaXYgY2xhc3M9InR0Ij4ke3VpTWFyaygnaW5mby1jaXJjbGUnLCAnYmFkZ2UtaWMnKX3pooTnrpfor7TmmI48L2Rpdj4KICAgICAgICDov5vluqbotoXov4cgODAlIOaYvuekuuapmeiJsu+8jOi2heaUr+aYvuekuue6ouiJsuOAguWIhuexu+mihOeul+aMieS4gOe6p+WIhuexu+e7n+iuoe+8iOWQq+WFtuS6jOe6p+WIhuexu++8ieOAggogICAgICA8L2Rpdj5gOwogIH0sCiAgbW91bnQocm9vdCkgewogICAgY29uc3QgcmVwYWludCA9ICgpID0+IHsKICAgICAgY29uc3QgYm94ID0gcm9vdC5xdWVyeVNlbGVjdG9yKCcjYmctYm9keScpOwogICAgICBpZiAoYm94KSBib3guaW5uZXJIVE1MID0gYm9keUhUTUwoKTsKICAgICAgYmluZEJvZHkoKTsKICAgIH07CiAgICBmdW5jdGlvbiBiaW5kQm9keSgpIHsKICAgICAgcm9vdC5xdWVyeVNlbGVjdG9yQWxsKCdbZGF0YS1idWRnZXRdJykuZm9yRWFjaCgoZWwpID0+IHsKICAgICAgICBlbC5hZGRFdmVudExpc3RlbmVyKCdjbGljaycsIGFzeW5jICgpID0+IHsgaWYgKGF3YWl0IGVkaXRCdWRnZXQoZWwuZGF0YXNldC5idWRnZXQpKSByZXBhaW50KCk7IH0pOwogICAgICB9KTsKICAgICAgcm9vdC5xdWVyeVNlbGVjdG9yQWxsKCdbZGF0YS1hY3RdJykuZm9yRWFjaCgoZWwpID0+IHsKICAgICAgICBlbC5hZGRFdmVudExpc3RlbmVyKCdjbGljaycsIGFzeW5jICgpID0+IHsKICAgICAgICAgIGNvbnN0IGFjdCA9IGVsLmRhdGFzZXQuYWN0OwogICAgICAgICAgaWYgKGFjdCA9PT0gJ3NldHRvdGFsJyAmJiBhd2FpdCBzZXRUb3RhbCgpKSByZXBhaW50KCk7CiAgICAgICAgICBpZiAoYWN0ID09PSAnYWRkY2F0JyAmJiBhd2FpdCBhZGRDYXRCdWRnZXQoKSkgcmVwYWludCgpOwogICAgICAgIH0pOwogICAgICB9KTsKICAgIH0KICAgIHJvb3QucXVlcnlTZWxlY3RvckFsbCgnW2RhdGEtcF0nKS5mb3JFYWNoKChiKSA9PiBiLmFkZEV2ZW50TGlzdGVuZXIoJ2NsaWNrJywgKCkgPT4gewogICAgICBwZXJpb2QgPSBiLmRhdGFzZXQucDsKICAgICAgUygpLnNldHRpbmdzLmJ1ZGdldFBlcmlvZCA9IHBlcmlvZDsKICAgICAgc2F2ZSgpOwogICAgICByb290LnF1ZXJ5U2VsZWN0b3JBbGwoJ1tkYXRhLXBdJykuZm9yRWFjaCgoeCkgPT4geC5jbGFzc0xpc3QudG9nZ2xlKCdvbicsIHguZGF0YXNldC5wID09PSBwZXJpb2QpKTsKICAgICAgcmVwYWludCgpOwogICAgfSkpOwogICAgYmluZEJvZHkoKTsKICB9LAp9Owo=
+// 预算管理：总预算（周/月/年）+ 分类预算
+import { S, save, cats, uid, fmtMoney, addTombstone } from '../store.js';
+import { esc } from '../util.js';
+import { catMarkHTML } from '../caticon.js';
+import { uiMark } from '../uiicon.js';
+import { UI } from '../app.js';
+
+const pad = (n) => String(n).padStart(2, '0');
+const ymd = (d) => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+
+const PERIODS = [['week', '周'], ['month', '月'], ['year', '年']];
+const PERIOD_LABEL = { week: '本周', month: '本月', year: '本年' };
+
+// 首次渲染时再从 settings 读取（模块加载时 store 可能尚未 load）
+let period = null;
+
+// 当期日期区间（账单 date 为 'YYYY-MM-DD'，字符串比较即可）
+function range(p = period) {
+  const n = new Date();
+  if (p === 'week') {
+    const ws = S().settings.weekStart ?? 1;
+    const off = (n.getDay() - ws + 7) % 7;
+    const s = new Date(n); s.setDate(n.getDate() - off);
+    const e = new Date(s); e.setDate(s.getDate() + 6);
+    return [ymd(s), ymd(e)];
+  }
+  if (p === 'year') return [`${n.getFullYear()}-01-01`, `${n.getFullYear()}-12-31`];
+  return [`${n.getFullYear()}-${pad(n.getMonth() + 1)}-01`, `${n.getFullYear()}-${pad(n.getMonth() + 1)}-31`];
+}
+
+function spentOf(categoryId, p = period) {
+  const [s, e] = range(p);
+  return S().bills.filter((b) => {
+    if (b.type !== 'expense' || b.bookId !== S().currentBookId) return false;
+    if (b.date < s || b.date > e) return false;
+    if (!categoryId) return true;
+    const c = cats('expense').find((x) => x.id === categoryId);
+    if (!c) return b.categoryId === categoryId;
+    return b.categoryId === c.id || c.children.some((x) => x.id === b.categoryId);
+  }).reduce((sum, b) => sum + b.amount, 0);
+}
+
+const money = (v) => (S().settings.hideAmount ? '****' : '¥' + fmtMoney(v));
+
+// 进度条 + 剩余/超支
+function progressHTML(b, used) {
+  const ratio = b.amount > 0 ? used / b.amount : 0;
+  const pct = Math.min(100, Math.round(ratio * 100));
+  const cls = ratio > 1 ? 'over' : ratio > 0.8 ? 'warn' : '';
+  const left = b.amount - used;
+  return `<div class="bg-bar"><i class="${cls}" style="width:${pct}%"></i></div>
+    <div class="bg-meta">
+      <span>${Math.round(ratio * 100)}% 已使用</span>
+      <span>${left >= 0 ? `剩余 ${money(left)}` : `超支 ${money(-left)}`}</span>
+    </div>`;
+}
+
+function cardHTML(b, name, icon, color) {
+  const used = spentOf(b.categoryId, b.period);
+  return `<div class="bg-card" data-budget="${b.id}">
+    <div class="bg-row1">
+      ${catMarkHTML({ name, icon, color, type: 'expense', cls: 'bg-ic' })}
+      <span class="bg-nm">${esc(name)}<span class="bg-sub">${PERIOD_LABEL[b.period] || b.period}已用 ${money(used)}</span></span>
+      <span class="bg-amt">${money(b.amount)}</span>
+    </div>
+    ${progressHTML(b, used)}
+  </div>`;
+}
+
+function bodyHTML() {
+  const st = S();
+  const total = st.budgets.find((b) => b.scope === 'total' && b.period === period);
+  const list = st.budgets.filter((b) => b.scope === 'category' && b.period === period);
+  const totalInner = total
+    ? progressHTML(total, spentOf(null, total.period))
+    : `<div class="st2-add" data-act="settotal">+ 设置${PERIOD_LABEL[period]}总预算</div>`;
+  return `
+    <div class="bg-card">
+      <div class="bg-row1">
+        ${uiMark('target', 'bg-ic')}
+        <span class="bg-nm">总预算<span class="bg-sub">${PERIOD_LABEL[period]}支出上限</span></span>
+        ${total ? `<span class="bg-amt">${money(total.amount)}</span>` : ''}
+      </div>
+      ${totalInner}
+    </div>
+    <div class="sec-title">分类预算 · ${list.length} 个</div>
+    ${list.length
+      ? list.map((b) => {
+        const c = cats('expense').find((x) => x.id === b.categoryId);
+        return cardHTML(b, c?.name || '已删除分类', c?.icon || '🧾', c?.color || '#98989f');
+      }).join('')
+      : '<div class="cg-tip">暂无分类预算，可在下方添加</div>'}
+    <div class="st2-add" data-act="addcat">+ 添加分类预算</div>`;
+}
+
+async function setTotal() {
+  const cur = S().budgets.find((b) => b.scope === 'total' && b.period === period);
+  const val = await UI.prompt(`设置${PERIOD_LABEL[period]}总预算`, '请输入金额', cur ? String(cur.amount) : '', 'number');
+  if (val === null) return false;
+  const amount = parseFloat(val);
+  if (!(amount > 0)) { UI.toast('请输入有效金额'); return false; }
+  if (cur) cur.amount = amount;
+  else S().budgets.push({ id: uid(), scope: 'total', period, amount });
+  save();
+  UI.toast('已保存预算');
+  return true;
+}
+
+async function addCatBudget() {
+  const opts = cats('expense').map((c) => ({ label: c.name, icon: c.icon, color: c.color, v: c.id }));
+  if (!opts.length) { UI.toast('暂无支出分类'); return false; }
+  const pick = await UI.sheet('选择分类', opts);
+  if (!pick) return false;
+  const val = await UI.prompt(`「${pick.label}」${PERIOD_LABEL[period]}预算`, '请输入金额', '', 'number');
+  if (val === null) return false;
+  const amount = parseFloat(val);
+  if (!(amount > 0)) { UI.toast('请输入有效金额'); return false; }
+  const exist = S().budgets.find((b) => b.scope === 'category' && b.period === period && b.categoryId === pick.v);
+  if (exist) exist.amount = amount;
+  else S().budgets.push({ id: uid(), scope: 'category', period, categoryId: pick.v, amount });
+  save();
+  UI.toast('已保存预算');
+  return true;
+}
+
+async function editBudget(id) {
+  const b = S().budgets.find((x) => x.id === id);
+  if (!b) return false;
+  const c = cats('expense').find((x) => x.id === b.categoryId);
+  const pick = await UI.sheet(c?.name || '总预算', [
+    { label: '修改金额', icon: 'coin', v: 'amount' },
+    { label: '删除预算', icon: 'trash', danger: true, v: 'del' },
+  ]);
+  if (!pick) return false;
+  if (pick.v === 'amount') {
+    const val = await UI.prompt('修改预算金额', String(b.amount), String(b.amount), 'number');
+    if (val === null) return false;
+    const amount = parseFloat(val);
+    if (!(amount > 0)) { UI.toast('请输入有效金额'); return false; }
+    b.amount = amount; save(); UI.toast('已保存');
+    return true;
+  }
+  const ok = await UI.confirm('确认删除该预算？', '删除');
+  if (!ok) return false;
+  S().budgets.splice(S().budgets.indexOf(b), 1);
+  addTombstone('budgets', b.id);
+  save(); UI.toast('已删除');
+  return true;
+}
+
+export default {
+  title: '预算管理',
+  header: 'sub',
+  async render() {
+    if (!period) period = S().settings.budgetPeriod || 'month';
+    return `
+      <div class="seg">
+        ${PERIODS.map(([p, nm]) => `<button data-p="${p}" class="${period === p ? 'on' : ''}">${nm}</button>`).join('')}
+      </div>
+      <div id="bg-body">${bodyHTML()}</div>
+      <div class="st2-note">
+        <div class="tt">${uiMark('info-circle', 'badge-ic')}预算说明</div>
+        进度超过 80% 显示橙色，超支显示红色。分类预算按一级分类统计（含其二级分类）。
+      </div>`;
+  },
+  mount(root) {
+    const repaint = () => {
+      const box = root.querySelector('#bg-body');
+      if (box) box.innerHTML = bodyHTML();
+      bindBody();
+    };
+    function bindBody() {
+      root.querySelectorAll('[data-budget]').forEach((el) => {
+        el.addEventListener('click', async () => { if (await editBudget(el.dataset.budget)) repaint(); });
+      });
+      root.querySelectorAll('[data-act]').forEach((el) => {
+        el.addEventListener('click', async () => {
+          const act = el.dataset.act;
+          if (act === 'settotal' && await setTotal()) repaint();
+          if (act === 'addcat' && await addCatBudget()) repaint();
+        });
+      });
+    }
+    root.querySelectorAll('[data-p]').forEach((b) => b.addEventListener('click', () => {
+      period = b.dataset.p;
+      S().settings.budgetPeriod = period;
+      save();
+      root.querySelectorAll('[data-p]').forEach((x) => x.classList.toggle('on', x.dataset.p === period));
+      repaint();
+    }));
+    bindBody();
+  },
+};

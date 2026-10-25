@@ -1,1 +1,141 @@
-Ly8g6LSm5pys566h55CG77ya5YiX6KGoIC8g6K6+5Li65b2T5YmNIC8g6YeN5ZG95ZCNIC8g5aSN5Yi2IC8g5b2S5qGjIC8g5Yig6ZmkIC8g5paw5bu6CmltcG9ydCBJY29ucyBmcm9tICcuLi9pY29ucy5qcyc7CmltcG9ydCB7IFMsIHNhdmUsIHVpZCwgYWRkVG9tYnN0b25lIH0gZnJvbSAnLi4vc3RvcmUuanMnOwppbXBvcnQgeyBlc2MgfSBmcm9tICcuLi91dGlsLmpzJzsKaW1wb3J0IHsgdWlNYXJrLCB1aUluaXRpYWxNYXJrIH0gZnJvbSAnLi4vdWlpY29uLmpzJzsKaW1wb3J0IHsgVUkgfSBmcm9tICcuLi9hcHAuanMnOwoKLy8g6LSm5pys5Zu+5qCH5LiN5YaN6K6p55So5oi35ZyoIGVtb2ppIOmHjOaMke+8mue7n+S4gOW9qeW6lSArIOeZveiJsummluWtl++8jOWkmuS4qui0puacrOmdoOmmluWtl+WMuuWIhgoKY29uc3QgdG9kYXkgPSAoKSA9PiB7CiAgY29uc3QgZCA9IG5ldyBEYXRlKCk7CiAgcmV0dXJuIGAke2QuZ2V0RnVsbFllYXIoKX0tJHtTdHJpbmcoZC5nZXRNb250aCgpICsgMSkucGFkU3RhcnQoMiwgJzAnKX0tJHtTdHJpbmcoZC5nZXREYXRlKCkpLnBhZFN0YXJ0KDIsICcwJyl9YDsKfTsKY29uc3QgY291bnRPZiA9IChpZCkgPT4gUygpLmJpbGxzLmZpbHRlcigoYikgPT4gYi5ib29rSWQgPT09IGlkKS5sZW5ndGg7CgpmdW5jdGlvbiByb3dIVE1MKGIpIHsKICBjb25zdCBjdXIgPSBTKCkuY3VycmVudEJvb2tJZCA9PT0gYi5pZDsKICBjb25zdCBuID0gY291bnRPZihiLmlkKTsKICByZXR1cm4gYDxkaXYgY2xhc3M9ImNlbGwgYmstcm93JHtiLmFyY2hpdmVkID8gJyBhcmNoaXZlZCcgOiAnJ30iIGRhdGEtYm9vaz0iJHtiLmlkfSI+CiAgICAke3VpSW5pdGlhbE1hcmsoYi5uYW1lLCAnYmstaWMnKX0KICAgIDxzcGFuIGNsYXNzPSJjbCI+JHtlc2MoYi5uYW1lKX0ke2IuYXJjaGl2ZWQgPyAnPHNwYW4gY2xhc3M9ImJrLXRhZyI+5bey5b2S5qGjPC9zcGFuPicgOiAnJ308c3BhbiBjbGFzcz0iY2VsbC1zdWIiPiR7bn0g56yU6LSm5Y2VPC9zcGFuPjwvc3Bhbj4KICAgICR7Y3VyID8gJzxzcGFuIGNsYXNzPSJiay1mbGFnIj7inJMg5b2T5YmNPC9zcGFuPicgOiBgPHNwYW4gY2xhc3M9ImFycm93Ij4ke0ljb25zLmNoZXZSfTwvc3Bhbj5gfQogIDwvZGl2PmA7Cn0KCmZ1bmN0aW9uIGJvZHlIVE1MKCkgewogIGNvbnN0IHMgPSBTKCk7CiAgY29uc3QgbGl2ZSA9IHMuYm9va3MuZmlsdGVyKChiKSA9PiAhYi5hcmNoaXZlZCk7CiAgY29uc3QgYXJjaGl2ZWQgPSBzLmJvb2tzLmZpbHRlcigoYikgPT4gYi5hcmNoaXZlZCk7CiAgcmV0dXJuIGAKICAgIDxkaXYgY2xhc3M9InNlYy10aXRsZSI+5oiR55qE6LSm5pysIMK3ICR7bGl2ZS5sZW5ndGh9PC9kaXY+CiAgICA8ZGl2IGNsYXNzPSJjZWxsLWdyb3VwIj4ke2xpdmUubWFwKHJvd0hUTUwpLmpvaW4oJycpfTwvZGl2PgogICAgJHthcmNoaXZlZC5sZW5ndGggPyBgPGRpdiBjbGFzcz0ic2VjLXRpdGxlIj7lt7LlvZLmoaMgwrcgJHthcmNoaXZlZC5sZW5ndGh9PC9kaXY+CiAgICAgIDxkaXYgY2xhc3M9ImNlbGwtZ3JvdXAgYmstYXJjaGl2ZWQiPiR7YXJjaGl2ZWQubWFwKHJvd0hUTUwpLmpvaW4oJycpfTwvZGl2PmAgOiAnJ30KICAgIDxkaXYgY2xhc3M9InN0Mi1hZGQiIGRhdGEtYWN0PSJuZXciPisg5paw5bu66LSm5pysPC9kaXY+CiAgICA8ZGl2IGNsYXNzPSJzdDItbm90ZSI+CiAgICAgIDxkaXYgY2xhc3M9InR0Ij4ke3VpTWFyaygnaW5mby1jaXJjbGUnLCAnYmFkZ2UtaWMnKX3otKbmnKzor7TmmI48L2Rpdj4KICAgICAg5q+P5Liq6LSm5pys55qE6LSm5Y2V55u45LqS54us56uL77yM44CM5b2T5YmN6LSm5pys44CN5Yaz5a6a6K6w6LSm5LiO6aaW6aG157uf6K6h55qE6IyD5Zu077yb5Yig6Zmk6LSm5pys5Lya5ZCM5pe25Yig6Zmk5YW25LiL5omA5pyJ6LSm5Y2V44CCCiAgICA8L2Rpdj5gOwp9Cgphc3luYyBmdW5jdGlvbiBuZXdCb29rKCkgewogIGNvbnN0IG5hbWUgPSBhd2FpdCBVSS5wcm9tcHQoJ+aWsOW7uui0puacrCcsICfor7fovpPlhaXotKbmnKzlkI3np7AnKTsKICBpZiAoIW5hbWUpIHJldHVybiBmYWxzZTsKICBjb25zdCBib29rID0geyBpZDogdWlkKCksIG5hbWUsIGljb246ICcnLCBhcmNoaXZlZDogZmFsc2UsIGNyZWF0ZWQ6IHRvZGF5KCkgfTsKICBTKCkuYm9va3MucHVzaChib29rKTsKICBjb25zdCB1c2UgPSBhd2FpdCBVSS5jb25maXJtKGDlt7LliJvlu7rjgIwke25hbWV944CN77yM5piv5ZCm6K6+5Li65b2T5YmN6LSm5pys77yfYCwgJ+iuvuS4uuW9k+WJjScpOwogIGlmICh1c2UpIFMoKS5jdXJyZW50Qm9va0lkID0gYm9vay5pZDsKICBzYXZlKCk7CiAgVUkudG9hc3QodXNlID8gJ+W3suWIm+W7uuW5tuWIh+aNoicgOiAn5bey5Yib5bu66LSm5pysJyk7CiAgcmV0dXJuIHRydWU7Cn0KCmFzeW5jIGZ1bmN0aW9uIGJvb2tTaGVldChpZCkgewogIGNvbnN0IHMgPSBTKCk7CiAgY29uc3QgYiA9IHMuYm9va3MuZmluZCgoeCkgPT4geC5pZCA9PT0gaWQpOwogIGlmICghYikgcmV0dXJuIGZhbHNlOwogIGNvbnN0IG4gPSBjb3VudE9mKGIuaWQpOwogIGNvbnN0IG9wdHMgPSBbXTsKICBpZiAocy5jdXJyZW50Qm9va0lkICE9PSBiLmlkKSBvcHRzLnB1c2goeyBsYWJlbDogJ+iuvuS4uuW9k+WJjei0puacrCcsIGljb246ICdjaGVjaycsIHY6ICdjdXJyZW50JyB9KTsKICBvcHRzLnB1c2goCiAgICB7IGxhYmVsOiAn6YeN5ZG95ZCNJywgaWNvbjogJ2VkaXQnLCB2OiAncmVuYW1lJyB9LAogICAgeyBsYWJlbDogJ+WkjeWItui0puacrCcsIGljb246ICdjb3B5JywgdjogJ2NvcHknIH0sCiAgICB7IGxhYmVsOiBiLmFyY2hpdmVkID8gJ+WPlua2iOW9kuahoycgOiAn5b2S5qGj6LSm5pysJywgaWNvbjogJ2FyY2hpdmUnLCB2OiAnYXJjaGl2ZScgfSwKICAgIHsgbGFiZWw6ICfliKDpmaTotKbmnKwnLCBpY29uOiAndHJhc2gnLCBkYW5nZXI6IHRydWUsIHY6ICdkZWwnIH0sCiAgKTsKICBjb25zdCBwaWNrID0gYXdhaXQgVUkuc2hlZXQoYi5uYW1lLCBvcHRzKTsKICBpZiAoIXBpY2spIHJldHVybiBmYWxzZTsKCiAgaWYgKHBpY2sudiA9PT0gJ2N1cnJlbnQnKSB7IHMuY3VycmVudEJvb2tJZCA9IGIuaWQ7IHNhdmUoKTsgVUkudG9hc3QoYOW3suWIh+aNouWIsOOAjCR7Yi5uYW1lfeOAjWApOyByZXR1cm4gdHJ1ZTsgfQoKICBpZiAocGljay52ID09PSAncmVuYW1lJykgewogICAgY29uc3QgbmFtZSA9IGF3YWl0IFVJLnByb21wdCgn6YeN5ZG95ZCN6LSm5pysJywgYi5uYW1lLCBiLm5hbWUpOwogICAgaWYgKCFuYW1lKSByZXR1cm4gZmFsc2U7CiAgICBiLm5hbWUgPSBuYW1lOyBzYXZlKCk7IFVJLnRvYXN0KCflt7Lph43lkb3lkI0nKTsKICAgIHJldHVybiB0cnVlOwogIH0KCiAgaWYgKHBpY2sudiA9PT0gJ2NvcHknKSB7CiAgICBjb25zdCBjb3B5ID0geyAuLi5iLCBpZDogdWlkKCksIG5hbWU6IGAke2IubmFtZX0g5Ymv5pysYCwgYXJjaGl2ZWQ6IGZhbHNlLCBjcmVhdGVkOiB0b2RheSgpIH07CiAgICBzLmJvb2tzLnB1c2goY29weSk7CiAgICBzYXZlKCk7CiAgICBVSS50b2FzdCgn5bey5aSN5Yi26LSm5pys77yI5LiN5ZCr5Y6f6LSm5pys6LSm5Y2V77yJJyk7CiAgICByZXR1cm4gdHJ1ZTsKICB9CgogIGlmIChwaWNrLnYgPT09ICdhcmNoaXZlJykgewogICAgYi5hcmNoaXZlZCA9ICFiLmFyY2hpdmVkOwogICAgaWYgKGIuYXJjaGl2ZWQgJiYgcy5jdXJyZW50Qm9va0lkID09PSBiLmlkKSB7CiAgICAgIGNvbnN0IG90aGVyID0gcy5ib29rcy5maW5kKCh4KSA9PiB4LmlkICE9PSBiLmlkICYmICF4LmFyY2hpdmVkKTsKICAgICAgaWYgKG90aGVyKSBzLmN1cnJlbnRCb29rSWQgPSBvdGhlci5pZDsKICAgIH0KICAgIHNhdmUoKTsKICAgIFVJLnRvYXN0KGIuYXJjaGl2ZWQgPyAn5bey5b2S5qGjJyA6ICflt7Llj5bmtojlvZLmoaMnKTsKICAgIHJldHVybiB0cnVlOwogIH0KCiAgaWYgKHBpY2sudiA9PT0gJ2RlbCcpIHsKICAgIGxldCBtc2cgPSBg56Gu6K6k5Yig6Zmk6LSm5pys44CMJHtiLm5hbWV944CN77yfYDsKICAgIGlmIChiLmlkID09PSAnYjEnKSBtc2cgPSAn6L+Z5piv6buY6K6k6LSm5pys77yM5Yig6Zmk5ZCO6aaW6aG15Y+v6IO95peg5Y+v55So6LSm5pys77yM56Gu6K6k5Yig6Zmk77yfJzsKICAgIGVsc2UgaWYgKG4gPiAwKSBtc2cgPSBg44CMJHtiLm5hbWV944CN5LiL6L+Y5pyJICR7bn0g56yU6LSm5Y2V77yM5Yig6Zmk6LSm5pys5Lya5LiA5bm25Yig6Zmk6L+Z5Lqb6LSm5Y2V77yM56Gu6K6k5Yig6Zmk77yfYDsKICAgIGNvbnN0IG9rID0gYXdhaXQgVUkuY29uZmlybShtc2csICfliKDpmaQnKTsKICAgIGlmICghb2spIHJldHVybiBmYWxzZTsKICAgIHMuYm9va3Muc3BsaWNlKHMuYm9va3MuaW5kZXhPZihiKSwgMSk7CiAgICBhZGRUb21ic3RvbmUoJ2Jvb2tzJywgYi5pZCk7CiAgICBzLmJpbGxzLmZvckVhY2goKHgpID0+IHsgaWYgKHguYm9va0lkID09PSBiLmlkKSBhZGRUb21ic3RvbmUoJ2JpbGxzJywgeC5pZCk7IH0pOwogICAgcy5iaWxscyA9IHMuYmlsbHMuZmlsdGVyKCh4KSA9PiB4LmJvb2tJZCAhPT0gYi5pZCk7CiAgICBpZiAocy5jdXJyZW50Qm9va0lkID09PSBiLmlkKSB7CiAgICAgIGNvbnN0IG90aGVyID0gcy5ib29rcy5maW5kKCh4KSA9PiAheC5hcmNoaXZlZCk7CiAgICAgIGlmIChvdGhlcikgcy5jdXJyZW50Qm9va0lkID0gb3RoZXIuaWQ7CiAgICB9CiAgICBzYXZlKCk7CiAgICBVSS50b2FzdCgn5bey5Yig6Zmk6LSm5pysJyk7CiAgICByZXR1cm4gdHJ1ZTsKICB9CiAgcmV0dXJuIGZhbHNlOwp9CgpleHBvcnQgZGVmYXVsdCB7CiAgdGl0bGU6ICfotKbmnKznrqHnkIYnLAogIGhlYWRlcjogJ3N1YicsCiAgYXN5bmMgcmVuZGVyKCkgewogICAgcmV0dXJuIGA8ZGl2IGlkPSJiay1ib2R5Ij4ke2JvZHlIVE1MKCl9PC9kaXY+YDsKICB9LAogIG1vdW50KHJvb3QpIHsKICAgIGNvbnN0IHJlcGFpbnQgPSAoKSA9PiB7CiAgICAgIGNvbnN0IGJveCA9IHJvb3QucXVlcnlTZWxlY3RvcignI2JrLWJvZHknKTsKICAgICAgaWYgKGJveCkgYm94LmlubmVySFRNTCA9IGJvZHlIVE1MKCk7CiAgICAgIGJpbmQoKTsKICAgIH07CiAgICBmdW5jdGlvbiBiaW5kKCkgewogICAgICByb290LnF1ZXJ5U2VsZWN0b3JBbGwoJ1tkYXRhLWJvb2tdJykuZm9yRWFjaCgoZWwpID0+IHsKICAgICAgICBlbC5hZGRFdmVudExpc3RlbmVyKCdjbGljaycsIGFzeW5jICgpID0+IHsgaWYgKGF3YWl0IGJvb2tTaGVldChlbC5kYXRhc2V0LmJvb2spKSByZXBhaW50KCk7IH0pOwogICAgICB9KTsKICAgICAgcm9vdC5xdWVyeVNlbGVjdG9yKCdbZGF0YS1hY3Q9Im5ldyJdJyk/LmFkZEV2ZW50TGlzdGVuZXIoJ2NsaWNrJywgYXN5bmMgKCkgPT4gewogICAgICAgIGlmIChhd2FpdCBuZXdCb29rKCkpIHJlcGFpbnQoKTsKICAgICAgfSk7CiAgICB9CiAgICBiaW5kKCk7CiAgfSwKfTsK
+// 账本管理：列表 / 设为当前 / 重命名 / 复制 / 归档 / 删除 / 新建
+import Icons from '../icons.js';
+import { S, save, uid, addTombstone } from '../store.js';
+import { esc } from '../util.js';
+import { uiMark, uiInitialMark } from '../uiicon.js';
+import { UI } from '../app.js';
+
+// 账本图标不再让用户在 emoji 里挑：统一彩底 + 白色首字，多个账本靠首字区分
+
+const today = () => {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+};
+const countOf = (id) => S().bills.filter((b) => b.bookId === id).length;
+
+function rowHTML(b) {
+  const cur = S().currentBookId === b.id;
+  const n = countOf(b.id);
+  return `<div class="cell bk-row${b.archived ? ' archived' : ''}" data-book="${b.id}">
+    ${uiInitialMark(b.name, 'bk-ic')}
+    <span class="cl">${esc(b.name)}${b.archived ? '<span class="bk-tag">已归档</span>' : ''}<span class="cell-sub">${n} 笔账单</span></span>
+    ${cur ? '<span class="bk-flag">✓ 当前</span>' : `<span class="arrow">${Icons.chevR}</span>`}
+  </div>`;
+}
+
+function bodyHTML() {
+  const s = S();
+  const live = s.books.filter((b) => !b.archived);
+  const archived = s.books.filter((b) => b.archived);
+  return `
+    <div class="sec-title">我的账本 · ${live.length}</div>
+    <div class="cell-group">${live.map(rowHTML).join('')}</div>
+    ${archived.length ? `<div class="sec-title">已归档 · ${archived.length}</div>
+      <div class="cell-group bk-archived">${archived.map(rowHTML).join('')}</div>` : ''}
+    <div class="st2-add" data-act="new">+ 新建账本</div>
+    <div class="st2-note">
+      <div class="tt">${uiMark('info-circle', 'badge-ic')}账本说明</div>
+      每个账本的账单相互独立，「当前账本」决定记账与首页统计的范围；删除账本会同时删除其下所有账单。
+    </div>`;
+}
+
+async function newBook() {
+  const name = await UI.prompt('新建账本', '请输入账本名称');
+  if (!name) return false;
+  const book = { id: uid(), name, icon: '', archived: false, created: today() };
+  S().books.push(book);
+  const use = await UI.confirm(`已创建「${name}」，是否设为当前账本？`, '设为当前');
+  if (use) S().currentBookId = book.id;
+  save();
+  UI.toast(use ? '已创建并切换' : '已创建账本');
+  return true;
+}
+
+async function bookSheet(id) {
+  const s = S();
+  const b = s.books.find((x) => x.id === id);
+  if (!b) return false;
+  const n = countOf(b.id);
+  const opts = [];
+  if (s.currentBookId !== b.id) opts.push({ label: '设为当前账本', icon: 'check', v: 'current' });
+  opts.push(
+    { label: '重命名', icon: 'edit', v: 'rename' },
+    { label: '复制账本', icon: 'copy', v: 'copy' },
+    { label: b.archived ? '取消归档' : '归档账本', icon: 'archive', v: 'archive' },
+    { label: '删除账本', icon: 'trash', danger: true, v: 'del' },
+  );
+  const pick = await UI.sheet(b.name, opts);
+  if (!pick) return false;
+
+  if (pick.v === 'current') { s.currentBookId = b.id; save(); UI.toast(`已切换到「${b.name}」`); return true; }
+
+  if (pick.v === 'rename') {
+    const name = await UI.prompt('重命名账本', b.name, b.name);
+    if (!name) return false;
+    b.name = name; save(); UI.toast('已重命名');
+    return true;
+  }
+
+  if (pick.v === 'copy') {
+    const copy = { ...b, id: uid(), name: `${b.name} 副本`, archived: false, created: today() };
+    s.books.push(copy);
+    save();
+    UI.toast('已复制账本（不含原账本账单）');
+    return true;
+  }
+
+  if (pick.v === 'archive') {
+    b.archived = !b.archived;
+    if (b.archived && s.currentBookId === b.id) {
+      const other = s.books.find((x) => x.id !== b.id && !x.archived);
+      if (other) s.currentBookId = other.id;
+    }
+    save();
+    UI.toast(b.archived ? '已归档' : '已取消归档');
+    return true;
+  }
+
+  if (pick.v === 'del') {
+    let msg = `确认删除账本「${b.name}」？`;
+    if (b.id === 'b1') msg = '这是默认账本，删除后首页可能无可用账本，确认删除？';
+    else if (n > 0) msg = `「${b.name}」下还有 ${n} 笔账单，删除账本会一并删除这些账单，确认删除？`;
+    const ok = await UI.confirm(msg, '删除');
+    if (!ok) return false;
+    s.books.splice(s.books.indexOf(b), 1);
+    addTombstone('books', b.id);
+    s.bills.forEach((x) => { if (x.bookId === b.id) addTombstone('bills', x.id); });
+    s.bills = s.bills.filter((x) => x.bookId !== b.id);
+    if (s.currentBookId === b.id) {
+      const other = s.books.find((x) => !x.archived);
+      if (other) s.currentBookId = other.id;
+    }
+    save();
+    UI.toast('已删除账本');
+    return true;
+  }
+  return false;
+}
+
+export default {
+  title: '账本管理',
+  header: 'sub',
+  async render() {
+    return `<div id="bk-body">${bodyHTML()}</div>`;
+  },
+  mount(root) {
+    const repaint = () => {
+      const box = root.querySelector('#bk-body');
+      if (box) box.innerHTML = bodyHTML();
+      bind();
+    };
+    function bind() {
+      root.querySelectorAll('[data-book]').forEach((el) => {
+        el.addEventListener('click', async () => { if (await bookSheet(el.dataset.book)) repaint(); });
+      });
+      root.querySelector('[data-act="new"]')?.addEventListener('click', async () => {
+        if (await newBook()) repaint();
+      });
+    }
+    bind();
+  },
+};

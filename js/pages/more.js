@@ -1,1 +1,41 @@
-Ly8g5pu05aSa5Yqf6IO977ya5Yqf6IO95oC76KeI5YWl5Y+jICsg5YWz5LqO5aSN5Yi754mICmltcG9ydCBJY29ucyBmcm9tICcuLi9pY29ucy5qcyc7CmltcG9ydCB7IHVpTWFyayB9IGZyb20gJy4uL3VpaWNvbi5qcyc7CgovLyBb5Zu+5qCH5ZCNLCDmoIfpopgsIOWJr+agh+mimCwg6Lev55SxXSDigJTigJQg5bqV6Imy5LiO5aKo6Imy55SxIC51aS1pYyDnu5/kuIDnu5nvvIzkuI3lho3pgJDkuKrphY3ljYrpgI/mmI7oibIKY29uc3QgRkVBVFVSRVMgPSBbCiAgWydjYXRlZ29yeScsICfliIbnsbvnrqHnkIYnLCAn6Ieq5a6a5LmJ5LiAIC8g5LqM57qn5YiG57G7JywgJ2NhdGVnb3J5J10sCiAgWyd0YXJnZXQnLCAn6aKE566X566h55CGJywgJ+WRqCAvIOaciCAvIOW5tOaAu+mihOeul+S4juWIhuexu+mihOeulycsICdidWRnZXQnXSwKICBbJ2Jvb2tzJywgJ+i0puacrOeuoeeQhicsICflpJrotKbmnKzjgIHlvZLmoaPkuI7lpI3liLYnLCAnYm9va3MnXSwKICBbJ3RlbXBsYXRlJywgJ+aooeadv+iusOi0picsICfluLjnlKjotKbljZXkuIDplK7orrDotKYnLCAndGVtcGxhdGVzJ10sCiAgWydyZWZyZXNoJywgJ+WRqOacn+iusOi0picsICfmjInlpKkgLyDlkaggLyDmnIjoh6rliqjnlJ/miJAnLCAncmVjdXJyaW5nJ10sCiAgWydyZWNlaXB0LXJlZnVuZCcsICfmiqXplIDnrqHnkIYnLCAn5b6F5oql6ZSA5qCH6K6w5LiO5qC46ZSAJywgJ2NsYWltJ10sCiAgWydidWlsZGluZy1iYW5rJywgJ+i0t+asvuWSjOWIhuacnycsICfmiL/otLfovabotLfkuI7liIbmnJ/orqHliJInLCAnbG9hbiddLAogIFsnZmlsZS1leHBvcnQnLCAn5a+85YWl5a+85Ye6JywgJ0NTViAvIEpTT04g5aSH5Lu95LiO5oGi5aSNJywgJ2ltcG9ydGV4cG9ydCddLAogIFsnY2FsZW5kYXInLCAn5pS25pSv5pel5Y6GJywgJ+aMieaXpeafpeeci+aUtuaUr+WIhuW4gycsICdjYWxlbmRhciddLAogIFsnc2VhcmNoJywgJ+aQnOe0oicsICfmjInlhbPplK7or40gLyDliIbnsbvnrZvpgInotKbljZUnLCAnc2VhcmNoJ10sCl07CgpleHBvcnQgZGVmYXVsdCB7CiAgdGl0bGU6ICfmm7TlpJrlip/og70nLAogIGhlYWRlcjogJ3N1YicsCiAgYXN5bmMgcmVuZGVyKCkgewogICAgcmV0dXJuIGAKICAgICAgPGRpdiBjbGFzcz0ic2VjLXRpdGxlIj7lip/og73mgLvop4g8L2Rpdj4KICAgICAgPGRpdiBjbGFzcz0iY2VsbC1ncm91cCI+CiAgICAgICAgJHtGRUFUVVJFUy5tYXAoKFtpY29uLCBuYW1lLCBzdWIsIHRvXSkgPT4gYAogICAgICAgICAgPGRpdiBjbGFzcz0iY2VsbCIgZGF0YS1nbz0iJHt0b30iPgogICAgICAgICAgICAke3VpTWFyayhpY29uLCAnY2knKX0KICAgICAgICAgICAgPHNwYW4gY2xhc3M9ImNsIj4ke25hbWV9PHNwYW4gY2xhc3M9ImNlbGwtc3ViIj4ke3N1Yn08L3NwYW4+PC9zcGFuPgogICAgICAgICAgICA8c3BhbiBjbGFzcz0iYXJyb3ciPiR7SWNvbnMuY2hldlJ9PC9zcGFuPgogICAgICAgICAgPC9kaXY+YCkuam9pbignJyl9CiAgICAgIDwvZGl2PgoKICAgICAgPGRpdiBjbGFzcz0ic3QyLW5vdGUgbW8tbm90ZSI+CiAgICAgICAgPGRpdiBjbGFzcz0idHQiPiR7dWlNYXJrKCdpbmZvLWNpcmNsZScsICdiYWRnZS1pYycpfeWFs+S6juWkjeWIu+eJiDwvZGl2PgogICAgICAgIOacrOmhueebruS4uiBpQ29zdCDlip/og73nmoTlpI3liLvmvJTnpLrvvIznlKjkuo7kuqTkupLkuI7liY3nq6/lrp7njrDlj4LogIPvvIzpnZ7lrpjmlrnlupTnlKjjgIIKICAgICAgICA8YnI+5omA5pyJ5pWw5o2u5LuF5L+d5a2Y5Zyo5pys5py65rWP6KeI5Zmo77yIbG9jYWxTdG9yYWdl77yJ77yM5LiN5Lya5LiK5Lyg5pyN5Yqh5Zmo77yb5riF55CG5rWP6KeI5Zmo5pWw5o2u5oiW5pu05o2i6K6+5aSH5Lya5a+86Ie06LSm5Y2V5Lii5aSx77yMCiAgICAgICAg6K+35a6a5pyf5L2/55So44CM5a+85YWl5a+85Ye6IOKGkiDlr7zlh7ogSlNPTiDlpIfku73jgI3kv53lrZjjgIIKICAgICAgPC9kaXY+YDsKICB9LAp9Owo=
+// 更多功能：功能总览入口 + 关于复刻版
+import Icons from '../icons.js';
+import { uiMark } from '../uiicon.js';
+
+// [图标名, 标题, 副标题, 路由] —— 底色与墨色由 .ui-ic 统一给，不再逐个配半透明色
+const FEATURES = [
+  ['category', '分类管理', '自定义一 / 二级分类', 'category'],
+  ['target', '预算管理', '周 / 月 / 年总预算与分类预算', 'budget'],
+  ['books', '账本管理', '多账本、归档与复制', 'books'],
+  ['template', '模板记账', '常用账单一键记账', 'templates'],
+  ['refresh', '周期记账', '按天 / 周 / 月自动生成', 'recurring'],
+  ['receipt-refund', '报销管理', '待报销标记与核销', 'claim'],
+  ['building-bank', '贷款和分期', '房贷车贷与分期计划', 'loan'],
+  ['file-export', '导入导出', 'CSV / JSON 备份与恢复', 'importexport'],
+  ['calendar', '收支日历', '按日查看收支分布', 'calendar'],
+  ['search', '搜索', '按关键词 / 分类筛选账单', 'search'],
+];
+
+export default {
+  title: '更多功能',
+  header: 'sub',
+  async render() {
+    return `
+      <div class="sec-title">功能总览</div>
+      <div class="cell-group">
+        ${FEATURES.map(([icon, name, sub, to]) => `
+          <div class="cell" data-go="${to}">
+            ${uiMark(icon, 'ci')}
+            <span class="cl">${name}<span class="cell-sub">${sub}</span></span>
+            <span class="arrow">${Icons.chevR}</span>
+          </div>`).join('')}
+      </div>
+
+      <div class="st2-note mo-note">
+        <div class="tt">${uiMark('info-circle', 'badge-ic')}关于复刻版</div>
+        本项目为 iCost 功能的复刻演示，用于交互与前端实现参考，非官方应用。
+        <br>所有数据仅保存在本机浏览器（localStorage），不会上传服务器；清理浏览器数据或更换设备会导致账单丢失，
+        请定期使用「导入导出 → 导出 JSON 备份」保存。
+      </div>`;
+  },
+};

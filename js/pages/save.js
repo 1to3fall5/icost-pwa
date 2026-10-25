@@ -1,1 +1,130 @@
-Ly8g5a2Y6ZKxIFRhYiDigJQg5qih5byP5YWl5Y+j572R5qC8ICsg5oiR55qE5a2Y6ZKx6K6h5YiS5YiX6KGoCmltcG9ydCBJY29ucyBmcm9tICcuLi9pY29ucy5qcyc7CmltcG9ydCB7IFMsIHNhdmUsIGZtdE1vbmV5IH0gZnJvbSAnLi4vc3RvcmUuanMnOwppbXBvcnQgeyB1aU1hcmsgfSBmcm9tICcuLi91aWljb24uanMnOwppbXBvcnQgeyBnbywgVUkgfSBmcm9tICcuLi9hcHAuanMnOwoKY29uc3QgdG9kYXlTdHIgPSAoKSA9PiB7CiAgY29uc3QgZCA9IG5ldyBEYXRlKCk7CiAgcmV0dXJuIGAke2QuZ2V0RnVsbFllYXIoKX0tJHtTdHJpbmcoZC5nZXRNb250aCgpICsgMSkucGFkU3RhcnQoMiwgJzAnKX0tJHtTdHJpbmcoZC5nZXREYXRlKCkpLnBhZFN0YXJ0KDIsICcwJyl9YDsKfTsKY29uc3QgZGlmZkRheXMgPSAoYSwgYikgPT4KICBNYXRoLnJvdW5kKChuZXcgRGF0ZShiLnJlcGxhY2UoLy0vZywgJy8nKSkgLSBuZXcgRGF0ZShhLnJlcGxhY2UoLy0vZywgJy8nKSkpIC8gODY0MDAwMDApOwoKLy8gLS0tLSDmqKHlvI/lhYPkv6Hmga/vvIhzYXZlZGV0YWlsIOWkjeeUqO+8iSAtLS0tCmV4cG9ydCBjb25zdCBNT0RFUyA9IHsKICBmaXhlZDogeyBsYWJlbDogJ+WumumineWtmOmSseazlScsIGJhZGdlOiAnY2FsZW5kYXInIH0sCiAgZmxleGlibGU6IHsgbGFiZWw6ICfngbXmtLvlrZjpkrHms5UnLCBiYWRnZTogJ2Ryb3BsZXQnIH0sCiAgd2VlazUyOiB7IGxhYmVsOiAnNTLlkajlrZjpkrHms5UnLCBiYWRnZTogJzUyJyB9LAogIGRheTM2NTogeyBsYWJlbDogJzM2NeWtmOmSseazlScsIGJhZGdlOiAnMzY1JyB9LAp9OwpleHBvcnQgY29uc3QgdGFyZ2V0T2YgPSAobW9kZSkgPT4gKG1vZGUgPT09ICd3ZWVrNTInID8gMTM3ODAgOiBtb2RlID09PSAnZGF5MzY1JyA/IDY2NzkuNSA6IDApOwpleHBvcnQgY29uc3QgZGVmYXVsdE5hbWUgPSAobW9kZSkgPT4KICAoeyBmaXhlZDogJ+WumumineWtmOmSseiuoeWIkicsIGZsZXhpYmxlOiAn54G15rS75a2Y6ZKx6K6h5YiSJywgd2VlazUyOiAnNTLlkajlrZjpkrHmjJHmiJgnLCBkYXkzNjU6ICczNjXlpKnlrZjpkrHmjJHmiJgnIH1bbW9kZV0gfHwgJ+WtmOmSseiuoeWIkicpOwoKLy8gLS0tLSDorqHliJLnu5/orqHvvIhzYXZlZGV0YWlsIOWkjeeUqO+8iSAtLS0tCmV4cG9ydCBjb25zdCBzYXZlZE9mID0gKHApID0+IChwLnJlY29yZHMgfHwgW10pLnJlZHVjZSgocywgcikgPT4gcyArIHIuYW1vdW50LCAwKTsKZXhwb3J0IGNvbnN0IHBlcmlvZE5vID0gKHApID0+IHsKICBjb25zdCBkID0gZGlmZkRheXMocC5zdGFydERhdGUsIHRvZGF5U3RyKCkpOwogIGlmIChwLm1vZGUgPT09ICd3ZWVrNTInKSByZXR1cm4gTWF0aC5taW4oNTIsIE1hdGgubWF4KDEsIE1hdGguZmxvb3IoZCAvIDcpICsgMSkpOwogIGlmIChwLm1vZGUgPT09ICdkYXkzNjUnKSByZXR1cm4gTWF0aC5taW4oMzY1LCBNYXRoLm1heCgxLCBkICsgMSkpOwogIHJldHVybiAwOwp9OwpleHBvcnQgY29uc3QgbmV4dEFtb3VudCA9IChwKSA9PiB7CiAgaWYgKHAubW9kZSA9PT0gJ2ZpeGVkJykgcmV0dXJuIHAucGVyQW1vdW50IHx8IDA7CiAgaWYgKHAubW9kZSA9PT0gJ3dlZWs1MicpIHJldHVybiBwZXJpb2RObyhwKSAqIDEwOwogIGlmIChwLm1vZGUgPT09ICdkYXkzNjUnKSByZXR1cm4gTWF0aC5yb3VuZChwZXJpb2RObyhwKSAqIDAuMSAqIDEwKSAvIDEwOyAvLyBuKjAuMe+8jOS/neeVmSAxIOS9jeWwj+aVsAogIHJldHVybiAocC5yZWNvcmRzIHx8IFtdKS5zbGljZSgtMSlbMF0/LmFtb3VudCB8fCBwLnBlckFtb3VudCB8fCAwOwp9OwoKLy8gLS0tLSDmiZPljaHvvJrlrprpop095q+P5pyf6YeR6aKd77yb54G15rS7LzUy5ZGoLzM2NeWkqT3lvLnnqpfovpPlhaXvvIjlkI7kuKTogIXnu5npu5jorqTlgLzvvIzlj6/mlLnvvIkgLS0tLQpleHBvcnQgYXN5bmMgZnVuY3Rpb24gcHVuY2gocGxhbikgewogIGNvbnN0IHN1Z2dlc3QgPSBuZXh0QW1vdW50KHBsYW4pOwogIGxldCBhbXQ7CiAgaWYgKHBsYW4ubW9kZSA9PT0gJ2ZpeGVkJykgewogICAgYW10ID0gcGxhbi5wZXJBbW91bnQ7CiAgICBpZiAoIWFtdCB8fCBhbXQgPD0gMCkgeyBVSS50b2FzdCgn6K+35YWI6K6+572u5q+P5pyf6YeR6aKdJyk7IHJldHVybiBmYWxzZTsgfQogIH0gZWxzZSB7CiAgICBjb25zdCBubyA9IHBlcmlvZE5vKHBsYW4pOwogICAgY29uc3QgdGl0bGUgPSBwbGFuLm1vZGUgPT09ICdmbGV4aWJsZScKICAgICAgPyAn5a2Y5YWl6YeR6aKdJwogICAgICA6IHBsYW4ubW9kZSA9PT0gJ3dlZWs1MicKICAgICAgICA/IGDnrKwgJHtub30g5ZGoIMK3IOW7uuiuruWtmCDCpSR7Zm10TW9uZXkoc3VnZ2VzdCl9YAogICAgICAgIDogYOesrCAke25vfSDlpKkgwrcg5bu66K6u5a2YIMKlJHtmbXRNb25leShzdWdnZXN0KX1gOwogICAgY29uc3QgdiA9IGF3YWl0IFVJLnByb21wdCh0aXRsZSwgJ+i+k+WFpemHkeminScsIHN1Z2dlc3QgPyBTdHJpbmcoc3VnZ2VzdCkgOiAnJywgJ251bWJlcicpOwogICAgaWYgKHYgPT09IG51bGwpIHJldHVybiBmYWxzZTsKICAgIGFtdCA9IHBhcnNlRmxvYXQodik7CiAgICBpZiAoIWFtdCB8fCBhbXQgPD0gMCkgeyBVSS50b2FzdCgn6K+36L6T5YWl5pyJ5pWI6YeR6aKdJyk7IHJldHVybiBmYWxzZTsgfQogIH0KICAocGxhbi5yZWNvcmRzID0gcGxhbi5yZWNvcmRzIHx8IFtdKS5wdXNoKHsgZGF0ZTogdG9kYXlTdHIoKSwgYW1vdW50OiBhbXQgfSk7CiAgc2F2ZSgpOwogIFVJLnRvYXN0KCfmiZPljaHmiJDlip8g4pyTJyk7CiAgcmV0dXJuIHRydWU7Cn0KCi8vIC0tLS0g6K6h5YiS5Y2h54mHIC0tLS0KZnVuY3Rpb24gcGxhbkNhcmQocCkgewogIGNvbnN0IG1ldGEgPSBNT0RFU1twLm1vZGVdIHx8IE1PREVTLmZpeGVkOwogIGNvbnN0IHNhdmVkID0gc2F2ZWRPZihwKTsKICBjb25zdCBwY3QgPSBwLnRhcmdldCA+IDAgPyBNYXRoLm1pbigxMDAsIE1hdGgucm91bmQoKHNhdmVkIC8gcC50YXJnZXQpICogMTAwKSkgOiAwOwogIGNvbnN0IGRvbmUgPSBwLnRhcmdldCA+IDAgJiYgc2F2ZWQgPj0gcC50YXJnZXQ7CiAgcmV0dXJuIGA8ZGl2IGNsYXNzPSJzYXZlLXBsYW4gY2FyZCIgZGF0YS1vcGVuPSIke3AuaWR9Ij4KICAgIDxkaXYgY2xhc3M9InJvdzEiPgogICAgICAke3VpTWFyayhtZXRhLmJhZGdlLCAnYmFkZ2UtaWMnKX0KICAgICAgPGRpdiBjbGFzcz0ibm0iPiR7cC5uYW1lfTxzcGFuIGNsYXNzPSJzdi10YWciPiR7bWV0YS5sYWJlbH08L3NwYW4+PC9kaXY+CiAgICAgIDxidXR0b24gY2xhc3M9InN2LXB1bmNoICR7ZG9uZSA/ICdkb25lJyA6ICcnfSIgZGF0YS1wdW5jaD0iJHtwLmlkfSI+JHtkb25lID8gJ+W3suWujOaIkCcgOiAn5omT5Y2hJ308L2J1dHRvbj4KICAgIDwvZGl2PgogICAgPGRpdiBjbGFzcz0icHJvZ3Jlc3MiPjxpIHN0eWxlPSJ3aWR0aDoke3BjdH0lO2JhY2tncm91bmQ6JHtkb25lID8gJ3ZhcigtLWdyZWVuKScgOiAndmFyKC0tYmx1ZSknfSI+PC9pPjwvZGl2PgogICAgPGRpdiBjbGFzcz0ibWV0YSI+CiAgICAgIDxzcGFuPuW3suWtmCDCpSR7Zm10TW9uZXkoc2F2ZWQpfSAvIOebruaghyDCpSR7Zm10TW9uZXkocC50YXJnZXQpfTwvc3Bhbj4KICAgICAgPHNwYW4+5bey5omT5Y2hICR7KHAucmVjb3JkcyB8fCBbXSkubGVuZ3RofSDmrKE8L3NwYW4+CiAgICA8L2Rpdj4KICA8L2Rpdj5gOwp9CgpmdW5jdGlvbiBsaXN0SFRNTCgpIHsKICBjb25zdCBsaXN0ID0gUygpLnNhdmluZ3M7CiAgaWYgKCFsaXN0Lmxlbmd0aCkgcmV0dXJuIGA8ZGl2IGNsYXNzPSJlbXB0eS10aXAiPuaaguaXoOaVsOaNrjwvZGl2PmA7CiAgcmV0dXJuIGxpc3QubWFwKHBsYW5DYXJkKS5qb2luKCcnKTsKfQoKY29uc3QgTU9ERV9BUlIgPSBbJ2ZpeGVkJywgJ2ZsZXhpYmxlJywgJ3dlZWs1MicsICdkYXkzNjUnXTsKCmV4cG9ydCBkZWZhdWx0IHsKICBoZWFkZXI6ICdsYXJnZScsCiAgdGl0bGU6ICflrZjpkrEnLAogIG5hdkxlZnQ6ICcgJywgLy8g55WZ56m677ya5a2Y6ZKx6aG15bem5LiK6KeS5LiN5pS+5oyJ6ZKuCiAgbmF2UmlnaHQ6IGA8YnV0dG9uIGNsYXNzPSJuYi1idG4iIGRhdGEtYWN0PSJuYXYtbW9yZSI+JHtJY29ucy5tb3JlfTwvYnV0dG9uPjxidXR0b24gY2xhc3M9Im5iLWJ0biBhdmF0YXIiIGRhdGEtYWN0PSJzZXR0aW5ncyI+JHtJY29ucy5hdmF0YXJ9PC9idXR0b24+YCwKICByZW5kZXIoKSB7CiAgICByZXR1cm4gYAogICAgICA8ZGl2IGNsYXNzPSJtb2RlLWdyaWQiPgogICAgICAgICR7TU9ERV9BUlIubWFwKChtKSA9PiB7CiAgICAgICAgICBjb25zdCBtZXRhID0gTU9ERVNbbV07CiAgICAgICAgICByZXR1cm4gYDxidXR0b24gY2xhc3M9Im1vZGUtY2FyZCIgZGF0YS1tb2RlPSIke219Ij4KICAgICAgICAgICAgJHt1aU1hcmsobWV0YS5iYWRnZSwgJ2JhZGdlLWljJyl9CiAgICAgICAgICAgIDxzcGFuIGNsYXNzPSJubSI+JHttZXRhLmxhYmVsfTwvc3Bhbj4KICAgICAgICAgIDwvYnV0dG9uPmA7CiAgICAgICAgfSkuam9pbignJyl9CiAgICAgIDwvZGl2PgogICAgICA8ZGl2IGlkPSJzdi1saXN0Ij4ke2xpc3RIVE1MKCl9PC9kaXY+YDsKICB9LAogIG1vdW50KHJvb3QpIHsKICAgIHJvb3QucXVlcnlTZWxlY3RvckFsbCgnW2RhdGEtbW9kZV0nKS5mb3JFYWNoKChiKSA9PgogICAgICBiLmFkZEV2ZW50TGlzdGVuZXIoJ2NsaWNrJywgKCkgPT4gZ28oJ3NhdmVkZXRhaWwnLCB7IG1vZGU6IGIuZGF0YXNldC5tb2RlIH0pKSk7CiAgICAvLyDkuovku7blp5TmiZjvvJrmiZPljaEgLyDov5vor6bmg4XvvIjph43muLLmn5MgaW5uZXJIVE1MIOWQjuS+neeEtuacieaViO+8iQogICAgcm9vdC5hZGRFdmVudExpc3RlbmVyKCdjbGljaycsIGFzeW5jIChlKSA9PiB7CiAgICAgIGNvbnN0IHB1bmNoQnRuID0gZS50YXJnZXQuY2xvc2VzdCgnW2RhdGEtcHVuY2hdJyk7CiAgICAgIGlmIChwdW5jaEJ0bikgewogICAgICAgIGUuc3RvcFByb3BhZ2F0aW9uKCk7CiAgICAgICAgY29uc3QgcCA9IFMoKS5zYXZpbmdzLmZpbmQoKHgpID0+IHguaWQgPT09IHB1bmNoQnRuLmRhdGFzZXQucHVuY2gpOwogICAgICAgIGlmIChwICYmIChhd2FpdCBwdW5jaChwKSkpIHsKICAgICAgICAgIGNvbnN0IGJveCA9IHJvb3QucXVlcnlTZWxlY3RvcignI3N2LWxpc3QnKTsKICAgICAgICAgIGlmIChib3gpIGJveC5pbm5lckhUTUwgPSBsaXN0SFRNTCgpOwogICAgICAgIH0KICAgICAgICByZXR1cm47CiAgICAgIH0KICAgICAgY29uc3Qgb3BlbiA9IGUudGFyZ2V0LmNsb3Nlc3QoJ1tkYXRhLW9wZW5dJyk7CiAgICAgIGlmIChvcGVuKSBnbygnc2F2ZWRldGFpbCcsIHsgaWQ6IG9wZW4uZGF0YXNldC5vcGVuIH0pOwogICAgfSk7CiAgfSwKfTsK
+// 存钱 Tab — 模式入口网格 + 我的存钱计划列表
+import Icons from '../icons.js';
+import { S, save, fmtMoney } from '../store.js';
+import { uiMark } from '../uiicon.js';
+import { go, UI } from '../app.js';
+
+const todayStr = () => {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+};
+const diffDays = (a, b) =>
+  Math.round((new Date(b.replace(/-/g, '/')) - new Date(a.replace(/-/g, '/'))) / 86400000);
+
+// ---- 模式元信息（savedetail 复用） ----
+export const MODES = {
+  fixed: { label: '定额存钱法', badge: 'calendar' },
+  flexible: { label: '灵活存钱法', badge: 'droplet' },
+  week52: { label: '52周存钱法', badge: '52' },
+  day365: { label: '365存钱法', badge: '365' },
+};
+export const targetOf = (mode) => (mode === 'week52' ? 13780 : mode === 'day365' ? 6679.5 : 0);
+export const defaultName = (mode) =>
+  ({ fixed: '定额存钱计划', flexible: '灵活存钱计划', week52: '52周存钱挑战', day365: '365天存钱挑战' }[mode] || '存钱计划');
+
+// ---- 计划统计（savedetail 复用） ----
+export const savedOf = (p) => (p.records || []).reduce((s, r) => s + r.amount, 0);
+export const periodNo = (p) => {
+  const d = diffDays(p.startDate, todayStr());
+  if (p.mode === 'week52') return Math.min(52, Math.max(1, Math.floor(d / 7) + 1));
+  if (p.mode === 'day365') return Math.min(365, Math.max(1, d + 1));
+  return 0;
+};
+export const nextAmount = (p) => {
+  if (p.mode === 'fixed') return p.perAmount || 0;
+  if (p.mode === 'week52') return periodNo(p) * 10;
+  if (p.mode === 'day365') return Math.round(periodNo(p) * 0.1 * 10) / 10; // n*0.1，保留 1 位小数
+  return (p.records || []).slice(-1)[0]?.amount || p.perAmount || 0;
+};
+
+// ---- 打卡：定额=每期金额；灵活/52周/365天=弹窗输入（后两者给默认值，可改） ----
+export async function punch(plan) {
+  const suggest = nextAmount(plan);
+  let amt;
+  if (plan.mode === 'fixed') {
+    amt = plan.perAmount;
+    if (!amt || amt <= 0) { UI.toast('请先设置每期金额'); return false; }
+  } else {
+    const no = periodNo(plan);
+    const title = plan.mode === 'flexible'
+      ? '存入金额'
+      : plan.mode === 'week52'
+        ? `第 ${no} 周 · 建议存 ¥${fmtMoney(suggest)}`
+        : `第 ${no} 天 · 建议存 ¥${fmtMoney(suggest)}`;
+    const v = await UI.prompt(title, '输入金额', suggest ? String(suggest) : '', 'number');
+    if (v === null) return false;
+    amt = parseFloat(v);
+    if (!amt || amt <= 0) { UI.toast('请输入有效金额'); return false; }
+  }
+  (plan.records = plan.records || []).push({ date: todayStr(), amount: amt });
+  save();
+  UI.toast('打卡成功 ✓');
+  return true;
+}
+
+// ---- 计划卡片 ----
+function planCard(p) {
+  const meta = MODES[p.mode] || MODES.fixed;
+  const saved = savedOf(p);
+  const pct = p.target > 0 ? Math.min(100, Math.round((saved / p.target) * 100)) : 0;
+  const done = p.target > 0 && saved >= p.target;
+  return `<div class="save-plan card" data-open="${p.id}">
+    <div class="row1">
+      ${uiMark(meta.badge, 'badge-ic')}
+      <div class="nm">${p.name}<span class="sv-tag">${meta.label}</span></div>
+      <button class="sv-punch ${done ? 'done' : ''}" data-punch="${p.id}">${done ? '已完成' : '打卡'}</button>
+    </div>
+    <div class="progress"><i style="width:${pct}%;background:${done ? 'var(--green)' : 'var(--blue)'}"></i></div>
+    <div class="meta">
+      <span>已存 ¥${fmtMoney(saved)} / 目标 ¥${fmtMoney(p.target)}</span>
+      <span>已打卡 ${(p.records || []).length} 次</span>
+    </div>
+  </div>`;
+}
+
+function listHTML() {
+  const list = S().savings;
+  if (!list.length) return `<div class="empty-tip">暂无数据</div>`;
+  return list.map(planCard).join('');
+}
+
+const MODE_ARR = ['fixed', 'flexible', 'week52', 'day365'];
+
+export default {
+  header: 'large',
+  title: '存钱',
+  navLeft: ' ', // 留空：存钱页左上角不放按钮
+  navRight: `<button class="nb-btn" data-act="nav-more">${Icons.more}</button><button class="nb-btn avatar" data-act="settings">${Icons.avatar}</button>`,
+  render() {
+    return `
+      <div class="mode-grid">
+        ${MODE_ARR.map((m) => {
+          const meta = MODES[m];
+          return `<button class="mode-card" data-mode="${m}">
+            ${uiMark(meta.badge, 'badge-ic')}
+            <span class="nm">${meta.label}</span>
+          </button>`;
+        }).join('')}
+      </div>
+      <div id="sv-list">${listHTML()}</div>`;
+  },
+  mount(root) {
+    root.querySelectorAll('[data-mode]').forEach((b) =>
+      b.addEventListener('click', () => go('savedetail', { mode: b.dataset.mode })));
+    // 事件委托：打卡 / 进详情（重渲染 innerHTML 后依然有效）
+    root.addEventListener('click', async (e) => {
+      const punchBtn = e.target.closest('[data-punch]');
+      if (punchBtn) {
+        e.stopPropagation();
+        const p = S().savings.find((x) => x.id === punchBtn.dataset.punch);
+        if (p && (await punch(p))) {
+          const box = root.querySelector('#sv-list');
+          if (box) box.innerHTML = listHTML();
+        }
+        return;
+      }
+      const open = e.target.closest('[data-open]');
+      if (open) go('savedetail', { id: open.dataset.open });
+    });
+  },
+};

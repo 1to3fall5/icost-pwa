@@ -1,1 +1,139 @@
-Ly8g5YiG57G757uf6K6h6K+m5oOF77ya5pyI5a+86IiqICsg5pSv5Ye6L+aUtuWFpeWIh+aNoiArIOeOr+W9ouWbvi/mjpLooYwgKyDlsZXlvIDliIbnsbvotKbljZUKaW1wb3J0IEljb25zIGZyb20gJy4uL2ljb25zLmpzJzsKaW1wb3J0IHsgY3VyQm9vaywgYm9va0JpbGxzLCBmbXRNb25leSwgeW1MYWJlbCwgc2hpZnRNb250aCwgbW9udGhPZiwgcGFkMiB9IGZyb20gJy4uL3N0b3JlLmpzJzsKaW1wb3J0IHsgZG9udXQsIHJhbmtMaXN0IH0gZnJvbSAnLi4vY2hhcnRzLmpzJzsKaW1wb3J0IHsgZ28sIG9uQ2xlYW51cCB9IGZyb20gJy4uL2FwcC5qcyc7CmltcG9ydCB7IHJvd0hUTUwgfSBmcm9tICcuL2hvbWUuanMnOwppbXBvcnQgeyB0b3BDYXRPZiwgY2F0QWdnIH0gZnJvbSAnLi9zdGF0cy5qcyc7CmltcG9ydCB7IHVpTWFyayB9IGZyb20gJy4uL3VpaWNvbi5qcyc7Cgpjb25zdCBzdCA9IHsgeW06IG51bGwsIHR5cGU6ICdleHBlbnNlJywgb3BlbjogbnVsbCB9Owpjb25zdCB2aWV3ID0geyByb290OiBudWxsIH07Cgpjb25zdCB0b2RheUlTTyA9ICgpID0+IHsKICBjb25zdCBkID0gbmV3IERhdGUoKTsKICByZXR1cm4gYCR7ZC5nZXRGdWxsWWVhcigpfS0ke3BhZDIoZC5nZXRNb250aCgpICsgMSl9LSR7cGFkMihkLmdldERhdGUoKSl9YDsKfTsKY29uc3QgY3VyWU0gPSAoKSA9PiBzdC55bSB8fCBtb250aE9mKHRvZGF5SVNPKCkpOwoKY29uc3QgbW9udGhCaWxscyA9ICgpID0+IGJvb2tCaWxscyhjdXJCb29rKCkuaWQsIGN1cllNKCkpOwoKZnVuY3Rpb24gYmlsbHNIVE1MKCkgewogIGlmICghc3Qub3BlbikgcmV0dXJuICcnOwogIGNvbnN0IG9wZW5JZCA9IHRvcENhdE9mKHN0Lm9wZW4pPy5pZCB8fCBzdC5vcGVuOwogIGNvbnN0IGNhdCA9IHRvcENhdE9mKG9wZW5JZCk7CiAgY29uc3QgbGlzdCA9IG1vbnRoQmlsbHMoKS5maWx0ZXIoKGIpID0+IGIudHlwZSA9PT0gc3QudHlwZSAmJiAodG9wQ2F0T2YoYi5jYXRlZ29yeUlkKT8uaWQgfHwgJ290aGVyJykgPT09IG9wZW5JZCk7CiAgaWYgKCFsaXN0Lmxlbmd0aCkgewogICAgcmV0dXJuIGA8ZGl2IGNsYXNzPSJzdC1saXN0Ij48ZGl2IGNsYXNzPSJjYS1lbXB0eSI+JHtjYXQ/Lm5hbWUgfHwgJ+ivpeWIhuexuyd95pys5pyI5pqC5peg6LSm5Y2VPC9kaXY+PC9kaXY+YDsKICB9CiAgY29uc3QgZ3JvdXBzID0ge307CiAgbGlzdC5mb3JFYWNoKChiKSA9PiAoZ3JvdXBzW2IuZGF0ZV0gPSBncm91cHNbYi5kYXRlXSB8fCBbXSkucHVzaChiKSk7CiAgY29uc3QgZGF5cyA9IE9iamVjdC5rZXlzKGdyb3Vwcykuc29ydCgpLnJldmVyc2UoKTsKICByZXR1cm4gYDxkaXYgY2xhc3M9InN0LWxpc3QiIGlkPSJzZC1iaWxscyI+CiAgICAke2RheXMubWFwKChkKSA9PiB7CiAgICBjb25zdCBnID0gZ3JvdXBzW2RdOwogICAgY29uc3Qgc3VtID0gZy5yZWR1Y2UoKHMsIGIpID0+IHMgKyBiLmFtb3VudCwgMCk7CiAgICBjb25zdCB3ZCA9ICfml6XkuIDkuozkuInlm5vkupTlha0nW25ldyBEYXRlKGQucmVwbGFjZSgvLS9nLCAnLycpKS5nZXREYXkoKV07CiAgICByZXR1cm4gYDxkaXYgY2xhc3M9ImRheS1ncm91cCI+CiAgICAgICAgPGRpdiBjbGFzcz0iZGF5LWhlYWQiPjxiIHN0eWxlPSJjb2xvcjp2YXIoLS10ZXh0KSI+JHsrZC5zbGljZSg1LCA3KX3mnIgkeytkLnNsaWNlKDgsIDEwKX3ml6U8L2I+PHNwYW4+5pif5pyfJHt3ZH08L3NwYW4+CiAgICAgICAgICA8c3BhbiBjbGFzcz0ic3VtIj4ke3N0LnR5cGUgPT09ICdpbmNvbWUnID8gJ+aUtuWFpScgOiAn5pSv5Ye6J30gwqUke2ZtdE1vbmV5KHN1bSl9PC9zcGFuPgogICAgICAgIDwvZGl2PgogICAgICAgICR7Zy5tYXAocm93SFRNTCkuam9pbignJyl9CiAgICAgIDwvZGl2PmA7CiAgfSkuam9pbignJyl9CiAgPC9kaXY+YDsKfQoKZnVuY3Rpb24gYm9keUhUTUwoKSB7CiAgY29uc3QgaXRlbXMgPSBjYXRBZ2cobW9udGhCaWxscygpLCBzdC50eXBlKTsKICBjb25zdCB0b3RhbCA9IGl0ZW1zLnJlZHVjZSgocywgaSkgPT4gcyArIGkudmFsdWUsIDApOwogIHJldHVybiBgCiAgPGRpdiBjbGFzcz0ibW9udGgtcm93Ij4KICAgIDxidXR0b24gY2xhc3M9InJvdW5kLW5hdiIgZGF0YS1tPSItMSI+JHtJY29ucy5jaGV2TH08L2J1dHRvbj4KICAgIDxidXR0b24gY2xhc3M9InJvdW5kLW5hdiIgZGF0YS1tPSIxIiR7Y3VyWU0oKSA+PSBtb250aE9mKHRvZGF5SVNPKCkpID8gJyBkaXNhYmxlZCBzdHlsZT0ib3BhY2l0eTouNCInIDogJyd9PiR7SWNvbnMuY2hldlJ9PC9idXR0b24+CiAgICA8c3BhbiBjbGFzcz0ibW9udGgtbGFiZWwiPiR7eW1MYWJlbChjdXJZTSgpKX08L3NwYW4+CiAgICA8c3BhbiBjbGFzcz0ibW9udGgtc3BhY2VyIj48L3NwYW4+CiAgPC9kaXY+CgogIDxkaXYgY2xhc3M9InNlZyIgZGF0YS1zZWc9InR5cGUiPgogICAgPGJ1dHRvbiBkYXRhLXY9ImV4cGVuc2UiIGNsYXNzPSIke3N0LnR5cGUgPT09ICdleHBlbnNlJyA/ICdvbicgOiAnJ30iPuaUr+WHujwvYnV0dG9uPgogICAgPGJ1dHRvbiBkYXRhLXY9ImluY29tZSIgY2xhc3M9IiR7c3QudHlwZSA9PT0gJ2luY29tZScgPyAnb24nIDogJyd9Ij7mlLblhaU8L2J1dHRvbj4KICA8L2Rpdj4KCiAgPGRpdiBjbGFzcz0iY2FyZCI+CiAgICA8ZGl2IGNsYXNzPSJjYXJkLXRpdGxlLXJvdyI+CiAgICAgICR7dWlNYXJrKCdjYXRlZ29yeScsICdiYWRnZS1pYycpfQogICAgICA8c3BhbiBjbGFzcz0iY2FyZC10aXRsZSI+JHtzdC50eXBlID09PSAnZXhwZW5zZScgPyAn5pSv5Ye6JyA6ICfmlLblhaUnfeWIhuexu+e7n+iuoTwvc3Bhbj4KICAgICAgPHNwYW4gY2xhc3M9InN0LW5vdGUiPuWQiOiuoSDCpSR7Zm10TW9uZXkodG90YWwpfTwvc3Bhbj4KICAgIDwvZGl2PgogICAgPGRpdiBjbGFzcz0iY2hhcnQtd3JhcCI+PGNhbnZhcyBjbGFzcz0iY2hhcnQiIGlkPSJzZC1kb251dCI+PC9jYW52YXM+PC9kaXY+CiAgICA8ZGl2IGlkPSJzZC1yYW5rIiBjbGFzcz0ic3QtbGlzdCI+PC9kaXY+CiAgICAke2JpbGxzSFRNTCgpfQogIDwvZGl2PmA7Cn0KCmZ1bmN0aW9uIGRyYXcoKSB7CiAgY29uc3Qgcm9vdCA9IHZpZXcucm9vdDsKICBpZiAoIXJvb3QpIHJldHVybjsKICBjb25zdCBpdGVtcyA9IGNhdEFnZyhtb250aEJpbGxzKCksIHN0LnR5cGUpOwogIGNvbnN0IHRvdGFsID0gaXRlbXMucmVkdWNlKChzLCBpKSA9PiBzICsgaS52YWx1ZSwgMCk7CiAgZG9udXQocm9vdC5xdWVyeVNlbGVjdG9yKCcjc2QtZG9udXQnKSwgaXRlbXMsCiAgICBgJHtzdC50eXBlID09PSAnZXhwZW5zZScgPyAn5oC75pSv5Ye6JyA6ICfmgLvmlLblhaUnfSDih4ZgLCBgwqUke2ZtdE1vbmV5KHRvdGFsKX1gKTsKICBjb25zdCByYW5rID0gcm9vdC5xdWVyeVNlbGVjdG9yKCcjc2QtcmFuaycpOwogIGlmIChyYW5rKSByYW5rTGlzdChyYW5rLCBpdGVtcywgdG90YWwpOwp9CgpmdW5jdGlvbiBiaW5kKCkgewogIGNvbnN0IHJvb3QgPSB2aWV3LnJvb3Q7CiAgcm9vdC5xdWVyeVNlbGVjdG9yQWxsKCcucm91bmQtbmF2W2RhdGEtbV0nKS5mb3JFYWNoKChiKSA9PiBiLmFkZEV2ZW50TGlzdGVuZXIoJ2NsaWNrJywgKCkgPT4gewogICAgc3QueW0gPSBzaGlmdE1vbnRoKGN1cllNKCksICtiLmRhdGFzZXQubSk7CiAgICBwYWludCgpOwogIH0pKTsKCiAgcm9vdC5xdWVyeVNlbGVjdG9yQWxsKCdbZGF0YS1zZWc9InR5cGUiXSBidXR0b24nKS5mb3JFYWNoKChiKSA9PiBiLmFkZEV2ZW50TGlzdGVuZXIoJ2NsaWNrJywgKCkgPT4gewogICAgc3QudHlwZSA9IGIuZGF0YXNldC52OwogICAgcm9vdC5xdWVyeVNlbGVjdG9yQWxsKCdbZGF0YS1zZWc9InR5cGUiXSBidXR0b24nKS5mb3JFYWNoKCh4KSA9PiB4LmNsYXNzTGlzdC50b2dnbGUoJ29uJywgeCA9PT0gYikpOwogICAgcGFpbnQoKTsKICB9KSk7CgogIHJvb3QucXVlcnlTZWxlY3RvckFsbCgnI3NkLXJhbmsgW2RhdGEtY2F0XScpLmZvckVhY2goKHIpID0+IHIuYWRkRXZlbnRMaXN0ZW5lcignY2xpY2snLCAoKSA9PiB7CiAgICBzdC5vcGVuID0gc3Qub3BlbiA9PT0gci5kYXRhc2V0LmNhdCA/IG51bGwgOiByLmRhdGFzZXQuY2F0OwogICAgcGFpbnQoKTsKICAgIGlmIChzdC5vcGVuKSByb290LnF1ZXJ5U2VsZWN0b3IoJyNzZC1iaWxscycpPy5zY3JvbGxJbnRvVmlldyh7IGJsb2NrOiAnc3RhcnQnLCBiZWhhdmlvcjogJ3Ntb290aCcgfSk7CiAgfSkpOwoKICByb290LnF1ZXJ5U2VsZWN0b3JBbGwoJ1tkYXRhLWJpbGxdJykuZm9yRWFjaCgocikgPT4gci5hZGRFdmVudExpc3RlbmVyKCdjbGljaycsICgpID0+IGdvKCdkZXRhaWwnLCB7IGlkOiByLmRhdGFzZXQuYmlsbCB9KSkpOwp9CgpmdW5jdGlvbiBwYWludCgpIHsKICBpZiAoIXZpZXcucm9vdCkgcmV0dXJuOwogIHZpZXcucm9vdC5pbm5lckhUTUwgPSBib2R5SFRNTCgpOwogIGRyYXcoKTsKICBiaW5kKCk7Cn0KCmV4cG9ydCBkZWZhdWx0IHsKICBoZWFkZXI6ICdzdWInLAogIHRpdGxlOiAn5YiG57G757uf6K6hJywKICByZW5kZXIocGFyYW1zID0ge30pIHsKICAgIHN0LnR5cGUgPSBwYXJhbXMudHlwZSA9PT0gJ2luY29tZScgPyAnaW5jb21lJyA6ICdleHBlbnNlJzsKICAgIHN0LnltID0gcGFyYW1zLnltIHx8IHN0LnltIHx8IG1vbnRoT2YodG9kYXlJU08oKSk7CiAgICBzdC5vcGVuID0gcGFyYW1zLmNhdCB8fCBudWxsOyAgICAgICAgICAgICAgICAgLy8g5bimIGNhdCDlj4LmlbDnm7TmjqXov5vlhaXor6XliIbnsbsKICAgIHJldHVybiBib2R5SFRNTCgpOwogIH0sCiAgbW91bnQocm9vdCwgcGFyYW1zID0ge30pIHsKICAgIHZpZXcucm9vdCA9IHJvb3Q7CiAgICBkcmF3KCk7CiAgICBiaW5kKCk7CiAgICBpZiAoc3Qub3BlbikgewogICAgICAvLyDlsZXlvIDlkI7mu5rliqjliLDotKbljZXljLoKICAgICAgcmVxdWVzdEFuaW1hdGlvbkZyYW1lKCgpID0+IHJvb3QucXVlcnlTZWxlY3RvcignI3NkLWJpbGxzJyk/LnNjcm9sbEludG9WaWV3KHsgYmxvY2s6ICdzdGFydCcgfSkpOwogICAgfQogICAgY29uc3Qgb25SZXNpemUgPSAoKSA9PiBkcmF3KCk7CiAgICB3aW5kb3cuYWRkRXZlbnRMaXN0ZW5lcigncmVzaXplJywgb25SZXNpemUpOwogICAgb25DbGVhbnVwKCgpID0+IHsKICAgICAgd2luZG93LnJlbW92ZUV2ZW50TGlzdGVuZXIoJ3Jlc2l6ZScsIG9uUmVzaXplKTsKICAgICAgdmlldy5yb290ID0gbnVsbDsKICAgIH0pOwogIH0sCn07Cg==
+// 分类统计详情：月导航 + 支出/收入切换 + 环形图/排行 + 展开分类账单
+import Icons from '../icons.js';
+import { curBook, bookBills, fmtMoney, ymLabel, shiftMonth, monthOf, pad2 } from '../store.js';
+import { donut, rankList } from '../charts.js';
+import { go, onCleanup } from '../app.js';
+import { rowHTML } from './home.js';
+import { topCatOf, catAgg } from './stats.js';
+import { uiMark } from '../uiicon.js';
+
+const st = { ym: null, type: 'expense', open: null };
+const view = { root: null };
+
+const todayISO = () => {
+  const d = new Date();
+  return `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate())}`;
+};
+const curYM = () => st.ym || monthOf(todayISO());
+
+const monthBills = () => bookBills(curBook().id, curYM());
+
+function billsHTML() {
+  if (!st.open) return '';
+  const openId = topCatOf(st.open)?.id || st.open;
+  const cat = topCatOf(openId);
+  const list = monthBills().filter((b) => b.type === st.type && (topCatOf(b.categoryId)?.id || 'other') === openId);
+  if (!list.length) {
+    return `<div class="st-list"><div class="ca-empty">${cat?.name || '该分类'}本月暂无账单</div></div>`;
+  }
+  const groups = {};
+  list.forEach((b) => (groups[b.date] = groups[b.date] || []).push(b));
+  const days = Object.keys(groups).sort().reverse();
+  return `<div class="st-list" id="sd-bills">
+    ${days.map((d) => {
+    const g = groups[d];
+    const sum = g.reduce((s, b) => s + b.amount, 0);
+    const wd = '日一二三四五六'[new Date(d.replace(/-/g, '/')).getDay()];
+    return `<div class="day-group">
+        <div class="day-head"><b style="color:var(--text)">${+d.slice(5, 7)}月${+d.slice(8, 10)}日</b><span>星期${wd}</span>
+          <span class="sum">${st.type === 'income' ? '收入' : '支出'} ¥${fmtMoney(sum)}</span>
+        </div>
+        ${g.map(rowHTML).join('')}
+      </div>`;
+  }).join('')}
+  </div>`;
+}
+
+function bodyHTML() {
+  const items = catAgg(monthBills(), st.type);
+  const total = items.reduce((s, i) => s + i.value, 0);
+  return `
+  <div class="month-row">
+    <button class="round-nav" data-m="-1">${Icons.chevL}</button>
+    <button class="round-nav" data-m="1"${curYM() >= monthOf(todayISO()) ? ' disabled style="opacity:.4"' : ''}>${Icons.chevR}</button>
+    <span class="month-label">${ymLabel(curYM())}</span>
+    <span class="month-spacer"></span>
+  </div>
+
+  <div class="seg" data-seg="type">
+    <button data-v="expense" class="${st.type === 'expense' ? 'on' : ''}">支出</button>
+    <button data-v="income" class="${st.type === 'income' ? 'on' : ''}">收入</button>
+  </div>
+
+  <div class="card">
+    <div class="card-title-row">
+      ${uiMark('category', 'badge-ic')}
+      <span class="card-title">${st.type === 'expense' ? '支出' : '收入'}分类统计</span>
+      <span class="st-note">合计 ¥${fmtMoney(total)}</span>
+    </div>
+    <div class="chart-wrap"><canvas class="chart" id="sd-donut"></canvas></div>
+    <div id="sd-rank" class="st-list"></div>
+    ${billsHTML()}
+  </div>`;
+}
+
+function draw() {
+  const root = view.root;
+  if (!root) return;
+  const items = catAgg(monthBills(), st.type);
+  const total = items.reduce((s, i) => s + i.value, 0);
+  donut(root.querySelector('#sd-donut'), items,
+    `${st.type === 'expense' ? '总支出' : '总收入'} ⇆`, `¥${fmtMoney(total)}`);
+  const rank = root.querySelector('#sd-rank');
+  if (rank) rankList(rank, items, total);
+}
+
+function bind() {
+  const root = view.root;
+  root.querySelectorAll('.round-nav[data-m]').forEach((b) => b.addEventListener('click', () => {
+    st.ym = shiftMonth(curYM(), +b.dataset.m);
+    paint();
+  }));
+
+  root.querySelectorAll('[data-seg="type"] button').forEach((b) => b.addEventListener('click', () => {
+    st.type = b.dataset.v;
+    root.querySelectorAll('[data-seg="type"] button').forEach((x) => x.classList.toggle('on', x === b));
+    paint();
+  }));
+
+  root.querySelectorAll('#sd-rank [data-cat]').forEach((r) => r.addEventListener('click', () => {
+    st.open = st.open === r.dataset.cat ? null : r.dataset.cat;
+    paint();
+    if (st.open) root.querySelector('#sd-bills')?.scrollIntoView({ block: 'start', behavior: 'smooth' });
+  }));
+
+  root.querySelectorAll('[data-bill]').forEach((r) => r.addEventListener('click', () => go('detail', { id: r.dataset.bill })));
+}
+
+function paint() {
+  if (!view.root) return;
+  view.root.innerHTML = bodyHTML();
+  draw();
+  bind();
+}
+
+export default {
+  header: 'sub',
+  title: '分类统计',
+  render(params = {}) {
+    st.type = params.type === 'income' ? 'income' : 'expense';
+    st.ym = params.ym || st.ym || monthOf(todayISO());
+    st.open = params.cat || null;                 // 带 cat 参数直接进入该分类
+    return bodyHTML();
+  },
+  mount(root, params = {}) {
+    view.root = root;
+    draw();
+    bind();
+    if (st.open) {
+      // 展开后滚动到账单区
+      requestAnimationFrame(() => root.querySelector('#sd-bills')?.scrollIntoView({ block: 'start' }));
+    }
+    const onResize = () => draw();
+    window.addEventListener('resize', onResize);
+    onCleanup(() => {
+      window.removeEventListener('resize', onResize);
+      view.root = null;
+    });
+  },
+};

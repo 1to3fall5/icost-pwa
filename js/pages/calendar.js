@@ -1,1 +1,150 @@
-Ly8g5pS25pSv5pel5Y6G77ya5pyI5a+86IiqICsg5pel5Y6G572R5qC877yI5pel5pSv5Ye6L+aUtuWFpe+8iSsg6YCJ5Lit5pel6LSm5Y2VCmltcG9ydCBJY29ucyBmcm9tICcuLi9pY29ucy5qcyc7CmltcG9ydCB7IGN1ckJvb2ssIGJvb2tCaWxscywgZm10TW9uZXksIHltTGFiZWwsIHNoaWZ0TW9udGgsIG1vbnRoT2YsIHBhZDIgfSBmcm9tICcuLi9zdG9yZS5qcyc7CmltcG9ydCB7IGdvLCBvbkNsZWFudXAgfSBmcm9tICcuLi9hcHAuanMnOwppbXBvcnQgeyByb3dIVE1MIH0gZnJvbSAnLi9ob21lLmpzJzsKaW1wb3J0IHsgdWlNYXJrIH0gZnJvbSAnLi4vdWlpY29uLmpzJzsKCmNvbnN0IHN0ID0geyB5bTogbnVsbCwgc2VsOiBudWxsIH07CmNvbnN0IHZpZXcgPSB7IHJvb3Q6IG51bGwsIG1hcDoge30gfTsKCmNvbnN0IHRvZGF5SVNPID0gKCkgPT4gewogIGNvbnN0IGQgPSBuZXcgRGF0ZSgpOwogIHJldHVybiBgJHtkLmdldEZ1bGxZZWFyKCl9LSR7cGFkMihkLmdldE1vbnRoKCkgKyAxKX0tJHtwYWQyKGQuZ2V0RGF0ZSgpKX1gOwp9Owpjb25zdCBjdXJZTSA9ICgpID0+IHN0LnltIHx8IG1vbnRoT2YodG9kYXlJU08oKSk7CmNvbnN0IFdEID0gWyfkuIAnLCAn5LqMJywgJ+S4iScsICflm5snLCAn5LqUJywgJ+WFrScsICfml6UnXTsgICAvLyDlkajotbflp4vkuIAKCmNvbnN0IGNvbXBhY3QgPSAobikgPT4gewogIGNvbnN0IHYgPSBNYXRoLmFicyhuKTsKICBpZiAodiA+PSAxMDAwMCkgcmV0dXJuICh2IC8gMTAwMDApLnRvRml4ZWQoMSkucmVwbGFjZSgvXC4wJC8sICcnKSArICfkuIcnOwogIGlmICh2ID49IDEwMDApIHJldHVybiAodiAvIDEwMDApLnRvRml4ZWQoMSkucmVwbGFjZSgvXC4wJC8sICcnKSArICdrJzsKICByZXR1cm4gU3RyaW5nKE1hdGgucm91bmQodiAqIDEwKSAvIDEwKTsKfTsKCi8vIOaMieaXpeiBmuWQiOW9k+aciOaUr+WHui/mlLblhaUKZnVuY3Rpb24gYnVpbGRNYXAoKSB7CiAgY29uc3QgbWFwID0ge307CiAgYm9va0JpbGxzKGN1ckJvb2soKS5pZCwgY3VyWU0oKSkuZm9yRWFjaCgoYikgPT4gewogICAgaWYgKGIudHlwZSAhPT0gJ2V4cGVuc2UnICYmIGIudHlwZSAhPT0gJ2luY29tZScpIHJldHVybjsKICAgIGNvbnN0IGQgPSBtYXBbYi5kYXRlXSB8fCAobWFwW2IuZGF0ZV0gPSB7IGV4cGVuc2U6IDAsIGluY29tZTogMCB9KTsKICAgIGRbYi50eXBlXSArPSBiLmFtb3VudDsKICB9KTsKICB2aWV3Lm1hcCA9IG1hcDsKICByZXR1cm4gbWFwOwp9CgpmdW5jdGlvbiBncmlkSFRNTChtYXApIHsKICBjb25zdCB5bSA9IGN1cllNKCk7CiAgY29uc3QgW3ksIG1dID0geW0uc3BsaXQoJy0nKS5tYXAoTnVtYmVyKTsKICBjb25zdCBvZmZzZXQgPSAobmV3IERhdGUoeSwgbSAtIDEsIDEpLmdldERheSgpICsgNikgJSA3OwogIGNvbnN0IGRheXMgPSBuZXcgRGF0ZSh5LCBtLCAwKS5nZXREYXRlKCk7CiAgY29uc3QgdCA9IHRvZGF5SVNPKCk7CiAgbGV0IG91dCA9ICcnOwogIGZvciAobGV0IGkgPSAwOyBpIDwgb2Zmc2V0OyBpKyspIG91dCArPSBgPGRpdiBjbGFzcz0iY2FsLWRheSBibGFuayI+PC9kaXY+YDsKICBmb3IgKGxldCBkID0gMTsgZCA8PSBkYXlzOyBkKyspIHsKICAgIGNvbnN0IGsgPSBgJHt5bX0tJHtwYWQyKGQpfWA7CiAgICBjb25zdCB2ID0gbWFwW2tdIHx8IHsgZXhwZW5zZTogMCwgaW5jb21lOiAwIH07CiAgICBvdXQgKz0gYDxkaXYgY2xhc3M9ImNhbC1kYXkke2sgPT09IHQgPyAnIHRvZGF5JyA6ICcnfSR7ayA9PT0gc3Quc2VsID8gJyBzZWwnIDogJyd9IiBkYXRhLWQ9IiR7a30iPgogICAgICA8c3BhbiBjbGFzcz0iZCI+JHtkfTwvc3Bhbj4KICAgICAgJHt2LmV4cGVuc2UgPyBgPHNwYW4gY2xhc3M9ImV4cCI+JHtjb21wYWN0KHYuZXhwZW5zZSl9PC9zcGFuPmAgOiAnJ30KICAgICAgJHt2LmluY29tZSA/IGA8c3BhbiBjbGFzcz0iaW5jIj4ke2NvbXBhY3Qodi5pbmNvbWUpfTwvc3Bhbj5gIDogJyd9CiAgICA8L2Rpdj5gOwogIH0KICByZXR1cm4gb3V0Owp9CgpmdW5jdGlvbiBsaXN0SFRNTCgpIHsKICBpZiAoIXN0LnNlbCkgcmV0dXJuICcnOwogIGNvbnN0IGsgPSBzdC5zZWw7CiAgY29uc3QgbGlzdCA9IGJvb2tCaWxscyhjdXJCb29rKCkuaWQsIGN1cllNKCkpLmZpbHRlcigoYikgPT4gYi5kYXRlID09PSBrKTsKICBjb25zdCB3ZCA9ICfml6XkuIDkuozkuInlm5vkupTlha0nW25ldyBEYXRlKGsucmVwbGFjZSgvLS9nLCAnLycpKS5nZXREYXkoKV07CiAgY29uc3QgZXhwID0gbGlzdC5maWx0ZXIoKGIpID0+IGIudHlwZSA9PT0gJ2V4cGVuc2UnKS5yZWR1Y2UoKHMsIGIpID0+IHMgKyBiLmFtb3VudCwgMCk7CiAgY29uc3QgaW5jID0gbGlzdC5maWx0ZXIoKGIpID0+IGIudHlwZSA9PT0gJ2luY29tZScpLnJlZHVjZSgocywgYikgPT4gcyArIGIuYW1vdW50LCAwKTsKICByZXR1cm4gYDxkaXYgY2xhc3M9ImNhcmQiPgogICAgPGRpdiBjbGFzcz0iY2EtbGlzdC10aXRsZSI+CiAgICAgICR7dWlNYXJrKCdjYWxlbmRhcicsICdiYWRnZS1pYycpfQogICAgICAkeytrLnNsaWNlKDUsIDcpfeaciCR7K2suc2xpY2UoOCwgMTApfeaXpSDmmJ/mnJ8ke3dkfQogICAgICA8c3BhbiBjbGFzcz0ic3Qtbm90ZSIgc3R5bGU9Im1hcmdpbi1sZWZ0OmF1dG8iPgogICAgICAgICR7aW5jID8gYDxzcGFuIHN0eWxlPSJjb2xvcjp2YXIoLS1ncmVlbikiPuaUtiDCpSR7Zm10TW9uZXkoaW5jKX08L3NwYW4+44CAYCA6ICcnfSR7ZXhwID8gYOaUryDCpSR7Zm10TW9uZXkoZXhwKX1gIDogJyd9CiAgICAgIDwvc3Bhbj4KICAgIDwvZGl2PgogICAgJHtsaXN0Lmxlbmd0aCA/IGxpc3QubWFwKHJvd0hUTUwpLmpvaW4oJycpIDogJzxkaXYgY2xhc3M9ImNhLWVtcHR5Ij7lvZPml6XmmoLml6DotKbljZU8L2Rpdj4nfQogIDwvZGl2PmA7Cn0KCmZ1bmN0aW9uIGJvZHlIVE1MKCkgewogIGNvbnN0IG1hcCA9IGJ1aWxkTWFwKCk7CiAgY29uc3QgZXhwID0gT2JqZWN0LnZhbHVlcyhtYXApLnJlZHVjZSgocywgdikgPT4gcyArIHYuZXhwZW5zZSwgMCk7CiAgY29uc3QgaW5jID0gT2JqZWN0LnZhbHVlcyhtYXApLnJlZHVjZSgocywgdikgPT4gcyArIHYuaW5jb21lLCAwKTsKICByZXR1cm4gYAogIDxkaXYgY2xhc3M9Im1vbnRoLXJvdyI+CiAgICA8YnV0dG9uIGNsYXNzPSJyb3VuZC1uYXYiIGRhdGEtbT0iLTEiPiR7SWNvbnMuY2hldkx9PC9idXR0b24+CiAgICA8YnV0dG9uIGNsYXNzPSJyb3VuZC1uYXYiIGRhdGEtbT0iMSI+JHtJY29ucy5jaGV2Un08L2J1dHRvbj4KICAgIDxzcGFuIGNsYXNzPSJtb250aC1sYWJlbCI+JHt5bUxhYmVsKGN1cllNKCkpfTwvc3Bhbj4KICAgIDxzcGFuIGNsYXNzPSJtb250aC1zcGFjZXIiPjwvc3Bhbj4KICA8L2Rpdj4KCiAgPGRpdiBjbGFzcz0iY2FyZCI+CiAgICA8ZGl2IGNsYXNzPSJjYS1zdW0iPgogICAgICA8ZGl2PjxkaXYgY2xhc3M9ImxiIj7mlK/lh7o8L2Rpdj48ZGl2IGNsYXNzPSJhbXQiIHN0eWxlPSJjb2xvcjp2YXIoLS1yZWQpIj7CpSR7Zm10TW9uZXkoZXhwKX08L2Rpdj48L2Rpdj4KICAgICAgPGRpdj48ZGl2IGNsYXNzPSJsYiI+5pS25YWlPC9kaXY+PGRpdiBjbGFzcz0iYW10IiBzdHlsZT0iY29sb3I6dmFyKC0tZ3JlZW4pIj7CpSR7Zm10TW9uZXkoaW5jKX08L2Rpdj48L2Rpdj4KICAgICAgPGRpdj48ZGl2IGNsYXNzPSJsYiI+57uT5L2ZPC9kaXY+PGRpdiBjbGFzcz0iYW10Ij7CpSR7Zm10TW9uZXkoaW5jIC0gZXhwKX08L2Rpdj48L2Rpdj4KICAgIDwvZGl2PgogIDwvZGl2PgoKICA8ZGl2IGNsYXNzPSJjYXJkIj4KICAgIDxkaXYgY2xhc3M9ImNhbC1ncmlkIj4ke1dELm1hcCgodykgPT4gYDxkaXYgY2xhc3M9ImNhbC13ZCI+JHt3fTwvZGl2PmApLmpvaW4oJycpfTwvZGl2PgogICAgPGRpdiBjbGFzcz0iY2FsLWdyaWQiIGlkPSJjYS1ncmlkIiBzdHlsZT0ibWFyZ2luLXRvcDo0cHgiPiR7Z3JpZEhUTUwobWFwKX08L2Rpdj4KICA8L2Rpdj4KCiAgPGRpdiBpZD0iY2EtbGlzdCI+JHtsaXN0SFRNTCgpfTwvZGl2PmA7Cn0KCmZ1bmN0aW9uIHJlZnJlc2hMaXN0KHJvb3QpIHsKICByb290LnF1ZXJ5U2VsZWN0b3JBbGwoJyNjYS1ncmlkIC5jYWwtZGF5W2RhdGEtZF0nKS5mb3JFYWNoKChlbCkgPT4gewogICAgZWwuY2xhc3NMaXN0LnRvZ2dsZSgnc2VsJywgZWwuZGF0YXNldC5kID09PSBzdC5zZWwpOwogIH0pOwogIGNvbnN0IGJveCA9IHJvb3QucXVlcnlTZWxlY3RvcignI2NhLWxpc3QnKTsKICBpZiAoYm94KSBib3guaW5uZXJIVE1MID0gbGlzdEhUTUwoKTsKICBiaW5kUm93cyhyb290KTsKfQoKZnVuY3Rpb24gYmluZFJvd3Mocm9vdCkgewogIHJvb3QucXVlcnlTZWxlY3RvckFsbCgnI2NhLWxpc3QgW2RhdGEtYmlsbF0nKS5mb3JFYWNoKChyKSA9PgogICAgci5hZGRFdmVudExpc3RlbmVyKCdjbGljaycsICgpID0+IGdvKCdkZXRhaWwnLCB7IGlkOiByLmRhdGFzZXQuYmlsbCB9KSkpOwp9CgpmdW5jdGlvbiBiaW5kKHJvb3QpIHsKICByb290LnF1ZXJ5U2VsZWN0b3JBbGwoJy5yb3VuZC1uYXZbZGF0YS1tXScpLmZvckVhY2goKGIpID0+IGIuYWRkRXZlbnRMaXN0ZW5lcignY2xpY2snLCAoKSA9PiB7CiAgICBzdC55bSA9IHNoaWZ0TW9udGgoY3VyWU0oKSwgK2IuZGF0YXNldC5tKTsKICAgIHN0LnNlbCA9IHN0LnNlbCAmJiBzdC5zZWwuc3RhcnRzV2l0aChzdC55bSkgPyBzdC5zZWwgOiBgJHtzdC55bX0tMDFgOwogICAgcGFpbnQocm9vdCk7CiAgfSkpOwogIHJvb3QucXVlcnlTZWxlY3RvckFsbCgnI2NhLWdyaWQgW2RhdGEtZF0nKS5mb3JFYWNoKChlbCkgPT4gZWwuYWRkRXZlbnRMaXN0ZW5lcignY2xpY2snLCAoKSA9PiB7CiAgICBzdC5zZWwgPSBlbC5kYXRhc2V0LmQ7CiAgICByZWZyZXNoTGlzdChyb290KTsKICB9KSk7CiAgYmluZFJvd3Mocm9vdCk7Cn0KCmZ1bmN0aW9uIHBhaW50KHJvb3QpIHsKICByb290LmlubmVySFRNTCA9IGJvZHlIVE1MKCk7CiAgYmluZChyb290KTsKfQoKZXhwb3J0IGRlZmF1bHQgewogIGhlYWRlcjogJ3N1YicsCiAgdGl0bGU6ICfmlLbmlK/ml6XljoYnLAogIHJlbmRlcihwYXJhbXMgPSB7fSkgewogICAgc3QueW0gPSBwYXJhbXMueW0gfHwgc3QueW0gfHwgbW9udGhPZih0b2RheUlTTygpKTsKICAgIGNvbnN0IHQgPSB0b2RheUlTTygpOwogICAgc3Quc2VsID0gKHBhcmFtcy5kICYmIHBhcmFtcy5kLnN0YXJ0c1dpdGgoc3QueW0pKSA/IHBhcmFtcy5kIDogKHQuc3RhcnRzV2l0aChzdC55bSkgPyB0IDogYCR7c3QueW19LTAxYCk7CiAgICByZXR1cm4gYm9keUhUTUwoKTsKICB9LAogIG1vdW50KHJvb3QpIHsKICAgIHZpZXcucm9vdCA9IHJvb3Q7CiAgICBiaW5kKHJvb3QpOwogICAgb25DbGVhbnVwKCgpID0+IHsgdmlldy5yb290ID0gbnVsbDsgfSk7CiAgfSwKfTsK
+// 收支日历：月导航 + 日历网格（日支出/收入）+ 选中日账单
+import Icons from '../icons.js';
+import { curBook, bookBills, fmtMoney, ymLabel, shiftMonth, monthOf, pad2 } from '../store.js';
+import { go, onCleanup } from '../app.js';
+import { rowHTML } from './home.js';
+import { uiMark } from '../uiicon.js';
+
+const st = { ym: null, sel: null };
+const view = { root: null, map: {} };
+
+const todayISO = () => {
+  const d = new Date();
+  return `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate())}`;
+};
+const curYM = () => st.ym || monthOf(todayISO());
+const WD = ['一', '二', '三', '四', '五', '六', '日'];   // 周起始一
+
+const compact = (n) => {
+  const v = Math.abs(n);
+  if (v >= 10000) return (v / 10000).toFixed(1).replace(/\.0$/, '') + '万';
+  if (v >= 1000) return (v / 1000).toFixed(1).replace(/\.0$/, '') + 'k';
+  return String(Math.round(v * 10) / 10);
+};
+
+// 按日聚合当月支出/收入
+function buildMap() {
+  const map = {};
+  bookBills(curBook().id, curYM()).forEach((b) => {
+    if (b.type !== 'expense' && b.type !== 'income') return;
+    const d = map[b.date] || (map[b.date] = { expense: 0, income: 0 });
+    d[b.type] += b.amount;
+  });
+  view.map = map;
+  return map;
+}
+
+function gridHTML(map) {
+  const ym = curYM();
+  const [y, m] = ym.split('-').map(Number);
+  const offset = (new Date(y, m - 1, 1).getDay() + 6) % 7;
+  const days = new Date(y, m, 0).getDate();
+  const t = todayISO();
+  let out = '';
+  for (let i = 0; i < offset; i++) out += `<div class="cal-day blank"></div>`;
+  for (let d = 1; d <= days; d++) {
+    const k = `${ym}-${pad2(d)}`;
+    const v = map[k] || { expense: 0, income: 0 };
+    out += `<div class="cal-day${k === t ? ' today' : ''}${k === st.sel ? ' sel' : ''}" data-d="${k}">
+      <span class="d">${d}</span>
+      ${v.expense ? `<span class="exp">${compact(v.expense)}</span>` : ''}
+      ${v.income ? `<span class="inc">${compact(v.income)}</span>` : ''}
+    </div>`;
+  }
+  return out;
+}
+
+function listHTML() {
+  if (!st.sel) return '';
+  const k = st.sel;
+  const list = bookBills(curBook().id, curYM()).filter((b) => b.date === k);
+  const wd = '日一二三四五六'[new Date(k.replace(/-/g, '/')).getDay()];
+  const exp = list.filter((b) => b.type === 'expense').reduce((s, b) => s + b.amount, 0);
+  const inc = list.filter((b) => b.type === 'income').reduce((s, b) => s + b.amount, 0);
+  return `<div class="card">
+    <div class="ca-list-title">
+      ${uiMark('calendar', 'badge-ic')}
+      ${+k.slice(5, 7)}月${+k.slice(8, 10)}日 星期${wd}
+      <span class="st-note" style="margin-left:auto">
+        ${inc ? `<span style="color:var(--green)">收 ¥${fmtMoney(inc)}</span>　` : ''}${exp ? `支 ¥${fmtMoney(exp)}` : ''}
+      </span>
+    </div>
+    ${list.length ? list.map(rowHTML).join('') : '<div class="ca-empty">当日暂无账单</div>'}
+  </div>`;
+}
+
+function bodyHTML() {
+  const map = buildMap();
+  const exp = Object.values(map).reduce((s, v) => s + v.expense, 0);
+  const inc = Object.values(map).reduce((s, v) => s + v.income, 0);
+  return `
+  <div class="month-row">
+    <button class="round-nav" data-m="-1">${Icons.chevL}</button>
+    <button class="round-nav" data-m="1">${Icons.chevR}</button>
+    <span class="month-label">${ymLabel(curYM())}</span>
+    <span class="month-spacer"></span>
+  </div>
+
+  <div class="card">
+    <div class="ca-sum">
+      <div><div class="lb">支出</div><div class="amt" style="color:var(--red)">¥${fmtMoney(exp)}</div></div>
+      <div><div class="lb">收入</div><div class="amt" style="color:var(--green)">¥${fmtMoney(inc)}</div></div>
+      <div><div class="lb">结余</div><div class="amt">¥${fmtMoney(inc - exp)}</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="cal-grid">${WD.map((w) => `<div class="cal-wd">${w}</div>`).join('')}</div>
+    <div class="cal-grid" id="ca-grid" style="margin-top:4px">${gridHTML(map)}</div>
+  </div>
+
+  <div id="ca-list">${listHTML()}</div>`;
+}
+
+function refreshList(root) {
+  root.querySelectorAll('#ca-grid .cal-day[data-d]').forEach((el) => {
+    el.classList.toggle('sel', el.dataset.d === st.sel);
+  });
+  const box = root.querySelector('#ca-list');
+  if (box) box.innerHTML = listHTML();
+  bindRows(root);
+}
+
+function bindRows(root) {
+  root.querySelectorAll('#ca-list [data-bill]').forEach((r) =>
+    r.addEventListener('click', () => go('detail', { id: r.dataset.bill })));
+}
+
+function bind(root) {
+  root.querySelectorAll('.round-nav[data-m]').forEach((b) => b.addEventListener('click', () => {
+    st.ym = shiftMonth(curYM(), +b.dataset.m);
+    st.sel = st.sel && st.sel.startsWith(st.ym) ? st.sel : `${st.ym}-01`;
+    paint(root);
+  }));
+  root.querySelectorAll('#ca-grid [data-d]').forEach((el) => el.addEventListener('click', () => {
+    st.sel = el.dataset.d;
+    refreshList(root);
+  }));
+  bindRows(root);
+}
+
+function paint(root) {
+  root.innerHTML = bodyHTML();
+  bind(root);
+}
+
+export default {
+  header: 'sub',
+  title: '收支日历',
+  render(params = {}) {
+    st.ym = params.ym || st.ym || monthOf(todayISO());
+    const t = todayISO();
+    st.sel = (params.d && params.d.startsWith(st.ym)) ? params.d : (t.startsWith(st.ym) ? t : `${st.ym}-01`);
+    return bodyHTML();
+  },
+  mount(root) {
+    view.root = root;
+    bind(root);
+    onCleanup(() => { view.root = null; });
+  },
+};

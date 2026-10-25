@@ -1,1 +1,195 @@
-Ly8g6LWE5LqnIFRhYiDpppbpobXvvJrlh4DotYTkuqcgLyDlgJ/lhaXlgJ/lh7ogLyDotKbmiLfliJfooaggLyDotYTkuqfnrqHnkIYKaW1wb3J0IEljb25zIGZyb20gJy4uL2ljb25zLmpzJzsKaW1wb3J0IHsgUywgYWNjb3VudFN0YXQsIGZtdE1vbmV5LCB1cGRhdGVBY2NvdW50LCBzYXZlIH0gZnJvbSAnLi4vc3RvcmUuanMnOwppbXBvcnQgeyBlc2MgfSBmcm9tICcuLi91dGlsLmpzJzsKaW1wb3J0IHsgYWNjTWFya0hUTUwgfSBmcm9tICcuLi9jYXRpY29uLmpzJzsKaW1wb3J0IHsgZ28sIFVJIH0gZnJvbSAnLi4vYXBwLmpzJzsKCmNvbnN0IGhpZGUgPSAoKSA9PiAhIVMoKS5zZXR0aW5ncy5oaWRlQW1vdW50Owpjb25zdCBtb25leSA9IChuLCBmb3JjZU5lZyA9IGZhbHNlKSA9PiB7CiAgaWYgKGhpZGUoKSkgcmV0dXJuICcqKioqJzsKICBuID0gK24gfHwgMDsKICBpZiAobiA8IDApIHJldHVybiAnLcKlJyArIGZtdE1vbmV5KC1uKTsgICAgICAgICAgIC8vIOecn+Wunui0n+S9memineS/neeVmei0n+WPtwogIGlmIChmb3JjZU5lZyAmJiBuICE9PSAwKSByZXR1cm4gJy3CpScgKyBmbXRNb25leShuKTsgLy8g6LSf5YC657G76LSm5oi3CiAgcmV0dXJuICfCpScgKyBmbXRNb25leShuKTsKfTsKY29uc3QgaXNEZWJ0ID0gKGEpID0+IGEudHlwZSA9PT0gJ2NyZWRpdCcgfHwgYS50eXBlID09PSAnYm9ycm93JzsKCi8vIOWxgOmDqOmHjea4suafk++8iGhhc2gg5LiN5Y+Y5pe2IGdvKCkg5LiN6Kem5Y+RIHJlbmRlcu+8iQpmdW5jdGlvbiByZWZyZXNoKCkgewogIGNvbnN0IHNjcmVlbiA9IGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdzY3JlZW4nKTsKICBQcm9taXNlLnJlc29sdmUobW9kLnJlbmRlcigpKS50aGVuKChodG1sKSA9PiB7CiAgICBzY3JlZW4uaW5uZXJIVE1MID0gaHRtbDsKICAgIG1vZC5tb3VudChzY3JlZW4pOwogICAgc2NyZWVuLnF1ZXJ5U2VsZWN0b3JBbGwoJ1tkYXRhLWdvXScpLmZvckVhY2goKGIpID0+CiAgICAgIGIuYWRkRXZlbnRMaXN0ZW5lcignY2xpY2snLCAoKSA9PiBnbyhiLmRhdGFzZXQuZ28pKSk7CiAgfSk7Cn0KCmZ1bmN0aW9uIG5ldENhcmQoKSB7CiAgY29uc3Qgc3QgPSBhY2NvdW50U3RhdCgpOwogIHJldHVybiBgCiAgPGRpdiBjbGFzcz0ibmV0LWNhcmQiPgogICAgPGRpdiBjbGFzcz0ibmV0LWxhYmVsIj4KICAgICAgPHNwYW4+5YeA6LWE5LqnPC9zcGFuPgogICAgICA8YnV0dG9uIGNsYXNzPSJhZC1leWUiIGRhdGEtYWN0PSJleWUiIGFyaWEtbGFiZWw9IumakOiXj+mHkeminSI+JHtoaWRlKCkgPyBJY29ucy5leWVPZmYgOiBJY29ucy5leWV9PC9idXR0b24+CiAgICA8L2Rpdj4KICAgIDxkaXYgY2xhc3M9Im5ldC1hbXQiPiR7bW9uZXkoc3QubmV0LCBzdC5uZXQgPCAwKX08L2Rpdj4KICAgIDxkaXYgY2xhc3M9Im5ldC1zdWIiPgogICAgICA8c3Bhbj7mgLvotYTkuqc8Yj4ke21vbmV5KHN0LmFzc2V0KX08L2I+PC9zcGFuPgogICAgICA8c3Bhbj7mgLvotJ/lgLo8Yj4ke21vbmV5KHN0LmRlYnQpfTwvYj48L3NwYW4+CiAgICA8L2Rpdj4KICA8L2Rpdj5gOwp9CgpmdW5jdGlvbiBkdW9DYXJkKCkgewogIGNvbnN0IHN0ID0gYWNjb3VudFN0YXQoKTsKICByZXR1cm4gYAogIDxkaXYgY2xhc3M9ImR1by1ncmlkIj4KICAgIDxkaXYgY2xhc3M9ImR1by1jYXJkIj4KICAgICAgPHNwYW4gY2xhc3M9ImJhZGdlLWljIGFkLWR1by1pYyIgc3R5bGU9ImJhY2tncm91bmQ6IzNhM2EzYyI+JHtJY29ucy5kb3dufTwvc3Bhbj4KICAgICAgPGRpdj48ZGl2IGNsYXNzPSJsYiI+5oC75YCf5YWlPC9kaXY+PGRpdiBjbGFzcz0iYW10Ij4ke21vbmV5KHN0LmJvcnJvd2VkKX08L2Rpdj48L2Rpdj4KICAgIDwvZGl2PgogICAgPGRpdiBjbGFzcz0iZHVvLWNhcmQiPgogICAgICA8c3BhbiBjbGFzcz0iYmFkZ2UtaWMgYWQtZHVvLWljIiBzdHlsZT0iYmFja2dyb3VuZDojMzBkMTU4Ij4ke0ljb25zLnVwfTwvc3Bhbj4KICAgICAgPGRpdj48ZGl2IGNsYXNzPSJsYiI+5oC75YCf5Ye6PC9kaXY+PGRpdiBjbGFzcz0iYW10Ij4ke21vbmV5KHN0LmxlbnQpfTwvZGl2PjwvZGl2PgogICAgPC9kaXY+CiAgPC9kaXY+YDsKfQoKZnVuY3Rpb24gYWNjTGlzdCgpIHsKICBjb25zdCBsaXN0ID0gUygpLmFjY291bnRzLmZpbHRlcigoYSkgPT4gIWEuaGlkZGVuICYmICFhLmFyY2hpdmVkKTsKICBpZiAoIWxpc3QubGVuZ3RoKSByZXR1cm4gYDxkaXYgY2xhc3M9ImVtcHR5LXRpcCI+5pqC5peg5pWw5o2uPC9kaXY+YDsKICByZXR1cm4gYAogIDxkaXYgY2xhc3M9ImNlbGwtZ3JvdXAiPgogICAgJHtsaXN0Lm1hcCgoYSkgPT4gYAogICAgICA8ZGl2IGNsYXNzPSJjZWxsIiBkYXRhLWFjYz0iJHthLmlkfSI+CiAgICAgICAgJHthY2NNYXJrSFRNTCh7IG5hbWU6IGEubmFtZSwgaWNvbjogYS5pY29uLCBjb2xvcjogYS5jb2xvciwgdHlwZTogYS50eXBlLCBjbHM6ICdjaSBhZC1hY2MtaWMnIH0pfQogICAgICAgIDxkaXYgY2xhc3M9ImNsIj4KICAgICAgICAgIDxkaXYgY2xhc3M9ImNlbGwtdGl0bGUiPiR7ZXNjKGEubmFtZSl9PC9kaXY+CiAgICAgICAgICAke2EuaW5jbHVkZU5ldCA9PT0gZmFsc2UgPyBgPGRpdiBjbGFzcz0iY2VsbC1zdWIiPuS4jeiuoeWFpeWHgOi1hOS6pzwvZGl2PmAgOiAnJ30KICAgICAgICA8L2Rpdj4KICAgICAgICA8c3BhbiBjbGFzcz0iYWQtYWNjLWFtdCR7aXNEZWJ0KGEpID8gJyBkZWJ0JyA6ICcnfSI+JHttb25leShhLmJhbGFuY2UsIGlzRGVidChhKSAmJiArYS5iYWxhbmNlICE9PSAwKX08L3NwYW4+CiAgICAgIDwvZGl2PmApLmpvaW4oJycpfQogIDwvZGl2PmA7Cn0KCi8vIC0tLS0tLS0tLS0g6LWE5Lqn566h55CGIC0tLS0tLS0tLS0KZnVuY3Rpb24gbW92ZUFjY291bnQoaWQsIGRpcikgewogIGNvbnN0IGxpc3QgPSBTKCkuYWNjb3VudHM7CiAgY29uc3QgaSA9IGxpc3QuZmluZEluZGV4KChhKSA9PiBhLmlkID09PSBpZCk7CiAgaWYgKGkgPCAwKSByZXR1cm47CiAgbGV0IGogPSBkaXIgPT09IC05OTkgPyAwIDogaSArIGRpcjsKICBpZiAoaiA8IDAgfHwgaiA+PSBsaXN0Lmxlbmd0aCkgewogICAgVUkudG9hc3QoZGlyIDwgMCA/ICflt7Lnu4/mjpLlnKjmnIDliY3kuoYnIDogJ+W3sue7j+aOkuWcqOacgOWQjuS6hicpOwogICAgcmV0dXJuOwogIH0KICBjb25zdCBbaXRdID0gbGlzdC5zcGxpY2UoaSwgMSk7CiAgbGlzdC5zcGxpY2UoaiwgMCwgaXQpOwogIHNhdmUoKTsKICByZWZyZXNoKCk7Cn0KCmFzeW5jIGZ1bmN0aW9uIG9wZW5Tb3J0KCkgewogIGNvbnN0IGxpc3QgPSBTKCkuYWNjb3VudHM7CiAgaWYgKCFsaXN0Lmxlbmd0aCkgcmV0dXJuIFVJLnRvYXN0KCfmmoLml6DotKbmiLcnKTsKICBjb25zdCBwaWNrID0gYXdhaXQgVUkuc2hlZXQoJ+aOkuW6jycsIGxpc3QubWFwKChhKSA9PiAoewogICAgbGFiZWw6IGEubmFtZSwKICAgIGljb246IGEuaWNvbiwKICAgIGNvbG9yOiBhLmNvbG9yLCBraW5kOiBhLnR5cGUsCiAgICB2YWx1ZTogW2EuaGlkZGVuID8gJ+W3sumakOiXjycgOiAnJywgYS5hcmNoaXZlZCA/ICflt7LlvZLmoaMnIDogJyddLmZpbHRlcihCb29sZWFuKS5qb2luKCcgJykgfHwgJ+aYvuekuuS4rScsCiAgICBvbkNsaWNrOiAoKSA9PiBhLmlkLAogIH0pKSk7CiAgaWYgKCFwaWNrKSByZXR1cm47CiAgY29uc3QgaWQgPSBwaWNrLm9uQ2xpY2soKTsKICBjb25zdCBhY2MgPSBTKCkuYWNjb3VudHMuZmluZCgoYSkgPT4gYS5pZCA9PT0gaWQpOwogIGNvbnN0IGFjdCA9IGF3YWl0IFVJLnNoZWV0KGDosIPmlbTjgIwke2FjYyA/IGFjYy5uYW1lIDogJyd944CN55qE6aG65bqPYCwgWwogICAgeyBsYWJlbDogJ+S4iuenuycsIGljb246ICd1cCcsIG9uQ2xpY2s6ICgpID0+IG1vdmVBY2NvdW50KGlkLCAtMSkgfSwKICAgIHsgbGFiZWw6ICfkuIvnp7snLCBpY29uOiAnZG93bicsIG9uQ2xpY2s6ICgpID0+IG1vdmVBY2NvdW50KGlkLCAxKSB9LAogICAgeyBsYWJlbDogJ+enu+WIsOacgOWJjScsIGljb246ICdzb3J0Jywgb25DbGljazogKCkgPT4gbW92ZUFjY291bnQoaWQsIC05OTkpIH0sCiAgXSk7CiAgYWN0Py5vbkNsaWNrPy4oKTsKfQoKYXN5bmMgZnVuY3Rpb24gb3BlbkhpZGUoKSB7CiAgY29uc3QgbGlzdCA9IFMoKS5hY2NvdW50cy5maWx0ZXIoKGEpID0+ICFhLmFyY2hpdmVkKTsKICBpZiAoIWxpc3QubGVuZ3RoKSByZXR1cm4gVUkudG9hc3QoJ+aaguaXoOi0puaItycpOwogIGNvbnN0IHBpY2sgPSBhd2FpdCBVSS5zaGVldCgn6ZqQ6JeP6LWE5LqnJywgbGlzdC5tYXAoKGEpID0+ICh7CiAgICBsYWJlbDogYS5uYW1lLAogICAgaWNvbjogYS5pY29uLAogICAgY29sb3I6IGEuY29sb3IsIGtpbmQ6IGEudHlwZSwKICAgIHZhbHVlOiBhLmhpZGRlbiA/ICflt7LpmpDol48nIDogJ+aYvuekuuS4rScsCiAgICBvbkNsaWNrOiAoKSA9PiB7CiAgICAgIHVwZGF0ZUFjY291bnQoYS5pZCwgeyBoaWRkZW46ICFhLmhpZGRlbiB9KTsKICAgICAgVUkudG9hc3QoYS5oaWRkZW4gPyBg5bey5pi+56S644CMJHthLm5hbWV944CNYCA6IGDlt7LpmpDol4/jgIwke2EubmFtZX3jgI1gKTsKICAgIH0sCiAgfSkpKTsKICBpZiAocGljaykgeyBwaWNrLm9uQ2xpY2s/LigpOyByZWZyZXNoKCk7IH0KfQoKYXN5bmMgZnVuY3Rpb24gb3BlbkFyY2hpdmUoKSB7CiAgY29uc3QgbGlzdCA9IFMoKS5hY2NvdW50czsKICBpZiAoIWxpc3QubGVuZ3RoKSByZXR1cm4gVUkudG9hc3QoJ+aaguaXoOi0puaItycpOwogIGNvbnN0IHBpY2sgPSBhd2FpdCBVSS5zaGVldCgn5b2S5qGj6LWE5LqnJywgbGlzdC5tYXAoKGEpID0+ICh7CiAgICBsYWJlbDogYS5uYW1lLAogICAgaWNvbjogYS5pY29uLAogICAgY29sb3I6IGEuY29sb3IsIGtpbmQ6IGEudHlwZSwKICAgIHZhbHVlOiBhLmFyY2hpdmVkID8gJ+W3suW9kuahoycgOiAn5L2/55So5LitJywKICAgIG9uQ2xpY2s6ICgpID0+IHsKICAgICAgdXBkYXRlQWNjb3VudChhLmlkLCB7IGFyY2hpdmVkOiAhYS5hcmNoaXZlZCB9KTsKICAgICAgVUkudG9hc3QoYS5hcmNoaXZlZCA/IGDlt7Llj5bmtojlvZLmoaPjgIwke2EubmFtZX3jgI1gIDogYOW3suW9kuaho+OAjCR7YS5uYW1lfeOAjWApOwogICAgfSwKICB9KSkpOwogIGlmIChwaWNrKSB7IHBpY2sub25DbGljaz8uKCk7IHJlZnJlc2goKTsgfQp9Cgphc3luYyBmdW5jdGlvbiBvcGVuTWFuYWdlKCkgewogIGNvbnN0IHBpY2sgPSBhd2FpdCBVSS5zaGVldCgn6LWE5Lqn566h55CGJywgWwogICAgeyBsYWJlbDogJ+aOkuW6jycsIGljb246ICdzb3J0Jywgb25DbGljazogb3BlblNvcnQgfSwKICAgIHsgbGFiZWw6ICfpmpDol4/otYTkuqcnLCBpY29uOiAnaGlkZScsIG9uQ2xpY2s6IG9wZW5IaWRlIH0sCiAgICB7IGxhYmVsOiAn5b2S5qGj6LWE5LqnJywgaWNvbjogJ2FyY2hpdmUnLCBvbkNsaWNrOiBvcGVuQXJjaGl2ZSB9LAogICAgeyBsYWJlbDogJ+i0puaIt+ivtOaYjicsIGljb246ICdoZWxwJywgb25DbGljazogKCkgPT4gVUkudG9hc3QoJ+WHgOi1hOS6pyA9IOaAu+i1hOS6pyDiiJIg5oC76LSf5YC677yb6ZqQ6JeP5ZCO5LiN6K6h5YWl57uf6K6h77yM5b2S5qGj5ZCO5LiN5Zyo5YiX6KGo5pi+56S6JywgMzIwMCkgfSwKICBdKTsKICBhd2FpdCBwaWNrPy5vbkNsaWNrPy4oKTsKfQoKY29uc3QgbW9kID0gewogIGhlYWRlcjogJ2xhcmdlJywKICB0aXRsZTogJ+i1hOS6pycsCiAgbmF2TGVmdDogYDxidXR0b24gY2xhc3M9Im5iLWJ0biIgZGF0YS1hY3Q9Im5hdi1sZWZ0Ij4ke0ljb25zLnBsdXN9PC9idXR0b24+YCwKICBuYXZSaWdodDogYDxidXR0b24gY2xhc3M9Im5iLWJ0biIgZGF0YS1hY3Q9ImFzc2V0LW1hbmFnZSI+JHtJY29ucy5tb3JlfTwvYnV0dG9uPjxidXR0b24gY2xhc3M9Im5iLWJ0biBhdmF0YXIiIGRhdGEtYWN0PSJzZXR0aW5ncyI+JHtJY29ucy5hdmF0YXJ9PC9idXR0b24+YCwKCiAgcmVuZGVyKCkgewogICAgcmV0dXJuIGAKICAgICAgJHtuZXRDYXJkKCl9CiAgICAgIDxkaXYgc3R5bGU9ImhlaWdodDoxMnB4Ij48L2Rpdj4KICAgICAgJHtkdW9DYXJkKCl9CiAgICAgIDxkaXYgY2xhc3M9InNlYy10aXRsZSI+5oiR55qE6LWE5LqnPC9kaXY+CiAgICAgICR7YWNjTGlzdCgpfWA7CiAgfSwKCiAgbW91bnQocm9vdCkgewogICAgLy8g5YeA6LWE5Lqn77ya55y8552b5YiH5o2i6ZqQ6JeP6YeR6aKdCiAgICByb290LnF1ZXJ5U2VsZWN0b3IoJ1tkYXRhLWFjdD0iZXllIl0nKT8uYWRkRXZlbnRMaXN0ZW5lcignY2xpY2snLCAoKSA9PiB7CiAgICAgIFMoKS5zZXR0aW5ncy5oaWRlQW1vdW50ID0gIVMoKS5zZXR0aW5ncy5oaWRlQW1vdW50OwogICAgICBzYXZlKCk7CiAgICAgIHJlZnJlc2goKTsKICAgIH0pOwoKICAgIC8vIOi0puaIt+ihjCDihpIg6LSm5oi36K+m5oOFCiAgICByb290LnF1ZXJ5U2VsZWN0b3JBbGwoJ1tkYXRhLWFjY10nKS5mb3JFYWNoKChlbCkgPT4KICAgICAgZWwuYWRkRXZlbnRMaXN0ZW5lcignY2xpY2snLCAoKSA9PiBnbygnYXNzZXRkZXRhaWwnLCB7IGlkOiBlbC5kYXRhc2V0LmFjYyB9KSkpOwoKICAgIC8vIOWvvOiIquagj+aMiemSru+8muS6i+S7tuWnlOaJmO+8jOWPque7keS4gOasoe+8iOmBv+WFjSByZWZyZXNoIOWQjuebkeWQrOWZqOe0r+enr++8iQogICAgaWYgKCFtb2QuX25hdkRlbGVnYXRlZCkgewogICAgICBtb2QuX25hdkRlbGVnYXRlZCA9IHRydWU7CiAgICAgIGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCduYXZiYXInKS5hZGRFdmVudExpc3RlbmVyKCdjbGljaycsIChlKSA9PiB7CiAgICAgICAgY29uc3QgYWN0ID0gZS50YXJnZXQuY2xvc2VzdCgnW2RhdGEtYWN0XScpPy5kYXRhc2V0LmFjdDsKICAgICAgICBpZiAoYWN0ID09PSAnbmF2LWxlZnQnKSBnbygnYXNzZXRkZXRhaWwnKTsKICAgICAgICBlbHNlIGlmIChhY3QgPT09ICdhc3NldC1tYW5hZ2UnKSBvcGVuTWFuYWdlKCk7CiAgICAgIH0pOwogICAgfQogIH0sCn07CgpleHBvcnQgZGVmYXVsdCBtb2Q7Cg==
+// 资产 Tab 首页：净资产 / 借入借出 / 账户列表 / 资产管理
+import Icons from '../icons.js';
+import { S, accountStat, fmtMoney, updateAccount, save } from '../store.js';
+import { esc } from '../util.js';
+import { accMarkHTML } from '../caticon.js';
+import { go, UI } from '../app.js';
+
+const hide = () => !!S().settings.hideAmount;
+const money = (n, forceNeg = false) => {
+  if (hide()) return '****';
+  n = +n || 0;
+  if (n < 0) return '-¥' + fmtMoney(-n);           // 真实负余额保留负号
+  if (forceNeg && n !== 0) return '-¥' + fmtMoney(n); // 负债类账户
+  return '¥' + fmtMoney(n);
+};
+const isDebt = (a) => a.type === 'credit' || a.type === 'borrow';
+
+// 局部重渲染（hash 不变时 go() 不触发 render）
+function refresh() {
+  const screen = document.getElementById('screen');
+  Promise.resolve(mod.render()).then((html) => {
+    screen.innerHTML = html;
+    mod.mount(screen);
+    screen.querySelectorAll('[data-go]').forEach((b) =>
+      b.addEventListener('click', () => go(b.dataset.go)));
+  });
+}
+
+function netCard() {
+  const st = accountStat();
+  return `
+  <div class="net-card">
+    <div class="net-label">
+      <span>净资产</span>
+      <button class="ad-eye" data-act="eye" aria-label="隐藏金额">${hide() ? Icons.eyeOff : Icons.eye}</button>
+    </div>
+    <div class="net-amt">${money(st.net, st.net < 0)}</div>
+    <div class="net-sub">
+      <span>总资产<b>${money(st.asset)}</b></span>
+      <span>总负债<b>${money(st.debt)}</b></span>
+    </div>
+  </div>`;
+}
+
+function duoCard() {
+  const st = accountStat();
+  return `
+  <div class="duo-grid">
+    <div class="duo-card">
+      <span class="badge-ic ad-duo-ic" style="background:#3a3a3c">${Icons.down}</span>
+      <div><div class="lb">总借入</div><div class="amt">${money(st.borrowed)}</div></div>
+    </div>
+    <div class="duo-card">
+      <span class="badge-ic ad-duo-ic" style="background:#30d158">${Icons.up}</span>
+      <div><div class="lb">总借出</div><div class="amt">${money(st.lent)}</div></div>
+    </div>
+  </div>`;
+}
+
+function accList() {
+  const list = S().accounts.filter((a) => !a.hidden && !a.archived);
+  if (!list.length) return `<div class="empty-tip">暂无数据</div>`;
+  return `
+  <div class="cell-group">
+    ${list.map((a) => `
+      <div class="cell" data-acc="${a.id}">
+        ${accMarkHTML({ name: a.name, icon: a.icon, color: a.color, type: a.type, cls: 'ci ad-acc-ic' })}
+        <div class="cl">
+          <div class="cell-title">${esc(a.name)}</div>
+          ${a.includeNet === false ? `<div class="cell-sub">不计入净资产</div>` : ''}
+        </div>
+        <span class="ad-acc-amt${isDebt(a) ? ' debt' : ''}">${money(a.balance, isDebt(a) && +a.balance !== 0)}</span>
+      </div>`).join('')}
+  </div>`;
+}
+
+// ---------- 资产管理 ----------
+function moveAccount(id, dir) {
+  const list = S().accounts;
+  const i = list.findIndex((a) => a.id === id);
+  if (i < 0) return;
+  let j = dir === -999 ? 0 : i + dir;
+  if (j < 0 || j >= list.length) {
+    UI.toast(dir < 0 ? '已经排在最前了' : '已经排在最后了');
+    return;
+  }
+  const [it] = list.splice(i, 1);
+  list.splice(j, 0, it);
+  save();
+  refresh();
+}
+
+async function openSort() {
+  const list = S().accounts;
+  if (!list.length) return UI.toast('暂无账户');
+  const pick = await UI.sheet('排序', list.map((a) => ({
+    label: a.name,
+    icon: a.icon,
+    color: a.color, kind: a.type,
+    value: [a.hidden ? '已隐藏' : '', a.archived ? '已归档' : ''].filter(Boolean).join(' ') || '显示中',
+    onClick: () => a.id,
+  })));
+  if (!pick) return;
+  const id = pick.onClick();
+  const acc = S().accounts.find((a) => a.id === id);
+  const act = await UI.sheet(`调整「${acc ? acc.name : ''}」的顺序`, [
+    { label: '上移', icon: 'up', onClick: () => moveAccount(id, -1) },
+    { label: '下移', icon: 'down', onClick: () => moveAccount(id, 1) },
+    { label: '移到最前', icon: 'sort', onClick: () => moveAccount(id, -999) },
+  ]);
+  act?.onClick?.();
+}
+
+async function openHide() {
+  const list = S().accounts.filter((a) => !a.archived);
+  if (!list.length) return UI.toast('暂无账户');
+  const pick = await UI.sheet('隐藏资产', list.map((a) => ({
+    label: a.name,
+    icon: a.icon,
+    color: a.color, kind: a.type,
+    value: a.hidden ? '已隐藏' : '显示中',
+    onClick: () => {
+      updateAccount(a.id, { hidden: !a.hidden });
+      UI.toast(a.hidden ? `已显示「${a.name}」` : `已隐藏「${a.name}」`);
+    },
+  })));
+  if (pick) { pick.onClick?.(); refresh(); }
+}
+
+async function openArchive() {
+  const list = S().accounts;
+  if (!list.length) return UI.toast('暂无账户');
+  const pick = await UI.sheet('归档资产', list.map((a) => ({
+    label: a.name,
+    icon: a.icon,
+    color: a.color, kind: a.type,
+    value: a.archived ? '已归档' : '使用中',
+    onClick: () => {
+      updateAccount(a.id, { archived: !a.archived });
+      UI.toast(a.archived ? `已取消归档「${a.name}」` : `已归档「${a.name}」`);
+    },
+  })));
+  if (pick) { pick.onClick?.(); refresh(); }
+}
+
+async function openManage() {
+  const pick = await UI.sheet('资产管理', [
+    { label: '排序', icon: 'sort', onClick: openSort },
+    { label: '隐藏资产', icon: 'hide', onClick: openHide },
+    { label: '归档资产', icon: 'archive', onClick: openArchive },
+    { label: '账户说明', icon: 'help', onClick: () => UI.toast('净资产 = 总资产 − 总负债；隐藏后不计入统计，归档后不在列表显示', 3200) },
+  ]);
+  await pick?.onClick?.();
+}
+
+const mod = {
+  header: 'large',
+  title: '资产',
+  navLeft: `<button class="nb-btn" data-act="nav-left">${Icons.plus}</button>`,
+  navRight: `<button class="nb-btn" data-act="asset-manage">${Icons.more}</button><button class="nb-btn avatar" data-act="settings">${Icons.avatar}</button>`,
+
+  render() {
+    return `
+      ${netCard()}
+      <div style="height:12px"></div>
+      ${duoCard()}
+      <div class="sec-title">我的资产</div>
+      ${accList()}`;
+  },
+
+  mount(root) {
+    // 净资产：眼睛切换隐藏金额
+    root.querySelector('[data-act="eye"]')?.addEventListener('click', () => {
+      S().settings.hideAmount = !S().settings.hideAmount;
+      save();
+      refresh();
+    });
+
+    // 账户行 → 账户详情
+    root.querySelectorAll('[data-acc]').forEach((el) =>
+      el.addEventListener('click', () => go('assetdetail', { id: el.dataset.acc })));
+
+    // 导航栏按钮：事件委托，只绑一次（避免 refresh 后监听器累积）
+    if (!mod._navDelegated) {
+      mod._navDelegated = true;
+      document.getElementById('navbar').addEventListener('click', (e) => {
+        const act = e.target.closest('[data-act]')?.dataset.act;
+        if (act === 'nav-left') go('assetdetail');
+        else if (act === 'asset-manage') openManage();
+      });
+    }
+  },
+};
+
+export default mod;
